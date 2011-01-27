@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  capacity_profile_group_id: <%= Fixtures.identify(:one) %>
+  link_id: <%= Fixtures.identify(:two) %>
+  dt: 9.99
+  profile: capacity profile 1
+
+two:
+  capacity_profile_group_id: <%= Fixtures.identify(:two) %>
+  link_id: <%= Fixtures.identify(:three) %>
+  dt: 9.99
+  profile: capacity profile 2

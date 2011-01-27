@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  network_id: <%= Fixtures.identify(:one) %>
+  description: capacity profile group 1
+
+two:
+  network_id: <%= Fixtures.identify(:two) %>
+  description: capacity profile group 2

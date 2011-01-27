@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  demand_profile_group_id: <%= Fixtures.identify(:one) %>
+  link_id: <%= Fixtures.identify(:two) %>
+  dt: 9.99
+  profile: demand profile 1
+
+two:
+  demand_profile_group_id: <%= Fixtures.identify(:two) %>
+  link_id: <%= Fixtures.identify(:three) %>
+  dt: 9.99
+  profile: demand profile 2

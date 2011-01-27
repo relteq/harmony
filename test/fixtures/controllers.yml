@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type: NetworkController
+  controller_type: light
+  dt: 9.99
+  parameters: 
+  controller_group_id: <%= Fixtures.identify(:one) %>
+  network_id: <%= Fixtures.identify(:one) %>
+  link_id: nil
+  node_id: nil
+
+two:
+  type: NodeController
+  controller_type: light
+  dt: 9.99
+  parameters:
+  controller_group_id: <%= Fixtures.identify(:one) %>
+  network_id: nil
+  link_id: nil
+  node_id: <%= Fixtures.identify(:one) %>
+    
+three:
+  type: LinkController
+  controller_type: light
+  dt: 9.99
+  parameters:
+  controller_group_id: <%= Fixtures.identify(:one) %>
+  network_id: nil
+  link_id: <%= Fixtures.identify(:one) %>
+  node_id: nil

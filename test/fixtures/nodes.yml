@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: node1
+  description: light
+  type_node: light
+  geo_x: 9.99
+  geo_y: 9.99
+  geo_z: 9.99
+
+two:
+  name: node2
+  description: light2
+  type_node: circle
+  geo_x: 9.99
+  geo_y: 9.99
+  geo_z: 9.99

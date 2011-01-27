@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type_sensor: analog
+  link_type: road
+  measurement: true
+  virtual: false
+  geo_x: 9.99
+  geo_y: 9.99
+  geo_z: 9.99
+
+two:
+  type_sensor: digital
+  link_type: path
+  measurement: false
+  virtual: true
+  geo_x: 9.99
+  geo_y: 9.99
+  geo_z: 9.99

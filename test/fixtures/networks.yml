@@ -1,0 +1,14 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: network1
+  dt: 9.99
+  ml_control: false
+  q_control: false
+
+two:
+  description: network2
+  dt: 9.99
+  ml_control: false
+  q_control: false
+

@@ -1,0 +1,49 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type_link: rail
+  name: link1
+  length: 9.99
+  lanes: 9.99
+  capacity: 9.99
+  v: 9.99
+  w: 9.99
+  jam_den: 9.99
+  cap_drop: 9.99
+  geo_cache: 
+
+two:
+  type_link: rail
+  name: link2
+  length: 9.99
+  lanes: 9.99
+  capacity: 9.99
+  v: 9.99
+  w: 9.99
+  jam_den: 9.99
+  cap_drop: 9.99
+  geo_cache: 
+
+three:
+  type_link: rail
+  name: link3
+  length: 9.99
+  lanes: 9.99
+  capacity: 9.99
+  v: 9.99
+  w: 9.99
+  jam_den: 9.99
+  cap_drop: 9.99
+  geo_cache:
+
+four:
+  type_link: rail
+  name: link4
+  length: 9.99
+  lanes: 9.99
+  capacity: 9.99
+  v: 9.99
+  w: 9.99
+  jam_den: 9.99
+  cap_drop: 9.99
+  geo_cache:

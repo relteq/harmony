@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Scenario 1
+  description: testing 1
+  dt: 9.99
+  b_time: 9.99
+  e_time: 9.99
+  length_units: cm
+  v_types: vvv1
+  network_id: <%= Fixtures.identify(:one) %>
+  demand_profile_group_id: <%= Fixtures.identify(:one) %>
+  capacity_profile_group_id: <%= Fixtures.identify(:one) %>
+  split_ratio_profile_group_id: <%= Fixtures.identify(:one) %>
+
+two:
+  name: Scenario 2
+  description: testing 2
+  dt: 9.99
+  b_time: 9.99
+  e_time: 9.99
+  length_units: m
+  v_types: vvv2
+  network_id: <%= Fixtures.identify(:two) %>
+  demand_profile_group_id: <%= Fixtures.identify(:two) %>
+  capacity_profile_group_id: <%= Fixtures.identify(:two) %>
+  split_ratio_profile_group_id: <%= Fixtures.identify(:two) %>

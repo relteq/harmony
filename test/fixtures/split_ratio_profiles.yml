@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  split_ratio_profile_group_id:  <%= Fixtures.identify(:one) %>
+  node_id:  <%= Fixtures.identify(:one) %>
+  dt: 9.99
+  profile: split ratio profile 1
+
+two:
+  split_ratio_profile_group_id:  <%= Fixtures.identify(:two) %>
+  node_id:  <%= Fixtures.identify(:two) %>
+  dt: 9.99
+  profile: split ratio profile 1

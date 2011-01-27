@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  link_id: <%= Fixtures.identify(:one) %>
+  network_id: <%= Fixtures.identify(:one) %>
+  sensor_id: <%= Fixtures.identify(:one) %>
+  r_offset: 9.99
+
+two:
+  link_id: <%= Fixtures.identify(:two) %>
+  network_id: <%= Fixtures.identify(:two) %>
+  sensor_id: <%= Fixtures.identify(:two) %>
+  r_offset: 9.99

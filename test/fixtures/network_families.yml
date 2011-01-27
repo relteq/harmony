@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  network_id: <%= Fixtures.identify(:one) %>
+  child_id: <%= Fixtures.identify(:two) %>
+
+two:
+  network_id: <%= Fixtures.identify(:two) %>
+  child_id: <%= Fixtures.identify(:one) %>
