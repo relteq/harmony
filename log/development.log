@@ -1814,3 +1814,111 @@ Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:33:32)
   [4;36;1mEvent Load (0.3ms)[0m   [0;1mSELECT * FROM "events" [0m
 Rendering configurations/index
 Completed in 64ms (View: 15, DB: 3) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:53:46) [GET]
+  [4;35;1mProject Load (1.2ms)[0m   [0mSELECT * FROM "projects" LIMIT 1[0m
+  [4;36;1mScenario Load (0.5ms)[0m   [0;1mSELECT * FROM "scenarios" [0m
+  [4;35;1mNetwork Load (0.4ms)[0m   [0mSELECT * FROM "networks" [0m
+  [4;36;1mControllerGroup Load (0.3ms)[0m   [0;1mSELECT * FROM "controller_groups" [0m
+  [4;35;1mDemandProfile Load (0.3ms)[0m   [0mSELECT * FROM "demand_profiles" [0m
+  [4;36;1mCapacityProfile Load (0.6ms)[0m   [0;1mSELECT * FROM "capacity_profiles" [0m
+  [4;35;1mEvent Load (0.4ms)[0m   [0mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 252ms (View: 23, DB: 4) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:54:18) [GET]
+  [4;36;1mProject Load (1.2ms)[0m   [0;1mSELECT * FROM "projects" LIMIT 1[0m
+  [4;35;1mScenario Load (0.8ms)[0m   [0mSELECT * FROM "scenarios" [0m
+  [4;36;1mNetwork Load (0.3ms)[0m   [0;1mSELECT * FROM "networks" [0m
+  [4;35;1mControllerGroup Load (0.3ms)[0m   [0mSELECT * FROM "controller_groups" [0m
+  [4;36;1mDemandProfile Load (1.5ms)[0m   [0;1mSELECT * FROM "demand_profiles" [0m
+  [4;35;1mCapacityProfile Load (0.3ms)[0m   [0mSELECT * FROM "capacity_profiles" [0m
+  [4;36;1mEvent Load (0.3ms)[0m   [0;1mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 71ms (View: 22, DB: 5) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:54:36) [GET]
+  [4;35;1mProject Load (1.2ms)[0m   [0mSELECT * FROM "projects" LIMIT 1[0m
+  [4;36;1mScenario Load (0.4ms)[0m   [0;1mSELECT * FROM "scenarios" [0m
+  [4;35;1mNetwork Load (0.3ms)[0m   [0mSELECT * FROM "networks" [0m
+  [4;36;1mControllerGroup Load (0.3ms)[0m   [0;1mSELECT * FROM "controller_groups" [0m
+  [4;35;1mDemandProfile Load (0.3ms)[0m   [0mSELECT * FROM "demand_profiles" [0m
+  [4;36;1mCapacityProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "capacity_profiles" [0m
+  [4;35;1mEvent Load (0.4ms)[0m   [0mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 63ms (View: 21, DB: 3) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:57:47) [GET]
+  [4;36;1mProject Load (1.2ms)[0m   [0;1mSELECT * FROM "projects" LIMIT 1[0m
+  [4;35;1mScenario Load (0.4ms)[0m   [0mSELECT * FROM "scenarios" [0m
+  [4;36;1mNetwork Load (0.3ms)[0m   [0;1mSELECT * FROM "networks" [0m
+  [4;35;1mControllerGroup Load (1.5ms)[0m   [0mSELECT * FROM "controller_groups" [0m
+  [4;36;1mDemandProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "demand_profiles" [0m
+  [4;35;1mCapacityProfile Load (0.3ms)[0m   [0mSELECT * FROM "capacity_profiles" [0m
+  [4;36;1mEvent Load (0.3ms)[0m   [0;1mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 126ms (View: 26, DB: 4) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:58:12) [GET]
+  [4;35;1mProject Load (3.5ms)[0m   [0mSELECT * FROM "projects" LIMIT 1[0m
+  [4;36;1mScenario Load (0.4ms)[0m   [0;1mSELECT * FROM "scenarios" [0m
+  [4;35;1mNetwork Load (0.3ms)[0m   [0mSELECT * FROM "networks" [0m
+  [4;36;1mControllerGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "controller_groups" [0m
+  [4;35;1mDemandProfile Load (0.3ms)[0m   [0mSELECT * FROM "demand_profiles" [0m
+  [4;36;1mCapacityProfile Load (3.1ms)[0m   [0;1mSELECT * FROM "capacity_profiles" [0m
+  [4;35;1mEvent Load (0.4ms)[0m   [0mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 68ms (View: 22, DB: 8) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:58:26) [GET]
+  [4;36;1mProject Load (1.2ms)[0m   [0;1mSELECT * FROM "projects" LIMIT 1[0m
+  [4;35;1mScenario Load (0.5ms)[0m   [0mSELECT * FROM "scenarios" [0m
+  [4;36;1mNetwork Load (0.3ms)[0m   [0;1mSELECT * FROM "networks" [0m
+  [4;35;1mControllerGroup Load (0.3ms)[0m   [0mSELECT * FROM "controller_groups" [0m
+  [4;36;1mDemandProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "demand_profiles" [0m
+  [4;35;1mCapacityProfile Load (0.3ms)[0m   [0mSELECT * FROM "capacity_profiles" [0m
+  [4;36;1mEvent Load (0.5ms)[0m   [0;1mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 68ms (View: 20, DB: 3) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:58:37) [GET]
+  [4;35;1mProject Load (1.1ms)[0m   [0mSELECT * FROM "projects" LIMIT 1[0m
+  [4;36;1mScenario Load (0.4ms)[0m   [0;1mSELECT * FROM "scenarios" [0m
+  [4;35;1mNetwork Load (0.3ms)[0m   [0mSELECT * FROM "networks" [0m
+  [4;36;1mControllerGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "controller_groups" [0m
+  [4;35;1mDemandProfile Load (0.3ms)[0m   [0mSELECT * FROM "demand_profiles" [0m
+  [4;36;1mCapacityProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "capacity_profiles" [0m
+  [4;35;1mEvent Load (0.3ms)[0m   [0mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 64ms (View: 23, DB: 3) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:59:05) [GET]
+  [4;36;1mProject Load (1.2ms)[0m   [0;1mSELECT * FROM "projects" LIMIT 1[0m
+  [4;35;1mScenario Load (0.4ms)[0m   [0mSELECT * FROM "scenarios" [0m
+  [4;36;1mNetwork Load (0.3ms)[0m   [0;1mSELECT * FROM "networks" [0m
+  [4;35;1mControllerGroup Load (0.3ms)[0m   [0mSELECT * FROM "controller_groups" [0m
+  [4;36;1mDemandProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "demand_profiles" [0m
+  [4;35;1mCapacityProfile Load (0.4ms)[0m   [0mSELECT * FROM "capacity_profiles" [0m
+  [4;36;1mEvent Load (0.6ms)[0m   [0;1mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 174ms (View: 21, DB: 3) | 200 OK [http://localhost/configurations/]
+
+
+Processing ConfigurationsController#index (for 127.0.0.1 at 2011-01-27 00:59:24) [GET]
+  [4;35;1mProject Load (1.2ms)[0m   [0mSELECT * FROM "projects" LIMIT 1[0m
+  [4;36;1mScenario Load (0.4ms)[0m   [0;1mSELECT * FROM "scenarios" [0m
+  [4;35;1mNetwork Load (0.3ms)[0m   [0mSELECT * FROM "networks" [0m
+  [4;36;1mControllerGroup Load (0.3ms)[0m   [0;1mSELECT * FROM "controller_groups" [0m
+  [4;35;1mDemandProfile Load (0.3ms)[0m   [0mSELECT * FROM "demand_profiles" [0m
+  [4;36;1mCapacityProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "capacity_profiles" [0m
+  [4;35;1mEvent Load (0.3ms)[0m   [0mSELECT * FROM "events" [0m
+Rendering configurations/index
+Completed in 126ms (View: 79, DB: 3) | 200 OK [http://localhost/configurations/]
