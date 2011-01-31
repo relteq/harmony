@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110127052334) do
+ActiveRecord::Schema.define(:version => 20110127045555) do
 
   create_table "capacity_profile_groups", :force => true do |t|
     t.integer  "network_id"
@@ -23,12 +23,6 @@ ActiveRecord::Schema.define(:version => 20110127052334) do
     t.integer  "link_id"
     t.decimal  "dt"
     t.string   "profile"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "configurations", :force => true do |t|
-    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -203,6 +197,7 @@ ActiveRecord::Schema.define(:version => 20110127052334) do
     t.decimal  "e_time"
     t.string   "length_units"
     t.string   "v_types"
+    t.integer  "project_id"
     t.integer  "network_id"
     t.integer  "demand_profile_group_id"
     t.integer  "capacity_profile_group_id"

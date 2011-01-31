@@ -8,6 +8,7 @@ one:
   e_time: 9.99
   length_units: cm
   v_types: vvv1
+  project_id: <%= Fixtures.identify(:one) %>
   network_id: <%= Fixtures.identify(:one) %>
   demand_profile_group_id: <%= Fixtures.identify(:one) %>
   capacity_profile_group_id: <%= Fixtures.identify(:one) %>
@@ -21,6 +22,7 @@ two:
   e_time: 9.99
   length_units: m
   v_types: vvv2
+  project_id: <%= Fixtures.identify(:two) %>
   network_id: <%= Fixtures.identify(:two) %>
   demand_profile_group_id: <%= Fixtures.identify(:two) %>
   capacity_profile_group_id: <%= Fixtures.identify(:two) %>

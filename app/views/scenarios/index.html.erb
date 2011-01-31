@@ -1,0 +1,35 @@
+<div>
+	<span><%= link_to "New Scenario", new_project_scenario_path(@project) %></span> |
+	<span><%= link_to "Delete All", "scenarios/dall" ,:confirm => 'You are about to delete all your scenarios, are you sure you want to do this?' %></span> |
+	<span><a href="">Import Scenario</a></span> |
+	<span><a href="">Share All Scenarios</a></span> 
+</div>
+<br/>
+<% unless flash[:notice].blank? %>
+<span class="notification"><%=  flash[:notice] %></span>
+<% end %>
+<table>
+ 
+	  <tr>
+	    <th>Name</th>
+	    <th>Owner</th>
+	    <th>Last modified</th>
+	    <th>Modified by</th>
+	  </tr>
+ <% if @scenarios.count == 0 %>
+<tr>
+	<td colspan='4' >No records to display</td>
+</tr>
+<% end %>
+<% @scenarios.each_with_index do |scenario,i| %>
+  <tr>
+	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>><%=h scenario.name %></td>
+ 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>>Not Implemented</td>
+ 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>><%=h scenario.updated_at.strftime("%m/%d/%Y") %></td>
+ 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>>Not Implemented</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
