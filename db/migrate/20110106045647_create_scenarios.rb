@@ -8,6 +8,7 @@ class CreateScenarios < ActiveRecord::Migration
       t.decimal :e_time
       t.string :length_units
       t.string :v_types
+      t.integer :project_id
       t.integer :network_id
       t.integer :demand_profile_group_id
       t.integer :capacity_profile_group_id

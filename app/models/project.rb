@@ -25,6 +25,8 @@ class Project < ActiveRecord::Base
   # Maximum length for project identifiers
   IDENTIFIER_MAX_LENGTH = 100
   
+  has_many:scenarios
+
   # Specific overidden Activities
   has_many :time_entry_activities
   has_many :members, :include => [:user, :roles], :conditions => "#{User.table_name}.type='User' AND #{User.table_name}.status=#{User::STATUS_ACTIVE}"

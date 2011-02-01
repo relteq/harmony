@@ -1,0 +1,39 @@
+<h1>New scenario</h1>
+
+<% form_for [@project, @scenario] do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :dt %><br />
+    <%= f.text_field :dt %>
+  </p>
+  <p>
+    <%= f.label :b_time %><br />
+    <%= f.text_field :b_time %>
+  </p>
+  <p>
+    <%= f.label :e_time %><br />
+    <%= f.text_field :e_time %>
+  </p>
+  <p>
+    <%= f.label :length_units %><br />
+    <%= f.text_field :length_units %>
+  </p>
+  <p>
+    <%= f.label :v_types %><br />
+    <%= f.text_field :v_types %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', project_scenarios_path %>

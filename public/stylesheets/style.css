@@ -4,31 +4,60 @@ body {
   margin: 0;
   padding: 0;
   font: 15px/170% Verdana, sans-serif;
-  
 }
+
 #page{
 	height:800px;
 	
 }
+
 #sidebar {
 	background: #CCC;
 	width:300px;
 	height:100%;
+	float:left;
+	margin-right:10px;
+
 }
+
 #header{
 	background: gray;
 	width:100%;
 	padding-bottom:10px;
 	padding-top:10px;
+	margin-bottom:10px;
+}
+#content{
+	display:inline;
+	width:100%;
 	
 }
-
 .text{
 	color:white;
 	font-weight:bold;
 	margin-left: 10px;
 	font-size:16px;
 }
+
+/******** Table Styling *****/
+table {
+	border: gray 1px solid;
+	border-spacing: 0px;
+}
+table th{
+	background : #CCC;
+	border: gray 1px solid;
+	padding : 7px;
+
+}
+table td{
+	border: gray 1px solid;
+	padding : 4px;
+
+}
+
+table td.stripe {background: #BCD2EE; }
+
 
 /******* Menu styling  *****/
 a:link, a:visited {
@@ -61,7 +90,7 @@ ul li, ul.menu li, .item-list ul li, li.leaf {
   padding: 0 0 .2em 1.5em;
   list-style-type: none;
   list-style-image: none;
-  background: transparent url(images/menu-leaf.gif) no-repeat 1px .35em; /* LTR */
+  background: transparent url(../images/menu-leaf.gif) no-repeat 1px .35em; /* LTR */
 }
 .cat_close {
 	background-image:url(../images/menu-collapsed.gif);
@@ -88,3 +117,7 @@ a.item, a.cat_close, a.cat_open {
   background: transparent no-repeat 1px .35em; /* LTR */
 }
 
+/****  General Styling ****/
+.notification {
+	color: green;s
+}

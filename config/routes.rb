@@ -1,11 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
+  map.connect '/projects/:project_id/scenarios/dall', :controller => 'scenarios', :action => 'delete_all',:path_names => 'dall_project_scenarios'
+ 
+  map.resources :projects, :has_many => :scenarios
   
-  # Here's a sample route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
   map.home '', :controller => 'welcome'
   
   map.signin 'login', :controller => 'account', :action => 'login'
