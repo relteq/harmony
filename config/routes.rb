@@ -91,7 +91,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Following two routes conflict with the resources because #index allows POST
   map.connect '/issues', :controller => 'issues', :action => 'index', :conditions => { :method => :post }
-  map.connect '/issues/create', :controller => 'issues', :action => 'index', :conditions => { :method => :post }
+  map.connect '/issues/create', :controller => 'issues', :action => 'create', :conditions => { :method => :post }
   
   map.resources :issues, :member => { :edit => :post }, :collection => {} do |issues|
     issues.resources :time_entries, :controller => 'timelog'

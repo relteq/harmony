@@ -120,7 +120,7 @@ module ApplicationHelper
   #
   def link_to_project(project, options={}, html_options = nil)
     if project.active?
-      url = {:controller => 'projects', :action => 'show', :id => project}.merge(options)
+      url = {:controller => 'projects', :action => 'show', :id => project.id}.merge(options)
       link_to(h(project), url, html_options)
     else
       h(project)
@@ -903,8 +903,7 @@ module ApplicationHelper
     end
   end
   
-  private
-
+private
   def wiki_helper
     helper = Redmine::WikiFormatting.helper_for(Setting.text_formatting)
     extend helper
@@ -917,5 +916,4 @@ module ApplicationHelper
       {:href => url_for(:params => url_params)}
     )
   end
-  
 end
