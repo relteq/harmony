@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :user_setup, :check_if_login_required, :set_localization
-  before_filter :populate_menu
   filter_parameter_logging :password
   protect_from_forgery
   
@@ -446,16 +445,9 @@ class ApplicationController < ActionController::Base
     object.errors.collect do |attribute, error|
       { attribute => error }
     end.to_json
-  
-  def populate_menu
-    @project = Project.find(params[:project_id])
-    @scenarios = @project.scenarios.all
-    @networks = Network.find(:all)
-    @cgroups = ControllerGroup.find(:all)
-    @dprofiles = DemandProfile.find(:all)
-    @cprofiles = CapacityProfile.find(:all)
-    @events = Event.find(:all)
   end
+  
+
 
   # Renders API response on validation failure
   def render_validation_errors(object)
