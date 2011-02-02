@@ -11691,3 +11691,57 @@ Processing ScenariosController#edit (for 127.0.0.1 at 2011-01-31 00:41:29) [GET]
 Rendering template within layouts/application
 Rendering scenarios/edit
 Completed in 148ms (View: 98, DB: 3) | 200 OK [http://localhost/projects/298486374/scenarios/980190975/edit]
+
+
+Processing ProjectsController#index (for 127.0.0.1 at 2011-01-31 00:47:33) [GET]
+
+ActiveRecord::RecordNotFound (Couldn't find Project without an ID):
+  app/controllers/application_controller.rb:10:in `populate_menu'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (62.9ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ProjectsController#index (for 127.0.0.1 at 2011-01-31 00:56:32) [GET]
+
+ActiveRecord::RecordNotFound (Couldn't find Project without an ID):
+  app/controllers/application_controller.rb:10:in `populate_menu'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/seanmorris/.rvm/rubies/ruby-1.8.7-p330/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (54.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ScenariosController#index (for 127.0.0.1 at 2011-01-31 00:57:13) [GET]
+  Parameters: {"project_id"=>"298486374"}
+  [4;36;1mProject Load (0.4ms)[0m   [0;1mSELECT * FROM "projects" WHERE ("projects"."id" = 298486374) [0m
+  [4;35;1mScenario Load (0.5ms)[0m   [0mSELECT * FROM "scenarios" WHERE ("scenarios".project_id = 298486374) [0m
+  [4;36;1mNetwork Load (0.4ms)[0m   [0;1mSELECT * FROM "networks" [0m
+  [4;35;1mControllerGroup Load (0.3ms)[0m   [0mSELECT * FROM "controller_groups" [0m
+  [4;36;1mDemandProfile Load (0.3ms)[0m   [0;1mSELECT * FROM "demand_profiles" [0m
+  [4;35;1mCapacityProfile Load (0.3ms)[0m   [0mSELECT * FROM "capacity_profiles" [0m
+  [4;36;1mEvent Load (0.3ms)[0m   [0;1mSELECT * FROM "events" [0m
+Rendering template within layouts/application
+Rendering scenarios/index
+Completed in 186ms (View: 20, DB: 2) | 200 OK [http://localhost/projects/298486374/scenarios/]
