@@ -1,11 +1,7 @@
-<h1>New project</h1>
+<h2><%=l(:label_project_new)%></h2>
 
-<% form_for(@project) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+<% labelled_tabular_form_for :project, @project, :url => { :action => "create" } do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<%= submit_tag l(:button_save) %>
+<%= javascript_tag "Form.Element.focus('project_name');" %>
 <% end %>
-
-<%= link_to 'Back', projects_path %>
