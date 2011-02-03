@@ -2,6 +2,8 @@ class ScenariosController < ApplicationController
   # GET /scenarios
   # GET /scenarios.xml
   def index
+    @scenarios = Scenario.all
+    @project_id = params[:project_id]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,6 +24,7 @@ class ScenariosController < ApplicationController
   # GET /scenarios/new
   # GET /scenarios/new.xml
   def new
+    @project = Project.find(params[:project_id])
     @scenario = Scenario.new
     @scenario.project_id = params[:project_id]
     
@@ -44,7 +47,7 @@ class ScenariosController < ApplicationController
     respond_to do |format|
       if @scenario.save
         flash[:notice] = @scenario.name + ', was successfully created.'
-        format.html { redirect_to project_scenarios_path(@project) }
+        format.html { redirect_to project_scenarios_path(:project_id => params[:project_id]) }
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
         format.html { render :action => "new" }
