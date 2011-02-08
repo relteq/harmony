@@ -124,12 +124,6 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
   add_index "comments", ["commented_id", "commented_type"], :name => "index_comments_on_commented_id_and_commented_type"
 
-  create_table "configurations", :force => true do |t|
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "controller_groups", :force => true do |t|
     t.string   "description"
     t.integer  "network_id"
