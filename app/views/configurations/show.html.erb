@@ -1,0 +1,81 @@
+
+      <div id="left-config-menu">
+		<ul id="root" class="menu">
+			<li>
+				<a href='javascript:void(0);' childid = 'c_12' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Scenarios</a>
+				<ul id='c_12'>
+  				  <% @scenarios.each do |s|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= s.name %></a> 
+				      </li> 
+				  <% end %>
+				</ul>
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Networks</a>
+				<ul id='c_13'>
+					<% @networks.each do |n|  %>
+					 	  <li> 
+				            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+					        <a href='javascript:void(0);'><%= n.description %></a> 
+					      </li>
+					<% end %>
+				</ul> 
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Controller Groups</a>
+				<ul id='c_14'>
+ 				  <% @cgroups.each do |c|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= c.description %></a> 
+				      </li>
+ 				  <% end %>
+			    </ul> 
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Demand Profiles</a>
+				<ul id='c_15'>
+				  <% @dprofiles.each do |d|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= d.profile %></a> 
+				      </li>
+				  <% end %>
+				</ul> 
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Capacity Profiles</a>
+				<ul id='c_16'>
+				  <% @cprofiles.each do |c|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= c.profile %></a> 
+				      </li>
+				  <% end %>
+				</ul> 
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Event Lists</a>
+				<ul id='c_17'>
+ 				  <% @events.each do |e|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= e.event_type %></a> 
+				      </li>
+				  <% end %>
+			  </ul> 
+			</li>
+		</ul>
+      </div>
+      <div id="right-config-content">
+	  </div>
+    </div>	
+
