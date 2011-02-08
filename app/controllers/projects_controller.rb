@@ -24,7 +24,6 @@ class ProjectsController < ApplicationController
   before_filter :authorize, :except => [ :index, :list, :new, :create, :copy, :archive, :unarchive, :destroy]
   before_filter :authorize_global, :only => [:new, :create]
   before_filter :require_admin, :only => [ :copy, :archive, :unarchive, :destroy ]
-  before_filter :populate_menu
   accept_key_auth :index, :show, :create, :update, :destroy
 
   after_filter :only => [:create, :edit, :update, :archive, :unarchive, :destroy] do |controller|
@@ -269,13 +268,5 @@ private
     true
   end
 
-  def populate_menu
-    @project = Project.find(params[:id])
-    @scenarios = @project.scenarios.all
-    @networks = Network.find(:all)
-    @cgroups = ControllerGroup.find(:all)
-    @dprofiles = DemandProfile.find(:all)
-    @cprofiles = CapacityProfile.find(:all)
-    @events = Event.find(:all)
-  end
+
 end

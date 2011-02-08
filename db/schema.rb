@@ -221,8 +221,6 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
     t.string  "name",       :null => false
   end
 
-  add_index "enabled_modules", ["project_id"], :name => "enabled_modules_project_id"
-
   create_table "enumerations", :force => true do |t|
     t.string  "name",       :limit => 30, :default => "",    :null => false
     t.integer "position",                 :default => 1
@@ -310,27 +308,27 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
   add_index "issue_statuses", ["position"], :name => "index_issue_statuses_on_position"
 
   create_table "issues", :force => true do |t|
-    t.integer  "tracker_id",       :default => 0,  :null => false
-    t.integer  "project_id",       :default => 0,  :null => false
-    t.string   "subject",          :default => "", :null => false
-    t.text     "description"
-    t.date     "due_date"
-    t.integer  "category_id"
-    t.integer  "status_id",        :default => 0,  :null => false
-    t.integer  "assigned_to_id"
-    t.integer  "priority_id",      :default => 0,  :null => false
-    t.integer  "fixed_version_id"
-    t.integer  "author_id",        :default => 0,  :null => false
-    t.integer  "lock_version",     :default => 0,  :null => false
-    t.datetime "created_on"
-    t.datetime "updated_on"
-    t.date     "start_date"
-    t.integer  "done_ratio",       :default => 0,  :null => false
-    t.float    "estimated_hours"
-    t.integer  "parent_id"
-    t.integer  "root_id"
-    t.integer  "lft"
-    t.integer  "rgt"
+    t.integer   "tracker_id",       :default => 0,  :null => false
+    t.integer   "project_id",       :default => 0,  :null => false
+    t.string    "subject",          :default => "", :null => false
+    t.text      "description"
+    t.date      "due_date"
+    t.integer   "category_id"
+    t.integer   "status_id",        :default => 0,  :null => false
+    t.integer   "assigned_to_id"
+    t.integer   "priority_id",      :default => 0,  :null => false
+    t.integer   "fixed_version_id"
+    t.integer   "author_id",        :default => 0,  :null => false
+    t.integer   "lock_version",     :default => 0,  :null => false
+    t.timestamp "created_on"
+    t.timestamp "updated_on"
+    t.date      "start_date"
+    t.integer   "done_ratio",       :default => 0,  :null => false
+    t.float     "estimated_hours"
+    t.integer   "parent_id"
+    t.integer   "root_id"
+    t.integer   "lft"
+    t.integer   "rgt"
   end
 
   add_index "issues", ["assigned_to_id"], :name => "index_issues_on_assigned_to_id"
@@ -508,17 +506,17 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
   end
 
   create_table "projects", :force => true do |t|
-    t.string   "name",                       :default => "",   :null => false
-    t.text     "description", :limit => 255
-    t.string   "homepage",                   :default => ""
-    t.boolean  "is_public",                  :default => true, :null => false
-    t.integer  "parent_id"
-    t.datetime "created_on"
-    t.datetime "updated_on"
-    t.string   "identifier"
-    t.integer  "status",                     :default => 1,    :null => false
-    t.integer  "lft"
-    t.integer  "rgt"
+    t.string    "name",        :default => "",   :null => false
+    t.text      "description"
+    t.string    "homepage",    :default => ""
+    t.boolean   "is_public",   :default => true, :null => false
+    t.integer   "parent_id"
+    t.timestamp "created_on"
+    t.timestamp "updated_on"
+    t.string    "identifier"
+    t.integer   "status",      :default => 1,    :null => false
+    t.integer   "lft"
+    t.integer   "rgt"
   end
 
   add_index "projects", ["lft"], :name => "index_projects_on_lft"
@@ -618,12 +616,10 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
-    t.text     "value"
-    t.datetime "updated_on"
+    t.string    "name",       :default => "", :null => false
+    t.text      "value"
+    t.timestamp "updated_on"
   end
-
-  add_index "settings", ["name"], :name => "index_settings_on_name"
 
   create_table "split_ratio_profile_groups", :force => true do |t|
     t.integer  "network_id"
@@ -642,25 +638,19 @@ ActiveRecord::Schema.define(:version => 20110127045555) do
   end
 
   create_table "time_entries", :force => true do |t|
-    t.integer  "project_id",  :null => false
-    t.integer  "user_id",     :null => false
-    t.integer  "issue_id"
-    t.float    "hours",       :null => false
-    t.string   "comments"
-    t.integer  "activity_id", :null => false
-    t.date     "spent_on",    :null => false
-    t.integer  "tyear",       :null => false
-    t.integer  "tmonth",      :null => false
-    t.integer  "tweek",       :null => false
-    t.datetime "created_on",  :null => false
-    t.datetime "updated_on",  :null => false
+    t.integer   "project_id",  :null => false
+    t.integer   "user_id",     :null => false
+    t.integer   "issue_id"
+    t.float     "hours",       :null => false
+    t.string    "comments"
+    t.integer   "activity_id", :null => false
+    t.date      "spent_on",    :null => false
+    t.integer   "tyear",       :null => false
+    t.integer   "tmonth",      :null => false
+    t.integer   "tweek",       :null => false
+    t.timestamp "created_on",  :null => false
+    t.timestamp "updated_on",  :null => false
   end
-
-  add_index "time_entries", ["activity_id"], :name => "index_time_entries_on_activity_id"
-  add_index "time_entries", ["created_on"], :name => "index_time_entries_on_created_on"
-  add_index "time_entries", ["issue_id"], :name => "time_entries_issue_id"
-  add_index "time_entries", ["project_id"], :name => "time_entries_project_id"
-  add_index "time_entries", ["user_id"], :name => "index_time_entries_on_user_id"
 
   create_table "tokens", :force => true do |t|
     t.integer  "user_id",                  :default => 0,  :null => false

@@ -7,10 +7,10 @@ Redmine::Plugin.register :redmine_relteq_hooks do
   version '0.0.1'
   url 'http://relteqsystems.com/'
 
-  permission :view_simulation_models, :scenarios => [:index, :show]
-  permission :edit_simulation_models, :scenarios => [:edit, :update, :destroy, :delete_all]
-  permission :create_simulation_models, :scenarios => [:new, :create]
-  menu :project_menu, :scenarios, {:controller => 'scenarios', :action => 'index'}, :caption => 'Models', :param => :project_id, :after => :overview
+  permission :view_simulation_models, :configurations => [:index, :show]
+  permission :edit_simulation_models, :configurations => [:edit, :update, :destroy, :delete_all]
+  permission :create_simulation_models, :configurations => [:new, :create]
+  menu :project_menu, :configurations, {:controller => 'configurations', :action => 'show'}, :caption => 'Models', :param => :project_id, :after => :overview
 
   permission :view_simulation_data, :simulation_data => [:index, :show]
   permission :delete_simulation_data, :simulation_data => [:destroy]
