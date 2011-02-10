@@ -1,6 +1,9 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
 <div>
-	<span><%= link_to "New Scenario", new_project_scenario_path(:project_id => @project_id) %></span> |
-	<span><%= link_to "Delete All", "scenarios/dall" ,:confirm => 'You are about to delete all your scenarios, are you sure you want to do this?' %></span> |
+	<span>	<%= link_to( "New Scenario",  :controller => 'scenarios', :action => 'new', :project_id => @project)  %></span> |
+	<span><%= link_to ("Delete All", :controller => 'scenarios', :action => 'delete_all', :project_id => @project,:confirm => 'You are about to delete all your scenarios, are you sure you want to do this?') %></span> |
 	<span><a href="">Import Scenario</a></span> |
 	<span><a href="">Share All Scenarios</a></span> 
 </div>

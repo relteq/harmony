@@ -1,11 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
-  map.connect '/projects/:project_id/scenarios/dall', :controller => 'scenarios', :action => 'delete_all',:path_names => 'dall_project_scenarios'
  
-  map.resources :projects, :has_one => :configuration
-  map.resources :configurations, :has_many => :scenarios
-  
+  map.resources :project, :has_one => :configuration, :only => [:show ] 
+  map.with_options :controller => 'scenarios' do |scenario_routes|
+    scenario_routes.with_options :conditions => {:method => :get} do |scenario_views|
+      scenario_views.connect 'project/:project_id/configuration/scenarios', :action => 'index'
+      scenario_views.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
+      scenario_views.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all',:conditions => {:method => :delete} 
+ 
+    end
+  end
   
   map.home '', :controller => 'welcome'
   

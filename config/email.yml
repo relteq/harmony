@@ -72,7 +72,7 @@ production:
     address: smtp.sendgrid.net
     port: 25
     domain: heroku.com
-    authentication: :login
+    authentication: :plain
     user_name: "app421554@heroku.com"
     password: "80035e604bca68e1f4"
   
@@ -82,6 +82,6 @@ development:
     address: 127.0.0.1
     port: 25
     domain: example.net
-    authentication: :login
+    authentication: :plain
     user_name: "redmine@example.net"
     password: "redmine"

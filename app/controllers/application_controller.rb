@@ -481,4 +481,15 @@ class ApplicationController < ActionController::Base
   def pick_layout(*args)
     api_request? ? nil : super
   end
+ 
+  # Populates the Models Tabs menu
+  def populate_menu
+    @project = Project.find(params[:project_id])
+    @scenarios = @project.scenarios.all
+    @networks = Network.find(:all)
+    @cgroups = ControllerGroup.find(:all)
+    @dprofiles = DemandProfile.find(:all)
+    @cprofiles = CapacityProfile.find(:all)
+    @events = Event.find(:all)
+  end
 end

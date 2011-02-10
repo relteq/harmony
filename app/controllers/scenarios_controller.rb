@@ -1,4 +1,7 @@
 class ScenariosController < ApplicationController
+  
+  before_filter :populate_menu
+   
   # GET /scenarios
   # GET /scenarios.xml
   def index

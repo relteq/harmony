@@ -1,9 +1,8 @@
 
-      <div id="left-config-menu">
 		<ul id="root" class="menu">
 			<li>
 				<a href='javascript:void(0);' childid = 'c_12' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Scenarios</a>
+		    	<%= link_to( "Scenarios",  :controller => 'scenarios', :action => 'index', :project_id => @project) %></a>
 				<ul id='c_12'>
   				  <% @scenarios.each do |s|  %>
 			     	  <li> 
@@ -27,7 +26,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Controller Groups</a>
+		    	<a href="">Controller Sets</a>
 				<ul id='c_14'>
  				  <% @cgroups.each do |c|  %>
 			     	  <li> 
@@ -39,7 +38,19 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Demand Profiles</a>
+		    	<a href="">Demand Profile Sets</a>
+				<ul id='c_15'>
+				  <% @dprofiles.each do |d|  %>
+			     	  <li> 
+			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);'><%= d.profile %></a> 
+				      </li>
+				  <% end %>
+				</ul> 
+			</li>
+			<li>
+				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		    	<a href="">Split Ratio Profile Sets</a>
 				<ul id='c_15'>
 				  <% @dprofiles.each do |d|  %>
 			     	  <li> 
@@ -51,7 +62,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Capacity Profiles</a>
+		    	<a href="">Capacity Profile Sets</a>
 				<ul id='c_16'>
 				  <% @cprofiles.each do |c|  %>
 			     	  <li> 
@@ -63,7 +74,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Event Lists</a>
+		    	<a href="">Event Sets</a>
 				<ul id='c_17'>
  				  <% @events.each do |e|  %>
 			     	  <li> 
@@ -74,8 +85,5 @@
 			  </ul> 
 			</li>
 		</ul>
-      </div>
-      <div id="right-config-content">
-	  </div>
-    </div>	
+   	
 
