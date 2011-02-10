@@ -8,31 +8,34 @@
 	<span><a href="">Share All Scenarios</a></span> 
 </div>
 <br/>
-<% unless flash[:notice].blank? %>
-<span class="notification"><%=  flash[:notice] %></span>
-<% end %>
-<table>
- 
+<div class="autoscroll">
+<table class="list"> 
+	<thead>
 	  <tr>
-	    <th>Name</th>
-	    <th>Owner</th>
-	    <th>Last modified</th>
-	    <th>Modified by</th>
+		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+	    <th title="Sort by 'Owner'">Owner</th>
+		<%= sort_header_tag('updated_at', :caption => "Last Modified",:default_order => 'desc') %>
+	    <th title="Sort by 'Modified By'">Modified By</th>
+	
 	  </tr>
+	</thead>
+	<tbody>
  <% if @scenarios.count == 0 %>
-<tr>
+	<tr>
 	<td colspan='4' >No records to display</td>
-</tr>
+	</tr>
 <% end %>
 <% @scenarios.each_with_index do |scenario,i| %>
-  <tr>
-	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>><%=h scenario.name %></td>
- 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>>Not Implemented</td>
- 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>><%=h scenario.updated_at.strftime("%m/%d/%Y") %></td>
- 	<td  <%= i%2==0 ? "class=\"stripe\"" : "" %>>Not Implemented</td>
+  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	<td  ><%=h scenario.name %></td>
+ 	<td  >Not Implemented</td>
+ 	<td  ><%=h scenario.updated_at.strftime("%m/%d/%Y") %></td>
+ 	<td  >Not Implemented</td>
   </tr>
 <% end %>
-</table>
+   </tbody>
 
+</table>
+</div>
 <br />
 

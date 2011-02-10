@@ -1,16 +1,23 @@
 class ScenariosController < ApplicationController
   
   before_filter :populate_menu
+  helper :sort
+  include SortHelper
    
   # GET /scenarios
   # GET /scenarios.xml
   def index
-    @scenarios = Scenario.all
+    sort_init 'name', 'asc'
+    sort_update %w(name updated_at)
+    
+    
+    @scenarios = Scenario.find :all,
+                               :order => sort_clause
     @project_id = params[:project_id]
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @scenarios }
+      format.html { render :layout => !request.xhr? } # index.html.erb
+  #    format.xml  { render :xml => @scenarios }
     end
   end
 
@@ -27,10 +34,7 @@ class ScenariosController < ApplicationController
   # GET /scenarios/new
   # GET /scenarios/new.xml
   def new
-    @project = Project.find(params[:project_id])
     @scenario = Scenario.new
-    @scenario.project_id = params[:project_id]
-    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @scenario }
@@ -45,12 +49,14 @@ class ScenariosController < ApplicationController
   # POST /scenarios
   # POST /scenarios.xml
   def create
+    @project = Project.find(params[:project_id])
     @scenario = Scenario.new(params[:scenario])
-    @scenario.project_id = params[:project_id]
+    @scenario.project_id = @project.id
+
     respond_to do |format|
       if @scenario.save
         flash[:notice] = @scenario.name + ', was successfully created.'
-        format.html { redirect_to project_scenarios_path(:project_id => params[:project_id]) }
+        format.html { redirect_to  :controller => 'scenarios', :action => 'index', :project_id => @project }
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
         format.html { render :action => "new" }
