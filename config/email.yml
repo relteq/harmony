@@ -74,7 +74,7 @@ production:
     domain: heroku.com
     authentication: :login
     user_name: "app421554@heroku.com"
-    password: "80035e604bca68e1f480035e604bca68e1f4"
+    password: "80035e604bca68e1f4"
   
 development:
   delivery_method: :smtp
