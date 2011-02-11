@@ -58,7 +58,15 @@
     <% end %>
 </div>
 
-<%= tag('div', {:id => 'main', :class => (has_content?(:sidebar) ? 'sidebar' : 'nosidebar'),:class => (has_content?(:config_sidebar) ? 'config_sidebar' : 'noconfig_sidebar') }, true) %>
+<div id = "main" class =
+<% if (has_content?(:sidebar)) %>
+     'sidebar noconfig_sidebar'
+	<% elsif(has_content?(:config_sidebar)) %>
+	   'config_sidebar nosidebar' 
+	<% else %>
+	  'no_sidebar_no_config_sidebar'
+	<% end %>
+    >
 <div id="config-sidebar">        
      <%= yield :config_sidebar %>
      <%= call_hook :view_layouts_base_config_sidebar %>
