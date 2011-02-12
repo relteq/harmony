@@ -2,7 +2,7 @@
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
 				<a href='javascript:void(0);' childid = 'c_12' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<%= link_to( "Scenarios",  :controller => 'scenarios', :action => 'index', :project_id => @project) %></a>
+		    	<%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
 				<ul id='c_12'>
   				  <% @scenarios.each do |s|  %>
 			     	  <li> 
@@ -14,7 +14,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Networks</a>
+		    	<a href="" id='config-sidebar-networks'>Networks</a>
 				<ul id='c_13'>
 					<% @networks.each do |n|  %>
 					 	  <li> 
@@ -26,7 +26,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Controller Sets</a>
+		    	<a href="" id='config-sidebar-controller-groups'>Controller Sets</a>
 				<ul id='c_14'>
  				  <% @cgroups.each do |c|  %>
 			     	  <li> 
@@ -38,7 +38,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Demand Profile Sets</a>
+		    	<a href="" id='config-sidebar-demand-profiles'>Demand Profile Sets</a>
 				<ul id='c_15'>
 				  <% @dprofiles.each do |d|  %>
 			     	  <li> 
@@ -62,7 +62,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Capacity Profile Sets</a>
+		    	<a href="" id='config-sidebar-capacity-profiles'>Capacity Profile Sets</a>
 				<ul id='c_16'>
 				  <% @cprofiles.each do |c|  %>
 			     	  <li> 
@@ -74,7 +74,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="">Event Sets</a>
+		    	<a href="" id='config-sidebar-event-sets'>Event Sets</a>
 				<ul id='c_17'>
  				  <% @events.each do |e|  %>
 			     	  <li> 
@@ -87,3 +87,73 @@
 		</ul>
    	
 
+		<script language="javascript">
+			var configSidebarContextMenus = {
+				scenariosNode : [
+					{ name: 'New Scenario', callback: function() { window.location = "<%= url_for(:controller => 'scenarios', :action => 'new', :project_id => @project.id) %>"; }},
+					{ name: 'Import Scenario' },
+					{ name: 'Share All Scenarios' },
+					{ name: 'Delete All Scenarios', className: 'delete' }
+				],
+				networksNode : [ 
+					{ name: 'New Network' },
+					{ name: 'Import Network' },
+					{ name: 'Share All Networks' },
+					{ name: 'Delete All Networks', className: 'delete' }
+				],
+				controllerSetsNode : [
+					{ name: 'New Controller Group' },
+					{ name: 'Delete All Controller Groups', className: 'delete' }
+				],
+				demandProfileSetsNode: [
+					{ name: 'New Demand Profile' },
+					{ name: 'Delete All Demand Profiles', className: 'delete' }
+				],
+				capacityProfileSetsNode: [
+					{ name: 'New Capacity Profile' },
+					{ name: 'Delete All Capacity Profiles', className: 'delete' }
+				],
+				eventSetsNode: [
+					{ name: 'New Event List' },
+					{ name: 'Delete All Event Lists', className: 'delete' }
+				],
+
+				hook: function(sel, ind) {
+					new Proto.Menu({ selector: sel, 
+						menuItems: this[ind], 
+						className: 'menu google'
+					});
+				}
+			};
+
+			configSidebarContextMenus.hook(
+				'#config-sidebar-scenarios', 
+				'scenariosNode'
+			);
+
+			configSidebarContextMenus.hook(
+				'#config-sidebar-networks', 
+				'networksNode'
+			);
+
+			configSidebarContextMenus.hook(
+				'#config-sidebar-controller-groups', 
+				'controllerSetsNode'
+			);
+			
+			configSidebarContextMenus.hook(
+				'#config-sidebar-demand-profiles', 
+				'demandProfileSetsNode'
+			);
+
+			configSidebarContextMenus.hook(
+				'#config-sidebar-capacity-profiles',
+				'capacityProfileSetsNode'
+			);
+
+			configSidebarContextMenus.hook(
+				'#config-sidebar-event-sets',
+				'eventSetsNode'
+			);
+
+		</script>
