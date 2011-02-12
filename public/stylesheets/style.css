@@ -62,4 +62,33 @@ a.item, a.cat_close, a.cat_open {
   list-style-image: none;
   background: transparent no-repeat 1px .35em; /* LTR */
 }
+div.config-sidebar-menu {
+	position:absolute;
+	top: 0;
+	left: 0;
+	font-family: verdana;
+}
 
+div.config-sidebar-menu a {
+	display: block;
+	text-decoration: none;
+	cursor: default;
+	outline: none;
+	font-size: 11px;
+}
+
+.config-sidebar-menu .separator {
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	display: block;
+	font-size: 1px;
+}
+.config-sidebar-menu ul, .config-sidebar-menu li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.config-sidebar-menu li {
+	list-style-position: outside;
+}
