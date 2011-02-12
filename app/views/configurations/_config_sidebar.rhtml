@@ -90,7 +90,7 @@
 		<script language="javascript">
 			var configSidebarContextMenus = {
 				scenariosNode : [
-					{ name: 'New Scenario', callback: function() { window.location = "<%= url_for(:controller => 'scenarios', :action => 'new', :project_id => @project.id) %>"; }},
+					{ name: 'New Scenario', <%= js_callback_redirect :controller => 'scenarios', :action => 'new', :project_id => @project.id %> },
 					{ name: 'Import Scenario' },
 					{ name: 'Share All Scenarios' },
 					{ name: 'Delete All Scenarios', className: 'delete' }
