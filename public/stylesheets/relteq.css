@@ -1,0 +1,12 @@
+.newscenario {
+	margin-left:20px;
+	margin-top:5px;
+	background-color:#DFFFDF;
+	border: 1px #9FCF9F solid;
+	width:365px;
+	padding:3px;
+}
+
+.grey{ color:gray;}
+.italic { font-style:italic;}
+
