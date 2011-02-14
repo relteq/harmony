@@ -206,6 +206,17 @@ en:
   gui_validation_error: 1 error
   gui_validation_error_plural: "%{count} errors"
   
+  ##### relteq additions 
+  field_dt: Reporting Period
+  field_b_time: Begin time
+  field_e_time: End time
+  field_length_units: Length Units
+  field_v_types: Vehicle Types
+  
+  label_scenario_new: New Scenario
+  label_name: Name
+  button_create_and_configure: Create and Configure
+  ##### relteq additions   
   field_name: Name
   field_description: Description
   field_summary: Summary

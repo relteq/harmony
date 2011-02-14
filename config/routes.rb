@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
       scenario_views.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
       scenario_views.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all'
       scenario_views.connect 'project/:project_id/configuration/scenarios/create', :action => 'create',:conditions => {:method => :put}
+      scenario_views.connect 'project/:project_id/configuration/scenarios/:scenario_id/edit', :action => 'edit',:conditions => {:method => :get}
+      scenario_views.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
 
     end
   end

@@ -43,7 +43,16 @@ class ScenariosController < ApplicationController
 
   # GET /scenarios/1/edit
   def edit
-    @scenario = Scenario.find(params[:id])
+    if(params[:scenario_id] != nil)
+      @scenario = Scenario.find(params[:scenario_id])
+    else
+      @scenario = Scenario.new
+    end
+    
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.xml  { render :xml => @scenario }
+    end
   end
 
   # POST /scenarios
@@ -54,13 +63,15 @@ class ScenariosController < ApplicationController
     @scenario.project_id = @project.id
 
     respond_to do |format|
-      if @scenario.save
-        flash[:notice] = @scenario.name + ', was successfully created.'
-        format.html { redirect_to  :controller => 'scenarios', :action => 'index', :project_id => @project }
+      if(@scenario.save)
+        flash[:notice] = @scenario.name + ', was successfully created. You may configure the scenario below.'
+        format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
-        format.html { render :action => "new" }
+        flash[:error] = "The scenario name, " + @scenario.name + ", already exists for this project. Please pick another."
+        format.html { redirect_to  :controller => 'scenarios', :action => 'index', :project_id => @project }
         format.xml  { render :xml => @scenario.errors, :status => :unprocessable_entity }
+  
       end
     end
   end
@@ -68,12 +79,12 @@ class ScenariosController < ApplicationController
   # PUT /scenarios/1
   # PUT /scenarios/1.xml
   def update
-    @scenario = Scenario.find(params[:id])
+    @scenario = Scenario.find(params[:scenario_id])
 
     respond_to do |format|
       if @scenario.update_attributes(params[:scenario])
         flash[:notice] = 'Scenario was successfully updated.'
-        format.html { redirect_to project_scenarios_path(@project) }
+        format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

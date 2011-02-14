@@ -1,39 +1,12 @@
-<h1>Editing scenario</h1>
-
-<% form_for [@project, @scenario] do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </p>
-  <p>
-    <%= f.label :dt %><br />
-    <%= f.text_field :dt %>
-  </p>
-  <p>
-    <%= f.label :b_time %><br />
-    <%= f.text_field :b_time %>
-  </p>
-  <p>
-    <%= f.label :e_time %><br />
-    <%= f.text_field :e_time %>
-  </p>
-  <p>
-    <%= f.label :length_units %><br />
-    <%= f.text_field :length_units %>
-  </p>
-  <p>
-    <%= f.label :v_types %><br />
-    <%= f.text_field :v_types %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
-<%= link_to 'Back', project_scenarios_path %>
+<h2><%= link_to "Scenarios", :controller => 'scenarios', :action => 'index' %> &#187; <%= "Edit Scenario"%></h2>
+
+<% labelled_tabular_form_for :scenario, @scenario, :url => { :action => "update" }, :html => { :method => :put } do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+		<%= submit_tag l(:button_update) %>
+	</p>
+<% end %>

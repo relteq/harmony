@@ -1,10 +1,12 @@
 <%= f.error_messages %>
 <div class="box tabular">
-<p><span>Name:</span><%= f.text_field :name, :required => true %></p>
-<p><span>Description:</span><%= f.text_field :description, :required => true %></p>
-<p><span>dt:</span><%= f.text_field :dt,:required => true %></p>
-<p><span>Begin Time:</span><%= f.text_field :b_time, :required => true %></p>
-<p><span>End Time:</span><%= f.text_field :e_time, :required => true %></p>
-<p><span>Length Units:</span><%= f.text_field :length_units, :required => true %></p>
-<p><span>V Types:</span><%= f.text_field :v_types, :required => true %></p>
+<p><%= f.text_field :name, :required => true %></p>
+<p><%= f.text_field :description, :required => true %></p>
+
+<p><%= f.text_field :length_units, :required => true %></p>
+<p><%= f.text_field :v_types, :required => true %></p>	
+<p><%= f.text_field :b_time,  :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
+<p><%= f.text_field :e_time,  :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
+<p><%= f.text_field :dt, :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
+
 </div>
