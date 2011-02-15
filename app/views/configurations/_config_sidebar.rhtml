@@ -5,10 +5,23 @@
 		    	<%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
 				<ul id='c_12'>
   				  <% @scenarios.each do |s|  %>
-			     	  <li> 
+			     	  <li class="config-sidebar-scenario" id="config-sidebar-scenario-<%= s.id %>"> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 				        <a href='javascript:void(0);'><%= s.name %></a> 
 				      </li> 
+					  <script language="javascript"> 
+						 if(typeof(scenarioSpecificLinks) == 'undefined') { 
+							 scenarioSpecificLinks = new Array();
+						 }
+					     scenarioSpecificLinks.push({
+							id: "<%= s.id %>",
+						    edit_link: { <%= js_callback_redirect :controller => 'scenarios', 
+												:action => 'edit', 
+												:project_id => @project.id,
+											    :scenario_id => s.id
+										%> }
+					     });
+				      </script>
 				  <% end %>
 				</ul>
 			</li>
@@ -123,6 +136,31 @@
 						menuItems: this[ind], 
 						className: 'menu google'
 					});
+				},
+
+				perScenarioNode: function(scenarioLinks) {
+					return  [
+						{ name: 'Edit Simulation ***DEBUG***', callback: scenarioLinks.edit_link.callback},
+						{ name: 'Run Simulation'},
+						{ name: 'Run Simulation Batch' },
+						{ name: 'Duplicate' },
+						{ name: 'Shallow Duplicate' },
+						{ name: 'Share' },
+						{ name: 'Export' },
+						{ name: 'Rename' },
+						{ name: 'Delete' },
+					];
+				},
+
+				hookScenario: function(scenarioLinks) {
+					var id = scenarioLinks.id;
+					console.log(scenarioLinks);
+					console.log('#config-sidebar-scenario-' + id);
+					new Proto.Menu({ 
+						selector: '#config-sidebar-scenario-' + id,
+					    menuItems: this.perScenarioNode(scenarioLinks),
+						className: 'menu google'
+					});
 				}
 			};
 
@@ -155,5 +193,9 @@
 				'#config-sidebar-event-sets',
 				'eventSetsNode'
 			);
+
+			scenarioSpecificLinks.each(function(scenarioLinks) {
+				configSidebarContextMenus.hookScenario(scenarioLinks);
+			});
 
 		</script>
