@@ -1,5 +1,5 @@
 class ScenariosController < ApplicationController
-  
+  menu_item :configurations  
   before_filter :populate_menu
   helper :sort
   include SortHelper
