@@ -91,4 +91,5 @@ div.config-sidebar-menu a {
 }
 .config-sidebar-menu li {
 	list-style-position: outside;
+	margin-left: 15px;
 }
