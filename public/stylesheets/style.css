@@ -93,3 +93,11 @@ div.config-sidebar-menu a {
 	list-style-position: outside;
 	margin-left: 15px;
 }
+
+.config-sidebar-menu ul a, .config-sidebar-menu li a {
+	cursor: context-menu;
+}
+
+.config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
+	background-color: #ffffdd;
+}
