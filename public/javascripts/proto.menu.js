@@ -54,8 +54,7 @@ Proto.Menu = Class.create({
 		document.observe('click', function(e) {
 			if (this.container.visible() && !e.isRightClick()) {
 				this.options.beforeHide(e);
-				if (this.ie) this.shim.hide();
-				this.container.hide();
+				this.hide();
 			}
 		}.bind(this));
 		
@@ -65,8 +64,11 @@ Proto.Menu = Class.create({
 			}
 			this.show(e);
 		}.bind(this));
+
+		Proto.Menu.addToMenuList(this);
 	},
 	show: function(e) {
+		Proto.Menu.hideOtherMenus(this);
 		e.stop();
 		this.options.beforeShow(e);
 		var x = Event.pointer(e).x,
@@ -87,13 +89,31 @@ Proto.Menu = Class.create({
 		this.options.fade ? Effect.Appear(this.container, {duration: 0.25}) : this.container.show();
 		this.event = e;
 	},
+	hide: function() {
+		if(this.ie) this.shim.hide();
+		this.container.hide();
+	},
 	onClick: function(e) {
 		e.stop();
+		Proto.Menu.hideOtherMenus(this);
 		if (e.target._callback && !e.target.hasClassName('disabled')) {
 			this.options.beforeSelect(e);
-			if (this.ie) this.shim.hide();
-			this.container.hide();
+			this.hide();
 			e.target._callback(this.event);
 		}
 	}
-})
+});
+
+Proto.Menu.addToMenuList = function(menu) {
+	if(typeof(this.menus) == 'undefined') {
+		this.menus = [menu];
+	} else {
+		this.menus.push(menu);
+	}
+};
+
+Proto.Menu.hideOtherMenus = function(menu) {
+	this.menus.each(function(m) {
+		if(m != menu) { m.hide(); }
+	});
+};
