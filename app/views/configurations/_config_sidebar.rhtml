@@ -103,32 +103,32 @@
 		<script language="javascript">
 			var configSidebarContextMenus = {
 				scenariosNode : [
-					{ name: 'New Scenario', <%= js_callback_redirect :controller => 'scenarios', :action => 'new', :project_id => @project.id %> },
-					{ name: 'Import Scenario' },
-					{ name: 'Share All Scenarios' },
-					{ name: 'Delete All Scenarios', className: 'delete', <%= js_callback_redirect :controller => 'scenarios', :action => 'delete_all', :project_id => @project.id %> }
+					{ name: "<%= l(:scenarios_new) %>", <%= js_callback_redirect :controller => 'scenarios', :action => 'new', :project_id => @project.id %> },
+					{ name: "<%= l(:scenarios_import) %>" },
+					{ name: "<%= l(:scenarios_share_all) %>" },
+					{ name: "<%= l(:scenarios_delete_all) %>", className: 'delete', <%= js_callback_redirect :controller => 'scenarios', :action => 'delete_all', :project_id => @project.id %> }
 				],
 				networksNode : [ 
-					{ name: 'New Network' },
-					{ name: 'Import Network' },
-					{ name: 'Share All Networks' },
-					{ name: 'Delete All Networks', className: 'delete' }
+					{ name: "<%= l(:networks_new) %>" },
+					{ name: "<%= l(:networks_import) %>" },
+					{ name: "<%= l(:networks_share_all) %>" },
+					{ name: "<%= l(:networks_delete_all) %>", className: 'delete' }
 				],
 				controllerSetsNode : [
-					{ name: 'New Controller Group' },
-					{ name: 'Delete All Controller Groups', className: 'delete' }
+					{ name: "<%= l(:controller_groups_new) %>" },
+					{ name: "<%= l(:controller_groups_delete_all) %>", className: 'delete' }
 				],
 				demandProfileSetsNode: [
-					{ name: 'New Demand Profile' },
-					{ name: 'Delete All Demand Profiles', className: 'delete' }
+					{ name: "<%= l(:demand_profiles_new) %>" },
+					{ name: "<%= l(:demand_profiles_delete_all) %>", className: 'delete' }
 				],
 				capacityProfileSetsNode: [
-					{ name: 'New Capacity Profile' },
-					{ name: 'Delete All Capacity Profiles', className: 'delete' }
+					{ name: "<%= l(:capacity_profiles_new) %>" },
+					{ name: "<%= l(:capacity_profiles_delete_all) %>", className: 'delete' }
 				],
 				eventSetsNode: [
-					{ name: 'New Event List' },
-					{ name: 'Delete All Event Lists', className: 'delete' }
+					{ name: "<%= l(:event_lists_new) %>" },
+					{ name: "<%= l(:event_lists_delete_all) %>", className: 'delete' }
 				],
 
 				hook: function(sel, ind) {
@@ -142,14 +142,14 @@
 				perScenarioNode: function(scenarioLinks) {
 					return  [
 						{ name: 'Edit Simulation ***DEBUG***', callback: scenarioLinks.edit_link.callback},
-						{ name: 'Run Simulation'},
-						{ name: 'Run Simulation Batch' },
-						{ name: 'Duplicate' },
-						{ name: 'Shallow Duplicate' },
-						{ name: 'Share' },
-						{ name: 'Export' },
-						{ name: 'Rename' },
-						{ name: 'Delete' },
+						{ name: "<%= l(:scenario_run_simulation) %>"},
+						{ name: "<%= l(:scenario_run_simulation_batch) %>" },
+						{ name: "<%= l(:scenario_duplicate) %>" },
+						{ name: "<%= l(:scenario_shallow_duplicate) %>" },
+						{ name: "<%= l(:scenario_share) %>"}, 
+						{ name: "<%= l(:scenario_export) %>" },
+						{ name: "<%= l(:scenario_rename) %>" },
+						{ name: "<%= l(:scenario_delete) %>" },
 					];
 				},
 

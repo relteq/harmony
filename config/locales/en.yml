@@ -947,3 +947,33 @@ en:
   enumeration_activities: Activities (time tracking)
   enumeration_system_activity: System Activity
 
+  scenarios_new: New Scenario
+  scenarios_import: Import Scenario
+  scenarios_share_all: Share All Scenarios
+  scenarios_delete_all: Delete All Scenarios
+
+  networks_new: New Network
+  networks_import: Import Network
+  networks_share_all: Share All Networks
+  networks_delete_all: Delete All Networks
+
+  controller_groups_new: New Controller Group
+  controller_groups_delete_all: Delete All Controller Groups
+
+  demand_profiles_new: New Demand Profile
+  demand_profiles_delete_all: Delete All Demand Profiles
+
+  capacity_profiles_new: New Capacity Profile
+  capacity_profiles_delete_all: Delete All Capacity Profiles
+
+  event_lists_new: New Event List
+  event_lists_delete_all: Delete All Event Lists
+
+  scenario_run_simulation: Run Simulation 
+  scenario_run_simulation_batch: Run Simulation Batch
+  scenario_duplicate: Duplicate
+  scenario_shallow_duplicate: Shallow Duplicate
+  scenario_share: Share
+  scenario_export: Export
+  scenario_rename: Rename
+  scenario_delete: Delete
