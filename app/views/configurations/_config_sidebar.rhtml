@@ -134,7 +134,8 @@
 				hook: function(sel, ind) {
 					new Proto.Menu({ selector: sel, 
 						menuItems: this[ind], 
-						className: 'menu google'
+						className: 'menu google',
+						fade: true
 					});
 				},
 
@@ -157,6 +158,7 @@
 					new Proto.Menu({ 
 						selector: '#config-sidebar-scenario-' + id,
 					    menuItems: this.perScenarioNode(scenarioLinks),
+						fade: true,
 						className: 'menu google'
 					});
 				}
