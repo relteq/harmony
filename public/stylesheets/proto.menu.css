@@ -22,7 +22,7 @@ div.menu a {
 }
 .menu ul, .menu li {
 	margin: 0;
-	padding: 0;
+	padding: 1px;
 	list-style: none;
 }
 .menu li {
@@ -70,24 +70,30 @@ div.menu a {
 
 .menu.google {
 	width: 10.5em;
+	border-top:1px solid #ddd;
+	border-left:1px solid #ddd;
+	border-bottom:1px solid #777;
+	border-right:1px solid #777;
 	background: #fff;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-bottom: 1px solid #676767;
-	border-right: 1px solid #676767;
 }
 .menu.google a {
 	color: #00c;
 	text-decoration: none;
 	padding: 2px 5px;
 	cursor: pointer;
-	font-size: 12px;
 }
 .menu.google a:hover {
 	background: #D3E3FE;
 }
 .menu.google a.disabled {
 	color: #bbb;
+}
+.menu.google a.delete {
+  padding-left: 18px;
+  background: #fff url(../images/delete.png) 2px no-repeat;
+} 
+.menu.google a.delete:hover {
+	background-color: #D3E3FE;
 }
 .menu.google a.disabled:hover {
 	background: #fff;
