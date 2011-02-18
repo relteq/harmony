@@ -1,6 +1,9 @@
 class ScenariosController < ApplicationController
   menu_item :configurations  
   before_filter :populate_menu
+  before_filter do |controller|
+    controller.authorize(:configurations)
+  end
   helper :sort
   include SortHelper
    
