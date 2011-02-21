@@ -1,14 +1,12 @@
 class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
-  
-  
+    
   belongs_to:project
   belongs_to:network
   belongs_to:demand_profile_group
   belongs_to:capacity_profile_group
   belongs_to:split_ratio_profile_group
-  
   
   def b_time
       Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") * 3600)).utc.strftime("%H:%M:%S").to_s

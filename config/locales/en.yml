@@ -218,7 +218,8 @@ en:
   field_capacity_profile_group: Capacity Profile Group
   field_event: Event List
   field_network: Network
- 
+  field_q_control: Queue Control
+  field_ml_control: Mainline Control
   label_scenario_new: New Scenario
   label_name: Name
   
