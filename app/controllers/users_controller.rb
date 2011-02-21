@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     else
       @limit = per_page_option
     end
-    
+  
     @status = params[:status] ? params[:status].to_i : 1
     c = ARCondition.new(@status == 0 ? "status <> 0" : ["status = ?", @status])
 

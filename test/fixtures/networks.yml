@@ -11,4 +11,10 @@ two:
   dt: 9.99
   ml_control: false
   q_control: false
+  
+three:
+  description: network3
+  dt: 9.99
+  ml_control: false
+  q_control: false
 

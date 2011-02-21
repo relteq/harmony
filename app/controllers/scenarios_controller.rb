@@ -12,11 +12,22 @@ class ScenariosController < ApplicationController
   def index
     sort_init 'name', 'asc'
     sort_update %w(name updated_at)
-    
-    
-    @scenarios = Scenario.find :all,
-                               :order => sort_clause
+
+    case params[:format]
+    when 'xml', 'json'
+      @offset, @limit = api_offset_and_limit      
+    else
+      @limit = per_page_option
+    end
+
+    @scenario_count = Scenario.count(:all);
     @project_id = params[:project_id]
+    @scenarios_pages = Paginator.new self, @scenario_count, @limit, params['page']
+    @offset ||= @scenarios_pages.current.offset
+    @scenarios = Scenario.find :all,
+                                 :order => sort_clause,
+                                 :limit  =>  @limit,
+                                 :offset =>  @offset
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
@@ -51,7 +62,56 @@ class ScenariosController < ApplicationController
     else
       @scenario = Scenario.new
     end
+   
+    if(Scenario.find_by_project_id(@project).network == nil)
+      @prompt_network = {:prompt => 'Create a Network'}
+      @nets = [];
+    else
+      @prompt_network = {:prompt => 'Please Select'}
+      @nets = Scenario.find_by_project_id(@project).network.sort_by(&:description);      
+    end 
+    @controls = [];
+    @events = [];
+    if(@nets.empty?)
+      @prompt_controller = {:prompt => 'Create a Controller Set'}
+      @prompt_events = {:prompt => 'Create a Event Set'}
+    else
+      @prompt_controller = {:prompt => 'Please Select'}
+      @prompt_events = {:prompt => 'Please Select'}
+
+      @nets.each do |n|
+        @controls.push(n.controller_group);
+        @events.push(n.event);
+      end
+      @controls.sort_by(&:description);     
+      @events.sort_by(&:description);     
+    end
     
+    if(Scenario.find_by_project_id(@project).demand_profile_group == nil)
+      @prompt_demand = {:prompt => 'Create a Demand Profile Set'}
+      @demands = [];
+    else
+      @prompt_demand = {:prompt => 'Please Select'}
+      @demands = Scenario.find_by_project_id(@project).demand_profile_group.sort_by(&:description);      
+    end
+    
+    if(Scenario.find_by_project_id(@project).capacity_profile_group == nil)
+      @prompt_capacity = {:prompt => 'Create a Capacity Profile Set'}
+      @capacities = [];
+    else
+      @prompt_capacity = {:prompt => 'Please Select'}
+      @capacities = Scenario.find_by_project_id(@project).capacity_profile_group.sort_by(&:description);      
+    end
+    
+    if(Scenario.find_by_project_id(@project).split_ratio_profile_group == nil)
+      @prompt_split = {:prompt => 'Create a Split Ratio Profile Set'}
+      @splits = [];
+    else
+      @prompt_split = {:prompt => 'Please Select'}
+      @splits = Scenario.find_by_project_id(@project).split_ratio_profile_group.sort_by(&:description);      
+    end
+    
+   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @scenario }
@@ -87,6 +147,7 @@ class ScenariosController < ApplicationController
     respond_to do |format|
       if @scenario.update_attributes(params[:scenario])
         flash[:notice] = 'Scenario was successfully updated.'
+   
         format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
         format.xml  { head :ok }
       else

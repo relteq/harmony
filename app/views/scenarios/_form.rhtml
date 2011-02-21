@@ -3,10 +3,17 @@
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description, :required => true %></p>
 
-<p><%= f.text_field :length_units, :required => true %></p>
-<p><%= f.text_field :v_types, :required => true %></p>	
-<p><%= f.text_field :b_time,  :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
-<p><%= f.text_field :e_time,  :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
-<p><%= f.text_field :dt, :value => '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => 'grey italic' %></p>
+<p><%= label :scenario, :network_id %><%= collection_select :scenario, :network_id, @nets, :id, :description, @prompt_network %></p>
+<p><%= label :network,:controller_group_id %><%= collection_select :network,:controller_group_id,@controls,:id,:description, @prompt_controller %></p>
+<p><%= label :scenario,:demand_profile_group_id %><%= collection_select :scenario,:demand_profile_group_id,@demands,:id,:description, @prompt_demand %></p>
+<p><%= label :scenario,:capacity_profile_group_id %><%= collection_select :scenario,:capacity_profile_group_id,@capacities,:id,:description, @prompt_capacity %></p>
+<p><%= label :scenario,:split_ratio_profile_group_id %><%= collection_select :scenario,:split_ratio_profile_group_id, @splits,:id,:description, @prompt_split %></p>
+<p><%= label :network,:event_id %><%= collection_select :network,:event_id, @events,:id,:description, @prompt_events %></p>
 
+<p><%= f.select :length_units, %w{miles feet},{ :index => nil }, :prompt => true %></p>
+
+<p><%= f.text_area :v_types, :value => params[:v_types] != '' ?  params[:v_types] : 'eg.   SOV(1)  HOV(3)', :cols => 6, :rows => 4 ,:onfocus =>  'clearTextFieldDefault(this,"eg.    SOV (1)  HOV (3)")',:class =>  params[:v_types] != '' ? '' : 'grey italic'  %></p>	
+<p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic' %></p>
+<p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic' %></p>
+<p><%= f.text_field :dt, :value => params[:dt] != 0 ?  @scenario.dt  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:dt] != 0.0 ? '' : 'grey italic' %></p>
 </div>

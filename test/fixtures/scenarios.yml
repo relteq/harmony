@@ -27,3 +27,17 @@ two:
   demand_profile_group_id: <%= Fixtures.identify(:two) %>
   capacity_profile_group_id: <%= Fixtures.identify(:two) %>
   split_ratio_profile_group_id: <%= Fixtures.identify(:two) %>
+
+three:
+  name: Scenario 3
+  description: testing 3
+  dt: 9.99
+  b_time: 9.99
+  e_time: 9.99
+  length_units: m
+  v_types: vvv2
+  project_id: 2
+  network_id: <%= Fixtures.identify(:three) %>
+  demand_profile_group_id: <%= Fixtures.identify(:two) %>
+  capacity_profile_group_id: <%= Fixtures.identify(:two) %>
+  split_ratio_profile_group_id: <%= Fixtures.identify(:two) %>

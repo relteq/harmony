@@ -29,12 +29,14 @@
 				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	<a href="" id='config-sidebar-networks'>Networks</a>
 				<ul id='c_13'>
+	
 					<% @networks.each do |n|  %>
 					 	  <li> 
-				            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-					        <a href='javascript:void(0);'><%= n.description %></a> 
-					      </li>
+				        <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+					      <a href='javascript:void(0);'><%= n.description %></a> 
+					    </li>
 					<% end %>
+	
 				</ul> 
 			</li>
 			<li>

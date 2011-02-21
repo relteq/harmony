@@ -1,9 +1,6 @@
 class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
-  #validates_format_of :b_time,  :with => /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/
-  #validates_format_of :e_time,  :with => /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/
-  #validates_format_of :dt,  :with => /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/
   
   belongs_to:project
   belongs_to:network
@@ -11,8 +8,36 @@ class Scenario < ActiveRecord::Base
   belongs_to:capacity_profile_group
   belongs_to:split_ratio_profile_group
   
+  
+  def b_time
+    Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") * 3600)).utc.strftime("%H:%M:%S").to_s
+  end
+  
+  def b_time=(b_time)
+     write_attribute("b_time",(Time.parse(b_time).seconds_since_midnight.to_i / 3600.00))
+  end
+  
+  def e_time
+    Time.at(Time.gm(2000,1,1) + (read_attribute("e_time") * 3600)).utc.strftime("%H:%M:%S").to_s
+  end
+  
+  def e_time=(e_time)
+     write_attribute("e_time",(Time.parse(e_time).seconds_since_midnight.to_i / 3600.00))
+  end
+  
+  def dt
+    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") * 3600)).utc.strftime("%H:%M:%S").to_s
+  end
+  
+  def dt=(dt)
+     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i / 3600.00))
+  end
+  
+ 
+  
   #def to_param
   #  "#{name.gsub(/\W/,'-').downcase}"
- # end
+  #end
+    
   
 end

@@ -212,11 +212,19 @@ en:
   field_e_time: End time
   field_length_units: Length Units
   field_v_types: Vehicle Types
-  
+  field_controller_group: Controller Group
+  field_demand_profile_group: Demand Profile Group
+  field_split_ratio_profile_group: Split Ratio Profile Group
+  field_capacity_profile_group: Capacity Profile Group
+  field_event: Event List
+  field_network: Network
+ 
   label_scenario_new: New Scenario
   label_name: Name
+  
   button_create_and_configure: Create and Configure
-  ##### relteq additions   
+  
+  ##### end relteq additions   
   field_name: Name
   field_description: Description
   field_summary: Summary
