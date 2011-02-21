@@ -221,10 +221,20 @@ en:
   field_q_control: Queue Control
   field_ml_control: Mainline Control
   label_scenario_new: New Scenario
+  label_network: Network
   label_name: Name
-  
   button_create_and_configure: Create and Configure
+  label_delete_all: 'You are about to delete all your items, are you sure you want to do this?'
+  label_delete_all_header: Delete All
+  label_import_header: Import
+  label_share_header: Share All
+  label_owner_index: Owner
+  label_modified_by_index: Modified By
+  label_last_modified_index: Last Modified
+  label_no_records_index: No records to display
+  label_no_scenario_records: Not attached to any scenarios
   
+   
   ##### end relteq additions   
   field_name: Name
   field_description: Description

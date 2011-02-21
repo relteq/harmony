@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options :controller => 'networks' do |network_routes|
     network_routes.with_options :conditions => {:method => :get} do |network_views|
+      network_views.connect 'project/:project_id/configuration/networks', :action => 'index'
       network_views.connect 'project/:project_id/configuration/networks/new', :action => 'new'
       network_views.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
       network_views.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}

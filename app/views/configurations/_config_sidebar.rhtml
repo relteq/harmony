@@ -27,13 +27,13 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id='config-sidebar-networks'>Networks</a>
+		    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %></a>
 				<ul id='c_13'>
 	
 					<% @networks.each do |n|  %>
-					 	  <li> 
+					 	  <li class="config-sidebar-network" id="config-sidebar-network-<%= n.id %>"> 
 				        <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-					      <a href='javascript:void(0);'><%= n.description %></a> 
+								<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
 					    </li>
 					<% end %>
 	
@@ -165,6 +165,7 @@
 					});
 				}
 			};
+
 
 			configSidebarContextMenus.hook(
 				'#config-sidebar-scenarios', 

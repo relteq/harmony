@@ -10,6 +10,14 @@
 	padding:3px;
 }
 
+#scenarios-list-header{
+	font-size:14px;
+	font-color:black;
+	font-weight:bold;
+	
+}
 .grey{ color:gray;}
 .italic { font-style:italic;}
+
+
 
