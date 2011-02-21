@@ -145,14 +145,14 @@ class ScenariosController < ApplicationController
     @scenario = Scenario.find(params[:scenario_id])
 
     respond_to do |format|
-      if @scenario.update_attributes(params[:scenario])
+      if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'
    
         format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @scenario.errors, :status => :unprocessable_entity }
+        format.html { redirect_to :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
+        format.api  { render_validation_errors(@scenario) }
       end
     end
   end

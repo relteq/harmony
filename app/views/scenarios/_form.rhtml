@@ -1,4 +1,4 @@
-<%= f.error_messages %>
+<%= error_messages_for 'scenario' %>
 <div class="box tabular">
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description, :required => true %></p>
@@ -16,4 +16,6 @@
 <p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic' %></p>
 <p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic' %></p>
 <p><%= f.text_field :dt, :value => params[:dt] != 0 ?  @scenario.dt  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:dt] != 0.0 ? '' : 'grey italic' %></p>
+
+
 </div>
