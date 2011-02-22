@@ -486,7 +486,7 @@ class ApplicationController < ActionController::Base
   def populate_menu
     @project = Project.find(params[:project_id])
     @scenarios = @project.scenarios
-    @networks = @project.networks
+    @networks = @project.networks != nil ? @project.networks : Array.new 
     @cgroups = Array.new
     @dprofiles = Array.new
     @cprofiles = Array.new
