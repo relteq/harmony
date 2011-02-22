@@ -26,6 +26,7 @@ class Project < ActiveRecord::Base
   IDENTIFIER_MAX_LENGTH = 100
   
   has_many:scenarios
+  has_many:networks
 
   # Specific overidden Activities
   has_many :time_entry_activities

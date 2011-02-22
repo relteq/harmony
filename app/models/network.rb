@@ -1,4 +1,5 @@
 class Network < ActiveRecord::Base
+  belongs_to:project
   has_many:controller_groups
   has_many:split_ratio_profile_groups
   has_many:capacity_profile_groups

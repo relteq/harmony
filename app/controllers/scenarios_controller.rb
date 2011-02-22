@@ -20,14 +20,15 @@ class ScenariosController < ApplicationController
       @limit = per_page_option
     end
 
-    @scenario_count = Scenario.count(:all);
+    @scenario_count = @scenarios.count;
     @project_id = params[:project_id]
     @scenarios_pages = Paginator.new self, @scenario_count, @limit, params['page']
     @offset ||= @scenarios_pages.current.offset
-    @scenarios = Scenario.find :all,
-                                 :order => sort_clause,
-                                 :limit  =>  @limit,
-                                 :offset =>  @offset
+    @scenarios_show = Scenario.find :all,
+                                    :conditions => "project_id = " + @project.id.to_s,
+                                    :order => sort_clause,
+                                    :limit  =>  @limit,
+                                    :offset =>  @offset
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb

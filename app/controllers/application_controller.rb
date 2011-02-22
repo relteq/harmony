@@ -485,23 +485,14 @@ class ApplicationController < ActionController::Base
   # Populates the Models Tabs menu
   def populate_menu
     @project = Project.find(params[:project_id])
-    @scenarios = @project.scenarios.all
-    @networks = Array.new
+    @scenarios = @project.scenarios
+    @networks = @project.networks
     @cgroups = Array.new
     @dprofiles = Array.new
     @cprofiles = Array.new
     @events = Array.new
     
-    @scenarios.each do |s|
-      (s.network != nil) ? @networks.push(s.network) : nil
-    end
-      
-    @networks.each do |n|
-     (n.controller_group != nil) ? @cgroups.push(n.controller_group) : nil 
-     (n.demand_profile_group != nil) ? @dprofiles.push(n.demand_profile_group ) : nil 
-     (n.capacity_profile_group != nil)  ? @cprofiles.push(n.capacity_profile_group) : nil 
-     (n.event != nil) ?  @events.push(n.event) : nil 
-    end
+
     
   end
 end

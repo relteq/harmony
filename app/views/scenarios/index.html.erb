@@ -35,7 +35,7 @@
 	<td colspan='4' >No records to display</td>
 	</tr>
 <% end %>
-<% @scenarios.each_with_index do |scenario,i| %>
+<% @scenarios_show.each_with_index do |scenario,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%=h scenario.name %></td>
  	<td  >Not Implemented</td>
