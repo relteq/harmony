@@ -19,7 +19,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def e_time
-    Time.at(Time.gm(2000,1,1) + (read_attribute("e_time") * 3600)).utc.strftime("%H:%M:%S").to_s
+    Time.at(Time.gm(2000,1,1) + (read_attribute("e_time") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
   end
   
   def e_time=(e_time)
@@ -29,7 +29,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def dt
-    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") * 3600)).utc.strftime("%H:%M:%S").to_s
+    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
   end
   
   def dt=(dt)

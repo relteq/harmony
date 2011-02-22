@@ -34,11 +34,7 @@ class Network < ActiveRecord::Base
   has_many:links, :through => :sensor_locations
   
   def dt
-    if(read_attribute("dt") != nil)
-      Time.at(Time.gm(2000,1,1) + (read_attribute("dt") * 3600)).utc.strftime("%H:%M:%S").to_s
-    else
-      Time.at(Time.gm(2000,1,1) + (0.0 * 3600)).utc.strftime("%H:%M:%S").to_s
-    end
+    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
   end
   
   def dt=(dt)
