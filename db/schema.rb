@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110221162501) do
+ActiveRecord::Schema.define(:version => 20110222175127) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20110221162501) do
     t.integer   "network_id"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.string    "name"
+    t.integer   "project_id"
   end
 
   create_table "controllers", :force => true do |t|
@@ -142,6 +144,8 @@ ActiveRecord::Schema.define(:version => 20110221162501) do
     t.integer   "node_id"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.string    "name"
+    t.integer   "project_id"
   end
 
   create_table "custom_fields", :force => true do |t|

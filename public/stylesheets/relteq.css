@@ -21,7 +21,10 @@
 	font-size:14px;
 }
 
-
+table.form_table{
+	width:50%;
+	margin-left:180px;
+}
 .grey{ color:gray;}
 .italic { font-style:italic;}
 

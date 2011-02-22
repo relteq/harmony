@@ -4,6 +4,19 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :project, :has_one => :configuration, :only => [:show ] 
   
+
+  map.with_options :controller => 'controller_groups' do |cg_routes|
+    cg_routes.with_options :conditions => {:method => :get} do |cg_views|
+      cg_views.connect 'project/:project_id/configuration/controller_groups', :action => 'index'
+      cg_views.connect 'project/:project_id/configuration/controller_groups/new', :action => 'new'
+      cg_views.connect 'project/:project_id/configuration/controller_groups/dall', :action => 'delete_all'
+      cg_views.connect 'project/:project_id/configuration/controller_groups/create', :action => 'create',:conditions => {:method => :put}
+      cg_views.connect 'project/:project_id/configuration/controller_groups/:controller_group_id/edit', :action => 'edit',:conditions => {:method => :get}
+      cg_views.connect 'project/:project_id/configuration/controller_groups/:controller_group_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+  
+  
   map.with_options :controller => 'scenarios' do |scenario_routes|
     scenario_routes.with_options :conditions => {:method => :get} do |scenario_views|
       scenario_views.connect 'project/:project_id/configuration/scenarios', :action => 'index'

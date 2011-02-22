@@ -49,7 +49,7 @@ class NetworksController < ApplicationController
 
   def edit
      @network = Network.find(params[:network_id])
-     logger.info "asdfasdfasdf"
+
      respond_to do |format|
        format.html # edit.html.erb
        format.xml  { render :xml => @network }
