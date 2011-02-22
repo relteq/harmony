@@ -3,7 +3,7 @@
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description, :required => true %></p>
 
-<p><%= label :scenario, :network_id %><%= collection_select :scenario, :network_id, @nets, :id, :description, @prompt_network %></p>
+<p><%= label :scenario, :network_id %><%= collection_select :scenario, :network_id, @networks, :id, :name, @prompt_network %></p>
 <p><%= label :network,:controller_group_id %><%= collection_select :network,:controller_group_id,@controls,:id,:description, @prompt_controller %></p>
 <p><%= label :scenario,:demand_profile_group_id %><%= collection_select :scenario,:demand_profile_group_id,@demands,:id,:description, @prompt_demand %></p>
 <p><%= label :scenario,:capacity_profile_group_id %><%= collection_select :scenario,:capacity_profile_group_id,@capacities,:id,:description, @prompt_capacity %></p>

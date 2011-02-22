@@ -64,13 +64,13 @@ class ScenariosController < ApplicationController
       @scenario = Scenario.new
     end
    
-    if(Scenario.find_by_project_id(@project).network == nil)
+    if(@networks == nil)
       @prompt_network = {:prompt => 'Create a Network'}
-      @nets = [];
     else
       @prompt_network = {:prompt => 'Please Select'}
-      @nets = Scenario.find_by_project_id(@project).network.sort_by(&:description);      
     end 
+    
+    @nets = [];
     @controls = [];
     @events = [];
     if(@nets.empty?)

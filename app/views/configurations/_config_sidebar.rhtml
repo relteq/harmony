@@ -7,7 +7,7 @@
   				  <% @scenarios.each do |s|  %>
 			     	  <li class="config-sidebar-scenario" id="config-sidebar-scenario-<%= s.id %>"> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= s.name %></a> 
+				        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
 				      </li> 
 					  <script language="javascript"> 
 						 if(typeof(scenarioSpecificLinks) == 'undefined') { 
