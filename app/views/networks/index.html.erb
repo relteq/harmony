@@ -1,0 +1,53 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+<div>	
+	<span>	<%= link_to_function( 'New ' +  l(:label_network), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
+	<span><%= link_to (l(:label_delete_all_header), :controller => 'networks', :action => 'delete_all', :project_id => @project,:confirm => l(:label_delete_all)) %></span> |
+	<span><a href=""><%= l(:label_import_header) + ' ' + l(:label_network)%>s</a></span> |
+	<span><a href=""><%=  l(:label_share_header) + ' ' + l(:label_network)%>s</a></span> 
+</div>
+<div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
+	<div class="newscenario">
+	<% form_tag ({:controller => 'networks', :action => 'create', :project_id => @project},:method => :put) do |f|%>
+	<label><%= l(:label_name) %>:</label>
+	<%= text_field_tag 'network[name]', params[:name], :size => 30 %>
+	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>
+	<% end %>
+	</div>
+</div>
+
+<br/>
+<div class="autoscroll">
+<table class="list"> 
+	<thead>
+	  <tr>
+		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+	    <th title="Sort by 'Owner'"><%= l(:label_owner_index) %></th>
+		<%= sort_header_tag('updated_at', :caption =>l(:label_last_modified_index),:default_order => 'desc') %>
+	    <th title="Sort by 'Modified By'"><%= l(:label_modified_by_index) %></th>
+	
+	  </tr>
+	</thead>
+	<tbody>
+ <% if @networks.count == 0 %>
+	<tr>
+	<td colspan='4' ><%= l(:label_no_records_index)%></td>
+	</tr>
+<% end %>
+<% @networks.each_with_index do |network,i| %>
+  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	<td  ><%=h network.name %></td>
+ 	<td  >Not Implemented</td>
+ 	<td  ><%=h network.updated_at.strftime("%m/%d/%Y") %></td>
+ 	<td  >Not Implemented</td>
+  </tr>
+<% end %>
+   </tbody>
+
+</table>
+</div>
+<p class="pagination"><%= pagination_links_full @networks_pages, @network_count %></p>
+
+<br />
+

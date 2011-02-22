@@ -3,13 +3,13 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function( l(:label_scenario_new), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to ("Delete All", :controller => 'scenarios', :action => 'delete_all', :project_id => @project,:confirm => 'You are about to delete all your scenarios, are you sure you want to do this?') %></span> |
+	<span><%= link_to("Delete All", :controller => 'scenarios', :action => 'delete_all', :project_id => @project,:confirm => 'You are about to delete all your scenarios, are you sure you want to do this?') %></span> |
 	<span><a href="">Import Scenario</a></span> |
 	<span><a href="">Share All Scenarios</a></span> 
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">
-	<% form_tag ({:controller => 'scenarios', :action => 'create', :project_id => @project},:method => :put) do |f|%>
+	<% form_tag({:controller => 'scenarios', :action => 'create', :project_id => @project},:method => :put) do |f|%>
 	<label><%= l(:label_name) %>:</label>
 	<%= text_field_tag 'scenario[name]', params[:name], :size => 30 %>
 	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>

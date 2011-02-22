@@ -1,0 +1,24 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+
+<h2><%= link_to "Networks", :controller => 'networks', :action => 'index' %> &#187; <%= "Edit Network"%></h2>
+
+<% labelled_tabular_form_for :network, @network, :url => {:controller => "networks", :action => "update" }, :html => { :method => :put } do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+		<%= submit_tag l(:button_update) %>
+	</p>
+<% end %>
+
+<div id="scenarios-list-box">
+	<span id="scenarios-list-header">Scenarios using:</span><br/>
+	<% if @network.scenarios.empty? %>
+		<%= l(:label_no_scenario_records) %>
+	<% else %>
+  	<% @network.scenarios.each do |s| %>
+	  	<%= link_to s.name, :controller => 'scenarios', :action => 'edit', :project_id => @project, :scenario_id => s.id %>
+	  <% end %>
+	<% end %>
+	
+</div>
