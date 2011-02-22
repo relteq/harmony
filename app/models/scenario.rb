@@ -9,7 +9,7 @@ class Scenario < ActiveRecord::Base
   belongs_to:split_ratio_profile_group
   
   def b_time
-      Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") * 3600)).utc.strftime("%H:%M:%S").to_s
+      Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") || 0.0 * 3600)).utc.strftime("%H:%M:%S").to_s
   end
   
   def b_time=(b_time)
@@ -37,6 +37,7 @@ class Scenario < ActiveRecord::Base
      rescue ArgumentError
        @dt_invalid = true
   end
+
 
   #def validate
   #  errors.add(:dt, "is invalid") if @dt_invalid
