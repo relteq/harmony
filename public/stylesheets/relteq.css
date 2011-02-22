@@ -16,6 +16,12 @@
 	font-weight:bold;
 	
 }
+
+#scenarios-list-box  {
+	font-size:14px;
+}
+
+
 .grey{ color:gray;}
 .italic { font-style:italic;}
 
