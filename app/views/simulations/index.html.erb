@@ -1,0 +1,30 @@
+<div id="simulation_warnings">
+  WARNINGS
+</div>
+
+<div id="simulation_new_features">
+  NEW FEATURES
+</div>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Started</th>
+      <th>Status</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @simulations.each_with_index do |s,i| %>
+      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+        <td><%= h s[:name] %></td>
+        <td><%= h s[:mode] %></td>
+        <td><%= h s[:start_time] %></td>
+        <td><%= h s[:start_time] %></td>
+        <td><%= h s[:n_complete] %></td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

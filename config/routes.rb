@@ -4,6 +4,12 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :project, :has_one => :configuration, :only => [:show ] 
 
+  map.with_options :controller => 'simulations' do |simulation_routes|
+    simulation_routes.with_options do |simulation_actions|
+      simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'
+    end
+  end
+
   map.with_options :controller => 'scenarios' do |scenario_routes|
     scenario_routes.with_options :conditions => {:method => :get} do |scenario_actions|
       scenario_actions.connect 'project/:project_id/configuration/scenarios', :action => 'index'
