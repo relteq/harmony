@@ -2,8 +2,12 @@ class Simulation
   attr_accessor :name, :type, :started, :status, :progress
 
   def self.all_for_user(user_id)
-    @response = self.http_get_batches(user_id)
-    @response["batches"] if @response["status"] == "ok"
+    begin
+      response = self.http_get_batches(user_id)
+      response["batches"] if response["status"] == "ok"
+    rescue
+      response = []
+    end
   end
 
 private
