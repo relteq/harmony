@@ -26,6 +26,26 @@ class Scenario::SimulationsController < ApplicationController
       options[:events] = true
       options[:engine] = 'dummy'
     else
+      options[:name] = params[:name]
+      options[:n_runs] = params[:n_runs]
+      options[:mode] = params[:mode]
+      options[:b_time] = params[:begin_time_h].to_f + 
+                         params[:begin_time_m].to_f / 60.0 + 
+                         params[:begin_time_s].to_f / 3600.0
+      if params[:end_time_type] == 'duration'
+        options[:duration] = params[:end_time_h].to_f + 
+                           params[:end_time_m].to_f / 60.0 + 
+                           params[:end_time_s].to_f / 3600.0
+      elsif params[:end_time_type] == 'end_time'
+        options[:duration] = params[:end_time_h].to_f + 
+                           params[:end_time_m].to_f / 60.0 + 
+                           params[:end_time_s].to_f / 3600.0 -
+                           options[:b_time]
+
+      end
+      options[:control] = !!params[:control]
+      options[:qcontrol] = !!params[:qcontrol]
+      options[:events] = !!params[:events]
     end
     options[:user] = User.current.id
     Simulation.launch(options)
