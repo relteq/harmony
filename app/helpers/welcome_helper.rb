@@ -17,6 +17,8 @@
 
 module WelcomeHelper
   def progress_bar_display(sim)
+    return nil if !sim[:progress]
+
     bg_color = case sim[:progress]
       when 0..30 then "red"
       when 31..61 then "black"

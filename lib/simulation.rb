@@ -1,11 +1,9 @@
 class Simulation
-  attr_accessor :name, :type, :started, :status, :progress
-
   def self.all_for_user(user_id)
     begin
       response = self.http_get_batches(user_id)
       if response["status"] == "ok"
-        response["batches"].map{|s| s[:progress] = s[:n_complete] / s[:n_runs]}
+        response["batches"].map{|s| s[:progress] = s[:n_complete] / s[:n_runs] if s[:n_runs] }
         return response["batches"]
       else
         response = []
