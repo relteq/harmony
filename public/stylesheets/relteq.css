@@ -46,3 +46,7 @@
   background-color: #eeff90;
   border: 1px #336633 solid;
 }
+
+.progress_bar.red { background-color: red; }
+.progress_bar.black { background-color: black; }
+.progress_bar.green { background-color: green; }
