@@ -25,7 +25,7 @@
 .grey{ color:gray;}
 .italic { font-style:italic;}
 
-#simulation_warnings {
+#home_warnings {
   margin: 10px 10px 10px 10px;
   border-radius: 5px;
   font-size: 3em;
@@ -36,7 +36,7 @@
   border: 1px #ff0000 solid;
 }
 
-#simulation_new_features {
+#home_new_features {
   margin: 10px 10px 10px 10px;
   border-radius: 5px;
   font-size: 3em;
