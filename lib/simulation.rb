@@ -5,8 +5,7 @@ class Simulation
     begin
       response = self.http_get_batches(user_id)
       if response["status"] == "ok"
-        #response["batches"].map{|s| s[:progress] = s[:n_complete] / s[:n_runs]}
-        response["batches"].map{|s| s[:progress] = rand(100)}
+        response["batches"].map{|s| s[:progress] = s[:n_complete] / s[:n_runs]}
         return response["batches"]
       else
         response = []
@@ -19,8 +18,9 @@ class Simulation
 
   def self.launch(simulation_spec)
     begin
-      response = self.http_post_simulation(simulation_spec)
+      self.http_post_simulation(simulation_spec)
     rescue
+      Rails.logger.error "Error launching simulation for user ID #{user_id}"
     end
   end
 
