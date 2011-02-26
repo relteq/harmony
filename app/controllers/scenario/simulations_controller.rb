@@ -7,6 +7,8 @@ class Scenario::SimulationsController < ApplicationController
   before_filter :load_scenario
 
   def new
+    @simulation_modes = ['Simulation', 'Prediction']
+    @end_time_types = [['End Time', 'end_time'], ['Duration', 'duration']]
   end
 
   def create
@@ -17,7 +19,7 @@ class Scenario::SimulationsController < ApplicationController
       options[:name] = @scenario.name
       options[:n_runs] = 1
       options[:mode] = 'simulation'
-      options[:b_time] = 0
+      options[:b_time] = 0.0
       options[:duration] = 0.0
       options[:control] = true
       options[:qcontrol] = true
