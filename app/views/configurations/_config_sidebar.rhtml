@@ -19,7 +19,20 @@
 												:action => 'edit', 
 												:project_id => @project.id,
 											    :scenario_id => s.id
-										%> }
+										%> },
+                            run_simulation_batch: { 
+                                <%= js_callback_redirect :controller => 'scenario/simulations',
+                                                         :action => 'new',
+                                                         :project_id => @project.id,
+                                                         :scenario_id => s.id %>
+                            },
+                            run_simulation: { 
+                                <%= js_callback_redirect :controller => 'scenario/simulations',
+                                                         :action => 'create',
+                                                         :project_id => @project.id,
+                                                         :scenario_id => s.id, 
+                                                         :simple => true %>
+                            }
 					     });
 				      </script>
 				  <% end %>
@@ -144,8 +157,8 @@
 				perScenarioNode: function(scenarioLinks) {
 					return  [
 						{ name: 'Edit Simulation ***DEBUG***', callback: scenarioLinks.edit_link.callback},
-						{ name: "<%= l(:scenario_run_simulation) %>"},
-						{ name: "<%= l(:scenario_run_simulation_batch) %>" },
+					    { name: "<%= l(:scenario_run_simulation) %>", callback: scenarioLinks.run_simulation.callback},
+						{ name: "<%= l(:scenario_run_simulation_batch) %>", callback: scenarioLinks.run_simulation_batch.callback },
 						{ name: "<%= l(:scenario_duplicate) %>" },
 						{ name: "<%= l(:scenario_shallow_duplicate) %>" },
 						{ name: "<%= l(:scenario_share) %>"}, 

@@ -20,6 +20,13 @@ ActionController::Routing::Routes.draw do |map|
       scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
     end
   end
+
+  map.with_options :controller => 'scenario/simulations' do |simulation_launch_routes|
+    simulation_launch_routes.with_options do |simulation_actions|
+      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/new', :action => 'new'
+      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/create', :action => 'create'
+    end
+  end
   
   map.with_options :controller => 'networks' do |network_routes|
     network_routes.with_options :conditions => {:method => :get} do |network_actions|
