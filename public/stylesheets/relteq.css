@@ -29,5 +29,28 @@ table.form_table{
 .grey{ color:gray;}
 .italic { font-style:italic;}
 
+#home_warnings {
+  margin: 10px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 3em;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+  background-color: #ff5959;
+  border: 1px #ff0000 solid;
+}
 
+#home_new_features {
+  margin: 10px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 3em;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+  background-color: #eeff90;
+  border: 1px #336633 solid;
+}
 
+.progress_bar.red { background-color: red; }
+.progress_bar.black { background-color: black; }
+.progress_bar.green { background-color: green; }

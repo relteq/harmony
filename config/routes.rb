@@ -16,25 +16,37 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  
+  map.with_options :controller => 'simulations' do |simulation_routes|
+    simulation_routes.with_options do |simulation_actions|
+      simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'
+    end
+  end
+
   map.with_options :controller => 'scenarios' do |scenario_routes|
-    scenario_routes.with_options :conditions => {:method => :get} do |scenario_views|
-      scenario_views.connect 'project/:project_id/configuration/scenarios', :action => 'index'
-      scenario_views.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
-      scenario_views.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all'
-      scenario_views.connect 'project/:project_id/configuration/scenarios/create', :action => 'create',:conditions => {:method => :put}
-      scenario_views.connect 'project/:project_id/configuration/scenarios/:scenario_id/edit', :action => 'edit',:conditions => {:method => :get}
-      scenario_views.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
+    scenario_routes.with_options :conditions => {:method => :get} do |scenario_actions|
+      scenario_actions.connect 'project/:project_id/configuration/scenarios', :action => 'index'
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all'
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/create', :action => 'create',:conditions => {:method => :put}
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/edit', :action => 'edit',:conditions => {:method => :get}
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+
+  map.with_options :controller => 'scenario/simulations' do |simulation_launch_routes|
+    simulation_launch_routes.with_options do |simulation_actions|
+      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/new', :action => 'new'
+      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/create', :action => 'create'
     end
   end
   
   map.with_options :controller => 'networks' do |network_routes|
-    network_routes.with_options :conditions => {:method => :get} do |network_views|
-      network_views.connect 'project/:project_id/configuration/networks', :action => 'index'
-      network_views.connect 'project/:project_id/configuration/networks/new', :action => 'new'
-      network_views.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
-      network_views.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}
-      network_views.connect 'project/:project_id/configuration/networks/:network_id/update', :action => 'update',:conditions => {:method => :put}
+    network_routes.with_options :conditions => {:method => :get} do |network_actions|
+      network_actions.connect 'project/:project_id/configuration/networks', :action => 'index'
+      network_actions.connect 'project/:project_id/configuration/networks/new', :action => 'new'
+      network_actions.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
+      network_actions.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}
+      network_actions.connect 'project/:project_id/configuration/networks/:network_id/update', :action => 'update',:conditions => {:method => :put}
     end
   end
   

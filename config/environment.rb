@@ -17,6 +17,21 @@ rescue LoadError
   # Not available
 end
 
+# http://www.redmine.org/issues/7516
+#
+# Phillip Koebbe from Ruby on Rails suggested inserting following code between
+# bootstrap and initialize section of enviroment.rb. And it works.
+if Gem::VERSION >= "1.3.6" 
+    module Rails
+        class GemDependency
+            def requirement
+                r = super
+                (r == Gem::Requirement.default) ? nil : r
+            end
+        end
+    end
+end
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence those specified here
   

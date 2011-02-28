@@ -1,0 +1,48 @@
+<div class="box tabular">
+  <% form_tag(:action => 'create') do %>
+    <p>
+      <%= label_tag :name %>
+      <%= text_field_tag :name, @scenario.name %>
+    </p>
+    <p>
+      <%= label_tag :n_runs, 'Number of Runs' %>
+      <%= text_field_tag :n_runs, '1' %>
+    </p>
+    <p>
+      <%= label_tag :mode %>
+      <%= select_tag :mode, options_for_select(@simulation_modes) %>
+    </p>
+    <p>
+      <%= label_tag :begin_time %>
+      <%= text_field_tag :begin_time_h, '0', :size => 2, :maxlength => 2 %>
+      h
+      <%= text_field_tag :begin_time_m, '0', :size => 2, :maxlength => 2 %>
+      m
+      <%= text_field_tag :begin_time_s, '0', :size => 2, :maxlength => 2 %>
+      s
+    </p>
+    <p>
+      <label><%= select_tag :end_time_type, options_for_select(@end_time_types) %></label>
+      <%= text_field_tag :end_time_h, '0', :size => 2, :maxlength => 2 %>
+      h
+      <%= text_field_tag :end_time_m, '0', :size => 2, :maxlength => 2 %>
+      m
+      <%= text_field_tag :end_time_s, '0', :size => 2, :maxlength => 2 %>
+      s
+    </p>
+    <p>
+      <%= label_tag :control %>
+      <%= check_box_tag :control %>
+    </p>
+    <p>
+      <%= label_tag :qcontrol, 'Queue Control' %>
+      <%= check_box_tag :qcontrol %>
+    </p>
+    <p>
+      <%= label_tag :events %>
+      <%= check_box_tag :events %>
+    </p>
+
+    <p><%= submit_tag 'Run' %></p>
+  <% end %>
+</div>

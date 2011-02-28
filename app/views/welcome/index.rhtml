@@ -1,5 +1,39 @@
 <h2><%= l(:label_home) %></h2>
 
+<div id="home_warnings">
+  WARNINGS
+</div>
+
+<div id="home_new_features">
+  NEW FEATURES
+</div>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Started</th>
+      <th>Status</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @simulations.count == 0 %>
+      <tr><td>Error connecting to simulation server.</td></tr>
+    <% end %>
+    <% @simulations.each_with_index do |s,i| %>
+      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+        <td><%= h s[:name] %></td>
+        <td><%= h s[:mode] %></td>
+        <td><%= h format_time(s[:start_time]) %></td>
+        <td><%= h s[:start_time] %></td>
+        <%= progress_bar_display(s) %>
+      </tr>
+    <% end %>
+  <tbody>
+</table>
+
 <div class="splitcontentleft">
   <%= textilizable Setting.welcome_text %>
   <% if @news.any? %>

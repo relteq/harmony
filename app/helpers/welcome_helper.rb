@@ -16,4 +16,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 module WelcomeHelper
+  def progress_bar_display(sim)
+    return nil if !sim[:progress]
+
+    bg_color = case sim[:progress]
+      when 0..30 then "red"
+      when 31..61 then "black"
+      else "green"
+    end
+
+    width = [sim[:progress], 1].max
+
+    content_tag(:td, 
+      content_tag(:div, "&nbsp;",
+                  :id => "progress_bar_sim_#{sim[:id]}", 
+                  :class => "progress_bar #{bg_color}",
+                  :style => "width: #{width}%;") +
+      content_tag(:h5, "#{sim[:progress]} %")
+    )
+  end
 end
