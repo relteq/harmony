@@ -1,0 +1,2 @@
+module DemandProfileHelper
+end
