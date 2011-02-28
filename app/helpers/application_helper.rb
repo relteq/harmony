@@ -911,6 +911,7 @@ module ApplicationHelper
     }
   end
   
+
 private
   def wiki_helper
     helper = Redmine::WikiFormatting.helper_for(Setting.text_formatting)

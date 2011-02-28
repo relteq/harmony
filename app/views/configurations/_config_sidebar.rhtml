@@ -1,4 +1,8 @@
-
+<script language="javascript"> 
+ if(typeof(scenarioSpecificLinks) == 'undefined') { 
+	 scenarioSpecificLinks = new Array();
+ }
+</script>
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
 				<a href='javascript:void(0);' childid = 'c_12' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
@@ -10,9 +14,7 @@
 				        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
 				      </li> 
 					  <script language="javascript"> 
-						 if(typeof(scenarioSpecificLinks) == 'undefined') { 
-							 scenarioSpecificLinks = new Array();
-						 }
+
 					     scenarioSpecificLinks.push({
 							id: "<%= s.id %>",
 						    edit_link: { <%= js_callback_redirect :controller => 'scenarios', 
@@ -46,7 +48,7 @@
  				  <% @cgroups.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= c.description %></a> 
+									<%= link_to  c.name, {:controller => 'controller_groups', :action => 'edit', :project_id => @project,:controller_group_id => c.id } %>
 				      </li>
  				  <% end %>
 			    </ul> 
@@ -58,7 +60,7 @@
 				  <% @dprofiles.each do |d|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= d.profile %></a> 
+									<%= link_to  d.name, {:controller => 'demand_profile_groups', :action => 'edit', :project_id => @project,:demand_profile_group_id => d.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
@@ -67,10 +69,10 @@
 				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	<a href="">Split Ratio Profile Sets</a>
 				<ul id='c_15'>
-				  <% @dprofiles.each do |d|  %>
+				  <% @sprofiles.each do |d|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= d.profile %></a> 
+									<%= link_to  s.name, {:controller => 'split_ratio_profile_groups', :action => 'edit', :project_id => @project,:split_profile_group_id => s.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
@@ -82,7 +84,7 @@
 				  <% @cprofiles.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= c.profile %></a> 
+									<%= link_to  c.name, {:controller => 'capacity_profile_groups', :action => 'edit', :project_id => @project,:capacity_profile_group_id => c.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
@@ -94,7 +96,7 @@
  				  <% @events.each do |e|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        <a href='javascript:void(0);'><%= e.event_type %></a> 
+									<%= link_to  e.name, {:controller => 'event_groups', :action => 'edit', :project_id => @project,:event_group_id => e.id } %>
 				      </li>
 				  <% end %>
 			  </ul> 
@@ -127,6 +129,10 @@
 				capacityProfileSetsNode: [
 					{ name: "<%= l(:capacity_profiles_new) %>" },
 					{ name: "<%= l(:capacity_profiles_delete_all) %>", className: 'delete' }
+				],
+				splitRatioProfileSetsNode: [
+					{ name: "<%= l(:split_ratio_profiles_new) %>" },
+					{ name: "<%= l(:split_ratio_profiles_delete_all) %>", className: 'delete' }
 				],
 				eventSetsNode: [
 					{ name: "<%= l(:event_lists_new) %>" },
@@ -192,6 +198,10 @@
 				'capacityProfileSetsNode'
 			);
 
+			configSidebarContextMenus.hook(
+				'#config-sidebar-split-ratio-profiles',
+				'splitRatioProfileSetsNode'
+			);
 			configSidebarContextMenus.hook(
 				'#config-sidebar-event-sets',
 				'eventSetsNode'

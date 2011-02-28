@@ -220,7 +220,9 @@ en:
   field_network: Network
   field_q_control: Queue Control
   field_ml_control: Mainline Control
-  label_scenario_new: New Scenario
+  label_new: New
+  label_scenario: Scenario
+  label_controller_group: Controller Set
   label_network: Network
   label_name: Name
   button_create_and_configure: Create and Configure
@@ -237,7 +239,8 @@ en:
   label_please_select: Please Select
   label_network_element: Network Element
   label_invocation_period: Invocation Period
-  
+  label_controllers: Controllers
+  label_attach: Attach
    
   ##### end relteq additions   
   field_name: Name

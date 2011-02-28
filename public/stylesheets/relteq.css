@@ -24,6 +24,7 @@
 table.form_table{
 	width:50%;
 	margin-left:180px;
+	margin-top:-30px;
 }
 .grey{ color:gray;}
 .italic { font-style:italic;}

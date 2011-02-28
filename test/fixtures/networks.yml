@@ -5,16 +5,22 @@ one:
   dt: 9.99
   ml_control: false
   q_control: false
+  name: I 80 West
+  project_id: 8
 
 two:
   description: network2
   dt: 9.99
   ml_control: false
   q_control: false
+  name: I 580 East
+  project_id: 8
   
 three:
   description: network3
   dt: 9.99
   ml_control: false
   q_control: false
+  name: I 101 North
+  project_id: 8
 

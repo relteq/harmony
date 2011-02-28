@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110222175127) do
+ActiveRecord::Schema.define(:version => 20110228052945) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20110222175127) do
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "project_id"
   end
 
   create_table "capacity_profiles", :force => true do |t|
@@ -197,6 +198,7 @@ ActiveRecord::Schema.define(:version => 20110222175127) do
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "project_id"
   end
 
   create_table "demand_profiles", :force => true do |t|
@@ -245,6 +247,7 @@ ActiveRecord::Schema.define(:version => 20110222175127) do
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "project_id"
   end
 
   create_table "events", :force => true do |t|
@@ -636,6 +639,7 @@ ActiveRecord::Schema.define(:version => 20110222175127) do
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "project_id"
   end
 
   create_table "split_ratio_profiles", :force => true do |t|
