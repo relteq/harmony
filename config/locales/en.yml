@@ -220,9 +220,13 @@ en:
   field_network: Network
   field_q_control: Queue Control
   field_ml_control: Mainline Control
+  field_origin: Origin
   label_new: New
   label_scenario: Scenario
   label_controller_group: Controller Set
+  label_demand_profile_set: Demand Profile Set
+  label_profile: Profile
+  label_max_uncertainty: Max. Uncertainty
   label_network: Network
   label_name: Name
   button_create_and_configure: Create and Configure
@@ -236,6 +240,7 @@ en:
   label_no_records_index: No records to display
   label_no_scenario_records: Not attached to any scenarios
   label_no_networks_configured: No networks configured
+  label_no_sets_configured: No sets configured
   label_please_select: Please Select
   label_network_element: Network Element
   label_invocation_period: Invocation Period

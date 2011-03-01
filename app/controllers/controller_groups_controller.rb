@@ -30,7 +30,7 @@ class ControllerGroupsController < ApplicationController
 
       respond_to do |format|
         format.html { render :layout => !request.xhr? } # index.html.erb
-        format.xml  { render :xml => @networks }
+        format.xml  { render :xml => @controller_groups }
       end
   end
 
@@ -57,7 +57,7 @@ class ControllerGroupsController < ApplicationController
       if(@cgroup.update_attributes(params[:controller_group]))
         flash[:notice] = l(:notice_successful_update)
       else
-        flash[:error] = "The network, " + @cgroup.name + ", was not not saved. See errors."
+        flash[:error] = "The Controller Group, " + @cgroup.name + ", was not not saved. See errors."
       end
       format.html { redirect_to  :controller => 'controller_groups', :action => 'edit',:project_id =>@project, :controller_group_id => @cgroup }
       format.xml  { render :xml => @cgroup, :status => :created, :location => @cgroup }
@@ -72,7 +72,7 @@ class ControllerGroupsController < ApplicationController
         if(@cgroup.save)
           flash[:notice] = l(:notice_successful_create)
         else
-          flash[:error] = "The network, " + @cgroup.name + ", was not not saved. See errors."
+          flash[:error] = "The Controller Group, " + @cgroup.name + ", was not not saved. See errors."
         end
         format.html { redirect_to  :controller => 'controller_groups', :action => 'edit',:project_id =>@project, :controller_group_id => @cgroup }
         format.xml  { render :xml => @cgroup, :status => :created, :location => @cgroup }
@@ -85,8 +85,8 @@ class ControllerGroupsController < ApplicationController
   # GET /controller_groups/new.xml
   def new
     @cgroup = ControllerGroup.new
-    @cgroup.name = params[:controller_group][:name] ||= ''
-    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
+    @cgroup.name = params[:controller_group] != nil ? params[:controller_group][:name] ||= '' : ''
+    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_sets_configured) : l(:label_please_select)}
    
     #set up controllers table to be empty until network selected
     get_controllers("-1")

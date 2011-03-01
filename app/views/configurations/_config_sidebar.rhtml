@@ -68,12 +68,13 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id='config-sidebar-demand-profiles'>Demand Profile Sets</a>
+		  	<%= link_to( "Demand Profile Sets", {:controller => 'demand_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-demand-profile-sets') %>
+	
 				<ul id='c_15'>
-				  <% @dprofiles.each do |d|  %>
+				  <% @dprofilesets.each do |d|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  d.name, {:controller => 'demand_profile_groups', :action => 'edit', :project_id => @project,:demand_profile_group_id => d.id } %>
+									<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
 				      </li>
 				  <% end %>
 				</ul> 

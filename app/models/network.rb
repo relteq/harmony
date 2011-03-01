@@ -7,6 +7,7 @@ class Network < ActiveRecord::Base
   has_many:event_groups
   has_many:events
   has_many:controllers
+  has_many:demand_profiles
   has_many:scenarios
   
   has_many:network_families, :foreign_key => "network_id", :class_name => "NetworkFamily"

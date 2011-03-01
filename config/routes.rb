@@ -4,6 +4,18 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :project, :has_one => :configuration, :only => [:show ] 
   
+  map.with_options :controller => 'demand_profile_sets' do |dps_routes|
+    dps_routes.with_options :conditions => {:method => :get} do |dps_views|
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets', :action => 'index'
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/new', :action => 'new'
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/dall', :action => 'delete_all'
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/:demand_profile_set_id/ptable', :action => 'populate_demands_table',:conditions => {:method => :get}
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/create', :action => 'create',:conditions => {:method => :put}
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/:demand_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/:demand_profile_set_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+  
   map.with_options :controller => 'controller_groups' do |cg_routes|
     cg_routes.with_options :conditions => {:method => :get} do |cg_views|
       cg_views.connect 'project/:project_id/configuration/controller_groups', :action => 'index'

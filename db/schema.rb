@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110228052945) do
+ActiveRecord::Schema.define(:version => 20110301060910) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -193,12 +193,13 @@ ActiveRecord::Schema.define(:version => 20110228052945) do
   add_index "custom_values", ["custom_field_id"], :name => "index_custom_values_on_custom_field_id"
   add_index "custom_values", ["customized_type", "customized_id"], :name => "custom_values_customized"
 
-  create_table "demand_profile_groups", :force => true do |t|
+  create_table "demand_profile_sets", :force => true do |t|
     t.integer   "network_id"
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "project_id"
+    t.string    "name"
   end
 
   create_table "demand_profiles", :force => true do |t|
@@ -208,6 +209,8 @@ ActiveRecord::Schema.define(:version => 20110228052945) do
     t.string    "profile"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.string    "name"
+    t.integer   "network_id"
   end
 
   create_table "documents", :force => true do |t|

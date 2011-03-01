@@ -3,6 +3,8 @@
 one:
   demand_profile_group_id: <%= Fixtures.identify(:one) %>
   link_id: <%= Fixtures.identify(:two) %>
+  network_id:  <%= Fixtures.identify(:one) %>
+  name: Demand Profile 1 
   dt: 9.99
   profile: demand profile 1
 
@@ -10,4 +12,7 @@ two:
   demand_profile_group_id: <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:three) %>
   dt: 9.99
+  network_id:  <%= Fixtures.identify(:two) %>
   profile: demand profile 2
+  name: Demand Profile 2
+
