@@ -1,0 +1,29 @@
+<p><%= label :demand_profile_set, :demand_profile %></p>
+<table class="form_table list"> 
+	<thead>
+	  <tr>
+			<th title="Select Demand Profile"><%= l(:label_attach) %></th>
+			<%= sort_header_tag('Origin', :caption => l(:field_origin),:default_order => 'desc') %>
+	    <th title="Profile"><%= l(:label_profile) %></th>
+	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
+	  </tr>
+	</thead>
+	<tbody id="profiles_table_body">
+		<% if @items == nil ||  @items.count == 0 %>
+		  <tr>
+		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
+			</tr>
+		<% else %>
+			<% @items.each_with_index do |item,i| %>
+		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+					<td  ><%= check_box_tag "demand_profile_set[demand_profile_ids][]", item.id,@dpset.demand_profiles.include?(item) %></td>
+					<td  ><%=h item.name %></td>
+		 			<td  ><%=h item.type %></td>
+		 			<td  ><%=h item.dt_to_time_format %></td>
+		  	</tr>
+			<% end %>
+		<% end %>
+  
+   </tbody>
+</table>
+<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>

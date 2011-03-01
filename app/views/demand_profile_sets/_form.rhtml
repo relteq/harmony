@@ -1,0 +1,13 @@
+<%= error_messages_for 'demand_profile_set' %>
+<div class="box tabular">
+<%= f.hidden_field :project_id, :value => @project.id %>
+
+<p><%= f.text_field :name, :required => true %></p>
+<p><%= f.text_field :description %></p>
+<p><%= label :demand_profile_set, :network_id %><%= collection_select :demand_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @dpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'demand_profile_sets',  :action => 'populate_demands_table', :project_id =>@project,:demand_profile_set_id =>@dpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+
+<br/>
+<div id="demand_profiles_table" class="autoscroll">
+	<%= render :partial => 'populate_demands_table' %>
+</div>
+</div>

@@ -1,0 +1,53 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+<div>	
+	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_demand_profile_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
+	<span><%= link_to("Delete All", :controller => 'demand_profile_sets', :action => 'delete_all', :project_id => @project,:confirm => 'You are about to delete all your demand profile sets, are you sure you want to do this?') %></span> |
+	<span><a href="">Import Demand Profile Set</a></span> |
+	<span><a href="">Share All Demand Profile Sets</a></span> 
+</div>
+<div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
+	<div class="newscenario">
+	<% form_tag({:controller => 'demand_profile_sets', :action => 'new', :project_id => @project},:method => :get) do |f|%>
+	<label><%= l(:label_name) %>:</label>
+	<%= text_field_tag 'demand_profile_set[name]', params[:name], :size => 30 %>
+	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>
+	<% end %>
+	</div>
+</div>
+
+<br/>
+<div class="autoscroll">
+<table class="list"> 
+	<thead>
+	  <tr>
+		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+	    <th title="Sort by 'Owner'">Owner</th>
+		<%= sort_header_tag('updated_at', :caption => "Last Modified",:default_order => 'desc') %>
+	    <th title="Sort by 'Modified By'">Modified By</th>
+	
+	  </tr>
+	</thead>
+	<tbody>
+ <% if @demand_profile_set_count == 0 %>
+	<tr>
+	<td colspan='4' >No records to display</td>
+	</tr>
+<% end %>
+<% @demand_profile_sets_show.each_with_index do |dps,i| %>
+  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	<td  ><%=h dps.name %></td>
+ 	<td  >Not Implemented</td>
+ 	<td  ><%=h dps.updated_at.strftime("%m/%d/%Y") %></td>
+ 	<td  >Not Implemented</td>
+  </tr>
+<% end %>
+   </tbody>
+
+</table>
+</div>
+<p class="pagination"><%= pagination_links_full @demand_profile_sets_pages, @demand_profile_set_count %></p>
+
+<br />
+
