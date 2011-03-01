@@ -28,6 +28,10 @@ Proto.Menu = Class.create({
 			src: 'javascript:false;',
 			frameborder: 0
 		});
+
+		this.icon = new Element('img', {
+			src: '/images/context_menu_icon.png'
+		});
 		
 		this.options.fade = this.options.fade && !Object.isUndefined(Effect);
 		this.container = new Element('div', {className: this.options.className, style: 'display:none'});
@@ -64,6 +68,13 @@ Proto.Menu = Class.create({
 			}
 			this.show(e);
 		}.bind(this));
+
+		if(this.options.addIcon) {
+			var icon_element = $$(this.options.selector)[0].insert(this.icon, { position: 'after' });
+			this.icon.observe('click', function(e) {
+				this.show(e);
+			}.bind(this));
+		}
 
 		Proto.Menu.addToMenuList(this);
 	},
