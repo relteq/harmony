@@ -42,7 +42,7 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %></a>
+		    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %>
 				<ul id='c_13'>
 	
 					<% @networks.each do |n|  %>
@@ -56,8 +56,8 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id='config-sidebar-controller-groups'>Controller Sets</a>
-				<ul id='c_14'>
+		  	<%= link_to( "Controller Sets", {:controller => 'controller_groups', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-groups') %>
+  	   	<ul id='c_14'>
  				  <% @cgroups.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
