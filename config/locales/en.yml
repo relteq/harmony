@@ -223,6 +223,7 @@ en:
   field_origin: Origin
   label_new: New
   label_scenario: Scenario
+  label_simulation_list: Simulations
   label_controller_group: Controller Set
   label_demand_profile_set: Demand Profile Set
   label_profile: Profile
@@ -246,6 +247,8 @@ en:
   label_invocation_period: Invocation Period
   label_controllers: Controllers
   label_attach: Attach
+  label_started_at: Started
+  label_progress: Progress
    
   ##### end relteq additions   
   field_name: Name
@@ -996,6 +999,9 @@ en:
 
   capacity_profiles_new: New Capacity Profile
   capacity_profiles_delete_all: Delete All Capacity Profiles
+
+  split_ratio_profiles_new: New Split Ratio Profile
+  split_ratio_profiles_delete_all: Delete All Split Ratio Profiles
 
   event_lists_new: New Event List
   event_lists_delete_all: Delete All Event Lists
