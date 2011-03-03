@@ -1,0 +1,26 @@
+<h3>Simulations</h3>
+<table class="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Started</th>
+      <th>Status</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @simulations.count == 0 %>
+      <tr><td>Error connecting to simulation server.</td></tr>
+    <% end %>
+    <% @simulations.each_with_index do |s,i| %>
+      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+        <td><%= h s[:name] %></td>
+        <td><%= h s[:mode] %></td>
+        <td><%= h format_time(s[:start_time]) %></td>
+        <td><%= h s[:start_time] %></td>
+        <%= progress_bar_display(s) %>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

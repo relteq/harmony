@@ -21,7 +21,6 @@ class WelcomeController < ApplicationController
   def index
     @news = News.latest User.current
     @projects = Project.latest User.current
-    @simulations = Simulation.all_for_user(User.current.id)
   end
   
   def robots
