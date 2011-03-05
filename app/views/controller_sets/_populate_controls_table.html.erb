@@ -1,0 +1,29 @@
+<p><%= label :controller_set, :controller %></p>
+<table class="form_table list"> 
+	<thead>
+	  <tr>
+			<th title="Select Controller"><%= l(:label_attach) %></th>
+			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+	    <th title="Network Element"><%= l(:label_network_element) %></th>
+	    <th title="Invocation Period"><%= l(:label_invocation_period) %></th>
+	  </tr>
+	</thead>
+	<tbody id="controllers_table_body">
+		<% if @controllers == nil ||  @controllers.count == 0 %>
+		  <tr>
+		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
+			</tr>
+		<% else %>
+			<% @controllers.each_with_index do |controller,i| %>
+		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+					<td  ><%= check_box_tag "controller_set[controller_ids][]", controller.id,@cset.controllers.include?(controller) %></td>
+					<td  ><%=h controller.name %></td>
+		 			<td  ><%=h controller.type %></td>
+		 			<td  ><%=h controller.dt_to_time_format %></td>
+		  	</tr>
+			<% end %>
+		<% end %>
+  
+   </tbody>
+</table>
+<p class="pagination"><%= pagination_links_full @controllers_pages, @controller_count %></p>

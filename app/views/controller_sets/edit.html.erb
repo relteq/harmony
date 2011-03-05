@@ -1,0 +1,14 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+
+<h2><%= link_to "Controller Sets", :controller => 'configuration_sets', :action => 'index' %> &#187; <%= "Edit Controller Set"%></h2>
+
+<% labelled_tabular_form_for :controller_set, @cset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+		<%= submit_tag l(:button_update) %>
+	</p>
+<% end %>
+
+<%= render :partial => 'layouts/scenario_list' %>
