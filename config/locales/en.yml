@@ -227,6 +227,8 @@ en:
   label_simulation_list: Simulations
   label_demand_profile_set: Demand Profile Set
   label_capacity_profile_set: Capacity Profile Set
+  label_split_ratio_profile_set: Split Ratio Profile Set
+  label_event_set: Event Set
   label_profile: Profile
   label_max_uncertainty: Max. Uncertainty
   label_network: Network

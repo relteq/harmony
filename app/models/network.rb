@@ -1,10 +1,10 @@
 class Network < ActiveRecord::Base
   belongs_to:project
-  has_many:controller_groups
-  has_many:split_ratio_profile_groups
-  has_many:capacity_profile_groups
-  has_many:demand_profile_groups
-  has_many:event_groups
+  has_many:controller_sets
+  has_many:split_ratio_profile_sets
+  has_many:capacity_profile_sets
+  has_many:demand_profile_sets
+  has_many:event_sets
   has_many:events
   has_many:controllers
   has_many:demand_profiles

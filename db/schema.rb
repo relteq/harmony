@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304053014) do
+ActiveRecord::Schema.define(:version => 20110305063432) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(:version => 20110304053014) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "project_id"
+    t.string    "name"
   end
 
   create_table "events", :force => true do |t|
@@ -267,6 +268,7 @@ ActiveRecord::Schema.define(:version => 20110304053014) do
     t.integer   "node_id"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.string    "name"
   end
 
   create_table "groups_users", :id => false, :force => true do |t|
@@ -646,15 +648,18 @@ ActiveRecord::Schema.define(:version => 20110304053014) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "project_id"
+    t.string    "name"
   end
 
   create_table "split_ratio_profiles", :force => true do |t|
-    t.integer   "split_ratio_profile_group_id"
-    t.integer   "node_id"
-    t.decimal   "dt"
-    t.string    "profile"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.integer  "node_id"
+    t.decimal  "dt"
+    t.string   "profile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "network_id"
+    t.string   "name"
+    t.integer  "split_ratio_profile_set_id"
   end
 
   create_table "time_entries", :force => true do |t|

@@ -96,6 +96,9 @@ div.config-sidebar-menu a {
 
 .config-sidebar-menu ul a, .config-sidebar-menu li a {
 	cursor: context-menu;
+	font-size:13px;
+	font-weight:bold;
+	color: #555;
 }
 
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {

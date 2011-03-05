@@ -80,21 +80,22 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id="config-sidebar-split-ratio-profiles">Split Ratio Profile Sets</a>
-				<ul id='c_15'>
+				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		  	<%= link_to( "Split Ratio Profile Sets", {:controller => 'split_ratio_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-split-ratio-profile-sets') %>
+
+				<ul id='c_16'>
 				  <% @sprofilesets.each do |s|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_profile_set_id => s.id } %>
+									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
-				<ul id='c_16'>
+				<ul id='c_17'>
 				  <% @cprofilesets.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
@@ -104,9 +105,9 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id='config-sidebar-event-sets'>Event Sets</a>
-				<ul id='c_17'>
+				<a href='javascript:void(0);' childid = 'c_18' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+		  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
+				<ul id='c_18'>
  				  <% @eventsets.each do |e|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
@@ -215,7 +216,7 @@
 			);
 
 			configSidebarContextMenus.hook(
-				'#config-sidebar-split-ratio-profiles',
+				'#config-sidebar-split-ratio-profile-sets',
 				'splitRatioProfileSetsNode'
 			);
 			configSidebarContextMenus.hook(

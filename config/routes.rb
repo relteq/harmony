@@ -3,7 +3,31 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
  
   map.resources :project, :has_one => :configuration, :only => [:show ] 
-  
+
+  map.with_options :controller => 'event_sets' do |es_routes|
+    es_routes.with_options :conditions => {:method => :get} do |es_views|
+      es_views.connect 'project/:project_id/configuration/event_sets', :action => 'index'
+      es_views.connect 'project/:project_id/configuration/event_sets/new', :action => 'new'
+      es_views.connect 'project/:project_id/configuration/event_sets/dall', :action => 'delete_all'
+      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/ptable', :action => 'populate_events_table',:conditions => {:method => :get}
+      es_views.connect 'project/:project_id/configuration/event_sets/create', :action => 'create',:conditions => {:method => :put}
+      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/edit', :action => 'edit',:conditions => {:method => :get}
+      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+
+  map.with_options :controller => 'split_ratio_profile_sets' do |srps_routes|
+    srps_routes.with_options :conditions => {:method => :get} do |srps_views|
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets', :action => 'index'
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/new', :action => 'new'
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/dall', :action => 'delete_all'
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/ptable', :action => 'populate_splits_table',:conditions => {:method => :get}
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/create', :action => 'create',:conditions => {:method => :put}
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+    
   map.with_options :controller => 'capacity_profile_sets' do |cps_routes|
     cps_routes.with_options :conditions => {:method => :get} do |cps_views|
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets', :action => 'index'

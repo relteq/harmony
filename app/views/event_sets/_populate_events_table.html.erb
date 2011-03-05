@@ -1,0 +1,29 @@
+<p><%= label :event_set, :event %></p>
+<table class="form_table list"> 
+	<thead>
+	  <tr>
+			<th title="Select Event"><%= l(:label_attach) %></th>
+			<%= sort_header_tag('Destination', :caption => l(:field_origin),:default_order => 'desc') %>
+	    <th title="Profile"><%= l(:label_profile) %></th>
+	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
+	  </tr>
+	</thead>
+	<tbody id="events_table_body">
+		<% if @items == nil ||  @items.count == 0 %>
+		  <tr>
+		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
+			</tr>
+		<% else %>
+			<% @items.each_with_index do |item,i| %>
+		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %></td>
+					<td  ><%=h item.name %></td>
+		 			<td  ><%= text_field_tag "event_set[event_ids][]",item.profile %></td>
+		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
+		  	</tr>
+			<% end %>
+		<% end %>
+  
+   </tbody>
+</table>
+<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>

@@ -55,4 +55,10 @@ table.form_table{
 .progress_bar.red { background-color: red; }
 .progress_bar.black { background-color: black; }
 .progress_bar.green { background-color: green; }
-img.context_menu_icon { padding-left: 5px; }
+img.context_menu_icon { 
+	padding-left: 5px; 
+	width:10px;
+	height:12px;
+}
+
+

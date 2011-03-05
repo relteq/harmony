@@ -1,0 +1,2 @@
+
+page[:split_ratio_profiles_table].replace_html :partial => 'populate_splits_table'
