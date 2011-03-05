@@ -4,6 +4,18 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :project, :has_one => :configuration, :only => [:show ] 
   
+  map.with_options :controller => 'capacity_profile_sets' do |cps_routes|
+    cps_routes.with_options :conditions => {:method => :get} do |cps_views|
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets', :action => 'index'
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/new', :action => 'new'
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/dall', :action => 'delete_all'
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/ptable', :action => 'populate_capacities_table',:conditions => {:method => :get}
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/create', :action => 'create',:conditions => {:method => :put}
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/update', :action => 'update',:conditions => {:method => :put}
+    end
+  end
+  
   map.with_options :controller => 'demand_profile_sets' do |dps_routes|
     dps_routes.with_options :conditions => {:method => :get} do |dps_views|
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets', :action => 'index'
@@ -16,15 +28,15 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.with_options :controller => 'controller_groups' do |cg_routes|
-    cg_routes.with_options :conditions => {:method => :get} do |cg_views|
-      cg_views.connect 'project/:project_id/configuration/controller_groups', :action => 'index'
-      cg_views.connect 'project/:project_id/configuration/controller_groups/new', :action => 'new'
-      cg_views.connect 'project/:project_id/configuration/controller_groups/dall', :action => 'delete_all'
-      cg_views.connect 'project/:project_id/configuration/controller_groups/:controller_group_id/ptable', :action => 'populate_controls_table',:conditions => {:method => :get}
-      cg_views.connect 'project/:project_id/configuration/controller_groups/create', :action => 'create',:conditions => {:method => :put}
-      cg_views.connect 'project/:project_id/configuration/controller_groups/:controller_group_id/edit', :action => 'edit',:conditions => {:method => :get}
-      cg_views.connect 'project/:project_id/configuration/controller_groups/:controller_group_id/update', :action => 'update',:conditions => {:method => :put}
+  map.with_options :controller => 'controller_sets' do |cs_routes|
+    cs_routes.with_options :conditions => {:method => :get} do |cs_views|
+      cs_views.connect 'project/:project_id/configuration/controller_sets', :action => 'index'
+      cs_views.connect 'project/:project_id/configuration/controller_sets/new', :action => 'new'
+      cs_views.connect 'project/:project_id/configuration/controller_sets/dall', :action => 'delete_all'
+      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/ptable', :action => 'populate_controls_table',:conditions => {:method => :get}
+      cs_views.connect 'project/:project_id/configuration/controller_sets/create', :action => 'create',:conditions => {:method => :put}
+      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/edit', :action => 'edit',:conditions => {:method => :get}
+      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/update', :action => 'update',:conditions => {:method => :put}
     end
   end
   

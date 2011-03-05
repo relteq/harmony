@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110301060910) do
+ActiveRecord::Schema.define(:version => 20110304053014) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -60,21 +60,24 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
   add_index "boards", ["last_message_id"], :name => "index_boards_on_last_message_id"
   add_index "boards", ["project_id"], :name => "boards_project_id"
 
-  create_table "capacity_profile_groups", :force => true do |t|
+  create_table "capacity_profile_sets", :force => true do |t|
     t.integer   "network_id"
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "project_id"
+    t.string    "name"
   end
 
   create_table "capacity_profiles", :force => true do |t|
-    t.integer   "capacity_profile_group_id"
-    t.integer   "link_id"
-    t.decimal   "dt"
-    t.string    "profile"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.integer  "capacity_profile_set_id"
+    t.integer  "link_id"
+    t.string   "profile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "network_id"
+    t.string   "name"
+    t.decimal  "max_uncertainty"
   end
 
   create_table "changes", :force => true do |t|
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
   add_index "comments", ["commented_id", "commented_type"], :name => "index_comments_on_commented_id_and_commented_type"
 
-  create_table "controller_groups", :force => true do |t|
+  create_table "controller_sets", :force => true do |t|
     t.string    "description"
     t.integer   "network_id"
     t.timestamp "created_at"
@@ -135,18 +138,18 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
   end
 
   create_table "controllers", :force => true do |t|
-    t.string    "type"
-    t.string    "controller_type"
-    t.decimal   "dt"
-    t.binary    "parameters"
-    t.integer   "controller_group_id"
-    t.integer   "network_id"
-    t.integer   "link_id"
-    t.integer   "node_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "name"
-    t.integer   "project_id"
+    t.string   "type"
+    t.string   "controller_type"
+    t.decimal  "dt"
+    t.binary   "parameters"
+    t.integer  "controller_set_id"
+    t.integer  "network_id"
+    t.integer  "link_id"
+    t.integer  "node_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.integer  "project_id"
   end
 
   create_table "custom_fields", :force => true do |t|
@@ -203,14 +206,14 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
   end
 
   create_table "demand_profiles", :force => true do |t|
-    t.integer   "demand_profile_group_id"
-    t.integer   "link_id"
-    t.decimal   "dt"
-    t.string    "profile"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "name"
-    t.integer   "network_id"
+    t.integer  "demand_profile_set_id"
+    t.integer  "link_id"
+    t.decimal  "max_uncertainty"
+    t.string   "profile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.integer  "network_id"
   end
 
   create_table "documents", :force => true do |t|
@@ -245,7 +248,7 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
   add_index "enumerations", ["id", "type"], :name => "index_enumerations_on_id_and_type"
   add_index "enumerations", ["project_id"], :name => "index_enumerations_on_project_id"
 
-  create_table "event_groups", :force => true do |t|
+  create_table "event_sets", :force => true do |t|
     t.integer   "network_id"
     t.string    "description"
     t.timestamp "created_at"
@@ -637,7 +640,7 @@ ActiveRecord::Schema.define(:version => 20110301060910) do
 
   add_index "settings", ["name"], :name => "index_settings_on_name"
 
-  create_table "split_ratio_profile_groups", :force => true do |t|
+  create_table "split_ratio_profile_sets", :force => true do |t|
     t.integer   "network_id"
     t.string    "description"
     t.timestamp "created_at"

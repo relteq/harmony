@@ -212,10 +212,10 @@ en:
   field_e_time: End time
   field_length_units: Length Units
   field_v_types: Vehicle Types
-  field_controller_group: Controller Group
-  field_demand_profile_group: Demand Profile Group
-  field_split_ratio_profile_group: Split Ratio Profile Group
-  field_capacity_profile_group: Capacity Profile Group
+  field_controller_set: Controller Set
+  field_demand_profile_set: Demand Profile Set
+  field_split_ratio_profile_set: Split Ratio Profile Set
+  field_capacity_profile_set: Capacity Profile Set
   field_event: Event List
   field_network: Network
   field_q_control: Queue Control
@@ -223,8 +223,9 @@ en:
   field_origin: Origin
   label_new: New
   label_scenario: Scenario
-  label_controller_group: Controller Set
+  label_controller_set: Controller Set
   label_demand_profile_set: Demand Profile Set
+  label_capacity_profile_set: Capacity Profile Set
   label_profile: Profile
   label_max_uncertainty: Max. Uncertainty
   label_network: Network
@@ -246,7 +247,7 @@ en:
   label_invocation_period: Invocation Period
   label_controllers: Controllers
   label_attach: Attach
-   
+  label_uncertainty: Uncertainty(%)
   ##### end relteq additions   
   field_name: Name
   field_description: Description
@@ -988,8 +989,8 @@ en:
   networks_share_all: Share All Networks
   networks_delete_all: Delete All Networks
 
-  controller_groups_new: New Controller Group
-  controller_groups_delete_all: Delete All Controller Groups
+  controller_sets_new: New Controller Group
+  controller_sets_delete_all: Delete All Controller Groups
 
   demand_profiles_new: New Demand Profile
   demand_profiles_delete_all: Delete All Demand Profiles

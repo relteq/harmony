@@ -28,6 +28,7 @@ table.form_table{
 }
 .grey{ color:gray;}
 .italic { font-style:italic;}
+.inline {display:inline;}
 
 #home_warnings {
   margin: 10px 10px 10px 10px;

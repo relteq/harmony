@@ -487,10 +487,10 @@ class ApplicationController < ActionController::Base
     @project = Project.find(params[:project_id])
     @scenarios = @project.scenarios
     @networks = @project.networks ||= Array.new 
-    @cgroups = @project.controller_groups ||= Array.new 
+    @csets = @project.controller_sets ||= Array.new 
     @dprofilesets = @project.demand_profile_sets ||= Array.new 
-    @cprofiles = @project.capacity_profile_groups ||= Array.new 
-    @sprofiles = @project.split_ratio_profile_groups ||= Array.new 
-    @events = @project.event_groups ||= Array.new   
+    @cprofilesets = @project.capacity_profile_sets ||= Array.new 
+    @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
+    @eventsets = @project.event_sets ||= Array.new   
   end
 end

@@ -30,7 +30,7 @@ class DemandProfileSetsController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
-      format.xml  { render :xml => @dprofiles }
+      format.xml  { render :xml => @dprofilesets }
     end
     
   end

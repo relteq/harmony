@@ -18,8 +18,8 @@
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "demand_profile_set[demand_profile_ids][]", item.id,@dpset.demand_profiles.include?(item) %></td>
 					<td  ><%=h item.name %></td>
-		 			<td  ><%=h item.type %></td>
-		 			<td  ><%=h item.dt_to_time_format %></td>
+		 			<td  ><%= text_field_tag "demand_profile_set[demand_profile_ids][]",item.profile %></td>
+		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
 		  	</tr>
 			<% end %>
 		<% end %>

@@ -56,12 +56,12 @@
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Controller Sets", {:controller => 'controller_groups', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-groups') %>
+		  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
   	   	<ul id='c_14'>
- 				  <% @cgroups.each do |c|  %>
+ 				  <% @csets.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  c.name, {:controller => 'controller_groups', :action => 'edit', :project_id => @project,:controller_group_id => c.id } %>
+									<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
 				      </li>
  				  <% end %>
 			    </ul> 
@@ -83,22 +83,22 @@
 				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	<a href="" id="config-sidebar-split-ratio-profiles">Split Ratio Profile Sets</a>
 				<ul id='c_15'>
-				  <% @sprofiles.each do |d|  %>
+				  <% @sprofilesets.each do |s|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  s.name, {:controller => 'split_ratio_profile_groups', :action => 'edit', :project_id => @project,:split_profile_group_id => s.id } %>
+									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_profile_set_id => s.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
 			</li>
 			<li>
 				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<a href="" id='config-sidebar-capacity-profiles'>Capacity Profile Sets</a>
+		  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
 				<ul id='c_16'>
-				  <% @cprofiles.each do |c|  %>
+				  <% @cprofilesets.each do |c|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  c.name, {:controller => 'capacity_profile_groups', :action => 'edit', :project_id => @project,:capacity_profile_group_id => c.id } %>
+									<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
 				      </li>
 				  <% end %>
 				</ul> 
@@ -107,10 +107,10 @@
 				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	<a href="" id='config-sidebar-event-sets'>Event Sets</a>
 				<ul id='c_17'>
- 				  <% @events.each do |e|  %>
+ 				  <% @eventsets.each do |e|  %>
 			     	  <li> 
 			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  e.name, {:controller => 'event_groups', :action => 'edit', :project_id => @project,:event_group_id => e.id } %>
+									<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
 				      </li>
 				  <% end %>
 			  </ul> 
@@ -133,8 +133,8 @@
 					{ name: "<%= l(:networks_delete_all) %>", className: 'delete' }
 				],
 				controllerSetsNode : [
-					{ name: "<%= l(:controller_groups_new) %>" },
-					{ name: "<%= l(:controller_groups_delete_all) %>", className: 'delete' }
+					{ name: "<%= l(:controller_sets_new) %>" },
+					{ name: "<%= l(:controller_sets_delete_all) %>", className: 'delete' }
 				],
 				demandProfileSetsNode: [
 					{ name: "<%= l(:demand_profiles_new) %>" },
@@ -200,7 +200,7 @@
 			);
 
 			configSidebarContextMenus.hook(
-				'#config-sidebar-controller-groups', 
+				'#config-sidebar-controller-sets', 
 				'controllerSetsNode'
 			);
 			
@@ -210,7 +210,7 @@
 			);
 
 			configSidebarContextMenus.hook(
-				'#config-sidebar-capacity-profiles',
+				'#config-sidebar-capacity-profile-sets',
 				'capacityProfileSetsNode'
 			);
 

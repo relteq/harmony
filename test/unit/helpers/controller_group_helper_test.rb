@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class ControllerGroupHelperTest < ActionView::TestCase
+class ControllerSetHelperTest < ActionView::TestCase
 end

@@ -10,4 +10,11 @@
 <div id="demand_profiles_table" class="autoscroll">
 	<%= render :partial => 'populate_demands_table' %>
 </div>
+<p>
+  <label><%= l(:label_uncertainty) %></label><%= text_field :demand_profile_set, :uncertainty %>
+	<%= submit_tag 'Apply', :name => '_apply_button', 
+	   :onclick => {:onclick => remote_function(:url =>{ :controller => 'demand_profile_sets',  :action => 'apply_uncertainty', :project_id =>@project,:demand_profile_set_id =>@dpset } , :method => :get)} %>
+</p>
+
+
 </div>

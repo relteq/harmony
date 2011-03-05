@@ -5,7 +5,7 @@ one:
   controller_type: light
   dt: 9.99
   parameters: 
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:one) %>
   link_id: nil
   node_id: nil
@@ -16,7 +16,7 @@ two:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:one) %>
   link_id: nil
   node_id: <%= Fixtures.identify(:one) %>
@@ -27,7 +27,7 @@ three:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:one) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
@@ -38,7 +38,7 @@ four:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id: <%= Fixtures.identify(:one) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
@@ -49,7 +49,7 @@ five:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:one) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
@@ -60,7 +60,7 @@ six:
   controller_type: light
   dt: 9.99
   parameters: 
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:two) %>
   link_id: nil
   node_id: nil
@@ -71,7 +71,7 @@ seven:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:two) %>
   link_id: nil
   node_id: <%= Fixtures.identify(:one) %>
@@ -82,7 +82,7 @@ eight:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
@@ -93,7 +93,7 @@ nine:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id: <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
@@ -104,7 +104,7 @@ ten:
   controller_type: light
   dt: 9.99
   parameters:
-  controller_group_id: <%= Fixtures.identify(:one) %>
+  controller_set_id: <%= Fixtures.identify(:one) %>
   network_id:  <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil

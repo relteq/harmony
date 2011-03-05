@@ -81,7 +81,7 @@ class ScenariosController < ApplicationController
       @prompt_events = {:prompt => 'Please Select'}
 
       @nets.each do |n|
-        @controls.push(n.controller_group);
+        @controls.push(n.controller_set);
         @events.push(n.event);
       end
       @controls.sort_by(&:description);     

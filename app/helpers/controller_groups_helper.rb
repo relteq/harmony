@@ -1,3 +1,3 @@
-module ControllerGroupsHelper
+module ControllerSetsHelper
 
 end
