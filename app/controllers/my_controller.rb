@@ -47,6 +47,7 @@ class MyController < ApplicationController
   def page
     @user = User.current
     @blocks = @user.pref[:my_page_layout] || DEFAULT_LAYOUT
+    @simulations = Simulation.all_for_user(User.current.id)
   end
 
   # Edit user's account

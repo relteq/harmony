@@ -11,6 +11,7 @@
 		<%= render :partial => "my/blocks/#{b}", :locals => { :user => @user } %>
 	</div>
 	<% end if @blocks['top'] %>
+  <%= render :partial => "my/blocks/simulations" %>
 </div>
 
 <div id="list-left" class="splitcontentleft">

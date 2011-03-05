@@ -30,6 +30,7 @@ Proto.Menu = Class.create({
 		});
 
 		this.icon = new Element('img', {
+      'class': 'context_menu_icon',
 			src: '/images/context_menu_icon.png'
 		});
 		
