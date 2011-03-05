@@ -1,3 +1,15 @@
+#config-sidebar{ float: left; clear:left; display:inline;width: 230px; position: relative; z-index: 9; padding: 0; margin: 0;}
+* html #config-sidebar{ width: 230px; }
+#config-sidebar h3{ font-size: 14px; margin-top:14px; color: #666;  }
+#config-sidebar hr{ width: 100%; margin: 0 auto; height: 1px; background: #ccc; border: 0; }
+* html #config-sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }
+#config-sidebar .contextual { margin-right: 1em; }
+
+#main.config_sidebar {width:1215px;}
+#main.config_sidebar #content{ float: right; width:940px;display:inline;margin-right:14px; }
+#main.noconfig_sidebar #config-sidebar{ display: none; }
+#main.noconfig_sidebar #content{ width: 940px; border-right: 0;float:left; }
+
 #newscenario {
 	margin-top:5px;
 	margin-bottom:5px;

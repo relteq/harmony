@@ -77,6 +77,7 @@ div.config-sidebar-menu a {
 	font-size: 11px;
 }
 
+
 .config-sidebar-menu .separator {
 	height: 1px;
 	padding: 0;
@@ -91,10 +92,18 @@ div.config-sidebar-menu a {
 }
 .config-sidebar-menu li {
 	list-style-position: outside;
+	padding-bottom:5px;
+}
+
+.config-item {
 	margin-left: 15px;
 }
 
-.config-sidebar-menu ul a, .config-sidebar-menu li a {
+#config-sidebar-root{
+	padding-left:15px;
+}
+
+.config-sidebar-menu ul a, .config-sidebar-menu li a  {
 	cursor: context-menu;
 	font-size:13px;
 	font-weight:bold;

@@ -76,12 +76,7 @@ h4, .wiki h3 {font-size: 13px;padding: 2px 10px 1px 0px;margin-bottom: 5px; bord
 * html #sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }
 #sidebar .contextual { margin-right: 1em; }
 
-#config-sidebar{ float: left; clear:left; display:inline;width: 270px; position: relative; z-index: 9; padding: 0; margin: 0;}
-* html #config-sidebar{ width: 270px; }
-#config-sidebar h3{ font-size: 14px; margin-top:14px; color: #666;  }
-#config-sidebar hr{ width: 100%; margin: 0 auto; height: 1px; background: #ccc; border: 0; }
-* html #config-sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }
-#config-sidebar .contextual { margin-right: 1em; }
+
 
 
 #content { width: 940px; float:right; display:inline; background-color: #fff; margin: 0px; border-right: 1px solid #ddd; padding: 6px 10px 10px 10px; z-index: 10; }
@@ -91,14 +86,10 @@ html body #content { min-height: 1000px; }
 
 #main.sidebar {width:1250px;}
 
-#main.config_sidebar {width:1250px;}
-#main.config_sidebar #content{ float: right; width:940px;display:inline;margin-right:14px; }
 
 #main.nosidebar #sidebar{ display: none; }
 #main.nosidebar #content{  border-right: 0; }
 
-#main.noconfig_sidebar #config-sidebar{ display: none; }
-#main.noconfig_sidebar #content{ width: 940px; border-right: 0;float:left; }
 
 #main.no_sidebar_no_config_sidebar #content { width: 1210px; border-right: 0;float:left; }
 

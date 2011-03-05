@@ -10,7 +10,7 @@
 				<ul id='c_12'>
   				  <% @scenarios.each do |s|  %>
 			     	  <li class="config-sidebar-scenario" id="config-sidebar-scenario-<%= s.id %>"> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 				        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
 				      </li> 
 					  <script language="javascript"> 
@@ -47,7 +47,7 @@
 	
 					<% @networks.each do |n|  %>
 					 	  <li class="config-sidebar-network" id="config-sidebar-network-<%= n.id %>"> 
-				        <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
 					    </li>
 					<% end %>
@@ -60,7 +60,7 @@
   	   	<ul id='c_14'>
  				  <% @csets.each do |c|  %>
 			     	  <li> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
 				      </li>
  				  <% end %>
@@ -73,7 +73,7 @@
 				<ul id='c_15'>
 				  <% @dprofilesets.each do |d|  %>
 			     	  <li> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
 				      </li>
 				  <% end %>
@@ -86,8 +86,8 @@
 				<ul id='c_16'>
 				  <% @sprofilesets.each do |s|  %>
 			     	  <li> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id } %>
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
 				      </li>
 				  <% end %>
 				</ul> 
@@ -98,7 +98,7 @@
 				<ul id='c_17'>
 				  <% @cprofilesets.each do |c|  %>
 			     	  <li> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
 				      </li>
 				  <% end %>
@@ -110,7 +110,7 @@
 				<ul id='c_18'>
  				  <% @eventsets.each do |e|  %>
 			     	  <li> 
-			            <a href='javascript:void(0);' class='item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
 				      </li>
 				  <% end %>

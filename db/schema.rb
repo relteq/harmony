@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305063432) do
+ActiveRecord::Schema.define(:version => 20110305160712) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -597,20 +597,21 @@ ActiveRecord::Schema.define(:version => 20110305063432) do
   end
 
   create_table "scenarios", :force => true do |t|
-    t.string    "name"
-    t.string    "description"
-    t.decimal   "dt"
-    t.decimal   "b_time"
-    t.decimal   "e_time"
-    t.string    "length_units"
-    t.string    "v_types"
-    t.integer   "project_id"
-    t.integer   "network_id"
-    t.integer   "demand_profile_group_id"
-    t.integer   "capacity_profile_group_id"
-    t.integer   "split_ratio_profile_group_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "name"
+    t.string   "description"
+    t.decimal  "dt"
+    t.decimal  "b_time"
+    t.decimal  "e_time"
+    t.string   "length_units"
+    t.string   "v_types"
+    t.integer  "project_id"
+    t.integer  "network_id"
+    t.integer  "demand_profile_set_id"
+    t.integer  "capacity_profile_set_id"
+    t.integer  "split_ratio_profile_set_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_set_id"
   end
 
   create_table "sensor_locations", :force => true do |t|

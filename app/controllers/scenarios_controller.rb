@@ -6,7 +6,8 @@ class ScenariosController < ApplicationController
   end
   helper :sort
   include SortHelper
-   
+  
+  
   # GET /scenarios
   # GET /scenarios.xml
   def index
@@ -50,6 +51,8 @@ class ScenariosController < ApplicationController
   # GET /scenarios/new.xml
   def new
     @scenario = Scenario.new
+    getSets()
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @scenario }
@@ -58,60 +61,10 @@ class ScenariosController < ApplicationController
 
   # GET /scenarios/1/edit
   def edit
-    if(params[:scenario_id] != nil)
-      @scenario = Scenario.find(params[:scenario_id])
-    else
-      @scenario = Scenario.new
-    end
-   
-    if(@networks == nil)
-      @prompt_network = {:prompt => 'Create a Network'}
-    else
-      @prompt_network = {:prompt => 'Please Select'}
-    end 
-    
-    @nets = [];
-    @controls = [];
-    @events = [];
-    if(@nets.empty?)
-      @prompt_controller = {:prompt => 'Create a Controller Set'}
-      @prompt_events = {:prompt => 'Create a Event Set'}
-    else
-      @prompt_controller = {:prompt => 'Please Select'}
-      @prompt_events = {:prompt => 'Please Select'}
-
-      @nets.each do |n|
-        @controls.push(n.controller_set);
-        @events.push(n.event);
-      end
-      @controls.sort_by(&:description);     
-      @events.sort_by(&:description);     
-    end
-    
-    if(Scenario.find_by_project_id(@project).demand_profile_group == nil)
-      @prompt_demand = {:prompt => 'Create a Demand Profile Set'}
-      @demands = [];
-    else
-      @prompt_demand = {:prompt => 'Please Select'}
-      @demands = Scenario.find_by_project_id(@project).demand_profile_group.sort_by(&:description);      
-    end
-    
-    if(Scenario.find_by_project_id(@project).capacity_profile_group == nil)
-      @prompt_capacity = {:prompt => 'Create a Capacity Profile Set'}
-      @capacities = [];
-    else
-      @prompt_capacity = {:prompt => 'Please Select'}
-      @capacities = Scenario.find_by_project_id(@project).capacity_profile_group.sort_by(&:description);      
-    end
-    
-    if(Scenario.find_by_project_id(@project).split_ratio_profile_group == nil)
-      @prompt_split = {:prompt => 'Create a Split Ratio Profile Set'}
-      @splits = [];
-    else
-      @prompt_split = {:prompt => 'Please Select'}
-      @splits = Scenario.find_by_project_id(@project).split_ratio_profile_group.sort_by(&:description);      
-    end
-    
+    @units = %w{miles feet km}
+    @scenario = (params[:scenario_id] != nil) ?  Scenario.find(params[:scenario_id]) :  Scenario.new
+    getSets()
+  
    
     respond_to do |format|
       format.html # edit.html.erb
@@ -187,4 +140,23 @@ class ScenariosController < ApplicationController
     end
   end
   
+  def getSets()
+  
+    @prompt_network = (@networks == nil) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
+     
+    @csets = Project.find(@project).controller_sets
+    @prompt_controller = (@csets == nil) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
+    
+    @dsets = Project.find(@project).demand_profile_sets
+    @prompt_demand = (@dsets == nil) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
+
+    @cpsets = Project.find(@project).capacity_profile_sets
+    @prompt_capacity = (@cpsets == nil) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
+ 
+    @spsets = Project.find(@project).split_ratio_profile_sets
+    @prompt_split = (@spsets == nil) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
+
+    @esets = Project.find(@project).event_sets
+    @prompt_event = (@esets == nil) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
+  end
 end
