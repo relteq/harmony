@@ -1,14 +1,14 @@
 <%= error_messages_for 'scenario' %>
 <div class="box tabular">
 <p><%= f.text_field :name, :required => true %></p>
-<p><%= f.text_field :description, :required => true %></p>
+<p><%= f.text_field :description %></p>
 
-<p><%= label :scenario, :network_id %><%= collection_select :scenario, :network_id, @networks, :id, :name, @prompt_network %></p>
-<p><%= label :network,:controller_set_id %><%= collection_select :network,:controller_set_id,@csets,:id,:name, @prompt_controller %></p>
+<p><%= label :scenario,:network_id %><%= collection_select :scenario, :network_id, @networks, :id, :name, @prompt_network %></p>
+<p><%= label :scenario,:controller_set_id %><%= collection_select :scenario,:controller_set_id,@csets,:id,:name, @prompt_controller %></p>
 <p><%= label :scenario,:demand_profile_set_id %><%= collection_select :scenario,:demand_profile_set_id,@dsets,:id,:name, @prompt_demand %></p>
 <p><%= label :scenario,:capacity_profile_set_id %><%= collection_select :scenario,:capacity_profile_set_id,@cpsets,:id,:name, @prompt_capacity %></p>
 <p><%= label :scenario,:split_ratio_profile_set_id %><%= collection_select :scenario,:split_ratio_profile_set_id, @spsets,:id,:name, @prompt_split %></p>
-<p><%= label :network,:event_id %><%= collection_select :network,:event_id, @esets,:id,:description, @prompt_event %></p>
+<p><%= label :scenario,:event_set_id %><%= collection_select :scenario,:event_set_id, @esets,:id,:name, @prompt_event %></p>
 <p><%= f.select :length_units, @units,{ :index => nil }, :prompt => true %></p>
 
 <p><%= f.text_area :v_types, :value => params[:v_types] != '' ?  params[:v_types] : 'eg.   SOV(1)  HOV(3)', :cols => 6, :rows => 4 ,:onfocus =>  'clearTextFieldDefault(this,"eg.    SOV (1)  HOV (3)")',:class =>  params[:v_types] != '' ? '' : 'grey italic'  %></p>	

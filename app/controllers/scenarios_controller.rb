@@ -61,7 +61,6 @@ class ScenariosController < ApplicationController
 
   # GET /scenarios/1/edit
   def edit
-    @units = %w{miles feet km}
     @scenario = (params[:scenario_id] != nil) ?  Scenario.find(params[:scenario_id]) :  Scenario.new
     getSets()
   
@@ -141,22 +140,23 @@ class ScenariosController < ApplicationController
   end
   
   def getSets()
-  
+    @units = %w{miles feet km}
+    
     @prompt_network = (@networks == nil) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
-    @csets = Project.find(@project).controller_sets
-    @prompt_controller = (@csets == nil) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
+    @csets = Project.find(@project).controller_sets.sort_by(&:name)
+    @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
     
-    @dsets = Project.find(@project).demand_profile_sets
-    @prompt_demand = (@dsets == nil) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
+    @dsets = Project.find(@project).demand_profile_sets.sort_by(&:name)
+    @prompt_demand = (@dsets.empty?) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
 
-    @cpsets = Project.find(@project).capacity_profile_sets
-    @prompt_capacity = (@cpsets == nil) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
+    @cpsets = Project.find(@project).capacity_profile_sets.sort_by(&:name)
+    @prompt_capacity = (@cpsets.empty?) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
  
-    @spsets = Project.find(@project).split_ratio_profile_sets
-    @prompt_split = (@spsets == nil) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
+    @spsets = Project.find(@project).split_ratio_profile_sets.sort_by(&:name)
+    @prompt_split = (@spsets.empty?) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
 
-    @esets = Project.find(@project).event_sets
-    @prompt_event = (@esets == nil) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
+    @esets = Project.find(@project).event_sets.sort_by(&:name)
+    @prompt_event = (@esets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
   end
 end

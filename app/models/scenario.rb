@@ -4,9 +4,11 @@ class Scenario < ActiveRecord::Base
     
   belongs_to:project
   belongs_to:network
-  belongs_to:demand_profile_group
-  belongs_to:capacity_profile_group
-  belongs_to:split_ratio_profile_group
+  belongs_to:demand_profile_set
+  belongs_to:capacity_profile_set
+  belongs_to:split_ratio_profile_set
+  belongs_to:controller_set
+  belongs_to:event_set
   
   def b_time
       Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") || 0.0 * 3600)).utc.strftime("%H:%M:%S").to_s
