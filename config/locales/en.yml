@@ -248,13 +248,10 @@ en:
   label_invocation_period: Invocation Period
   label_controllers: Controllers
   label_attach: Attach
-<<<<<<< HEAD
   label_uncertainty: Uncertainty(%)
-=======
   label_started_at: Started
   label_progress: Progress
    
->>>>>>> 15507063ad830065db9e37f1c27d943825c82f8b
   ##### end relteq additions   
   field_name: Name
   field_description: Description
