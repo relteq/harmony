@@ -140,7 +140,7 @@ class ScenariosController < ApplicationController
   end
   
   def getSets()
-    @units = %w{miles feet km}
+    @units = %w{miles feet kilometers meters}
     
     @prompt_network = (@networks == nil) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
