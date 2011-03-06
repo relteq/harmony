@@ -12,10 +12,12 @@ class Scenario < ActiveRecord::Base
   
   def b_time
       Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") || 0.0 * 3600)).utc.strftime("%H:%M:%S").to_s
+      
   end
   
   def b_time=(b_time)
-     write_attribute("b_time",(Time.parse(b_time).seconds_since_midnight.to_i / 3600.00))
+     
+     write_attribute("b_time",(Time.parse(b_time).seconds_since_midnight.to_i) * 1000)
      rescue ArgumentError
        @b_time_invalid = true
   end
@@ -25,7 +27,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def e_time=(e_time)
-     write_attribute("e_time",(Time.parse(e_time).seconds_since_midnight.to_i / 3600.00))
+     write_attribute("e_time",(Time.parse(e_time).seconds_since_midnight.to_i))
      rescue ArgumentError
        @e_time_invalid = true
   end
@@ -35,7 +37,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def dt=(dt)
-     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i / 3600.00))
+     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i))
      rescue ArgumentError
        @dt_invalid = true
   end

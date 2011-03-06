@@ -114,12 +114,12 @@ class ScenariosController < ApplicationController
   # DELETE /scenarios/1.xml
   def destroy
     @project = Project.find(params[:project_id])
-    @scenarios = @project.scenarios.find(params[:id])
-   # @scenario.destroy
+    @scenario = @project.scenarios.find(params[:scenario_id])
+    @scenario.destroy
 
     respond_to do |format|
-      flash[:notice] = 'Scenario successfully deleted.'    
-      format.html {  redirect_to project_scenarios_path(@project)  }
+      flash[:notice] = @scenario.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'scenarios', :action => 'index',:project_id =>@project   }
       format.xml  { head :ok }
     end
   end
@@ -134,7 +134,7 @@ class ScenariosController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = 'All scenarios have been successfully deleted.'  
-      format.html { redirect_to project_scenarios_path(@project) }
+      format.html { redirect_to  :controller => 'scenarios', :action => 'index',:project_id =>@project  }
       format.xml  { head :ok }
     end
   end

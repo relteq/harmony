@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     es_routes.with_options :conditions => {:method => :get} do |es_views|
       es_views.connect 'project/:project_id/configuration/event_sets', :action => 'index'
       es_views.connect 'project/:project_id/configuration/event_sets/new', :action => 'new'
+      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/delete', :action => 'destroy'
       es_views.connect 'project/:project_id/configuration/event_sets/dall', :action => 'delete_all'
       es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/ptable', :action => 'populate_events_table',:conditions => {:method => :get}
       es_views.connect 'project/:project_id/configuration/event_sets/create', :action => 'create',:conditions => {:method => :put}
@@ -21,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets', :action => 'index'
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/new', :action => 'new'
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/dall', :action => 'delete_all'
+      srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/delete', :action => 'destroy'
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/ptable', :action => 'populate_splits_table',:conditions => {:method => :get}
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/create', :action => 'create',:conditions => {:method => :put}
       srps_views.connect 'project/:project_id/configuration/split_ratio_profile_sets/:split_ratio_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
@@ -33,6 +35,7 @@ ActionController::Routing::Routes.draw do |map|
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets', :action => 'index'
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/new', :action => 'new'
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/dall', :action => 'delete_all'
+      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/delete', :action => 'destroy'
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/ptable', :action => 'populate_capacities_table',:conditions => {:method => :get}
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/create', :action => 'create',:conditions => {:method => :put}
       cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
@@ -44,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
     dps_routes.with_options :conditions => {:method => :get} do |dps_views|
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets', :action => 'index'
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets/new', :action => 'new'
+      dps_views.connect 'project/:project_id/configuration/demand_profile_sets/:demand_profile_set_id/delete', :action => 'destroy'
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets/dall', :action => 'delete_all'
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets/:demand_profile_set_id/ptable', :action => 'populate_demands_table',:conditions => {:method => :get}
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets/create', :action => 'create',:conditions => {:method => :put}
@@ -56,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
     cs_routes.with_options :conditions => {:method => :get} do |cs_views|
       cs_views.connect 'project/:project_id/configuration/controller_sets', :action => 'index'
       cs_views.connect 'project/:project_id/configuration/controller_sets/new', :action => 'new'
+      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/delete', :action => 'destroy'
       cs_views.connect 'project/:project_id/configuration/controller_sets/dall', :action => 'delete_all'
       cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/ptable', :action => 'populate_controls_table',:conditions => {:method => :get}
       cs_views.connect 'project/:project_id/configuration/controller_sets/create', :action => 'create',:conditions => {:method => :put}
@@ -75,6 +80,7 @@ ActionController::Routing::Routes.draw do |map|
       scenario_actions.connect 'project/:project_id/configuration/scenarios', :action => 'index'
       scenario_actions.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
       scenario_actions.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all'
+      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/delete', :action => 'destroy'
       scenario_actions.connect 'project/:project_id/configuration/scenarios/create', :action => 'create',:conditions => {:method => :put}
       scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/edit', :action => 'edit',:conditions => {:method => :get}
       scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
@@ -92,6 +98,8 @@ ActionController::Routing::Routes.draw do |map|
     network_routes.with_options :conditions => {:method => :get} do |network_actions|
       network_actions.connect 'project/:project_id/configuration/networks', :action => 'index'
       network_actions.connect 'project/:project_id/configuration/networks/new', :action => 'new'
+      network_actions.connect 'project/:project_id/configuration/networks/dall', :action => 'delete_all'
+      network_actions.connect 'project/:project_id/configuration/networks/:network_id/delete', :action => 'destroy'
       network_actions.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
       network_actions.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}
       network_actions.connect 'project/:project_id/configuration/networks/:network_id/update', :action => 'update',:conditions => {:method => :put}

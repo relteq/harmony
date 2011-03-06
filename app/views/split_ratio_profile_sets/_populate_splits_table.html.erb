@@ -3,9 +3,8 @@
 	<thead>
 	  <tr>
 			<th title="Select Split Ratio Profile"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Destination', :caption => l(:field_origin),:default_order => 'desc') %>
+			<%= sort_header_tag('Node', :caption => l(:field_node),:default_order => 'desc') %>
 	    <th title="Profile"><%= l(:label_profile) %></th>
-	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
 	  </tr>
 	</thead>
 	<tbody id="profiles_table_body">
@@ -18,8 +17,7 @@
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %></td>
 					<td  ><%=h item.name %></td>
-		 			<td  ><%= text_field_tag "split_ratio_profile_set[split_ratio_profile_ids][]",item.profile %></td>
-		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
+		 			<td  ><%= text_field_tag item.id,item.profile %></td>
 		  	</tr>
 			<% end %>
 		<% end %>

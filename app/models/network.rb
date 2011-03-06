@@ -39,7 +39,7 @@ class Network < ActiveRecord::Base
   end
   
   def dt=(dt)
-     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i / 3600.00))
+     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i ))
      rescue ArgumentError
        @dt_invalid = true
   end

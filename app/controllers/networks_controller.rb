@@ -37,6 +37,35 @@ class NetworksController < ApplicationController
       end
     end
 
+    # DELETE /networks/1
+    # DELETE /networks/1.xml
+    def destroy
+      @project = Project.find(params[:project_id])
+      @network = @project.networks.find(params[:network_id])
+      @network.destroy
+
+      respond_to do |format|
+        flash[:notice] = @network.name + " successfully deleted."    
+        format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project   }
+        format.xml  { head :ok }
+      end
+    end
+    
+    def delete_all
+      @project = Project.find(params[:project_id])
+      @items = @project.networks.all
+
+      @items.each do | i |
+        i.destroy
+      end
+
+      respond_to do |format|
+        flash[:notice] = 'All networks have been successfully deleted.'  
+        format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project  }
+        format.xml  { head :ok }
+      end
+   end
+    
    # GET /networks/new
    # GET /networks/new.xml
    def new

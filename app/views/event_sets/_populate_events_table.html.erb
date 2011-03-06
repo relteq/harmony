@@ -3,9 +3,9 @@
 	<thead>
 	  <tr>
 			<th title="Select Event"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Destination', :caption => l(:field_origin),:default_order => 'desc') %>
-	    <th title="Profile"><%= l(:label_profile) %></th>
-	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
+			<%= sort_header_tag('Event', :caption => l(:field_event),:default_order => 'desc') %>
+	    <th title="Description"><%= l(:label_description) %></th>
+	    <th title="Time"><%= l(:label_time) %></th>
 	  </tr>
 	</thead>
 	<tbody id="events_table_body">
@@ -18,8 +18,8 @@
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %></td>
 					<td  ><%=h item.name %></td>
-		 			<td  ><%= text_field_tag "event_set[event_ids][]",item.profile %></td>
-		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
+		 			<td  ><%=h item.description %></td>
+		 			<td  ><%=h item.time %></td>
 		  	</tr>
 			<% end %>
 		<% end %>

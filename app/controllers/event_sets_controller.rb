@@ -71,6 +71,7 @@ class EventSetsController < ApplicationController
 
    respond_to do |format|
      if(@eset.save)
+       save_events
        flash[:notice] = l(:notice_successful_create)
      else
        flash[:error] = "The event set, " + @eset.name + ", was not not saved. See errors."
@@ -86,6 +87,7 @@ class EventSetsController < ApplicationController
    @network = params[:event_set][:network_id] == nil ? nil : Network.find(params[:event_set][:network_id]) 
    respond_to do |format|
      if(@eset.update_attributes(params[:event_set]))
+       save_events
        flash[:notice] = l(:notice_successful_update)
      else
        flash[:error] = "The event set, " + @eset.name + ", was not not saved. See errors."
@@ -125,5 +127,17 @@ class EventSetsController < ApplicationController
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset
+  end
+  
+  def save_events
+    if(params[:event_set][:event_ids] != nil)
+      params[:event_set][:event_ids].each do |id|
+        @event = Event.find(id)
+        @event.profile = params[id]
+        if(!@event.save)
+          flash[:error] = "The Event Set," + @eset.name + "is updated BUT the event, " + @event.name + ", was not not saved. See errors."     
+        end
+      end
+    end
   end
 end

@@ -71,6 +71,7 @@ class CapacityProfileSetsController < ApplicationController
 
    respond_to do |format|
      if(@cpset.save)
+       save_capacityprofiles
        flash[:notice] = l(:notice_successful_create)
      else
        flash[:error] = "The capacity profile set, " + @cpset.name + ", was not not saved. See errors."
@@ -86,7 +87,8 @@ class CapacityProfileSetsController < ApplicationController
    @network = params[:capacity_profile_set][:network_id] == nil ? nil : Network.find(params[:capacity_profile_set][:network_id]) 
    respond_to do |format|
      if(@cpset.update_attributes(params[:capacity_profile_set]))
-       flash[:notice] = l(:notice_successful_update)
+      save_capacityprofiles
+      flash[:notice] = l(:notice_successful_update)
      else
        flash[:error] = "The capacity profile set, " + @cpset.name + ", was not not saved. See errors."
      end
@@ -125,5 +127,17 @@ class CapacityProfileSetsController < ApplicationController
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset
+  end
+  
+  def save_capacityprofiles
+    if( params[:capacity_profile_set][:capacity_profile_ids] != nil)
+      params[:capacity_profile_set][:capacity_profile_ids].each do |id|
+        @cprofile = CapacityProfile.find(id)
+        @cprofile.profile = params[id]
+        if(!@cprofile.save)
+          flash[:error] = "The Capacity Profile Set," + @cpset.name + "is updated BUT the capacity profile, " + @cprofile.name + ", was not not saved. See errors."     
+        end
+      end
+    end
   end
 end

@@ -493,4 +493,6 @@ class ApplicationController < ActionController::Base
     @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
     @eventsets = @project.event_sets ||= Array.new   
   end
+  
+
 end

@@ -72,6 +72,7 @@ class SplitRatioProfileSetsController < ApplicationController
 
    respond_to do |format|
      if(@srpset.save)
+       save_splitratioprofiles
        flash[:notice] = l(:notice_successful_create)
      else
        flash[:error] = "The split ratio profile set, " + @srpset.name + ", was not not saved. See errors."
@@ -87,6 +88,7 @@ class SplitRatioProfileSetsController < ApplicationController
    @network = params[:split_ratio_profile_set][:network_id] == nil ? nil : Network.find(params[:split_ratio_profile_set][:network_id]) 
    respond_to do |format|
      if(@srpset.update_attributes(params[:split_ratio_profile_set]))
+       save_splitratioprofiles
        flash[:notice] = l(:notice_successful_update)
      else
        flash[:error] = "The split ratio profile set, " + @srpset.name + ", was not not saved. See errors."
@@ -128,4 +130,15 @@ class SplitRatioProfileSetsController < ApplicationController
                                 :offset =>  @offset
   end
 
+  def save_splitratioprofiles
+    if( params[:split_ratio_profile_set][:split_ratio_profile_ids] != nil)
+      params[:split_ratio_profile_set][:split_ratio_profile_ids].each do |id|
+        @srprofile = SplitRaioProfile.find(id)
+        @srprofile.profile = params[id]
+        if(!@srprofile.save)
+          flash[:error] = "The Split Ratio Profile Set," + @srpset.name + "is updated BUT the split ratio profile, " + @srprofile.name + ", was not not saved. See errors."     
+        end
+      end
+    end
+  end
 end

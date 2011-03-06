@@ -71,6 +71,7 @@ class DemandProfileSetsController < ApplicationController
 
     respond_to do |format|
       if(@dpset.save)
+        save_demandprofiles
         flash[:notice] = l(:notice_successful_create)
       else
         flash[:error] = "The demand profile set, " + @dpset.name + ", was not not saved. See errors."
@@ -83,16 +84,15 @@ class DemandProfileSetsController < ApplicationController
 
   def update
     @dpset = DemandProfileSet.find(params[:demand_profile_set_id])
-    @network = params[:demand_profile_set][:network_id] == nil ? nil : Network.find(params[:demand_profile_set][:network_id]) 
     respond_to do |format|
       if(@dpset.update_attributes(params[:demand_profile_set]))
+        save_demandprofiles
         flash[:notice] = l(:notice_successful_update)
       else
         flash[:error] = "The demand profile set, " + @dpset.name + ", was not not saved. See errors."
       end
       format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'edit',:project_id =>@project, :demand_profile_set_id => @dpset }
-      format.xml  { render :xml => @dpset, :status => :created, :location => @dpset }
-      
+      format.xml  { render :xml => @dpset, :status => :created, :location => @dpset }    
     end
   end
   
@@ -125,5 +125,17 @@ class DemandProfileSetsController < ApplicationController
                                  :order => sort_clause,
                                  :limit  =>  @limit,
                                  :offset =>  @offset
+  end
+  
+  def save_demandprofiles
+    if(params[:demand_profile_set][:demand_profile_ids] != nil)
+      params[:demand_profile_set][:demand_profile_ids].each do |id|
+        @dprofile = DemandProfile.find(id)
+        @dprofile.profile = params[id]
+        if(!@dprofile.save)
+          flash[:error] = "The Demand Profile Set," + @dpset.name + "is updated BUT the demand profile, " + @dprofile.name + ", was not not saved. See errors."     
+        end
+      end
+    end
   end
 end
