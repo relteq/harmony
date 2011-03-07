@@ -1,6 +1,8 @@
 <% content_for :config_sidebar do %>
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
+<%= error_messages_for 'scenario' %>
+
 <div>	
 	<span>	<%= link_to_function( l(:label_new) + " " + l(:label_scenario), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
 	<span><%= link_to("Delete All", {:controller => 'scenarios', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |

@@ -3,7 +3,11 @@
 	<thead>
 	  <tr>
 			<th title="Select Event"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Event', :caption => l(:field_event),:default_order => 'desc') %>
+			<% if(@items != nil) %>
+				<%= sort_header_tag('Event', :caption => l(:field_event),:default_order => 'desc') %>
+			<% else%>
+				<th title="Event"><%= l(:field_event) %></th>
+			<% end %>
 	    <th title="Description"><%= l(:label_description) %></th>
 	    <th title="Time"><%= l(:label_time) %></th>
 	  </tr>
@@ -26,4 +30,8 @@
   
    </tbody>
 </table>
-<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>
+<p class="pagination">
+<% if (@items != nil) %>
+  <%= pagination_links_full @items_pages, @item_count %>
+<% end %>
+</p>

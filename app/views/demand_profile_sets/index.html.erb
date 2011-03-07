@@ -3,7 +3,7 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_demand_profile_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to("Delete All", :controller => 'demand_profile_sets', :action => 'delete_all', :project_id => @project,:confirm => 'You are about to delete all your demand profile sets, are you sure you want to do this?') %></span> |
+	<span><%= link_to("Delete All", {:controller => 'demand_profile_sets', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
 	<span><a href="">Import Demand Profile Set</a></span> |
 	<span><a href="">Share All Demand Profile Sets</a></span> 
 </div>

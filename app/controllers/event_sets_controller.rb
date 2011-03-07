@@ -55,7 +55,9 @@ class EventSetsController < ApplicationController
    @eset = EventSet.find(params[:event_set_id])
    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
    @network = @eset.network_id == nil ? nil : Network.find(@eset.network_id) 
-
+   rescue ActiveRecord::RecordNotFound
+     @network = nil
+   
    #set up events table with split_ratio profile set network
    get_events(@network == nil ? "-1" : @network.id.to_s)
 
@@ -76,7 +78,7 @@ class EventSetsController < ApplicationController
      else
        flash[:error] = "The event set, " + @eset.name + ", was not not saved. See errors."
      end
-     format.html { redirect_to  :controller => 'event_sets', :action => 'edit',:project_id =>@project, :split_ratio_profile_set_id => @eset }
+     format.html { redirect_to  :controller => 'event_sets', :action => 'edit',:project_id =>@project, :event_set_id => @eset }
      format.xml  { render :xml => @eset, :status => :created, :location => @eset }
 
    end
@@ -92,10 +94,39 @@ class EventSetsController < ApplicationController
      else
        flash[:error] = "The event set, " + @eset.name + ", was not not saved. See errors."
      end
-     format.html { redirect_to  :controller => 'event_sets', :action => 'edit',:project_id =>@project, :split_ratio_profile_set_id => @eset }
+     format.html { redirect_to  :controller => 'event_sets', :action => 'edit',:project_id =>@project, :event_set_id => @eset }
      format.xml  { render :xml => @eset, :status => :created, :location => @eset }
 
    end
+  end
+  
+  # DELETE /event_sets/1
+  # DELETE /event_sets/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @eset = @project.event_sets.find(params[:event_set_id])
+    @eset.destroy
+
+    respond_to do |format|
+      flash[:notice] = @eset.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @esets = @project.event_sets.all
+    
+    @esets.each do | e |
+      e.destroy
+    end
+
+    respond_to do |format|
+      flash[:notice] = 'All event sets have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
+    end
   end
   
   def populate_events_table

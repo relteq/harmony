@@ -10,39 +10,50 @@ class Scenario < ActiveRecord::Base
   belongs_to:controller_set
   belongs_to:event_set
   
+  def milliseconds_since_midnight(time)
+    elems = time.split(":")
+    seconds = elems[0].to_i * 3600 + elems[1].to_i * 60 + elems[2].to_f
+  end
+  
+  def milliseconds_to_string_time(mil)
+     hours = (mil / 3600).to_i
+     minutes = ((mil - (hours * 3600)) / 60).to_i
+     seconds = (mil - (hours * 3600) - (minutes * 60))  
+     "%02d:%02d:%06.3f" % [hours, minutes, seconds]
+  end
+   
   def b_time
-      Time.at(Time.gm(2000,1,1) + (read_attribute("b_time") || 0.0 * 3600)).utc.strftime("%H:%M:%S").to_s
-      
+      milliseconds_to_string_time(read_attribute("b_time") || 0.0)
   end
   
   def b_time=(b_time)
-     
-     write_attribute("b_time",(Time.parse(b_time).seconds_since_midnight.to_i) * 1000)
+     write_attribute("b_time",milliseconds_since_midnight(b_time))  
      rescue ArgumentError
        @b_time_invalid = true
   end
   
   def e_time
-    Time.at(Time.gm(2000,1,1) + (read_attribute("e_time") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
+    milliseconds_to_string_time(read_attribute("e_time") || 0.0)
   end
   
   def e_time=(e_time)
-     write_attribute("e_time",(Time.parse(e_time).seconds_since_midnight.to_i))
+     write_attribute("e_time",milliseconds_since_midnight(e_time))
      rescue ArgumentError
        @e_time_invalid = true
   end
   
   def dt
-    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
+    milliseconds_to_string_time(read_attribute("dt") || 0.0)
   end
   
   def dt=(dt)
-     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i))
+     write_attribute("dt",milliseconds_since_midnight(dt)) 
      rescue ArgumentError
        @dt_invalid = true
   end
 
 
+  
   #def validate
   #  errors.add(:dt, "is invalid") if @dt_invalid
   #  errors.add(:b_time, "is invalid") if @b_time_invalid

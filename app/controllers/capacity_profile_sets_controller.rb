@@ -55,7 +55,8 @@ class CapacityProfileSetsController < ApplicationController
    @cpset = CapacityProfileSet.find(params[:capacity_profile_set_id])
    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
    @network = @cpset.network_id == nil ? nil : Network.find(@cpset.network_id) 
-
+   rescue ActiveRecord::RecordNotFound
+     @network = nil
    #set up capacitys table with capacity profile set network
    get_capacityprofiles(@network == nil ? "-1" : @network.id.to_s)
 
@@ -97,7 +98,36 @@ class CapacityProfileSetsController < ApplicationController
 
    end
   end
+  
+  # DELETE /capacity_profile_sets/1
+  # DELETE /capacity_profile_sets/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @cpset = @project.capacity_profile_sets.find(params[:capacity_profile_set_id])
+    @cpset.destroy
 
+    respond_to do |format|
+      flash[:notice] = @cpset.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'capacity_profile_sets', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @cpsets = @project.capacity_profile_sets.all
+    
+    @cpsets.each do | cp |
+      cp.destroy
+    end
+
+    respond_to do |format|
+      flash[:notice] = 'All capacity profile sets have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'capacity_profile_sets', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
+    end
+  end
+  
   def populate_capacities_table
    #I populate cpset so we can make sure to set checkboxes selected -- if there is no capacity profile set id then 
    #you are creating a new capacity profile set 

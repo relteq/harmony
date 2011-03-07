@@ -35,12 +35,25 @@ class Network < ActiveRecord::Base
   has_many:links, :through => :sensor_locations
   
   def dt
-    Time.at(Time.gm(2000,1,1) + (read_attribute("dt") || 0.0  * 3600)).utc.strftime("%H:%M:%S").to_s
+    milliseconds_to_string_time(read_attribute("dt") || 0.0)
   end
   
   def dt=(dt)
-     write_attribute("dt",(Time.parse(dt).seconds_since_midnight.to_i ))
-     rescue ArgumentError
+    write_attribute("dt",milliseconds_since_midnight(dt)) 
+    rescue ArgumentError
        @dt_invalid = true
   end
+  
+  def milliseconds_to_string_time(mil)
+     hours = (mil / 3600).to_i
+     minutes = ((mil - (hours * 3600)) / 60).to_i
+     seconds = (mil - (hours * 3600) - (minutes * 60))  
+     "%02d:%02d:%06.3f" % [hours, minutes, seconds]
+  end
+  
+  def milliseconds_since_midnight(time)
+    elems = time.split(":")
+    seconds = elems[0].to_i * 3600 + elems[1].to_i * 60 + elems[2].to_f
+  end
+  
 end

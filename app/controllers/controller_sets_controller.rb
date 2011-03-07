@@ -37,8 +37,12 @@ class ControllerSetsController < ApplicationController
   def edit
     @cset = ControllerSet.find(params[:controller_set_id])
     @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
-    @network = @cset.network_id == nil ? nil : Network.find(@cset.network_id) 
- 
+    @network = @cset.network_id == nil ? nil : Network.find(@cset.network_id)
+    rescue ActiveRecord::RecordNotFound
+      @network = nil
+
+    
+   
     #set up controllers table with controller groups network
     get_controllers(@network == nil ? "-1" : @network.id.to_s)
     
@@ -97,6 +101,35 @@ class ControllerSetsController < ApplicationController
     end
   end
 
+  # DELETE /controller_sets/1
+  # DELETE /controller_sets/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @cset = @project.controller_sets.find(params[:controller_set_id])
+    @cset.destroy
+
+    respond_to do |format|
+      flash[:notice] = @cset.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'controller_sets', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @csets = @project.controller_sets.all
+    
+    @csets.each do | c |
+      c.destroy
+    end
+
+    respond_to do |format|
+      flash[:notice] = 'All controller sets have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'controller_sets', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
+    end
+  end
+  
   def populate_controls_table
     #I populate cset so we can make sure to set checkboxes selected -- if there is no controller group id then 
     #you are creating a new controller_set 
@@ -116,7 +149,8 @@ class ControllerSetsController < ApplicationController
       @limit = per_page_option
     end
     
-    @network = nil
+    @network = []
+    controllers = []
     @controller_count = Controller.count(:conditions => "network_id = " + sid);
     @controllers_pages = Paginator.new self, @controller_count, @limit, params['page']
    
@@ -127,5 +161,6 @@ class ControllerSetsController < ApplicationController
                                  :order => sort_clause,
                                  :limit  =>  @limit,
                                  :offset =>  @offset
+    
   end
 end

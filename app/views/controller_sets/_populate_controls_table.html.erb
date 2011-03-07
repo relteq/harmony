@@ -3,7 +3,12 @@
 	<thead>
 	  <tr>
 			<th title="Select Controller"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+			<% if(@controllers != nil) %>
+				<%= sort_header_tag('Name', :caption => l(:field_name),:default_order => 'desc') %>
+			<% else %>
+				<th title="Name"><%= l(:field_name) %></th>
+			<% end %>
+			
 	    <th title="Network Element"><%= l(:label_network_element) %></th>
 	    <th title="Invocation Period"><%= l(:label_invocation_period) %></th>
 	  </tr>
@@ -26,4 +31,8 @@
   
    </tbody>
 </table>
-<p class="pagination"><%= pagination_links_full @controllers_pages, @controller_count %></p>
+<p class="pagination">
+	<% if(@controllers != nil) %>
+		<%= pagination_links_full @controllers_pages, @controller_count %>
+	<% end %>
+</p>

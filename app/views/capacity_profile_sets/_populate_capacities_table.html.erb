@@ -3,7 +3,11 @@
 	<thead>
 	  <tr>
 			<th title="Select Capacity Profile"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Destination', :caption => l(:field_destination),:default_order => 'desc') %>
+			<% if(@items != nil) %>
+				<%= sort_header_tag('Destination', :caption => l(:field_destination),:default_order => 'desc') %>
+			<% else%>
+				<th title="Destination"><%= l(:field_destination) %></th>
+			<% end %>
 	    <th title="Profile"><%= l(:label_profile) %></th>
 	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
 	  </tr>
@@ -26,4 +30,8 @@
   
    </tbody>
 </table>
-<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>
+<p class="pagination">
+	<% if(@items != nil) %>
+    <%= pagination_links_full @items_pages, @item_count %>
+	<% end %>
+</p>

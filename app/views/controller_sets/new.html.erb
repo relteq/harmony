@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
-<h2><%= link_to "Controller Sets", :controller => 'controller_sets', :action => 'index' %> &#187; <%= "New Controller Group"%></h2>
+<h2><%= link_to "Controller Sets", :controller => 'controller_sets', :action => 'index' %> &#187; <%= "New Controller Set"%></h2>
 
 <% labelled_tabular_form_for :controller_set, @cset, :url => { :action => "create" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

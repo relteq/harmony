@@ -4,7 +4,7 @@
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><%= label :event_set, :network_id %><%= collection_select :event_set, :network_id, @networks, :id, :name,{:prompt => @prompt_event, :selected => @eset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'event_sets',  :action => 'populate_events_table', :project_id =>@project,:event_set_id =>@eset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><%= label :event_set, :network_id %><%= collection_select :event_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @eset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'event_sets',  :action => 'populate_events_table', :project_id =>@project,:event_set_id =>@eset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
 
 <br/>
 <div id="events_table" class="autoscroll">

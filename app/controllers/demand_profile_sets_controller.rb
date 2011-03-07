@@ -55,7 +55,9 @@ class DemandProfileSetsController < ApplicationController
     @dpset = DemandProfileSet.find(params[:demand_profile_set_id])
     @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
     @network = @dpset.network_id == nil ? nil : Network.find(@dpset.network_id) 
- 
+    rescue ActiveRecord::RecordNotFound
+      @network = nil
+    
     #set up demands table with demand profile set network
     get_demandprofiles(@network == nil ? "-1" : @network.id.to_s)
     
@@ -93,6 +95,35 @@ class DemandProfileSetsController < ApplicationController
       end
       format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'edit',:project_id =>@project, :demand_profile_set_id => @dpset }
       format.xml  { render :xml => @dpset, :status => :created, :location => @dpset }    
+    end
+  end
+ 
+  # DELETE /demand_profile_sets/1
+  # DELETE /demand_profile_sets/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @dset = @project.demand_profile_sets.find(params[:demand_profile_set_id])
+    @dset.destroy
+
+    respond_to do |format|
+      flash[:notice] = @dset.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @dsets = @project.demand_profile_sets.all
+    
+    @dsets.each do | d |
+      d.destroy
+    end
+
+    respond_to do |format|
+      flash[:notice] = 'All demand profile sets have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
     end
   end
   

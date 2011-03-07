@@ -3,7 +3,11 @@
 	<thead>
 	  <tr>
 			<th title="Select Split Ratio Profile"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Node', :caption => l(:field_node),:default_order => 'desc') %>
+			<% if(@items != nil) %>
+				<%= sort_header_tag('Node', :caption => l(:field_node),:default_order => 'desc') %>
+			<% else%>
+				<th title="Node"><%= l(:field_node) %></th>
+			<% end %>
 	    <th title="Profile"><%= l(:label_profile) %></th>
 	  </tr>
 	</thead>
@@ -24,4 +28,8 @@
   
    </tbody>
 </table>
-<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>
+<p class="pagination">
+	<% if(@items != nil) %>
+		<%= pagination_links_full @items_pages, @item_count %></p>
+	<% end %>
+</p>

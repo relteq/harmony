@@ -104,6 +104,7 @@ class ScenariosController < ApplicationController
         format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
         format.xml  { head :ok }
       else
+        flash[:error] = 'Scenario was not successfully updated.'
         format.html { redirect_to :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
         format.api  { render_validation_errors(@scenario) }
       end

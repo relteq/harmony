@@ -3,7 +3,11 @@
 	<thead>
 	  <tr>
 			<th title="Select Demand Profile"><%= l(:label_attach) %></th>
-			<%= sort_header_tag('Origin', :caption => l(:field_origin),:default_order => 'desc') %>
+			<% if(@items != nil) %>
+				<%= sort_header_tag('Origin', :caption => l(:field_origin),:default_order => 'desc') %>
+			<% else%>
+				<th title="Origin"><%= l(:field_origin) %></th>
+			<% end %>
 	    <th title="Profile"><%= l(:label_profile) %></th>
 	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
 	  </tr>
@@ -26,4 +30,8 @@
   
    </tbody>
 </table>
-<p class="pagination"><%= pagination_links_full @items_pages, @item_count %></p>
+<p class="pagination">
+<% if(@items != nil) %>
+  <%= pagination_links_full @items_pages, @item_count %>
+<% end %>
+</p>

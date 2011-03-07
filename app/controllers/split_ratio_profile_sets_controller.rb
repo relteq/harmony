@@ -56,7 +56,9 @@ class SplitRatioProfileSetsController < ApplicationController
    @srpset = SplitRatioProfileSet.find(params[:split_ratio_profile_set_id])
    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
    @network = @srpset.network_id == nil ? nil : Network.find(@srpset.network_id) 
-
+   rescue ActiveRecord::RecordNotFound
+     @network = nil
+   
    #set up split_ratios table with split_ratio profile set network
    get_splitratioprofiles(@network == nil ? "-1" : @network.id.to_s)
 
@@ -97,6 +99,35 @@ class SplitRatioProfileSetsController < ApplicationController
      format.xml  { render :xml => @srpset, :status => :created, :location => @srpset }
 
    end
+  end
+  
+  # DELETE /split_ratio_profile_sets/1
+  # DELETE /split_ratio_profile_sets/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @srpset = @project.split_ratio_profile_sets.find(params[:split_ratio_profile_set_id])
+    @srpset.destroy
+
+    respond_to do |format|
+      flash[:notice] = @srpset.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'split_ratio_profile_sets', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @srpsets = @project.split_ratio_profile_sets.all
+    
+    @srpsets.each do | s |
+      s.destroy
+    end
+
+    respond_to do |format|
+      flash[:notice] = 'All split ratio profile sets have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'split_ratio_profile_sets', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
+    end
   end
   
   def populate_splits_table

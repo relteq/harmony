@@ -2,6 +2,8 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
+<%= error_messages_for 'scenario'%>
+
 <h2><%= link_to "Scenarios", :controller => 'scenarios', :action => 'index' %> &#187; <%= "Edit Scenario"%></h2>
 
 <% labelled_tabular_form_for :scenario, @scenario, :url => { :action => "update" }, :html => { :method => :put } do |f| %>

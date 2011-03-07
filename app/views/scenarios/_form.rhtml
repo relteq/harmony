@@ -12,9 +12,9 @@
 <p><%= f.select :length_units, @units,{ :index => nil }, :prompt => true %></p>
 
 <p><%= f.text_area :v_types, :value => params[:v_types] != '' ?  params[:v_types] : 'eg.   SOV(1)  HOV(3)', :cols => 6, :rows => 4 ,:onfocus =>  'clearTextFieldDefault(this,"eg.    SOV (1)  HOV (3)")',:class =>  params[:v_types] != '' ? '' : 'grey italic'  %></p>	
-<p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic' %></p>
-<p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic' %></p>
-<p><%= f.text_field :dt, :value => params[:dt] != 0 ?  @scenario.dt  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class => params[:dt] != 0.0 ? '' : 'grey italic' %></p>
+<p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic' %></p>
+<p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic' %></p>
+<p><%= f.text_field :dt, :value => params[:dt] != 0 ?  @scenario.dt  : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:dt] != 0.0 ? '' : 'grey italic' %></p>
 
 
 </div>
