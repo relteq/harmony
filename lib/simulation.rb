@@ -25,7 +25,7 @@ module Simulation
 
   private
     DEFAULT_HOST = ENV['RUNWEB_HOST'] || 'localhost'
-    DEFAULT_PORT = ENV['RUNWEB_PORT'] || 4567
+    DEFAULT_PORT = ENV['RUNWEB_PORT'] || 8097 
     
     def http_get_batches(user, host = DEFAULT_HOST, port = DEFAULT_PORT)
       YAML.load Net::HTTP.get(host, "/user/#{user}", port)
