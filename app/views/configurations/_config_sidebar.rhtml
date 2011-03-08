@@ -17,11 +17,6 @@
 
 					     scenarioSpecificLinks.push({
 							id: "<%= s.id %>",
-						    edit_link: { <%= js_callback_redirect :controller => 'scenarios', 
-												:action => 'edit', 
-												:project_id => @project.id,
-											    :scenario_id => s.id
-										%> },
                             run_simulation_batch: { 
                                 <%= js_callback_redirect :controller => 'scenario/simulations',
                                                          :action => 'new',
@@ -165,14 +160,12 @@
 
 				perScenarioNode: function(scenarioLinks) {
 					return  [
-						{ name: 'l(:scenario_edit_simulation)', callback: scenarioLinks.edit_link.callback},
 					    { name: "<%= l(:scenario_run_simulation) %>", callback: scenarioLinks.run_simulation.callback},
 						{ name: "<%= l(:scenario_run_simulation_batch) %>", callback: scenarioLinks.run_simulation_batch.callback },
 						{ name: "<%= l(:scenario_duplicate) %>" },
 						{ name: "<%= l(:scenario_shallow_duplicate) %>" },
 						{ name: "<%= l(:scenario_share) %>"}, 
 						{ name: "<%= l(:scenario_export) %>" },
-						{ name: "<%= l(:scenario_rename) %>" },
 						{ name: "<%= l(:scenario_delete) %>", className: 'delete' },
 					];
 				},

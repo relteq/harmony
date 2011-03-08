@@ -947,20 +947,20 @@ en:
   networks_share_all: Share All Networks
   networks_delete_all: Delete All Networks
 
-  controller_sets_new: New Controller Group
-  controller_sets_delete_all: Delete All Controller Groups
+  controller_sets_new: New Controller Set 
+  controller_sets_delete_all: Delete All Controller Sets
 
-  demand_profiles_new: New Demand Profile
-  demand_profiles_delete_all: Delete All Demand Profiles
+  demand_profiles_new: New Demand Profile Set
+  demand_profiles_delete_all: Delete All Demand Profile Sets
 
-  capacity_profiles_new: New Capacity Profile
-  capacity_profiles_delete_all: Delete All Capacity Profiles
+  capacity_profiles_new: New Capacity Profile Set
+  capacity_profiles_delete_all: Delete All Capacity Profile Sets
 
-  split_ratio_profiles_new: New Split Ratio Profile
-  split_ratio_profiles_delete_all: Delete All Split Ratio Profiles
+  split_ratio_profiles_new: New Split Ratio Profile Set
+  split_ratio_profiles_delete_all: Delete All Split Ratio Profile Sets
 
-  event_lists_new: New Event List
-  event_lists_delete_all: Delete All Event Lists
+  event_lists_new: New Event Set
+  event_lists_delete_all: Delete All Event Sets 
 
   scenario_edit_simulation: Edit Simulation 
   scenario_run_simulation: Run Simulation 
