@@ -12,7 +12,7 @@ class Scenario::SimulationsController < ApplicationController
   end
 
   def create
-    options = { :engine => 'dummy' }
+    options = { :engine => 'aurora' }
     options[:param] = {}
     # :simple being set means this was called from 'Run Simulation'
     # rather than 'Run Simulation Batch'
