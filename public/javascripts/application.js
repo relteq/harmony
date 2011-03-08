@@ -274,7 +274,6 @@ Event.observe(window, 'load', hideOnLoad);
 //  ******************* tree menu
 <!--//--><![CDATA[//><!--
  jQuery(document).ready(function() {
-	jQuery("#config-sidebar-root ul").each(function() {jQuery(this).css("display", "none");});
 	jQuery("#config-sidebar-root .category").click(function() {
 		var childid = "#" + jQuery(this).attr("childid");
 		if (jQuery(childid).css("display") == "none") {jQuery(childid).css("display", "block");}

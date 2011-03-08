@@ -5,7 +5,7 @@
 </script>
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
-				<a href='javascript:void(0);' childid = 'c_12' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_12' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	<%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
 				<ul id='c_12'>
   				  <% @scenarios.each do |s|  %>
@@ -36,7 +36,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_13' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_13' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %>
 				<ul id='c_13'>
 	
@@ -50,7 +50,7 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_14' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_14' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
   	   	<ul id='c_14'>
  				  <% @csets.each do |c|  %>
@@ -62,7 +62,7 @@
 			    </ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_15' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_15' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Demand Profile Sets", {:controller => 'demand_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-demand-profile-sets') %>
 	
 				<ul id='c_15'>
@@ -75,7 +75,7 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_16' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_16' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Split Ratio Profile Sets", {:controller => 'split_ratio_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-split-ratio-profile-sets') %>
 
 				<ul id='c_16'>
@@ -88,7 +88,7 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_17' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_17' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
 				<ul id='c_17'>
 				  <% @cprofilesets.each do |c|  %>
@@ -100,7 +100,7 @@
 				</ul> 
 			</li>
 			<li>
-				<a href='javascript:void(0);' childid = 'c_18' class='cat_close category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+				<a href='javascript:void(0);' childid = 'c_18' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 		  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
 				<ul id='c_18'>
  				  <% @eventsets.each do |e|  %>
