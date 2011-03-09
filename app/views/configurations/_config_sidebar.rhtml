@@ -262,17 +262,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 					];
 				},
 
-				hookScenario: function(scenarioLinks) {
-					var id = scenarioLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-scenario-' + id,
-					    menuItems: this.perScenarioNode(scenarioLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
-				},
-
 				hookItem: function(type, link_gen, links) {
 					new Proto.Menu({
 						selector: '#config-sidebar-' + type + '-' + links.id,
@@ -282,7 +271,11 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 						className: 'menu google'
 					});
 				},
-		
+	
+				hookScenario: function(scenarioLinks) {
+					this.hookItem('scenario', this.perScenarioNode, scenarioLinks);
+				},
+	
 				hookNetwork: function(networkLinks) {
 					this.hookItem('network', this.perNetworkNode, networkLinks);
 				},
