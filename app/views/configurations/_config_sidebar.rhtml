@@ -272,71 +272,41 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 						className: 'menu google'
 					});
 				},
-		
-				hookNetwork: function(networkLinks) {
-					var id = networkLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-network-' + id,
-					    menuItems: this.perNetworkNode(networkLinks),
+
+				hookItem: function(type, link_gen, links) {
+					new Proto.Menu({
+						selector: '#config-sidebar-' + type + '-' + links.id,
+						menuItems: link_gen(links),
 						fade: true,
 						addIcon: true,
 						className: 'menu google'
 					});
+				},
+		
+				hookNetwork: function(networkLinks) {
+					this.hookItem('network', this.perNetworkNode, networkLinks);
 				},
 				
 				hookControllerSet: function(csLinks) {
-					var id = csLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-controller-set-' + id,
-					    menuItems: this.perControllerSetNode(csLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
+					this.hookItem('controller-set', this.perControllerSetNode, csLinks);
 				},
 
 				hookDemandProfileSet: function(dpLinks) {
-					var id = dpLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-demand-profile-set-' + id,
-					    menuItems: this.perControllerSetNode(dpLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
+					this.hookItem('demand-profile-set', this.perDemandProfileSetNode, dpLinks);
 				},
 
 				hookCapacityProfileSet: function(cpLinks) {
-					var id = cpLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-capacity-profile-set-' + id,
-					    menuItems: this.perCapacityProfileSetNode(cpLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
+					this.hookItem('capacity-profile-set', this.perCapacityProfileSetNode, cpLinks);
 				},
 
 				hookSplitRatioProfileSet: function(srpLinks) {
-					var id = srpLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-split-ratio-profile-set-' + id,
-					    menuItems: this.perSplitRatioProfileSetNode(srpLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
+					this.hookItem('split-ratio-profile-set', 
+						this.perSplitRatioProfileSetNode, 
+						srpLinks);
 				},
 
 				hookEventSet: function(eventSetLinks) {
-					var id = eventSetLinks.id;
-					new Proto.Menu({ 
-						selector: '#config-sidebar-event-set-' + id,
-					    menuItems: this.perEventSetNode(eventSetLinks),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
+					this.hookItem('event-set', this.perEventSetNode, eventSetLinks);
 				}
 			};
 
