@@ -965,14 +965,13 @@ en:
   scenario_edit_simulation: Edit Simulation 
   scenario_run_simulation: Run Simulation 
   scenario_run_simulation_batch: Run Simulation Batch
-  scenario_duplicate: Duplicate
-  scenario_shallow_duplicate: Shallow Duplicate
-  scenario_share: Share
-  scenario_export: Export
-  scenario_rename: Rename
-  scenario_delete: Delete
 
-  
+  relteq_edit: Edit
+  relteq_duplicate: Duplicate
+  relteq_shallow_duplicate: Shallow Duplicate
+  relteq_share: Share
+  relteq_export: Export
+  relteq_delete: Delete
 
   field_dt: Reporting Period
   field_b_time: Begin time

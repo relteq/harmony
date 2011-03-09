@@ -1,7 +1,6 @@
 <script language="javascript"> 
- if(typeof(scenarioSpecificLinks) == 'undefined') { 
-	 scenarioSpecificLinks = new Array();
- }
+ if(typeof(scenarioSpecificLinks) == 'undefined') { scenarioSpecificLinks = new Array(); }
+ if(typeof(networkSpecificLinks) == 'undefined') { networkSpecificLinks = new Array(); }
 </script>
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
@@ -45,6 +44,12 @@
 				        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
 					    </li>
+     					<script language="javascript"> 
+
+					    networkSpecificLinks.push({
+							id: "<%= n.id %>",
+					    });
+					    </script>
 					<% end %>
 	
 				</ul> 
@@ -162,11 +167,21 @@
 					return  [
 					    { name: "<%= l(:scenario_run_simulation) %>", callback: scenarioLinks.run_simulation.callback},
 						{ name: "<%= l(:scenario_run_simulation_batch) %>", callback: scenarioLinks.run_simulation_batch.callback },
-						{ name: "<%= l(:scenario_duplicate) %>" },
-						{ name: "<%= l(:scenario_shallow_duplicate) %>" },
-						{ name: "<%= l(:scenario_share) %>"}, 
-						{ name: "<%= l(:scenario_export) %>" },
-						{ name: "<%= l(:scenario_delete) %>", className: 'delete' },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_shallow_duplicate) %>" },
+						{ name: "<%= l(:relteq_share) %>"}, 
+						{ name: "<%= l(:relteq_export) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
+				perNetworkNode: function(networkLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_share) %>" },
+						{ name: "<%= l(:relteq_export) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
 					];
 				},
 
@@ -175,6 +190,17 @@
 					new Proto.Menu({ 
 						selector: '#config-sidebar-scenario-' + id,
 					    menuItems: this.perScenarioNode(scenarioLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+		
+				hookNetwork: function(networkLinks) {
+					var id = networkLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-network-' + id,
+					    menuItems: this.perNetworkNode(networkLinks),
 						fade: true,
 						addIcon: true,
 						className: 'menu google'
@@ -219,6 +245,10 @@
 
 			scenarioSpecificLinks.each(function(scenarioLinks) {
 				configSidebarContextMenus.hookScenario(scenarioLinks);
+			});
+
+			networkSpecificLinks.each(function(networkLinks) {
+				configSidebarContextMenus.hookNetwork(networkLinks);
 			});
 
 		</script>
