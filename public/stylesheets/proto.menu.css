@@ -69,7 +69,7 @@ div.menu a {
 /* GOOGLE STYLES */
 
 .menu.google {
-	width: 10.5em;
+  display: inline-block;
 	border-top:1px solid #ddd;
 	border-left:1px solid #ddd;
 	border-bottom:1px solid #777;
