@@ -1,6 +1,11 @@
 <script language="javascript"> 
- if(typeof(scenarioSpecificLinks) == 'undefined') { scenarioSpecificLinks = new Array(); }
- if(typeof(networkSpecificLinks) == 'undefined') { networkSpecificLinks = new Array(); }
+if(typeof(scenarioSpecificLinks) == 'undefined') { scenarioSpecificLinks = new Array(); }
+if(typeof(networkSpecificLinks) == 'undefined') { networkSpecificLinks = new Array(); }
+if(typeof(csSpecificLinks) == 'undefined') { csSpecificLinks = new Array(); }
+if(typeof(dpSpecificLinks) == 'undefined') { dpSpecificLinks = new Array(); }
+if(typeof(cpSpecificLinks) == 'undefined') { cpSpecificLinks = new Array(); }
+if(typeof(srpSpecificLinks) == 'undefined') { srpSpecificLinks = new Array(); }
+if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new Array(); }
 </script>
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
@@ -59,10 +64,16 @@
 		  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
   	   	<ul id='c_14'>
  				  <% @csets.each do |c|  %>
-			     	  <li> 
+			     	  <li id="config-sidebar-controller-set-<%= c.id %>"> 
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
 				      </li>
+     				  <script language="javascript"> 
+
+					  csSpecificLinks.push({
+						id: "<%= c.id %>",
+					  });
+					  </script>
  				  <% end %>
 			    </ul> 
 			</li>
@@ -72,10 +83,17 @@
 	
 				<ul id='c_15'>
 				  <% @dprofilesets.each do |d|  %>
-			     	  <li> 
+			     	  <li id="config-sidebar-demand-profile-set-<%= d.id %>"> 
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
 				      </li>
+					  <script language="javascript"> 
+
+					  dpSpecificLinks.push({
+						id: "<%= d.id %>",
+					  });
+					  </script>
+
 				  <% end %>
 				</ul> 
 			</li>
@@ -85,10 +103,17 @@
 
 				<ul id='c_16'>
 				  <% @sprofilesets.each do |s|  %>
-			     	  <li> 
+			     	  <li id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
 				      </li>
+					  <script language="javascript"> 
+
+					  srpSpecificLinks.push({
+					  	  id: "<%= s.id %>",
+					  });
+					  </script>
+
 				  <% end %>
 				</ul> 
 			</li>
@@ -97,10 +122,16 @@
 		  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
 				<ul id='c_17'>
 				  <% @cprofilesets.each do |c|  %>
-			     	  <li> 
+			     	  <li id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
 				      </li>
+
+					  <script language="javascript">
+					  cpSpecificLinks.push({
+						  id: "<%= c.id %>",
+					  });
+					  </script>
 				  <% end %>
 				</ul> 
 			</li>
@@ -109,10 +140,16 @@
 		  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
 				<ul id='c_18'>
  				  <% @eventsets.each do |e|  %>
-			     	  <li> 
+			     	  <li id="config-sidebar-event-set-<%= e.id %>"> 
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
 				      </li>
+					  <script language="javascript">
+					  eventSetSpecificLinks.push({
+						  id: "<%= e.id %>",
+					  });
+					  </script>
+
 				  <% end %>
 			  </ul> 
 			</li>
@@ -185,6 +222,46 @@
 					];
 				},
 
+				perControllerSetNode: function(controllerSetLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
+				perDemandProfileSetNode: function(dpSetLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
+				perSplitRatioProfileSetNode: function(srpSetLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
+				perCapacityProfileSetNode: function(cpSetLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
+				perEventSetNode: function(eventSetLinks) {
+					return [
+						{ name: "<%= l(:relteq_edit) %>" },
+						{ name: "<%= l(:relteq_duplicate) %>" },
+						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
+					];
+				},
+
 				hookScenario: function(scenarioLinks) {
 					var id = scenarioLinks.id;
 					new Proto.Menu({ 
@@ -201,6 +278,61 @@
 					new Proto.Menu({ 
 						selector: '#config-sidebar-network-' + id,
 					    menuItems: this.perNetworkNode(networkLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+				
+				hookControllerSet: function(csLinks) {
+					var id = csLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-controller-set-' + id,
+					    menuItems: this.perControllerSetNode(csLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+
+				hookDemandProfileSet: function(dpLinks) {
+					var id = dpLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-demand-profile-set-' + id,
+					    menuItems: this.perControllerSetNode(dpLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+
+				hookCapacityProfileSet: function(cpLinks) {
+					var id = cpLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-capacity-profile-set-' + id,
+					    menuItems: this.perCapacityProfileSetNode(cpLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+
+				hookSplitRatioProfileSet: function(srpLinks) {
+					var id = srpLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-split-ratio-profile-set-' + id,
+					    menuItems: this.perSplitRatioProfileSetNode(srpLinks),
+						fade: true,
+						addIcon: true,
+						className: 'menu google'
+					});
+				},
+
+				hookEventSet: function(eventSetLinks) {
+					var id = eventSetLinks.id;
+					new Proto.Menu({ 
+						selector: '#config-sidebar-event-set-' + id,
+					    menuItems: this.perEventSetNode(eventSetLinks),
 						fade: true,
 						addIcon: true,
 						className: 'menu google'
@@ -251,4 +383,23 @@
 				configSidebarContextMenus.hookNetwork(networkLinks);
 			});
 
+			csSpecificLinks.each(function(csLinks) {
+				configSidebarContextMenus.hookControllerSet(csLinks);
+			});
+
+			dpSpecificLinks.each(function(dpLinks) {
+				configSidebarContextMenus.hookDemandProfileSet(dpLinks);
+			});
+
+			cpSpecificLinks.each(function(cpLinks) {
+				configSidebarContextMenus.hookCapacityProfileSet(cpLinks);
+			});
+
+			srpSpecificLinks.each(function(srpLinks) {
+				configSidebarContextMenus.hookSplitRatioProfileSet(srpLinks);
+			});
+
+			eventSetSpecificLinks.each(function(eLinks) {
+				configSidebarContextMenus.hookEventSet(eLinks);
+			});
 		</script>
