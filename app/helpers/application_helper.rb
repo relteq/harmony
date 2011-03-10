@@ -903,15 +903,6 @@ module ApplicationHelper
     end
   end
 
-  def js_callback_redirect(url_options)
-    %Q{
-      callback: function() {
-        window.location = "#{url_for(url_options)}";
-      }
-    }
-  end
-  
-
 private
   def wiki_helper
     helper = Redmine::WikiFormatting.helper_for(Setting.text_formatting)

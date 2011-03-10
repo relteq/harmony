@@ -947,32 +947,31 @@ en:
   networks_share_all: Share All Networks
   networks_delete_all: Delete All Networks
 
-  controller_sets_new: New Controller Group
-  controller_sets_delete_all: Delete All Controller Groups
+  controller_sets_new: New Controller Set 
+  controller_sets_delete_all: Delete All Controller Sets
 
-  demand_profiles_new: New Demand Profile
-  demand_profiles_delete_all: Delete All Demand Profiles
+  demand_profiles_new: New Demand Profile Set
+  demand_profiles_delete_all: Delete All Demand Profile Sets
 
-  capacity_profiles_new: New Capacity Profile
-  capacity_profiles_delete_all: Delete All Capacity Profiles
+  capacity_profiles_new: New Capacity Profile Set
+  capacity_profiles_delete_all: Delete All Capacity Profile Sets
 
-  split_ratio_profiles_new: New Split Ratio Profile
-  split_ratio_profiles_delete_all: Delete All Split Ratio Profiles
+  split_ratio_profiles_new: New Split Ratio Profile Set
+  split_ratio_profiles_delete_all: Delete All Split Ratio Profile Sets
 
-  event_lists_new: New Event List
-  event_lists_delete_all: Delete All Event Lists
+  event_lists_new: New Event Set
+  event_lists_delete_all: Delete All Event Sets 
 
   scenario_edit_simulation: Edit Simulation 
   scenario_run_simulation: Run Simulation 
   scenario_run_simulation_batch: Run Simulation Batch
-  scenario_duplicate: Duplicate
-  scenario_shallow_duplicate: Shallow Duplicate
-  scenario_share: Share
-  scenario_export: Export
-  scenario_rename: Rename
-  scenario_delete: Delete
 
-  
+  relteq_edit: Edit
+  relteq_duplicate: Duplicate
+  relteq_shallow_duplicate: Shallow Duplicate
+  relteq_share: Share
+  relteq_export: Export
+  relteq_delete: Delete
 
   field_dt: Reporting Period
   field_b_time: Begin time
