@@ -5,6 +5,7 @@ class SplitRatioProfileSetsController < ApplicationController
   #before_filter do |controller|
   #  controller.authorize(:configurations)
   #end
+  helper :configurations
   helper :sort
   include SortHelper
 

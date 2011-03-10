@@ -1,12 +1,3 @@
-<script language="javascript"> 
-if(typeof(scenarioSpecificLinks) == 'undefined') { scenarioSpecificLinks = new Array(); }
-if(typeof(networkSpecificLinks) == 'undefined') { networkSpecificLinks = new Array(); }
-if(typeof(csSpecificLinks) == 'undefined') { csSpecificLinks = new Array(); }
-if(typeof(dpSpecificLinks) == 'undefined') { dpSpecificLinks = new Array(); }
-if(typeof(cpSpecificLinks) == 'undefined') { cpSpecificLinks = new Array(); }
-if(typeof(srpSpecificLinks) == 'undefined') { srpSpecificLinks = new Array(); }
-if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new Array(); }
-</script>
 		<ul id="config-sidebar-root" class="config-sidebar-menu">
 			<li>
 				<a href='javascript:void(0);' childid = 'c_12' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
@@ -17,25 +8,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 				        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
 				      </li> 
-					  <script language="javascript"> 
-
-					     scenarioSpecificLinks.push({
-							id: "<%= s.id %>",
-                            run_simulation_batch: { 
-                                <%= js_callback_redirect :controller => 'scenario/simulations',
-                                                         :action => 'new',
-                                                         :project_id => @project.id,
-                                                         :scenario_id => s.id %>
-                            },
-                            run_simulation: { 
-                                <%= js_callback_redirect :controller => 'scenario/simulations',
-                                                         :action => 'create',
-                                                         :project_id => @project.id,
-                                                         :scenario_id => s.id, 
-                                                         :simple => true %>
-                            }
-					     });
-				      </script>
 				  <% end %>
 				</ul>
 			</li>
@@ -49,12 +21,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 				        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
 					    </li>
-     					<script language="javascript"> 
-
-					    networkSpecificLinks.push({
-							id: "<%= n.id %>",
-					    });
-					    </script>
 					<% end %>
 	
 				</ul> 
@@ -68,12 +34,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
 				      </li>
-     				  <script language="javascript"> 
-
-					  csSpecificLinks.push({
-						id: "<%= c.id %>",
-					  });
-					  </script>
  				  <% end %>
 			    </ul> 
 			</li>
@@ -87,13 +47,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
 				      </li>
-					  <script language="javascript"> 
-
-					  dpSpecificLinks.push({
-						id: "<%= d.id %>",
-					  });
-					  </script>
-
 				  <% end %>
 				</ul> 
 			</li>
@@ -107,13 +60,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
 				      </li>
-					  <script language="javascript"> 
-
-					  srpSpecificLinks.push({
-					  	  id: "<%= s.id %>",
-					  });
-					  </script>
-
 				  <% end %>
 				</ul> 
 			</li>
@@ -126,12 +72,6 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
 				      </li>
-
-					  <script language="javascript">
-					  cpSpecificLinks.push({
-						  id: "<%= c.id %>",
-					  });
-					  </script>
 				  <% end %>
 				</ul> 
 			</li>
@@ -144,225 +84,20 @@ if(typeof(eventSetSpecificLinks) == 'undefined') { eventSetSpecificLinks = new A
 			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 									<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
 				      </li>
-					  <script language="javascript">
-					  eventSetSpecificLinks.push({
-						  id: "<%= e.id %>",
-					  });
-					  </script>
-
 				  <% end %>
 			  </ul> 
 			</li>
 		</ul>
+
    	
 
 		<script language="javascript">
-			var configSidebarContextMenus = {
-				scenariosNode : [
-					{ name: "<%= l(:scenarios_new) %>", <%= js_callback_redirect :controller => 'scenarios', :action => 'new', :project_id => @project.id %> },
-					{ name: "<%= l(:scenarios_import) %>" },
-					{ name: "<%= l(:scenarios_share_all) %>" },
-					{ name: "<%= l(:scenarios_delete_all) %>", className: 'delete', <%= js_callback_redirect :controller => 'scenarios', :action => 'delete_all', :project_id => @project.id %> }
-				],
-				networksNode : [ 
-					{ name: "<%= l(:networks_new) %>" },
-					{ name: "<%= l(:networks_import) %>" },
-					{ name: "<%= l(:networks_share_all) %>" },
-					{ name: "<%= l(:networks_delete_all) %>", className: 'delete' }
-				],
-				controllerSetsNode : [
-					{ name: "<%= l(:controller_sets_new) %>" },
-					{ name: "<%= l(:controller_sets_delete_all) %>", className: 'delete' }
-				],
-				demandProfileSetsNode: [
-					{ name: "<%= l(:demand_profiles_new) %>" },
-					{ name: "<%= l(:demand_profiles_delete_all) %>", className: 'delete' }
-				],
-				capacityProfileSetsNode: [
-					{ name: "<%= l(:capacity_profiles_new) %>" },
-					{ name: "<%= l(:capacity_profiles_delete_all) %>", className: 'delete' }
-				],
-				splitRatioProfileSetsNode: [
-					{ name: "<%= l(:split_ratio_profiles_new) %>" },
-					{ name: "<%= l(:split_ratio_profiles_delete_all) %>", className: 'delete' }
-				],
-				eventSetsNode: [
-					{ name: "<%= l(:event_lists_new) %>" },
-					{ name: "<%= l(:event_lists_delete_all) %>", className: 'delete' }
-				],
-
-				hook: function(sel, ind) {
-					new Proto.Menu({ selector: sel, 
-						menuItems: this[ind], 
-						className: 'menu google',
-						fade: true,
-						addIcon: true
-					});
-				},
-
-				perScenarioNode: function(scenarioLinks) {
-					return  [
-					    { name: "<%= l(:scenario_run_simulation) %>", callback: scenarioLinks.run_simulation.callback},
-						{ name: "<%= l(:scenario_run_simulation_batch) %>", callback: scenarioLinks.run_simulation_batch.callback },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_shallow_duplicate) %>" },
-						{ name: "<%= l(:relteq_share) %>"}, 
-						{ name: "<%= l(:relteq_export) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perNetworkNode: function(networkLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_share) %>" },
-						{ name: "<%= l(:relteq_export) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perControllerSetNode: function(controllerSetLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perDemandProfileSetNode: function(dpSetLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perSplitRatioProfileSetNode: function(srpSetLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perCapacityProfileSetNode: function(cpSetLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				perEventSetNode: function(eventSetLinks) {
-					return [
-						{ name: "<%= l(:relteq_edit) %>" },
-						{ name: "<%= l(:relteq_duplicate) %>" },
-						{ name: "<%= l(:relteq_delete) %>", className: 'delete' },
-					];
-				},
-
-				hookItem: function(type, link_gen, links) {
-					new Proto.Menu({
-						selector: '#config-sidebar-' + type + '-' + links.id,
-						menuItems: link_gen(links),
-						fade: true,
-						addIcon: true,
-						className: 'menu google'
-					});
-				},
-	
-				hookScenario: function(scenarioLinks) {
-					this.hookItem('scenario', this.perScenarioNode, scenarioLinks);
-				},
-	
-				hookNetwork: function(networkLinks) {
-					this.hookItem('network', this.perNetworkNode, networkLinks);
-				},
-				
-				hookControllerSet: function(csLinks) {
-					this.hookItem('controller-set', this.perControllerSetNode, csLinks);
-				},
-
-				hookDemandProfileSet: function(dpLinks) {
-					this.hookItem('demand-profile-set', this.perDemandProfileSetNode, dpLinks);
-				},
-
-				hookCapacityProfileSet: function(cpLinks) {
-					this.hookItem('capacity-profile-set', this.perCapacityProfileSetNode, cpLinks);
-				},
-
-				hookSplitRatioProfileSet: function(srpLinks) {
-					this.hookItem('split-ratio-profile-set', 
-						this.perSplitRatioProfileSetNode, 
-						srpLinks);
-				},
-
-				hookEventSet: function(eventSetLinks) {
-					this.hookItem('event-set', this.perEventSetNode, eventSetLinks);
-				}
-			};
-
-
-			configSidebarContextMenus.hook(
-				'#config-sidebar-scenarios', 
-				'scenariosNode'
-			);
-
-			configSidebarContextMenus.hook(
-				'#config-sidebar-networks', 
-				'networksNode'
-			);
-
-			configSidebarContextMenus.hook(
-				'#config-sidebar-controller-sets', 
-				'controllerSetsNode'
-			);
-			
-			configSidebarContextMenus.hook(
-				'#config-sidebar-demand-profile-sets', 
-				'demandProfileSetsNode'
-			);
-
-			configSidebarContextMenus.hook(
-				'#config-sidebar-capacity-profile-sets',
-				'capacityProfileSetsNode'
-			);
-
-			configSidebarContextMenus.hook(
-				'#config-sidebar-split-ratio-profile-sets',
-				'splitRatioProfileSetsNode'
-			);
-			configSidebarContextMenus.hook(
-				'#config-sidebar-event-sets',
-				'eventSetsNode'
-			);
-
-			scenarioSpecificLinks.each(function(scenarioLinks) {
-				configSidebarContextMenus.hookScenario(scenarioLinks);
-			});
-
-			networkSpecificLinks.each(function(networkLinks) {
-				configSidebarContextMenus.hookNetwork(networkLinks);
-			});
-
-			csSpecificLinks.each(function(csLinks) {
-				configSidebarContextMenus.hookControllerSet(csLinks);
-			});
-
-			dpSpecificLinks.each(function(dpLinks) {
-				configSidebarContextMenus.hookDemandProfileSet(dpLinks);
-			});
-
-			cpSpecificLinks.each(function(cpLinks) {
-				configSidebarContextMenus.hookCapacityProfileSet(cpLinks);
-			});
-
-			srpSpecificLinks.each(function(srpLinks) {
-				configSidebarContextMenus.hookSplitRatioProfileSet(srpLinks);
-			});
-
-			eventSetSpecificLinks.each(function(eLinks) {
-				configSidebarContextMenus.hookEventSet(eLinks);
-			});
+			var leaf_menus = <%= all_leaf_menu_items(@project, :networks => @networks, 
+													      	   :scenarios => @scenarios,
+															   :controller_sets => @csets,
+															   :demand_profile_sets => @dprofilesets,
+															   :split_ratio_profile_sets => @sprofilesets,
+															   :capacity_profile_sets => @cprofilesets,
+															   :event_sets => @eventsets) %>;
+			<%= render :partial => 'configurations/hook_menus.js' %>
 		</script>
