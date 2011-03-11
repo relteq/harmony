@@ -113,3 +113,8 @@ div.config-sidebar-menu a {
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
 	background-color: #ffffdd;
 }
+
+.scenario-launch {
+  background-color: #ffffff;
+  padding: 5em 5em 5em 5em;
+}

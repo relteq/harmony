@@ -5,6 +5,7 @@ class NetworksController < ApplicationController
      controller.authorize(:configurations)
    end
    helper :sort
+   helper :configurations
    include SortHelper
  
  
