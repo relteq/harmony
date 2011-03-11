@@ -32,6 +32,7 @@ class ScenariosController < ApplicationController
                                     :offset =>  @offset
 
     respond_to do |format|
+      
       format.html { render :layout => !request.xhr? } # index.html.erb
   #    format.xml  { render :xml => @scenarios }
     end
