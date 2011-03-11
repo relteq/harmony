@@ -40,7 +40,7 @@ class Scenario::SimulationsController < ApplicationController
         options[:param][:duration] = params[:end_time_h].to_f + 
                            params[:end_time_m].to_f / 60.0 + 
                            params[:end_time_s].to_f / 3600.0 -
-                           options[:b_time]
+                           options[:param][:b_time]
 
       end
       options[:param][:control] = !!params[:control]
