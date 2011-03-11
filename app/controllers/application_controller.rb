@@ -21,6 +21,8 @@ require 'cgi'
 class ApplicationController < ActionController::Base
   include Redmine::I18n
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_error
+  
   layout 'base'
   exempt_from_layout 'builder', 'rsb'
   
@@ -482,6 +484,11 @@ class ApplicationController < ActionController::Base
     api_request? ? nil : super
   end
  
+ 
+  def record_not_found
+    render :text => "404 Not Found", :status => 404
+  end
+  
   # Populates the Models Tabs menu
   def populate_menu
     @project = Project.find(params[:project_id])
