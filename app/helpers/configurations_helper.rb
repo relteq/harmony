@@ -228,7 +228,7 @@ module ConfigurationsHelper
     capacity_profile_sets = items[:capacity_profile_sets].map do |c|
       capacity_profile_set_specific_menu_items(project, c)
     end
-    event_sets = items[:capacity_profile_sets].map do |e|
+    event_sets = items[:event_sets].map do |e|
       event_set_specific_menu_items(project, e)
     end
 
