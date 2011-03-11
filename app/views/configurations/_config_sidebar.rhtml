@@ -1,103 +1,108 @@
-		<ul id="config-sidebar-root" class="config-sidebar-menu">
-			<li>
-				<a href='javascript:void(0);' childid = 'c_12' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	<%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
-				<ul id='c_12'>
-  				  <% @scenarios.each do |s|  %>
-			     	  <li class="config-sidebar-scenario" id="config-sidebar-scenario-<%= s.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-				        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
-				      </li> 
-				  <% end %>
-				</ul>
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_13' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %>
-				<ul id='c_13'>
-	
-					<% @networks.each do |n|  %>
-					 	  <li class="config-sidebar-network" id="config-sidebar-network-<%= n.id %>"> 
-				        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-								<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
-					    </li>
-					<% end %>
-	
-				</ul> 
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_14' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
-  	   	<ul id='c_14'>
- 				  <% @csets.each do |c|  %>
-			     	  <li id="config-sidebar-controller-set-<%= c.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
-				      </li>
- 				  <% end %>
-			    </ul> 
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_15' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Demand Profile Sets", {:controller => 'demand_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-demand-profile-sets') %>
-	
-				<ul id='c_15'>
-				  <% @dprofilesets.each do |d|  %>
-			     	  <li id="config-sidebar-demand-profile-set-<%= d.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
-				      </li>
-				  <% end %>
-				</ul> 
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_16' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Split Ratio Profile Sets", {:controller => 'split_ratio_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-split-ratio-profile-sets') %>
+	<ul id="config-sidebar-root" class="config-sidebar-menu">
+		<li>
+			<a href='javascript:void(0);' childid = 'c_12' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	    	<%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
+			<ul id='c_12'>
+ 				  <% @scenarios.each do |s|  %>
+		     	  <li class="config-sidebar-scenario" id="config-sidebar-scenario-<%= s.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
+                <div class="scenario-launch" id="scenario-launch-<%= s.id %>" style="display: none;">
+                  <button class="scenario-overlay-cancel" id="<%= s.id %>-overlay-cancel">Cancel</button>
+                  <h2>Launch Scenario</h2>
+                  <%= render :partial => 'scenario/simulations/form', 
+                             :locals => {:default_name => s.name, :scenario => s} %>
+                </div>
+			      </li> 
+			  <% end %>
+			</ul>
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_13' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	    	  	<%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %>
+			<ul id='c_13'>
 
-				<ul id='c_16'>
-				  <% @sprofilesets.each do |s|  %>
-			     	  <li id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
-				      </li>
-				  <% end %>
-				</ul> 
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_17' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
-				<ul id='c_17'>
-				  <% @cprofilesets.each do |c|  %>
-			     	  <li id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
-				      </li>
-				  <% end %>
-				</ul> 
-			</li>
-			<li>
-				<a href='javascript:void(0);' childid = 'c_18' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-		  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
-				<ul id='c_18'>
- 				  <% @eventsets.each do |e|  %>
-			     	  <li id="config-sidebar-event-set-<%= e.id %>"> 
-			            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-									<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
-				      </li>
-				  <% end %>
-			  </ul> 
-			</li>
-		</ul>
+				<% @networks.each do |n|  %>
+				 	  <li class="config-sidebar-network" id="config-sidebar-network-<%= n.id %>"> 
+			        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+							<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
+				    </li>
+				<% end %>
 
-   	
+			</ul> 
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_14' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
+ 	   	<ul id='c_14'>
+ 			  <% @csets.each do |c|  %>
+		     	  <li id="config-sidebar-controller-set-<%= c.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+								<%= link_to  c.name, {:controller => 'controller_sets', :action => 'edit', :project_id => @project,:controller_set_id => c.id } %>
+			      </li>
+ 			  <% end %>
+		    </ul> 
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_15' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	  	<%= link_to( "Demand Profile Sets", {:controller => 'demand_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-demand-profile-sets') %>
 
-		<script language="javascript">
-			var leaf_menus = <%= all_leaf_menu_items(@project, :networks => @networks, 
-													      	   :scenarios => @scenarios,
-															   :controller_sets => @csets,
-															   :demand_profile_sets => @dprofilesets,
+			<ul id='c_15'>
+			  <% @dprofilesets.each do |d|  %>
+		     	  <li id="config-sidebar-demand-profile-set-<%= d.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+								<%= link_to  d.name, {:controller => 'demand_profile_sets', :action => 'edit', :project_id => @project,:demand_profile_set_id => d.id } %>
+			      </li>
+			  <% end %>
+			</ul> 
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_16' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	  	<%= link_to( "Split Ratio Profile Sets", {:controller => 'split_ratio_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-split-ratio-profile-sets') %>
+
+			<ul id='c_16'>
+			  <% @sprofilesets.each do |s|  %>
+		     	  <li id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+								<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
+			      </li>
+			  <% end %>
+			</ul> 
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_17' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
+			<ul id='c_17'>
+			  <% @cprofilesets.each do |c|  %>
+		     	  <li id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+								<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
+			      </li>
+			  <% end %>
+			</ul> 
+		</li>
+		<li>
+			<a href='javascript:void(0);' childid = 'c_18' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+	  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
+			<ul id='c_18'>
+ 			  <% @eventsets.each do |e|  %>
+		     	  <li id="config-sidebar-event-set-<%= e.id %>"> 
+		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+								<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
+			      </li>
+			  <% end %>
+		  </ul> 
+		</li>
+	</ul>
+
+	<script language="javascript">
+		var leaf_menus = <%= all_leaf_menu_items(@project, :networks => @networks, 
+ 											      	   :scenarios => @scenarios,
+    													   :controller_sets => @csets,
+		  												   :demand_profile_sets => @dprofilesets,
 															   :split_ratio_profile_sets => @sprofilesets,
 															   :capacity_profile_sets => @cprofilesets,
 															   :event_sets => @eventsets) %>;
-			<%= render :partial => 'configurations/hook_menus.js' %>
-		</script>
+    var ol = new Overlay();
+		<%= render :partial => 'configurations/hook_menus.js' %>
+	</script>

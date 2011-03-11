@@ -96,3 +96,14 @@ configSidebarContextMenus.hook(
 leaf_menus.each(function(pair) {
     configSidebarContextMenus.hookLeaf(pair.key, pair.value);
 });
+
+$$('.scenario-overlay-cancel').each(function(el) {
+  el.observe('click', function(event) {
+    var element = event.element();
+    var id = element.id;
+    var scenario_id = '';
+    id.scan(/\d+/, function(match) { scenario_id = match; });
+    $('scenario-launch-' + scenario_id).hide();
+    ol.hide();
+  });
+});

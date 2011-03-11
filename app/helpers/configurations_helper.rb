@@ -1,13 +1,24 @@
 module ConfigurationsHelper
   def js_callback_redirect(url_options)
     %Q{function() {
-          window.location = "#{url_for(url_options)}";
+         window.location = "#{url_for(url_options)}";
+      }}
+  end
+
+  def js_popup_show(div_id)
+    %Q{function() {
+         $('#{div_id}').show();
+         ol.show($('#{div_id}'), {click_hide: false,
+                          position: 'center', 
+                          auto_hide: false, 
+                          modal: true,
+                          bckg_opacity: 0.9});
       }}
   end
 
   def not_implemented_callback
     %Q{function() { 
-          alert("This function has not yet been implemented"); 
+         alert("This function has not yet been implemented"); 
       }}
   end
 
@@ -34,6 +45,8 @@ module ConfigurationsHelper
        :project_id => project.id,
        :scenario_id => scenario.id
     )
+
+    run_batch_callback = js_popup_show "scenario-launch-#{scenario.id}"
 
     delete_callback = js_callback_redirect(
        :controller => 'scenarios',
