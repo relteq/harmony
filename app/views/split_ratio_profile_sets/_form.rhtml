@@ -11,11 +11,7 @@
 <div id="split_ratio_profiles_table" class="autoscroll">
 	<%= render :partial => 'populate_splits_table' %>
 </div>
-<p>
-  <label><%= l(:label_uncertainty) %></label><%= text_field :page_attr, :uncertainty %>
-	<%= submit_tag 'Apply', :name => '_apply_button', 
-	   :onclick => {:onclick => remote_function(:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'apply_uncertainty', :project_id =>@project,:split_ratio_profile_set_id =>@srpset } , :method => :get)} %>
-</p>
+
 
 
 </div>

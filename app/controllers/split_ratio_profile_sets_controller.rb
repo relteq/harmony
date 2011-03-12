@@ -107,6 +107,7 @@ class SplitRatioProfileSetsController < ApplicationController
   def destroy
     @project = Project.find(params[:project_id])
     @srpset = @project.split_ratio_profile_sets.find(params[:split_ratio_profile_set_id])
+    @srpset.remove_from_scenario
     @srpset.destroy
 
     respond_to do |format|
@@ -121,6 +122,7 @@ class SplitRatioProfileSetsController < ApplicationController
     @srpsets = @project.split_ratio_profile_sets.all
     
     @srpsets.each do | s |
+      s.remove_from_scenario 
       s.destroy
     end
 

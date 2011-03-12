@@ -145,7 +145,7 @@ class ScenariosController < ApplicationController
   def getSets()
     @units = %w{miles feet kilometers meters}
     
-    @prompt_network = (@networks == nil) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
+    @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
     @csets = Project.find(@project).controller_sets.sort_by(&:name)
     @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}

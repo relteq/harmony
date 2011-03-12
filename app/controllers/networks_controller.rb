@@ -43,6 +43,7 @@ class NetworksController < ApplicationController
     def destroy
       @project = Project.find(params[:project_id])
       @network = @project.networks.find(params[:network_id])
+      @network.remove_from_scenario
       @network.destroy
 
       respond_to do |format|
@@ -57,6 +58,7 @@ class NetworksController < ApplicationController
       @items = @project.networks.all
 
       @items.each do | i |
+        i.remove_from_scenario
         i.destroy
       end
 

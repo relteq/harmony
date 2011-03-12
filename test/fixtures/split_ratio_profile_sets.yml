@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: split ratio profile set 1
+  name: SRP 1
+  project_id: 8
+
+two:
+  description: split ratio profile set 2
+  name: SRP 2
+  project_id: 8

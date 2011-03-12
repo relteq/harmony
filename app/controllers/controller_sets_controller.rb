@@ -107,6 +107,7 @@ class ControllerSetsController < ApplicationController
   def destroy
     @project = Project.find(params[:project_id])
     @cset = @project.controller_sets.find(params[:controller_set_id])
+    @cset.remove_from_scenario
     @cset.destroy
 
     respond_to do |format|
@@ -121,6 +122,7 @@ class ControllerSetsController < ApplicationController
     @csets = @project.controller_sets.all
     
     @csets.each do | c |
+      c.remove_from_scenario
       c.destroy
     end
 

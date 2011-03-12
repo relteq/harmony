@@ -34,6 +34,17 @@ class Network < ActiveRecord::Base
   has_many:sensors, :through => :sensor_locations
   has_many:links, :through => :sensor_locations
   
+  
+  def remove_from_scenario
+    #remove this demand profile set from anything it is attached to
+
+    @scen = Scenario.find_by_network_id(id)
+    if(@scen != nil)
+        @scen.network_id = nil
+        @scen.save
+    end
+  end
+  
   def dt
     milliseconds_to_string_time(read_attribute("dt") || 0.0)
   end
@@ -48,7 +59,7 @@ class Network < ActiveRecord::Base
      hours = (mil / 3600).to_i
      minutes = ((mil - (hours * 3600)) / 60).to_i
      seconds = (mil - (hours * 3600) - (minutes * 60))  
-     "%02d:%02d:%06.3f" % [hours, minutes, seconds]
+     "%02d:%02d:%04.1f" % [hours, minutes, seconds]
   end
   
   def milliseconds_since_midnight(time)

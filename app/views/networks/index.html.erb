@@ -37,7 +37,7 @@
 <% end %>
 <% @networks.each_with_index do |network,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%=h network.name %></td>
+	<td  ><%= link_to network.name,  {:controller => 'networks', :action => 'edit',:project_id => @project, :network_id => network.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h network.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
