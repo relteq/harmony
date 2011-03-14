@@ -88,7 +88,7 @@
  			  <% @eventsets.each do |e|  %>
 		     	  <li id="config-sidebar-event-set-<%= e.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-								<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id } %>
+								<%= link_to  e.name, {:controller => 'event_sets', :action => 'edit', :project_id => @project,:event_set_id => e.id,  } %>
 			      </li>
 			  <% end %>
 		  </ul> 

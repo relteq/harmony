@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: capacity profile set 1
+  name: CP 1
+  project_id: 8
+
+two:
+  description: capacity profile set 2
+  name: CP 2
+  project_id: 8

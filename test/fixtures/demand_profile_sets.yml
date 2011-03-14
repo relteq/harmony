@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: dps 1
+  description: demand profile set 1
+  project_id: 8
+
+two:
+  name: dps 2
+  description: demand profile set 2
+  project_id: 8

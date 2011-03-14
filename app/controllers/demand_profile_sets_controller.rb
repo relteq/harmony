@@ -104,6 +104,7 @@ class DemandProfileSetsController < ApplicationController
   def destroy
     @project = Project.find(params[:project_id])
     @dset = @project.demand_profile_sets.find(params[:demand_profile_set_id])
+    @dset.remove_from_scenario
     @dset.destroy
 
     respond_to do |format|
@@ -118,6 +119,7 @@ class DemandProfileSetsController < ApplicationController
     @dsets = @project.demand_profile_sets.all
     
     @dsets.each do | d |
+      d.remove_from_scenario
       d.destroy
     end
 

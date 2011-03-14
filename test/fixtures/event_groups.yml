@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  network_id: <%= Fixtures.identify(:one) %>
-  description: event group 1
-
-two:
-  network_id: <%= Fixtures.identify(:two) %>
-  description: event group 2

@@ -105,6 +105,7 @@ class CapacityProfileSetsController < ApplicationController
   def destroy
     @project = Project.find(params[:project_id])
     @cpset = @project.capacity_profile_sets.find(params[:capacity_profile_set_id])
+    @cpset.remove_from_scenario
     @cpset.destroy
 
     respond_to do |format|
@@ -119,6 +120,7 @@ class CapacityProfileSetsController < ApplicationController
     @cpsets = @project.capacity_profile_sets.all
     
     @cpsets.each do | cp |
+      cp.remove_from_scenario
       cp.destroy
     end
 

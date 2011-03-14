@@ -33,6 +33,7 @@ class ScenariosController < ApplicationController
                                     :offset =>  @offset
 
     respond_to do |format|
+      
       format.html { render :layout => !request.xhr? } # index.html.erb
   #    format.xml  { render :xml => @scenarios }
     end
@@ -144,7 +145,7 @@ class ScenariosController < ApplicationController
   def getSets()
     @units = %w{miles feet kilometers meters}
     
-    @prompt_network = (@networks == nil) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
+    @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
     @csets = Project.find(@project).controller_sets.sort_by(&:name)
     @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}

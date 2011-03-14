@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  network_id: <%= Fixtures.identify(:one) %>
-  description: split ratio profile group 1
-
-two:
-  network_id: <%= Fixtures.identify(:two) %>
-  description: split ratio profile group 2

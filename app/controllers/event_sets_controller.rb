@@ -106,6 +106,8 @@ class EventSetsController < ApplicationController
   def destroy
     @project = Project.find(params[:project_id])
     @eset = @project.event_sets.find(params[:event_set_id])
+
+    @eset.remove_from_scenario
     @eset.destroy
 
     respond_to do |format|
@@ -120,6 +122,7 @@ class EventSetsController < ApplicationController
     @esets = @project.event_sets.all
     
     @esets.each do | e |
+      e.remove_from_scenario
       e.destroy
     end
 

@@ -19,7 +19,7 @@ class Scenario < ActiveRecord::Base
      hours = (mil / 3600).to_i
      minutes = ((mil - (hours * 3600)) / 60).to_i
      seconds = (mil - (hours * 3600) - (minutes * 60))  
-     "%02d:%02d:%06.3f" % [hours, minutes, seconds]
+     "%02d:%02d:%04.1f" % [hours, minutes, seconds]
   end
    
   def b_time
