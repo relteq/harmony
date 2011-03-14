@@ -122,5 +122,8 @@ class NetworksController < ApplicationController
       end
     end
   end
+
+  def flash_edit
+  end
   
 end

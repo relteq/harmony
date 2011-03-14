@@ -102,6 +102,7 @@ ActionController::Routing::Routes.draw do |map|
       network_actions.connect 'project/:project_id/configuration/networks/:network_id/delete', :action => 'destroy'
       network_actions.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
       network_actions.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}
+      network_actions.connect 'project/:project_id/configuration/networks/:network_id/flash_edit', :action => 'flash_edit',:conditions => {:method => :get}
       network_actions.connect 'project/:project_id/configuration/networks/:network_id/update', :action => 'update',:conditions => {:method => :put}
     end
   end

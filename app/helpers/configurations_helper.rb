@@ -1,8 +1,14 @@
 module ConfigurationsHelper
   def js_callback_redirect(url_options)
     %Q{function() {
-         window.location = "#{url_for(url_options)}";
+          window.location = "#{url_for(url_options)}";
       }}
+  end
+
+  def js_callback_new_window(url_options)
+    %Q{function() {
+          window.open("#{url_for(url_options)}");  
+       }}
   end
 
   def js_popup_show(div_id)
@@ -74,8 +80,8 @@ module ConfigurationsHelper
   end
 
   def network_specific_menu_items(project, network)
-    edit_callback = js_callback_redirect :controller => 'networks', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'networks', 
+                                         :action => 'flash_edit',
                                          :project_id => project.id,
                                          :network_id => network.id
 
