@@ -5,7 +5,7 @@ one:
   event_type: accident
   time: 9.99
   parameters: 
-  event_group_id: <%= Fixtures.identify(:one) %>
+  event_set_id: <%= Fixtures.identify(:one) %>
   network_id: <%= Fixtures.identify(:one) %>
   link_id: nil
   node_id: nil
@@ -15,8 +15,8 @@ two:
   event_type: construction
   time: 9.99
   parameters: 
-  event_group_id: <%= Fixtures.identify(:one) %>
-  network_id: nil
+  event_set_id: <%= Fixtures.identify(:one) %>
+  network_id:  <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
 
@@ -25,7 +25,7 @@ two:
   event_type: construction
   time: 9.99
   parameters:
-  event_group_id: <%= Fixtures.identify(:one) %>
-  network_id: nil
+  event_set_id: <%= Fixtures.identify(:one) %>
+  network_id: <%= Fixtures.identify(:three) %>
   link_id: nil
   node_id: <%= Fixtures.identify(:one) %>

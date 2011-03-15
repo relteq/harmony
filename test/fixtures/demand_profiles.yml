@@ -1,18 +1,34 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  demand_profile_group_id: <%= Fixtures.identify(:one) %>
+  demand_profile_set_id: <%= Fixtures.identify(:one) %>
   link_id: <%= Fixtures.identify(:two) %>
   network_id:  <%= Fixtures.identify(:one) %>
   name: Demand Profile 1 
-  max_uncertainity: 0.01
+  max_uncertainty: 0.01
   profile: demand profile 1
 
 two:
-  demand_profile_group_id: <%= Fixtures.identify(:two) %>
+  demand_profile_set_id: <%= Fixtures.identify(:two) %>
   link_id: <%= Fixtures.identify(:three) %>
   max_uncertainty: 0.05
   network_id:  <%= Fixtures.identify(:two) %>
   profile: demand profile 2
   name: Demand Profile 2
+  
+three:
+  demand_profile_set_id: <%= Fixtures.identify(:two) %>
+  link_id: <%= Fixtures.identify(:three) %>
+  max_uncertainty: 0.05
+  network_id:  <%= Fixtures.identify(:two) %>
+  profile: demand profile 3
+  name: Demand Profile 3
+
+four:
+  demand_profile_set_id: <%= Fixtures.identify(:two) %>
+  link_id: <%= Fixtures.identify(:three) %>
+  max_uncertainty: 0.05
+  network_id:  <%= Fixtures.identify(:three) %>
+  profile: demand profile 4
+  name: Demand Profile 4
 

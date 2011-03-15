@@ -37,7 +37,7 @@
 <% end %>
 <% @demand_profile_sets_show.each_with_index do |dps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%=h dps.name %></td>
+	<td  ><%= link_to dps.name,  {:controller => 'demand_profile_sets', :action => 'edit',:project_id => @project, :demand_profile_set_id => dps.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h dps.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>

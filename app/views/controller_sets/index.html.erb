@@ -37,7 +37,7 @@
 <% end %>
 <% @controller_sets_show.each_with_index do |controller_set,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%=h controller_set.name %></td>
+	<td  ><%= link_to controller_set.name,  {:controller => 'controller_sets', :action => 'edit',:project_id => @project, :controller_set_id => controller_set.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h controller_set.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>

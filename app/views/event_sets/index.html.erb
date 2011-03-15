@@ -37,7 +37,7 @@
 <% end %>
 <% @event_sets_show.each_with_index do |es,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%=h es.name %></td>
+	<td  ><%= link_to es.name,  {:controller => 'event_sets', :action => 'edit',:project_id => @project, :event_set_id => es.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h es.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>

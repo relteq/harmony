@@ -2,7 +2,6 @@
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<th title="Select Split Ratio Profile"><%= l(:label_attach) %></th>
 			<% if(@items != nil) %>
 				<%= sort_header_tag('Node', :caption => l(:field_node),:default_order => 'desc') %>
 			<% else%>
@@ -19,8 +18,8 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %></td>
-					<td  ><%=h item.name %></td>
+					<td  ></td>
+					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
 		 			<td  ><%= text_field_tag item.id,item.profile %></td>
 		  	</tr>
 			<% end %>

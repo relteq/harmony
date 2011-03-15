@@ -2,7 +2,6 @@
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<th title="Select Event"><%= l(:label_attach) %></th>
 			<% if(@items != nil) %>
 				<%= sort_header_tag('Event', :caption => l(:field_event),:default_order => 'desc') %>
 			<% else%>
@@ -20,8 +19,7 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %></td>
-					<td  ><%=h item.name %></td>
+					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
 		 			<td  ><%=h item.description %></td>
 		 			<td  ><%=h item.time %></td>
 		  	</tr>
