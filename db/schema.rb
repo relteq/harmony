@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305172923) do
+ActiveRecord::Schema.define(:version => 20110315001301) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -258,17 +258,17 @@ ActiveRecord::Schema.define(:version => 20110305172923) do
   end
 
   create_table "events", :force => true do |t|
-    t.string    "type"
-    t.string    "event_type"
-    t.decimal   "time"
-    t.binary    "parameters"
-    t.integer   "event_group_id"
-    t.integer   "network_id"
-    t.integer   "link_id"
-    t.integer   "node_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "name"
+    t.string   "type"
+    t.string   "event_type"
+    t.decimal  "time"
+    t.binary   "parameters"
+    t.integer  "event_set_id"
+    t.integer  "network_id"
+    t.integer  "link_id"
+    t.integer  "node_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "groups_users", :id => false, :force => true do |t|

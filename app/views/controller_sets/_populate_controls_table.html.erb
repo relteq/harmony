@@ -2,9 +2,8 @@
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<th title="Select Controller"><%= l(:label_attach) %></th>
 			<% if(@controllers != nil) %>
-				<%= sort_header_tag('Name', :caption => l(:field_name),:default_order => 'desc') %>
+				<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
 			<% else %>
 				<th title="Name"><%= l(:field_name) %></th>
 			<% end %>
@@ -21,8 +20,7 @@
 		<% else %>
 			<% @controllers.each_with_index do |controller,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "controller_set[controller_ids][]", controller.id,@cset.controllers.include?(controller) %></td>
-					<td  ><%=h controller.name %></td>
+					<td  ><%= check_box_tag "controller_set[controller_ids][]", controller.id,@cset.controllers.include?(controller) %>&nbsp;&nbsp;<%=h controller.name %></td>
 		 			<td  ><%=h controller.type %></td>
 		 			<td  ><%=h controller.dt_to_time_format %></td>
 		  	</tr>

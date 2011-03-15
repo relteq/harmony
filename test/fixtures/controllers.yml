@@ -105,7 +105,7 @@ ten:
   dt: 9.99
   parameters:
   controller_set_id: <%= Fixtures.identify(:one) %>
-  network_id:  <%= Fixtures.identify(:two) %>
+  network_id:  <%= Fixtures.identify(:three) %>
   link_id: <%= Fixtures.identify(:one) %>
   node_id: nil
   name: Controller 10

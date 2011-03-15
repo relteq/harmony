@@ -148,6 +148,7 @@ class DemandProfileSetsController < ApplicationController
       @limit = per_page_option
     end
     
+    logger.info "HERE :: "  + sort_clause
     @network = nil
     @item_count = DemandProfile.count(:conditions => "network_id = " + sid);
     @items_pages = Paginator.new self, @item_count, @limit, params['page']

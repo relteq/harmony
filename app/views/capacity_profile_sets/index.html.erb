@@ -37,7 +37,7 @@
 <% end %>
 <% @capacity_profile_sets_show.each_with_index do |cps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%=h cps.name %></td>
+	<td  ><%= link_to cps.name,  {:controller => 'capacity_profile_sets', :action => 'edit',:project_id => @project, :capacity_profile_set_id => cps.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h cps.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
