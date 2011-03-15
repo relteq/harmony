@@ -28,6 +28,15 @@ module ConfigurationsHelper
       }}
   end
 
+  def highlight_if(bool)
+    'highlight' if bool
+  end
+
+  # Need a method to return nil if there is no highlighted item,
+  # so that comparisons won't crash config_sidebar rendering
+  def highlighted_item
+  end
+
   # Most common form of callback, because 2 lines/item makes it take
   # forever to scroll through a menu's definition. Note the comma at the end.
   def simple_callback_template(sym, callback)
