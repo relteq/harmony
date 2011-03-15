@@ -1,38 +1,39 @@
 class Network < ActiveRecord::Base
   belongs_to:project
-  has_many:controller_sets
-  has_many:split_ratio_profile_sets
-  has_many:capacity_profile_sets
-  has_many:demand_profile_sets
-  has_many:event_sets
-  has_many:events
-  has_many:controllers
-  has_many:demand_profiles
-  has_many:scenarios
-  
-  has_many:network_families, :foreign_key => "network_id", :class_name => "NetworkFamily"
-  has_many:children, :through => :network_families  
-  
-  has_many:network_routes
-  has_many:routes, :through => :network_routes
- 
-  has_many:network_nodes
-  has_many:nodes, :through => :network_nodes
- 
-  has_many:network_links
-  has_many:links, :through => :network_links
-  
-  has_many:output_links
-  has_many:nodes, :through => :output_links
-  has_many:links, :through => :output_links
 
-  has_many:input_links
-  has_many:nodes, :through => :input_links
-  has_many:links, :through => :input_links
+  has_many :controller_sets
+  has_many :split_ratio_profile_sets
+  has_many :capacity_profile_sets
+  has_many :demand_profile_sets
+  has_many :event_sets
+  has_many :events
+  has_many :controllers
+  has_many :demand_profiles
+  has_many :scenarios
+  
+  has_many :network_families, :foreign_key => "network_id", :class_name => "NetworkFamily"
+  has_many :children, :through => :network_families  
+  
+  has_many :network_routes
+  has_many :routes, :through => :network_routes
+ 
+  has_many :network_nodes
+  has_many :nodes, :through => :network_nodes
+ 
+  has_many :network_links
+  has_many :links, :through => :network_links
+  
+  has_many :output_links
+  has_many :nodes, :through => :output_links
+  has_many :links, :through => :output_links
 
-  has_many:sensor_locations
-  has_many:sensors, :through => :sensor_locations
-  has_many:links, :through => :sensor_locations
+  has_many :input_links
+  has_many :nodes, :through => :input_links
+  has_many :links, :through => :input_links
+
+  has_many :sensor_locations
+  has_many :sensors, :through => :sensor_locations
+  has_many :links, :through => :sensor_locations
   
   
   def remove_from_scenario

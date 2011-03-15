@@ -480,7 +480,6 @@ class ApplicationController < ActionController::Base
   def pick_layout(*args)
     api_request? ? nil : super
   end
- 
   
   # Populates the Models Tabs menu
   def populate_menu
@@ -493,7 +492,4 @@ class ApplicationController < ActionController::Base
     @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
     @eventsets = @project.event_sets ||= Array.new   
   end
-  
-
-
 end

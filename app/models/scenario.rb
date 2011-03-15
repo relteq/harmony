@@ -2,13 +2,13 @@ class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
     
-  belongs_to:project
-  belongs_to:network
-  belongs_to:demand_profile_set
-  belongs_to:capacity_profile_set
-  belongs_to:split_ratio_profile_set
-  belongs_to:controller_set
-  belongs_to:event_set
+  belongs_to :project
+  belongs_to :network
+  belongs_to :demand_profile_set
+  belongs_to :capacity_profile_set
+  belongs_to :split_ratio_profile_set
+  belongs_to :controller_set
+  belongs_to :event_set
   
   def milliseconds_since_midnight(time)
     elems = time.split(":")
@@ -52,16 +52,7 @@ class Scenario < ActiveRecord::Base
        @dt_invalid = true
   end
 
-
-  
-  #def validate
-  #  errors.add(:dt, "is invalid") if @dt_invalid
-  #  errors.add(:b_time, "is invalid") if @b_time_invalid
-  #  errors.add(:e_time, "is invalid") if @e_time_invalid
-  #end
   #def to_param
   #  "#{name.gsub(/\W/,'-').downcase}"
   #end
-    
-  
 end
