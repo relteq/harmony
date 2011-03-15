@@ -1,9 +1,12 @@
 class ScenariosController < ApplicationController
   menu_item :configurations  
+
   before_filter :populate_menu
   before_filter do |controller|
     controller.authorize(:configurations)
   end
+  before_filter :get_sets, :only => [:new, :edit]
+
   helper :sort
   helper :configurations
   include SortHelper
@@ -53,7 +56,6 @@ class ScenariosController < ApplicationController
   # GET /scenarios/new.xml
   def new
     @scenario = Scenario.new
-    getSets()
     
     respond_to do |format|
       format.html # new.html.erb
@@ -64,8 +66,6 @@ class ScenariosController < ApplicationController
   # GET /scenarios/1/edit
   def edit
     @scenario = (params[:scenario_id] != nil) ?  Scenario.find(params[:scenario_id]) :  Scenario.new
-    getSets()
-  
    
     respond_to do |format|
       format.html # edit.html.erb
@@ -142,24 +142,26 @@ class ScenariosController < ApplicationController
     end
   end
   
-  def getSets()
+private
+  def get_sets
     @units = %w{miles feet kilometers meters}
     
+    # All these strings should be localized.
     @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
-    @csets = Project.find(@project).controller_sets.sort_by(&:name)
+    @csets = @project.controller_sets.sort_by(&:name)
     @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
     
-    @dsets = Project.find(@project).demand_profile_sets.sort_by(&:name)
+    @dsets = @project.demand_profile_sets.sort_by(&:name)
     @prompt_demand = (@dsets.empty?) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
 
-    @cpsets = Project.find(@project).capacity_profile_sets.sort_by(&:name)
+    @cpsets = @project.capacity_profile_sets.sort_by(&:name)
     @prompt_capacity = (@cpsets.empty?) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
  
-    @spsets = Project.find(@project).split_ratio_profile_sets.sort_by(&:name)
+    @spsets = @project.split_ratio_profile_sets.sort_by(&:name)
     @prompt_split = (@spsets.empty?) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
 
-    @esets = Project.find(@project).event_sets.sort_by(&:name)
+    @esets = @project.event_sets.sort_by(&:name)
     @prompt_event = (@esets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
   end
 end
