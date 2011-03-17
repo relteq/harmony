@@ -73,4 +73,21 @@ img.context_menu_icon {
 	height:12px;
 }
 
+.index-menu img.context_menu_icon{
+	padding-left: 5px; 
+	width:15px;
+	height:17px;
+	
+	
+}
+
+table.index{
+	width:75%;
+}
+
+table.index td.index-menu-td {
+	width:1%;
+}
+
+
 

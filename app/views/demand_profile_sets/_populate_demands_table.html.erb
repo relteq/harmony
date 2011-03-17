@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-				<%= sort_header_tag('Origin', :caption => l(:field_origin),:default_order => 'desc') %>
+				<%= sort_header_tag('name', :caption => l(:field_origin),:default_order => 'desc') %>
 			<% else%>
 				<th title="Origin"><%= l(:field_origin) %></th>
 			<% end %>

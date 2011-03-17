@@ -36,7 +36,7 @@ module ConfigurationsHelper
   end
   alias :sct :simple_callback_template
 
-  def scenario_specific_menu_items(project, scenario)
+  def scenario_specific_menu_items(project, scenario ,where)
     run_simulation_callback = js_callback_redirect(
        :controller => 'scenario/simulations',
        :action => 'new',
@@ -66,7 +66,7 @@ module ConfigurationsHelper
     share_callback = not_implemented_callback 
     export_callback = not_implemented_callback 
 
-    %Q{'#config-sidebar-scenario-#{scenario.id}': 
+    %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:scenario_run_simulation, run_simulation_callback)}
            #{sct(:scenario_run_simulation_batch, run_batch_callback)}
            #{sct(:relteq_duplicate, duplicate_callback)}
@@ -79,7 +79,7 @@ module ConfigurationsHelper
     }
   end
 
-  def network_specific_menu_items(project, network)
+  def network_specific_menu_items(project, network,where)
     edit_callback = js_callback_new_window :controller => 'networks', 
                                          :action => 'flash_edit',
                                          :project_id => project.id,
@@ -94,7 +94,8 @@ module ConfigurationsHelper
     share_callback = not_implemented_callback
     export_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-network-#{network.id}':
+  
+    %Q{'#config-#{where}-network-#{network.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          #{sct(:relteq_share, share_callback)}
@@ -103,9 +104,11 @@ module ConfigurationsHelper
            callback: #{delete_callback},
            className: 'delete' }]
     }
+
+    
   end
 
-  def controller_set_specific_menu_items(project, cs)
+  def controller_set_specific_menu_items(project, cs,where)
     edit_callback = js_callback_redirect :controller => 'controller_sets', 
                                          :action => 'edit',
                                          :project_id => project.id,
@@ -118,7 +121,7 @@ module ConfigurationsHelper
 
     duplicate_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-controller-set-#{cs.id}':
+    %Q{'#config-#{where}-controller-set-#{cs.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          { name: "#{l(:relteq_delete)}", 
@@ -127,7 +130,7 @@ module ConfigurationsHelper
     }
   end
 
-  def demand_profile_set_specific_menu_items(project, ds)
+  def demand_profile_set_specific_menu_items(project, ds,where)
     edit_callback = js_callback_redirect :controller => 'demand_profile_sets', 
                                          :action => 'edit',
                                          :project_id => project.id,
@@ -140,7 +143,7 @@ module ConfigurationsHelper
 
     duplicate_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-demand-profile-set-#{ds.id}':
+    %Q{'#config-#{where}-demand-profile-set-#{ds.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          { name: "#{l(:relteq_delete)}", 
@@ -149,7 +152,7 @@ module ConfigurationsHelper
     }
   end
 
-  def split_ratio_profile_set_specific_menu_items(project, srp)
+  def split_ratio_profile_set_specific_menu_items(project, srp,where)
     edit_callback = js_callback_redirect :controller => 'split_ratio_profile_sets', 
                                          :action => 'edit',
                                          :project_id => project.id,
@@ -162,7 +165,7 @@ module ConfigurationsHelper
 
     duplicate_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-split-ratio-profile-set-#{srp.id}':
+    %Q{'#config-#{where}-split-ratio-profile-set-#{srp.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          { name: "#{l(:relteq_delete)}", 
@@ -171,7 +174,7 @@ module ConfigurationsHelper
     }
   end
 
-  def capacity_profile_set_specific_menu_items(project, cs)
+  def capacity_profile_set_specific_menu_items(project, cs,where)
     edit_callback = js_callback_redirect :controller => 'capacity_profile_sets', 
                                          :action => 'edit',
                                          :project_id => project.id,
@@ -184,7 +187,7 @@ module ConfigurationsHelper
 
     duplicate_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-capacity-profile-set-#{cs.id}':
+    %Q{'#config-#{where}-capacity-profile-set-#{cs.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          { name: "#{l(:relteq_delete)}", 
@@ -193,7 +196,7 @@ module ConfigurationsHelper
     }
   end
   
-  def event_set_specific_menu_items(project, es)
+  def event_set_specific_menu_items(project, es,where)
     edit_callback = js_callback_redirect :controller => 'event_sets', 
                                          :action => 'edit',
                                          :project_id => project.id,
@@ -206,7 +209,7 @@ module ConfigurationsHelper
 
     duplicate_callback = not_implemented_callback
 
-    %Q{'#config-sidebar-event-set-#{es.id}':
+    %Q{'#config-#{where}-event-set-#{es.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
          { name: "#{l(:relteq_delete)}", 
@@ -215,27 +218,28 @@ module ConfigurationsHelper
     }
   end
 
-  def all_leaf_menu_items(project, items = {})
-    networks = items[:networks].map do |n|
-      network_specific_menu_items(project, n)
+  
+  def all_leaf_menu_items(project,where,items = {})
+    networks = items[:networks] == nil ? [] : items[:networks].map do |n|
+      network_specific_menu_items(project, n,where)
     end
-    scenarios = items[:scenarios].map do |s|
-      scenario_specific_menu_items(project, s)
+    scenarios =  items[:scenarios] == nil ? [] : items[:scenarios].map do |s|
+      scenario_specific_menu_items(project, s,where)
     end
-    controller_sets = items[:controller_sets].map do |c|
-      controller_set_specific_menu_items(project, c)
+    controller_sets = items[:controller_sets] == nil ? [] : items[:controller_sets].map do |c|
+      controller_set_specific_menu_items(project, c,where)
     end
-    demand_profile_sets = items[:demand_profile_sets].map do |d|
-      demand_profile_set_specific_menu_items(project, d)
+    demand_profile_sets = items[:demand_profile_sets] == nil ? [] : items[:demand_profile_sets].map do |d|
+      demand_profile_set_specific_menu_items(project, d,where)
     end
-    split_ratio_profile_sets = items[:split_ratio_profile_sets].map do |s|
-      split_ratio_profile_set_specific_menu_items(project, s)
+    split_ratio_profile_sets = items[:split_ratio_profile_sets] == nil ? [] : items[:split_ratio_profile_sets].map do |s|
+      split_ratio_profile_set_specific_menu_items(project, s,where)
     end
-    capacity_profile_sets = items[:capacity_profile_sets].map do |c|
-      capacity_profile_set_specific_menu_items(project, c)
+    capacity_profile_sets = items[:capacity_profile_sets] == nil ? [] : items[:capacity_profile_sets].map do |c|
+      capacity_profile_set_specific_menu_items(project, c,where)
     end
-    event_sets = items[:event_sets].map do |e|
-      event_set_specific_menu_items(project, e)
+    event_sets = items[:event_sets] == nil ? [] : items[:event_sets].map do |e|
+      event_set_specific_menu_items(project, e,where)
     end
 
 
@@ -243,8 +247,10 @@ module ConfigurationsHelper
                 controller_sets + demand_profile_sets +
                 split_ratio_profile_sets + capacity_profile_sets +
                 event_sets).join(",")
-
+    
     # $H() casts to hash to use prototype hash enumeration
     "$H({#{elements}})"
+    
   end
+   
 end

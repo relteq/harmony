@@ -93,9 +93,7 @@ configSidebarContextMenus.hook(
   'eventSetsNode'
 );
 
-leaf_menus.each(function(pair) {
-    configSidebarContextMenus.hookLeaf(pair.key, pair.value);
-});
+hook_leaf_menus(leaf_menus);
 
 $$('.scenario-overlay-cancel').each(function(el) {
   el.observe('click', function(event) {
@@ -107,3 +105,9 @@ $$('.scenario-overlay-cancel').each(function(el) {
     ol.hide();
   });
 });
+
+function hook_leaf_menus(menus){
+	menus.each(function(pair) {
+		    configSidebarContextMenus.hookLeaf(pair.key, pair.value);
+	});
+}

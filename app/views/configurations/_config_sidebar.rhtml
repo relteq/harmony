@@ -96,13 +96,14 @@
 	</ul>
 
 	<script language="javascript">
-		var leaf_menus = <%= all_leaf_menu_items(@project, :networks => @networks, 
+		var leaf_menus = <%= all_leaf_menu_items(@project,'sidebar', {:networks => @networks, 
  											      	   :scenarios => @scenarios,
     													   :controller_sets => @csets,
 		  												   :demand_profile_sets => @dprofilesets,
 															   :split_ratio_profile_sets => @sprofilesets,
 															   :capacity_profile_sets => @cprofilesets,
-															   :event_sets => @eventsets) %>;
+															   :event_sets => @eventsets}) %>;
+
     var ol = new Overlay();
 		<%= render :partial => 'configurations/hook_menus.js' %>
 	</script>
