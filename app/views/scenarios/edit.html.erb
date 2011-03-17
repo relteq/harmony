@@ -1,5 +1,5 @@
 <% content_for :config_sidebar do %>
-  <%= render :partial => 'configurations/config_sidebar' %>
+  <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @scenario} %>
 <% end %>
 
 <%= error_messages_for 'scenario'%>

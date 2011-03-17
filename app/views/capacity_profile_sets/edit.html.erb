@@ -1,5 +1,5 @@
 <% content_for :config_sidebar do %>
-  <%= render :partial => 'configurations/config_sidebar' %>
+  <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @cpset} %>
 <% end %>
 
 <h2><%= link_to "Capacity Profile Sets", :controller => 'capacity_profile_sets', :action => 'index' %> &#187; <%= "Edit Capacity Profile Set"%></h2>

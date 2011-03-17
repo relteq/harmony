@@ -1,5 +1,5 @@
 <% content_for :config_sidebar do %>
-  <%= render :partial => 'configurations/config_sidebar' %>
+  <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @eset} %>
 <% end %>
 
 <h2><%= link_to "Event Sets", :controller => 'event_sets', :action => 'index' %> &#187; <%= "Edit Event Set"%></h2>
