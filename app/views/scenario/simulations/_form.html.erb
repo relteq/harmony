@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'prototype.maskedinput' %>
 <% form_tag(:controller => 'scenario/simulations',:scenario_id => scenario.id, :project_id => @project, :action => 'create') do %>
 	<p>
       <%= label_tag :name %>
@@ -13,21 +14,11 @@
     </p>
     <p>
       <%= label_tag :begin_time %>
-      <%= text_field_tag :begin_time_h, '0', :size => 2, :maxlength => 2 %>
-      h
-      <%= text_field_tag :begin_time_m, '0', :size => 2, :maxlength => 2 %>
-      m
-      <%= text_field_tag :begin_time_s, '0', :size => 2, :maxlength => 2 %>
-      s
+      <%= text_field_tag :begin_time, '0' %>
     </p>
     <p>
       <label><%= select_tag :end_time_type, options_for_select(Simulation.end_time_types) %></label>
-      <%= text_field_tag :end_time_h, '0', :size => 2, :maxlength => 2 %>
-      h
-      <%= text_field_tag :end_time_m, '0', :size => 2, :maxlength => 2 %>
-      m
-      <%= text_field_tag :end_time_s, '0', :size => 2, :maxlength => 2 %>
-      s
+      <%= text_field_tag :end_time, '0' %>
     </p>
     <p>
       <%= label_tag :control %>
@@ -44,3 +35,8 @@
 
 	<p><%= submit_tag 'Run' %></p>
 <% end %>
+
+<script language="javascript">
+	new MaskedInput('#begin_time_placeholder', '99H 99m 99.9s');
+	new MaskedInput('#end_time_placeholder', '99H 99m 99.9s');
+</script>
