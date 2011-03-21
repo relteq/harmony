@@ -7,7 +7,7 @@ module ConfigurationsHelper
 
   def js_callback_new_window(url_options)
     %Q{function() {
-          window.open("#{url_for(url_options)}");  
+          window.open("#{url_for(url_options)}");
        }}
   end
 
@@ -48,7 +48,7 @@ module ConfigurationsHelper
   def scenario_specific_menu_items(project, scenario ,where)
     run_simulation_callback = js_callback_redirect(
        :controller => 'scenario/simulations',
-       :action => 'new',
+       :action => 'create',
        :project_id => project.id,
        :scenario_id => scenario.id,
        :simple => true
