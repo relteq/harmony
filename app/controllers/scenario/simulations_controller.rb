@@ -29,7 +29,7 @@ class Scenario::SimulationsController < ConfigurationsController
 
       if params[:end_time] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
         if params[:end_time_type] == 'duration'
-          options[:param][:duration] = hours_from_hms($1,$2,$3) 
+          options[:param][:duration] = hours_from_hms($1,$2,$3)
         elsif params[:end_time_type] == 'end_time'
           options[:param][:duration] = options[:param][:b_time] - 
             hours_from_hms($1,$2,$3)
@@ -51,7 +51,7 @@ class Scenario::SimulationsController < ConfigurationsController
     else
       flash[:error] = "Error launching simulation."
     end
-    redirect_to :home
+    redirect_to :my_page 
   end
 
 private
