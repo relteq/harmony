@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-				<%= sort_header_tag('Destination', :caption => l(:field_destination),:default_order => 'desc') %>
+				<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset },:caption => l(:field_destination),:default_order => 'desc'}) %>
 			<% else%>
 				<th title="Destination"><%= l(:field_destination) %></th>
 			<% end %>

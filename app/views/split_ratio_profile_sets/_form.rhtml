@@ -1,10 +1,10 @@
-<%= error_messages_for 'split_ratio_profile_set' %>
+<%= error_messages_for 'srpset' %>
 <div class="box tabular">
 <%= f.hidden_field :project_id, :value => @project.id %>
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><%= label :split_ratio_profile_set, :network_id %><%= collection_select :split_ratio_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @srpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :split_ratio_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @srpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
 
 
 <br/>

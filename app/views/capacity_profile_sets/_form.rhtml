@@ -1,10 +1,10 @@
-<%= error_messages_for 'capacity_profile_set' %>
+<%= error_messages_for 'cpset' %>
 <div class="box tabular">
 <%= f.hidden_field :project_id, :value => @project.id %>
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><%= label :capacity_profile_set, :network_id %><%= collection_select :capacity_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @cpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :capacity_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @cpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
 
 <br/>
 <div id="capacity_profiles_table" class="autoscroll">

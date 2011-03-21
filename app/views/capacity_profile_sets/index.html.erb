@@ -31,12 +31,12 @@
 	  </tr>
 	</thead>
 	<tbody>
- <% if @capacity_profile_set_count == 0 %>
+ <% if @item_count == 0 %>
 	<tr>
 	<td colspan='4' >No records to display</td>
 	</tr>
 <% end %>
-<% @capacity_profile_sets_show.each_with_index do |cps,i| %>
+<% @items_show.each_with_index do |cps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to cps.name,  {:controller => 'capacity_profile_sets', :action => 'edit',:project_id => @project, :capacity_profile_set_id => cps.id} %></td>
  	<td  >Not Implemented</td>
@@ -50,7 +50,7 @@
 
 </table>
 </div>
-<p class="pagination"><%= pagination_links_full @capacity_profile_sets_pages, @capacity_profile_set_count %></p>
+<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
 
 <br />
 <script language="javascript">

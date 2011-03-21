@@ -1,14 +1,5 @@
-class NetworksController < ApplicationController
-   menu_item :configurations  
-   before_filter :populate_menu
-   before_filter do |controller|
-     controller.authorize(:configurations)
-   end
-   helper :sort
-   helper :configurations
-   include SortHelper
- 
- 
+class NetworksController < ConfigurationsController
+
     # GET /networks
     # GET /networks.xml
     def index

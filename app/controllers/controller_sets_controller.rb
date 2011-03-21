@@ -1,52 +1,13 @@
-class ControllerSetsController < ApplicationController
-  menu_item :configurations  
-  before_filter :populate_menu
-  #before_filter do |controller|
-  #  controller.authorize(:configurations)
-  #end
-  helper :sort
-  helper :configurations
-  include SortHelper
+class ControllerSetsController < ConfigurationsController
+
   
   def index
-      sort_init 'name', 'asc'
-      sort_update %w(name updated_at)
-
-      case params[:format]
-      when 'xml', 'json'
-        @offset, @limit = api_offset_and_limit      
-      else
-        @limit = per_page_option
-      end
-
-      @controller_set_count = ControllerSet.count(:conditions => "project_id = " + @project.id.to_s);
-      @project_id = params[:project_id]
-      @controller_sets_pages = Paginator.new self, @controller_set_count, @limit, params['page']
-      @offset ||= @controller_sets_pages.current.offset
-      @controller_sets_show = ControllerSet.find     :all,
-                                   :conditions => "project_id = " + @project.id.to_s,
-                                   :order => sort_clause,
-                                   :limit  =>  @limit,
-                                   :offset =>  @offset
-
-      respond_to do |format|
-        format.html { render :layout => !request.xhr? } # index.html.erb
-        format.xml  { render :xml => @controller_sets }
-      end
+    get_index_view(ControllerSet,@controller_sets)
   end
 
   def edit
     @cset = ControllerSet.find(params[:controller_set_id])
-    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
-    @network = @cset.network_id == nil ? nil : Network.find(@cset.network_id)
-    rescue ActiveRecord::RecordNotFound
-      @network = nil
-
-    
-   
-    #set up controllers table with controller groups network
-    get_controllers(@network == nil ? "-1" : @network.id.to_s)
-    
+    set_up_network_select(@cset,Controller)
           
     respond_to do |format|
       format.html # edit.html.erb
@@ -57,32 +18,20 @@ class ControllerSetsController < ApplicationController
 
   def update
     @cset = ControllerSet.find(params[:controller_set_id])
-    @network = params[:controller_set][:network_id] == nil ? nil : Network.find(params[:controller_set][:network_id]) 
-    respond_to do |format|
-      if(@cset.update_attributes(params[:controller_set]))
-        flash[:notice] = l(:notice_successful_update)
-      else
-        flash[:error] = "The Controller Group, " + @cset.name + ", was not not saved. See errors."
-      end
-      format.html { redirect_to  :controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset }
-      format.xml  { render :xml => @cset, :status => :created, :location => @cset }
-      
+    if(@cset.update_attributes(params[:controller_set]))
+      redirect_save_success(:controller_set,{:controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset})
+    else
+      redirect_save_error(:controller_set,:new,@cset,ControllerSet)
     end
   end
 
   def create  
        @cset = ControllerSet.new(params[:controller_set])
- 
-      respond_to do |format|
-        if(@cset.save)
-          flash[:notice] = l(:notice_successful_create)
-        else
-          flash[:error] = "The Controller Group, " + @cset.name + ", was not not saved. See errors."
-        end
-        format.html { redirect_to  :controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset }
-        format.xml  { render :xml => @cset, :status => :created, :location => @cset }
-        
-      end
+       if(@cset.update_attributes(params[:controller_set]))
+         redirect_save_success(:controller_set,{:controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset})
+       else
+         redirect_save_error(:controller_set,:new,@cset,ControllerSet)
+       end
     
   end
 
@@ -91,10 +40,7 @@ class ControllerSetsController < ApplicationController
   def new
     @cset = ControllerSet.new
     @cset.name = params[:controller_set] != nil ? params[:controller_set][:name] ||= '' : ''
-    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_sets_configured) : l(:label_please_select)}
-   
-    #set up controllers table to be empty until network selected
-    get_controllers("-1")
+    set_up_network_select(@cset,Controller)
   
     respond_to do |format|
       format.html # new.html.erb
@@ -137,33 +83,13 @@ class ControllerSetsController < ApplicationController
     #I populate cset so we can make sure to set checkboxes selected -- if there is no controller group id then 
     #you are creating a new controller_set 
     @cset = params[:controller_set_id].to_s == '' ? ControllerSet.new : ControllerSet.find(params[:controller_set_id])
-    @sid = params[:controller_set][:network_id].to_s == '' ? "-1" : params[:controller_set][:network_id].to_s
-    get_controllers(@sid)
-  end
-  
-  
-  def get_controllers(sid)
-    sort_init 'name', 'asc'
-    sort_update %w(name)
-    case params[:format]
-    when 'xml', 'json'
-      @offset, @limit = api_offset_and_limit      
+    if(params[:controller_set] != nil)
+      @sid = params[:controller_set][:network_id].to_s == '' ? "-1" : params[:controller_set][:network_id].to_s
     else
-      @limit = per_page_option
+      @sid = @cset.network_id.to_s
     end
-    
-    @network = []
-    controllers = []
-    @controller_count = Controller.count(:conditions => "network_id = " + sid);
-    @controllers_pages = Paginator.new self, @controller_count, @limit, params['page']
-   
-    @offset ||= @controllers_pages.current.offset
-  
-    @controllers = Controller.find :all,
-                                 :conditions => "network_id = " +sid,
-                                 :order => sort_clause,
-                                 :limit  =>  @limit,
-                                 :offset =>  @offset
-    
+    get_network_dependent_table_items(Controller,@sid)
+
   end
+  
 end

@@ -2,8 +2,8 @@
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<% if(@controllers != nil) %>
-				<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+			<% if(@items != nil) %>
+			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'controller_sets',  :action => 'populate_controllers_table', :project_id =>@project,:controller_set_id =>@cset },:caption => l(:field_destination),:default_order => 'desc'}) %>
 			<% else %>
 				<th title="Name"><%= l(:field_name) %></th>
 			<% end %>
@@ -13,12 +13,12 @@
 	  </tr>
 	</thead>
 	<tbody id="controllers_table_body">
-		<% if @controllers == nil ||  @controllers.count == 0 %>
+			<% if @items == nil ||  @items.count == 0 %>
 		  <tr>
 		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
 			</tr>
 		<% else %>
-			<% @controllers.each_with_index do |controller,i| %>
+		<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "controller_set[controller_ids][]", controller.id,@cset.controllers.include?(controller) %>&nbsp;&nbsp;<%=h controller.name %></td>
 		 			<td  ><%=h controller.type %></td>
@@ -30,7 +30,7 @@
    </tbody>
 </table>
 <p class="pagination">
-	<% if(@controllers != nil) %>
-		<%= pagination_links_full @controllers_pages, @controller_count %>
+	<% if(@items != nil) %>
+    <%= pagination_links_full @items_pages, @item_count %>
 	<% end %>
 </p>

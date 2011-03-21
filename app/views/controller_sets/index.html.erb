@@ -30,12 +30,12 @@
 	  </tr>
 	</thead>
 	<tbody>
- <% if @controller_set_count == 0 %>
+ <% if @item_count == 0 %>
 	<tr>
 	<td colspan='4' >No records to display</td>
 	</tr>
 <% end %>
-<% @controller_sets_show.each_with_index do |controller_set,i| %>
+<% @items_show.each_with_index do |controller_set,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to controller_set.name,  {:controller => 'controller_sets', :action => 'edit',:project_id => @project, :controller_set_id => controller_set.id} %></td>
  	<td  >Not Implemented</td>
@@ -49,7 +49,7 @@
 
 </table>
 </div>
-<p class="pagination"><%= pagination_links_full @controller_sets_pages, @controller_set_count %></p>
+<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
 
 <br />
 <script language="javascript">

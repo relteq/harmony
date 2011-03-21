@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-				<%= sort_header_tag('Node', :caption => l(:field_node),:default_order => 'desc') %>
+			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset },:caption => l(:field_destination),:default_order => 'desc'}) %>
 			<% else%>
 				<th title="Node"><%= l(:field_node) %></th>
 			<% end %>
@@ -18,8 +18,7 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ></td>
-					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
+					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.node.name %></td>
 		 			<td  ><%= text_field_tag item.id,item.profile %></td>
 		  	</tr>
 			<% end %>
