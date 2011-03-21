@@ -481,15 +481,5 @@ class ApplicationController < ActionController::Base
     api_request? ? nil : super
   end
   
-  # Populates the Models Tabs menu
-  def populate_menu
-    @project = Project.find(params[:project_id])
-    @scenarios = @project.scenarios
-    @networks = @project.networks ||= Array.new 
-    @csets = @project.controller_sets ||= Array.new 
-    @dprofilesets = @project.demand_profile_sets ||= Array.new 
-    @cprofilesets = @project.capacity_profile_sets ||= Array.new 
-    @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
-    @eventsets = @project.event_sets ||= Array.new   
-  end
+
 end

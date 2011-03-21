@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @srpset} %>
 <% end %>
 
-<h2><%= link_to "Split Ratio Profile Sets", :controller => 'capacity_profile_sets', :action => 'index' %> &#187; <%= "Edit Split Ratio Profile Set"%></h2>
+<h2><%= link_to "Split Ratio Profile Sets", :controller => 'split_ratio_profile_sets', :action => 'index' %> &#187; <%= "Edit Split Ratio Profile Set"%></h2>
 
 <% labelled_tabular_form_for :split_ratio_profile_set, @srpset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
@@ -11,4 +11,4 @@
 	</p>
 <% end %>
 
-<%= render :partial => 'layouts/scenario_list' %>
+<%= render :partial => 'layouts/scenario_list', :locals => {:record =>  @srpset}  %>

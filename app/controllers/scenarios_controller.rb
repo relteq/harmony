@@ -1,15 +1,7 @@
-class ScenariosController < ApplicationController
-  menu_item :configurations  
+class ScenariosController < ConfigurationsController
 
-  before_filter :populate_menu
-  before_filter do |controller|
-    controller.authorize(:configurations)
-  end
   before_filter :get_sets, :only => [:new, :edit]
 
-  helper :sort
-  helper :configurations
-  include SortHelper
   
   
   # GET /scenarios

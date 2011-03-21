@@ -159,6 +159,7 @@ module SortHelper
   # - criteria can be either an array or a hash of allowed keys
   #
   def sort_update(criteria)
+    
     @sort_criteria = SortCriteria.new
     @sort_criteria.available_criteria = criteria
     @sort_criteria.from_param(params[:sort] || session[sort_name])
@@ -197,6 +198,7 @@ module SortHelper
         order = 'asc'
       end
     end
+    
     caption = column.to_s.humanize unless caption
     
     sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
@@ -231,5 +233,8 @@ module SortHelper
     options[:title] = l(:label_sort_by, "\"#{caption}\"") unless options[:title]
     content_tag('th', sort_link(column, caption, default_order), options)
   end
+  
+  
+
 end
 

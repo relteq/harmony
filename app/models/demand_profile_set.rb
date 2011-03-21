@@ -1,4 +1,7 @@
 class DemandProfileSet < ActiveRecord::Base
+  validates_presence_of :name
+  validates_presence_of :network
+  
   belongs_to:network
   belongs_to:project
   

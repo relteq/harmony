@@ -86,6 +86,7 @@ module ConfigurationsHelper
              callback: #{delete_callback},
              className: 'delete'}]
     }
+    
   end
 
   def network_specific_menu_items(project, network,where)
@@ -261,5 +262,38 @@ module ConfigurationsHelper
     "$H({#{elements}})"
     
   end
+   
+   def sort_header_tag_relteq(column,options = {})
+     caption = options.delete(:caption) || column.to_s.humanize
+     default_order = options.delete(:default_order) || 'asc'
+     options[:title] = l(:label_sort_by, "\"#{caption}\"") unless options[:title]
+     content_tag('th', sort_link_relteq(column,caption, default_order,options[:url]), options)
+   end
+
+   def sort_link_relteq(column,caption, default_order,url)
+     css, order = nil, default_order
+
+     if column.to_s == @sort_criteria.first_key
+       if @sort_criteria.first_asc?
+         css = 'sort asc'
+         order = 'desc'
+       else
+         css = 'sort desc'
+         order = 'asc'
+       end
+     end
+
+     caption = column.to_s.humanize unless caption
+
+     sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
+     # don't reuse params if filters are present
+     url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
+
+
+      link_to_remote(caption,
+                    { :url => url.merge(url_options), :method => :get},
+                    { :href => url_for(url_options),
+                     :class => css})               
+   end
    
 end
