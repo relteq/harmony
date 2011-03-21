@@ -59,6 +59,7 @@ class ConfigurationsController < ApplicationController
     @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
     
     @network = record.network_id == nil ? nil : Network.find(record.network_id) 
+  
     #set up events table with split_ratio profile set network
     get_network_dependent_table_items(model,@network == nil ? "-1" : @network.id.to_s)
   end

@@ -11,4 +11,5 @@
 	</p>
 <% end %>
 
-<%= render :partial => 'layouts/scenario_list' %>
+<%= render :partial => 'layouts/scenario_list', :locals => {:record =>  @cset}  %>
+

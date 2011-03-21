@@ -1,10 +1,10 @@
 <div id="scenarios-list-box">
 	<span id="scenarios-list-header">Scenarios using:</span><br/>
-	<% if  @network == nil || @network.scenarios.empty? %>
+	<% if  record == nil || record.scenarios.empty? %>
 		<span class="no-records"><%= l(:label_no_scenario_records) %></span>
 	<% else %>
 		<ul>
-  	<% @network.scenarios.each do |s| %>
+  	<% record.scenarios.each do |s| %>
 	  	<li><%= link_to s.name, :controller => 'scenarios', :action => 'edit', :project_id => @project, :scenario_id => s.id  %></li>
 	  <% end %>
 		</ul>
