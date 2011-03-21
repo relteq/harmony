@@ -31,11 +31,14 @@ class Scenario::SimulationsController < ConfigurationsController
         if params[:end_time_type] == 'duration'
           options[:param][:duration] = hours_from_hms($1,$2,$3)
         elsif params[:end_time_type] == 'end_time'
-          options[:param][:duration] = options[:param][:b_time] - 
-            hours_from_hms($1,$2,$3)
+          options[:param][:duration] = hours_from_hms($1,$2,$3) - options[:param][:b_time] 
+
+          if options[:param][:duration] < 0
+             flash[:error] = "Simulation duration less than zero.<br/>"
+          end
         end
       else
-        Rails.logger.error "Problem with end time input #{params[:end_time]}"
+        Rails.logger.error "Problem with end time input #{params[:end_time]}."
       end
 
       options[:name] = params[:name]
@@ -46,8 +49,11 @@ class Scenario::SimulationsController < ConfigurationsController
       options[:param][:events] = !!params[:events]
     end
     options[:user] = User.current.id
-    if Simulation.launch(options)
+
+    if !flash[:error] && Simulation.launch(options)
       flash[:notice] = "Simulation launched successfully."
+    elsif flash[:error]
+      flash[:error] += "Error launching simulation.<br/>"
     else
       flash[:error] = "Error launching simulation."
     end
