@@ -1,6 +1,4 @@
 class Scenario::SimulationsController < ConfigurationsController
-  before_filter :populate_menu
-  menu_item :configurations  
   before_filter :load_scenario
 
   def new
