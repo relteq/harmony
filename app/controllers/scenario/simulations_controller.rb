@@ -1,9 +1,6 @@
-class Scenario::SimulationsController < ApplicationController
-  menu_item :configurations  
+class Scenario::SimulationsController < ConfigurationsController
   before_filter :populate_menu
-  before_filter do |controller|
-    controller.authorize(:configurations)
-  end
+  menu_item :configurations  
   before_filter :load_scenario
 
   def new
@@ -26,29 +23,36 @@ class Scenario::SimulationsController < ApplicationController
       options[:param][:qcontrol] = true
       options[:param][:events] = true
     else
+      if params[:begin_time] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
+        options[:param][:b_time] = hours_from_hms($1,$2,$3)
+      else
+        Rails.logger.error "Problem with begin time input #{params[:begin_time]}"
+      end
+
+      if params[:end_time] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
+        if params[:end_time_type] == 'duration'
+          options[:param][:duration] = hours_from_hms($1,$2,$3) 
+        elsif params[:end_time_type] == 'end_time'
+          options[:param][:duration] = options[:param][:b_time] - 
+            hours_from_hms($1,$2,$3)
+        end
+      else
+        Rails.logger.error "Problem with end time input #{params[:end_time]}"
+      end
+
       options[:name] = params[:name]
       options[:n_runs] = params[:n_runs]
       options[:mode] = params[:mode]
-      options[:param][:b_time] = params[:begin_time_h].to_f + 
-                         params[:begin_time_m].to_f / 60.0 + 
-                         params[:begin_time_s].to_f / 3600.0
-      if params[:end_time_type] == 'duration'
-        options[:param][:duration] = params[:end_time_h].to_f + 
-                           params[:end_time_m].to_f / 60.0 + 
-                           params[:end_time_s].to_f / 3600.0
-      elsif params[:end_time_type] == 'end_time'
-        options[:param][:duration] = params[:end_time_h].to_f + 
-                           params[:end_time_m].to_f / 60.0 + 
-                           params[:end_time_s].to_f / 3600.0 -
-                           options[:param][:b_time]
-
-      end
       options[:param][:control] = !!params[:control]
       options[:param][:qcontrol] = !!params[:qcontrol]
       options[:param][:events] = !!params[:events]
     end
     options[:user] = User.current.id
-    Simulation.launch(options)
+    if Simulation.launch(options)
+      flash[:notice] = "Simulation launched successfully."
+    else
+      flash[:error] = "Error launching simulation."
+    end
     redirect_to :home
   end
 
@@ -59,5 +63,9 @@ private
       flash[:error] = 'Error: scenario does not exist.'
       redirect_to :root
     end
+  end
+
+  def hours_from_hms(h,m,s)
+    h.to_f + m.to_f/60.0 + s.to_f/3600.0
   end
 end
