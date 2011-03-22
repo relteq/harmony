@@ -1,4 +1,4 @@
-class DemandProfileSetsController < ConfigurationsController
+class DemandProfileSetsController <  ConfigurationsApplicationController
   
   def index
     get_index_view(DemandProfileSet,@dprofilesets)

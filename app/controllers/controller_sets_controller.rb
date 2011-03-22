@@ -1,4 +1,4 @@
-class ControllerSetsController < ConfigurationsController
+class ControllerSetsController <  ConfigurationsApplicationController
 
   
   def index

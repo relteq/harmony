@@ -1,4 +1,4 @@
-class SplitRatioProfileSetsController < ConfigurationsController
+class SplitRatioProfileSetsController <  ConfigurationsApplicationController
  
   def index
     get_index_view(SplitRatioProfileSet,@sprofilesets)

@@ -31,12 +31,12 @@
 	  </tr>
 	</thead>
 	<tbody>
- <% if @networks.count == 0 %>
+ <% if @items_count == 0 %>
 	<tr>
 	<td colspan='4' ><%= l(:label_no_records_index)%></td>
 	</tr>
 <% end %>
-<% @networks.each_with_index do |network,i| %>
+<% @items_show.each_with_index do |network,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to network.name,  {:controller => 'networks', :action => 'edit',:project_id => @project, :network_id => network.id} %></td>
  	<td  >Not Implemented</td>
@@ -50,7 +50,7 @@
 
 </table>
 </div>
-<p class="pagination"><%= pagination_links_full @networks_pages, @network_count %></p>
+<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
 
 <br />
 <script language="javascript">

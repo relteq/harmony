@@ -1,4 +1,4 @@
-class CapacityProfileSetsController < ConfigurationsController
+class CapacityProfileSetsController <  ConfigurationsApplicationController
 
   def index
     get_index_view(CapacityProfileSet,@cprofilesets)

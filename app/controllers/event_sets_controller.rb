@@ -1,4 +1,4 @@
-class EventSetsController < ConfigurationsController
+class EventSetsController <  ConfigurationsApplicationController
 
   def index
     get_index_view(EventSet,@esets)

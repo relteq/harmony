@@ -1,32 +1,9 @@
-class NetworksController < ConfigurationsController
+class NetworksController <  ConfigurationsApplicationController
 
     # GET /networks
     # GET /networks.xml
     def index
-      sort_init 'name', 'asc'
-      sort_update %w(name updated_at)
-
-      case params[:format]
-      when 'xml', 'json'
-        @offset, @limit = api_offset_and_limit      
-      else
-        @limit = per_page_option
-      end
-
-      @network_count = Network.count(:conditions => "project_id = " + @project.id.to_s);
-      @project_id = params[:project_id]
-      @networks_pages = Paginator.new self, @network_count, @limit, params['page']
-      @offset ||= @networks_pages.current.offset
-      @networks = Network.find     :all,
-                                   :conditions => "project_id = " + @project.id.to_s,
-                                   :order => sort_clause,
-                                   :limit  =>  @limit,
-                                   :offset =>  @offset
-
-      respond_to do |format|
-        format.html { render :layout => !request.xhr? } # index.html.erb
-    #    format.xml  { render :xml => @networks }
-      end
+      get_index_view(Network,@networks)
     end
 
     # DELETE /networks/1

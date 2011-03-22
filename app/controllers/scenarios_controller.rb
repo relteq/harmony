@@ -1,4 +1,4 @@
-class ScenariosController < ConfigurationsController
+class ScenariosController <  ConfigurationsApplicationController
 
   before_filter :get_sets, :only => [:new, :edit]
 
@@ -7,31 +7,7 @@ class ScenariosController < ConfigurationsController
   # GET /scenarios
   # GET /scenarios.xml
   def index
-    sort_init 'name', 'asc'
-    sort_update %w(name updated_at)
-
-    case params[:format]
-    when 'xml', 'json'
-      @offset, @limit = api_offset_and_limit      
-    else
-      @limit = per_page_option
-    end
-
-    @scenario_count = @scenarios.count;
-    @project_id = params[:project_id]
-    @scenarios_pages = Paginator.new self, @scenario_count, @limit, params['page']
-    @offset ||= @scenarios_pages.current.offset
-    @scenarios_show = Scenario.find :all,
-                                    :conditions => "project_id = " + @project.id.to_s,
-                                    :order => sort_clause,
-                                    :limit  =>  @limit,
-                                    :offset =>  @offset
-
-    respond_to do |format|
-      
-      format.html { render :layout => !request.xhr? } # index.html.erb
-  #    format.xml  { render :xml => @scenarios }
-    end
+    get_index_view(Scenario,@scenarios)
   end
 
   # GET /scenarios/1
