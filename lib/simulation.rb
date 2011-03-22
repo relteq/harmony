@@ -31,6 +31,7 @@ module Simulation
         http_post_simulation(simulation_spec)
       rescue
         Rails.logger.error "Error launching simulation for user ID #{simulation_spec[:user]}"
+        return false
       end
     end
 

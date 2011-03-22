@@ -340,6 +340,8 @@ ActionController::Routing::Routes.draw do |map|
     sys.connect 'sys/projects.:format', :action => 'projects', :conditions => {:method => :get}
     sys.connect 'sys/projects/:id/repository.:format', :action => 'create_project_repository', :conditions => {:method => :post}
   end
+
+  map.my_page '/my/page', :controller => 'my', :action => 'page'
  
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'

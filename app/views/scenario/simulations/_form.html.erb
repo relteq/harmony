@@ -2,41 +2,41 @@
 <% form_tag(:controller => 'scenario/simulations',:scenario_id => scenario.id, :project_id => @project, :action => 'create') do %>
 	<p>
       <%= label_tag :name %>
-      <%= text_field_tag :name, default_name %>
+      <%= text_field_tag :name, default_name, :id => "name_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :n_runs, 'Number of Runs' %>
-      <%= text_field_tag :n_runs, '1' %>
+      <%= text_field_tag :n_runs, '1', :id => "n_runs_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :mode %>
-      <%= select_tag :mode, options_for_select(Simulation.modes) %>
+      <%= select_tag :mode, options_for_select(Simulation.modes), :id => "mode_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :begin_time %>
-      <%= text_field_tag :begin_time, '0' %>
+      <%= text_field_tag :begin_time, '0', :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <label><%= select_tag :end_time_type, options_for_select(Simulation.end_time_types) %></label>
-      <%= text_field_tag :end_time, '0' %>
+      <%= text_field_tag :end_time, '0', :id => "end_time_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :control %>
-      <%= check_box_tag :control %>
+      <%= check_box_tag :control, true, true, :id => "control_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :qcontrol, 'Queue Control' %>
-      <%= check_box_tag :qcontrol %>
+      <%= check_box_tag :qcontrol, true, true, :id => "qcontrol_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :events %>
-      <%= check_box_tag :events %>
+      <%= check_box_tag :events, true, true, :id => "events_#{scenario.id}" %>
     </p>
 
 	<p><%= submit_tag 'Run' %></p>
 <% end %>
 
 <script language="javascript">
-	new MaskedInput('#begin_time_placeholder', '99H 99m 99.9s');
-	new MaskedInput('#end_time_placeholder', '99H 99m 99.9s');
+	new MaskedInput("#begin_time_<%= scenario.id %>", '99H 99m 99.9s');
+	new MaskedInput("#end_time_<%= scenario.id %>", '99H 99m 99.9s');
 </script>

@@ -294,7 +294,6 @@ class ApplicationController < ActionController::Base
     
     respond_to do |format|
       format.html {
-        logger.info "here I am"
         render :template => 'common/error', :layout => use_layout, :status => @status
       }
       format.atom { head @status }
