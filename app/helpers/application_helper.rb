@@ -120,7 +120,7 @@ module ApplicationHelper
   #
   def link_to_project(project, options={}, html_options = nil)
     if project.active?
-      url = {:controller => 'projects', :action => 'show', :id => project.id}.merge(options)
+      url = {:controller => 'projects', :action => 'show', :id => project}.merge(options)
       link_to(h(project), url, html_options)
     else
       h(project)
