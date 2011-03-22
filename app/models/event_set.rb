@@ -6,6 +6,8 @@ class EventSet < ActiveRecord::Base
   belongs_to:project
   
   has_many :events
+  has_many :scenarios
+  
   
   def remove_from_scenario
     #remove this event from anything it is attached to
