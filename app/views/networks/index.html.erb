@@ -54,6 +54,6 @@
 
 <br />
 <script language="javascript">
-	leaf_menus = <%= all_leaf_menu_items(@project,'index' ,{:networks => @networks}) %>;
+	leaf_menus = <%= all_leaf_menu_items(@project,'index' ,{:networks => @items_show}) %>;
 	hook_leaf_menus(leaf_menus);	
 </script>
