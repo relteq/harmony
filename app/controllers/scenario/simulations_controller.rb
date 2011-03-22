@@ -1,9 +1,8 @@
-class Scenario::SimulationsController < ConfigurationsController
+class Scenario::SimulationsController < ConfigurationsApplicationController
   before_filter :load_scenario
 
   def new
-    @simulation_modes = ['Simulation', 'Prediction']
-    @end_time_types = [['End Time', 'end_time'], ['Duration', 'duration']]
+    @simulation_modes = Simulation.modes 
   end
 
   def create
@@ -27,18 +26,14 @@ class Scenario::SimulationsController < ConfigurationsController
         Rails.logger.error "Problem with begin time input #{params[:begin_time]}"
       end
 
-      if params[:end_time] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
-        if params[:end_time_type] == 'duration'
-          options[:param][:duration] = hours_from_hms($1,$2,$3)
-        elsif params[:end_time_type] == 'end_time'
-          options[:param][:duration] = hours_from_hms($1,$2,$3) - options[:param][:b_time] 
+      if params[:duration] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
+        options[:param][:duration] = hours_from_hms($1,$2,$3)
 
-          if options[:param][:duration] < 0
-             flash[:error] = "Simulation duration less than zero.<br/>"
-          end
+        if options[:param][:duration] < 0
+           flash[:error] = "Simulation duration less than zero.<br/>"
         end
       else
-        Rails.logger.error "Problem with end time input #{params[:end_time]}."
+        Rails.logger.error "Problem with duration input #{params[:duration]}."
       end
 
       options[:name] = params[:name]

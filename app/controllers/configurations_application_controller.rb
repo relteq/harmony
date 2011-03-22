@@ -1,9 +1,9 @@
 class ConfigurationsApplicationController < ApplicationController
   before_filter :populate_menu
   menu_item :configurations  
-  #before_filter do |controller|
-  #  controller.authorize(:configurations)
-  #end
+  before_filter do |controller|
+    controller.authorize(:configurations)
+  end
   helper :sort
   helper :configurations
   include SortHelper
@@ -19,35 +19,32 @@ class ConfigurationsApplicationController < ApplicationController
     @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
     @eventsets = @project.event_sets ||= Array.new   
   end
-  
-
 
   def redirect_save_success(set,url)
-       @network = params[set][:network_id] == nil ? nil : Network.find(params[set][:network_id]) 
-       respond_to do |format|
-               format.html {
-                 flash[:notice] = l(:notice_successful_update)
-                 redirect_to url
-               }
-               format.api  { head :ok }
-        end
+    @network = params[set][:network_id] == nil ? nil : Network.find(params[set][:network_id]) 
+    respond_to do |format|
+      format.html {
+        flash[:notice] = l(:notice_successful_update)
+        redirect_to url
+      }
+      format.api  { head :ok }
+    end
   end
   
   def redirect_save_error(set,action,record,model)
-    
-         set_up_network_select(record,model)
-         #if name or network existed and then removed clear the name/network
-         if params[set][:name] == ""
-           record.name  = nil
-         end
-         if params[set][:network_id] == ""
-           record.network  = nil 
-         end
-       
-         respond_to do |format|
-           format.html { render :action => action}
-           format.api  { render_validation_errors(record) }
-         end
+    set_up_network_select(record,model)
+    #if name or network existed and then removed clear the name/network
+    if params[set][:name] == ""
+     record.name  = nil
+    end
+    if params[set][:network_id] == ""
+     record.network  = nil 
+    end
+
+    respond_to do |format|
+     format.html { render :action => action}
+     format.api  { render_validation_errors(record) }
+    end
   end
   
   def set_up_network_select(record,model)
@@ -75,11 +72,10 @@ class ConfigurationsApplicationController < ApplicationController
 
     @offset ||= @items_pages.current.offset
 
-    @items = model.find :all,
-                                :conditions => "network_id = " +sid,
-                                :order => sort_clause,
-                                :limit  =>  @limit,
-                                :offset =>  @offset
+    @items = model.find :all, :conditions => "network_id = " +sid,
+                              :order => sort_clause,
+                              :limit  =>  @limit,
+                              :offset =>  @offset
   end
   
   def get_index_view(model,records)
