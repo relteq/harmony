@@ -9,6 +9,8 @@ class Scenario < ActiveRecord::Base
   belongs_to :split_ratio_profile_set
   belongs_to :controller_set
   belongs_to :event_set
+
+  has_many :vehicle_types
   
   def milliseconds_since_midnight(time)
     elems = time.split(":")
