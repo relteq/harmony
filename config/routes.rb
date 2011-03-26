@@ -132,8 +132,8 @@ ActionController::Routing::Routes.draw do |map|
     board_routes.with_options :conditions => {:method => :get} do |board_views|
       board_views.connect 'projects/:project_id/boards', :action => 'index'
       board_views.connect 'projects/:project_id/boards/new', :action => 'new'
-      board_views.connect 'projects/:project_id/boards/:id', :action => 'show'
       board_views.connect 'projects/:project_id/boards/:id.:format', :action => 'show'
+      board_views.connect 'projects/:project_id/boards/:id', :action => 'show'
       board_views.connect 'projects/:project_id/boards/:id/edit', :action => 'edit'
     end
     board_routes.with_options :conditions => {:method => :post} do |board_actions|
@@ -198,6 +198,10 @@ ActionController::Routing::Routes.draw do |map|
     project.wiki_start_page 'wiki', :controller => 'wiki', :action => 'show', :conditions => {:method => :get}
   end
 
+  map.resources :issues, :member => { :edit => :post }, :collection => {} do |issues|
+    issues.resources :time_entries, :controller => 'timelog'
+  end
+
   # TODO: wasteful since this is also nested under issues, projects, and projects/issues
   map.resources :time_entries, :controller => 'timelog'
  
@@ -219,7 +223,6 @@ ActionController::Routing::Routes.draw do |map|
   map.preview_issue '/issues/preview/:id', :controller => 'previews', :action => 'issue' # TODO: would look nicer as /issues/:id/preview
   map.issues_context_menu '/issues/context_menu', :controller => 'context_menus', :action => 'issues'
   map.issue_changes '/issues/changes', :controller => 'journals', :action => 'index'
-  map.bulk_edit_issue 'issues/bulk_edit', :controller => 'issues', :action => 'bulk_edit', :conditions => { :method => :get }
   map.bulk_update_issue 'issues/bulk_edit', :controller => 'issues', :action => 'bulk_update', :conditions => { :method => :post }
   map.quoted_issue '/issues/:id/quoted', :controller => 'journals', :action => 'new', :id => /\d+/, :conditions => { :method => :post }
   map.connect '/issues/:id/destroy', :controller => 'issues', :action => 'destroy', :conditions => { :method => :post } # legacy
@@ -230,17 +233,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :calendar, :path_prefix => '/projects/:project_id/issues', :controller => 'calendars', :only => [:show, :update]
 
   map.with_options :controller => 'reports', :conditions => {:method => :get} do |reports|
-    reports.connect 'projects/:id/issues/report', :action => 'issue_report'
     reports.connect 'projects/:id/issues/report/:detail', :action => 'issue_report_details'
+    reports.connect 'projects/:id/issues/report', :action => 'issue_report'
   end
 
   # Following two routes conflict with the resources because #index allows POST
   map.connect '/issues', :controller => 'issues', :action => 'index', :conditions => { :method => :post }
   map.connect '/issues/create', :controller => 'issues', :action => 'index', :conditions => { :method => :post }
-  
-  map.resources :issues, :member => { :edit => :post }, :collection => {} do |issues|
-    issues.resources :time_entries, :controller => 'timelog'
-  end
   
   map.resources :issues, :path_prefix => '/projects/:project_id', :collection => { :create => :post } do |issues|
     issues.resources :time_entries, :controller => 'timelog'
@@ -280,10 +279,10 @@ ActionController::Routing::Routes.draw do |map|
   map.project_destroy_confirm 'projects/:id/destroy', :controller => 'projects', :action => 'destroy', :conditions => {:method => :get}
   
   map.with_options :controller => 'activities', :action => 'index', :conditions => {:method => :get} do |activity|
-    activity.connect 'projects/:id/activity'
     activity.connect 'projects/:id/activity.:format'
-    activity.connect 'activity', :id => nil
+    activity.connect 'projects/:id/activity'
     activity.connect 'activity.:format', :id => nil
+    activity.connect 'activity', :id => nil
   end
     
   map.with_options :controller => 'issue_categories' do |categories|
@@ -311,8 +310,8 @@ ActionController::Routing::Routes.draw do |map|
     repositories.connect 'projects/:id/repository/:action', :conditions => {:method => :post}
   end
   
-  map.connect 'attachments/:id', :controller => 'attachments', :action => 'show', :id => /\d+/
   map.connect 'attachments/:id/:filename', :controller => 'attachments', :action => 'show', :id => /\d+/, :filename => /.*/
+  map.connect 'attachments/:id', :controller => 'attachments', :action => 'show', :id => /\d+/
   map.connect 'attachments/download/:id/:filename', :controller => 'attachments', :action => 'download', :id => /\d+/, :filename => /.*/
    
   map.resources :groups
