@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  scenario_id: 1
+  name: MyString
+  weight: 1.0
+
+two:
+  scenario_id: 1
+  name: MyString
+  weight: 3.0

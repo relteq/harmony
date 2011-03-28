@@ -1,7 +1,6 @@
 module Simulation
   class << self
     MODES = ['Simulation', 'Prediction']
-    END_TIME_TYPES = [['End Time', 'end_time'], ['Duration', 'duration']]
 
     def modes
       MODES
