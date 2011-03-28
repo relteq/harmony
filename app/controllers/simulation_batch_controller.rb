@@ -19,7 +19,7 @@ class SimulationBatchController < ApplicationController
       @project_id = params[:project_id]
       @actions =  {'Generate Report' => 'report','Share' => 'share','Export XML' => 'export','Rename' => 'rename',' Delete' => 'delete'}
       
-      @project = Project.find_by_id(@project_id)
+      @project = Project.find(@project_id)
       @item_count = SimulationBatch.count(:conditions => {:scenario_id => @project.scenarios} );
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
