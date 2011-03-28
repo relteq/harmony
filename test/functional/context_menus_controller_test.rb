@@ -29,7 +29,7 @@ class ContextMenusControllerTest < ActionController::TestCase
                             :attributes => { :href => '/issues/bulk_edit?ids%5B%5D=1&amp;issue%5Bassigned_to_id%5D=3',
                                              :class => '' }
     assert_tag :tag => 'a', :content => 'Duplicate',
-                            :attributes => { :href => '/projects/ecookbook/issues/new?copy_from=1',
+                            :attributes => { :href => '/projects/ecookbook/issues/1/copy',
                                              :class => 'icon-duplicate' }
     assert_tag :tag => 'a', :content => 'Copy',
                             :attributes => { :href => '/issues/move/new?copy_options%5Bcopy%5D=t&amp;ids%5B%5D=1',
