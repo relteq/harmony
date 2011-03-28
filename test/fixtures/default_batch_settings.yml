@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  scenaro_id: 1
+  name: MyString
+  number_of_runs: 1
+  mode: MyString
+  b_time: 9.99
+  duration: 9.99
+  control: false
+  qcontrol: false
+  events: false
+
+two:
+  scenaro_id: 1
+  name: MyString
+  number_of_runs: 1
+  mode: MyString
+  b_time: 9.99
+  duration: 9.99
+  control: false
+  qcontrol: false
+  events: false

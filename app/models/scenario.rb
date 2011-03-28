@@ -1,6 +1,8 @@
 class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
+  validates_presence_of :network
+
     
   belongs_to :project
   belongs_to :network
@@ -9,18 +11,23 @@ class Scenario < ActiveRecord::Base
   belongs_to :split_ratio_profile_set
   belongs_to :controller_set
   belongs_to :event_set
+  belongs_to :simulation_batch
+  belongs_to :default_batch_setting
 
   has_many :vehicle_types
   
   def milliseconds_since_midnight(time)
-    elems = time.split(":")
-    seconds = elems[0].to_i * 3600 + elems[1].to_i * 60 + elems[2].to_f
+    if(time != nil)
+      elems = time.split(":")
+      seconds = elems[0].to_i * 3600 + elems[1].to_i * 60 + elems[2].to_f
+      ms = seconds * 1000
+    end
   end
   
   def milliseconds_to_string_time(mil)
-     hours = (mil / 3600).to_i
-     minutes = ((mil - (hours * 3600)) / 60).to_i
-     seconds = (mil - (hours * 3600) - (minutes * 60))  
+     hours = (mil / 3600000).to_i
+     minutes = ((mil - (hours * 3600000)) / 60000).to_i
+     seconds = (mil - (hours * 3600000) - (minutes * 60000))  
      "%02d:%02d:%04.1f" % [hours, minutes, seconds]
   end
    
@@ -35,7 +42,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def e_time
-    milliseconds_to_string_time(read_attribute("e_time") || 0.0)
+    milliseconds_to_string_time(read_attribute("e_time") || 86400000.0)
   end
   
   def e_time=(e_time)
@@ -45,7 +52,7 @@ class Scenario < ActiveRecord::Base
   end
   
   def dt
-    milliseconds_to_string_time(read_attribute("dt") || 0.0)
+    milliseconds_to_string_time(read_attribute("dt") || 300000.0)
   end
   
   def dt=(dt)
@@ -54,7 +61,4 @@ class Scenario < ActiveRecord::Base
        @dt_invalid = true
   end
 
-  #def to_param
-  #  "#{name.gsub(/\W/,'-').downcase}"
-  #end
 end

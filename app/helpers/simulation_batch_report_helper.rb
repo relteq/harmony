@@ -1,0 +1,2 @@
+module SimulationBatchReportHelper
+end

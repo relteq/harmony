@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  scenario_id: 980190968
+  name: Sim Batch 1
+  number_of_runs: 1
+  mode: Sim Batch 1 Mode
+  b_time: 9.99
+  duration: 9.99
+  control: false
+  qcontrol: false
+  events: false
+  start_time: 2011-03-22 16:30:36
+  execution_time: 9.99
+  percent_complete: 1
+  cpu_instance: 
+
+two:
+  scenario_id: 980190967
+  name: Sim Batch 2 
+  number_of_runs: 1
+  mode: Sim Batch 1 Mode
+  b_time: 9.99
+  duration: 9.99
+  control: false
+  qcontrol: false
+  events: false
+  start_time: 2011-03-22 16:30:36
+  execution_time: 9.99
+  percent_complete: 1
+  cpu_instance: 

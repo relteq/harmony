@@ -1,6 +1,6 @@
 class ScenariosController <  ConfigurationsApplicationController
 
-  before_filter :get_sets, :only => [:new, :edit]
+  before_filter :get_sets, :only => [:new, :edit,:update,:create]
 
   
   
@@ -54,10 +54,9 @@ class ScenariosController <  ConfigurationsApplicationController
         format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
-        flash[:error] = "The scenario name, " + @scenario.name + ", already exists for this project. Please pick another."
-        format.html { redirect_to  :controller => 'scenarios', :action => 'index', :project_id => @project }
-        format.xml  { render :xml => @scenario.errors, :status => :unprocessable_entity }
-  
+        clear_fields
+        format.html { render :action => :new }
+        format.api  { render_validation_errors(@scenario) }  
       end
     end
   end
@@ -66,16 +65,14 @@ class ScenariosController <  ConfigurationsApplicationController
   # PUT /scenarios/1.xml
   def update
     @scenario = Scenario.find(params[:scenario_id])
-
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
-        flash[:notice] = 'Scenario was successfully updated.'
-   
+        flash[:notice] = 'Scenario was successfully updated.'  
         format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
         format.xml  { head :ok }
       else
-        flash[:error] = 'Scenario was not successfully updated.'
-        format.html { redirect_to :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
+        clear_fields
+        format.html { render :action => :edit}
         format.api  { render_validation_errors(@scenario) }
       end
     end
@@ -131,5 +128,26 @@ private
 
     @esets = @project.event_sets.sort_by(&:name)
     @prompt_event = (@esets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
+  end
+  
+private
+  def clear_fields
+    #if name or network existed and then removed clear the name/network
+    if params[:scenario][:name] == ""
+      @scenario.name  = nil
+    end
+    if params[:scenario][:network_id] == ""
+      @scenario.network  = nil 
+    end
+    if params[:scenario][:b_time] == ""
+      @scenario.b_time  = nil 
+    end
+    if params[:scenario][:e_time] == ""
+      @scenario.e_time  = nil 
+    end
+    if params[:scenario][:dt] == ""
+      @scenario.dt  = nil 
+    end
+    
   end
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  simulation_batch_report_id: 1
+  x_axis_type: 
+  x_axis_scope: 
+  y_axis_type: 
+  y_axis_scope: 
+
+two:
+  simulation_batch_report_id: 2
+  x_axis_type: 
+  x_axis_scope: 
+  y_axis_type: 
+  y_axis_scope: 

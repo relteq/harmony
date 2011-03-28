@@ -78,7 +78,6 @@ class NetworksController <  ConfigurationsApplicationController
   # POST /networks.xml
   def create
     @network = Network.new(params[:network])
-
     respond_to do |format|
       if(@network.save)
         flash[:notice] = l(:notice_successful_create)
