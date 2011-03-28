@@ -1,0 +1,50 @@
+<% form_tag(:controller => {}) do %>
+<div>
+	 <%= render :partial => 'simulation_batch/menu', 
+               :locals => {:project => :project_id} %>
+</div>
+<div class="autoscroll">
+<table class="index list"> 
+	<thead>
+	  <tr>
+		  <th class='checkbox index-menu-multiple'><%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, "form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
+       </th>
+    
+		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+	    <th title="Sort by 'Owner'">Owner</th>
+		<%= sort_header_tag('created_at', :caption => "Created",:default_order => 'desc') %>
+	    <th title="Shared">Shared</th>
+	  </tr>
+	</thead>
+	<tbody>
+ <% if @item_count == 0 %>
+	<tr>
+	<td colspan='4' >No records to display</td>
+	</tr>
+<% end %>
+<% @items_show.each_with_index do |sim,i| %>
+  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+  <td class='index-menu-multiple'><%= check_box_tag("ids[]", sim.id, false, :id => nil) %></td>
+	<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
+ 	<td  >Not Implemented</td>
+ 	<td  ><%=h sim.created_at.strftime("%m/%d/%Y") %></td>
+ 	<td  >Not Implemented</td>
+  </tr>
+	<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
+    <button class="simulation-overlay-cancel" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')">Close</button>
+    <h2>Simulation Batch Report</h2>
+    <%= render :partial => 'simulation_batch_report/show', 
+               :locals => {:item_show => sim} %>
+  </div>
+
+<% end %>
+   </tbody>
+
+</table>
+</div>
+<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
+<% end %>
+<script language="javascript">
+  var ol = new Overlay();
+
+</script>

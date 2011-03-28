@@ -2,6 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
  
+  map.resources :simulation_batch, :path_prefix => '/project/:project_id', :only => [:index,:show]
+  map.resources :simulation_batch_report, :path_prefix => '/project/:project_id', :only => [:index,:show]
+ 
   map.resources :project, :has_one => :configuration, :only => [:show ] 
 
   map.with_options :controller => 'event_sets' do |es_routes|

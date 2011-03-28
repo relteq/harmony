@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  simulation_batch_id: 1
+  simulation_batch_list_id: 1
+
+two:
+  simulation_batch_id: 2
+  simulation_batch_list_id: 2

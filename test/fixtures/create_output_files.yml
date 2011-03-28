@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  batch_id: 1
+  simulation_no: 1
+  type: 
+  data: 
+
+two:
+  batch_id: 1
+  simulation_no: 1
+  type: 
+  data: 

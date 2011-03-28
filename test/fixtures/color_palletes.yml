@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  simulation_batch_report_id: 1
+  color: red
+
+two:
+  simulation_batch_report_id: 2
+  color: blue

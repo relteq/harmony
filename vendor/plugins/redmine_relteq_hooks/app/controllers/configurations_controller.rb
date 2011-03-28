@@ -1,4 +1,4 @@
-class ConfigurationsController < ApplicationController
+class ConfigurationsController < ConfigurationsApplicationController
   unloadable
 
 

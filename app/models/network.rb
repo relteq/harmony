@@ -1,5 +1,8 @@
 class Network < ActiveRecord::Base
-  belongs_to:project
+  validates_presence_of :name
+  validates_uniqueness_of :name, :scope => :project_id
+  
+  belongs_to :project
 
   has_many :controller_sets
   has_many :split_ratio_profile_sets
@@ -47,7 +50,7 @@ class Network < ActiveRecord::Base
   end
   
   def dt
-    milliseconds_to_string_time(read_attribute("dt") || 0.0)
+    milliseconds_to_string_time(read_attribute("dt") || 1.0)
   end
   
   def dt=(dt)

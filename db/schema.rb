@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110315001301) do
+ActiveRecord::Schema.define(:version => 20110328035914) do
 
   create_table "attachments", :force => true do |t|
     t.integer   "container_id",                 :default => 0,  :null => false
@@ -116,6 +116,13 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
 
   add_index "changesets_issues", ["changeset_id", "issue_id"], :name => "changesets_issues_ids", :unique => true
 
+  create_table "color_palletes", :force => true do |t|
+    t.integer  "simulation_batch_report_id"
+    t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", :force => true do |t|
     t.string    "commented_type", :limit => 30, :default => "", :null => false
     t.integer   "commented_id",                 :default => 0,  :null => false
@@ -195,6 +202,20 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
 
   add_index "custom_values", ["custom_field_id"], :name => "index_custom_values_on_custom_field_id"
   add_index "custom_values", ["customized_type", "customized_id"], :name => "custom_values_customized"
+
+  create_table "default_batch_settings", :force => true do |t|
+    t.integer  "scenaro_id"
+    t.string   "name"
+    t.integer  "number_of_runs"
+    t.string   "mode"
+    t.decimal  "b_time"
+    t.decimal  "duration"
+    t.boolean  "control"
+    t.boolean  "qcontrol"
+    t.boolean  "events"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "demand_profile_sets", :force => true do |t|
     t.integer   "network_id"
@@ -516,6 +537,14 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
     t.string  "salt",       :null => false
   end
 
+  create_table "output_files", :force => true do |t|
+    t.integer  "simulation_no"
+    t.binary   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "simulation_batch_id"
+  end
+
   create_table "output_links", :force => true do |t|
     t.integer   "link_id"
     t.integer   "network_id"
@@ -563,6 +592,25 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
   add_index "queries", ["project_id"], :name => "index_queries_on_project_id"
   add_index "queries", ["user_id"], :name => "index_queries_on_user_id"
 
+  create_table "reported_batches", :force => true do |t|
+    t.integer  "simulation_batch_id"
+    t.integer  "simulation_batch_list_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.integer  "simulation_batch_list_id"
+    t.string   "name"
+    t.decimal  "b_time"
+    t.decimal  "duration"
+    t.boolean  "network_pref"
+    t.boolean  "link_pref"
+    t.boolean  "or_pref_t"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "repositories", :force => true do |t|
     t.integer "project_id",               :default => 0,  :null => false
     t.string  "url",                      :default => "", :null => false
@@ -594,6 +642,12 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
     t.string    "description"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+  end
+
+  create_table "scatter_plots", :force => true do |t|
+    t.integer  "simulation_batch_report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "scenarios", :force => true do |t|
@@ -643,6 +697,57 @@ ActiveRecord::Schema.define(:version => 20110315001301) do
   end
 
   add_index "settings", ["name"], :name => "index_settings_on_name"
+
+  create_table "simulation_batch_lists", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  create_table "simulation_batch_reports", :force => true do |t|
+    t.integer  "simulation_batch_list_id"
+    t.string   "name"
+    t.decimal  "b_time"
+    t.decimal  "duration"
+    t.boolean  "network_pref"
+    t.boolean  "link_pref"
+    t.boolean  "or_pref_t"
+    t.boolean  "or_pref_s"
+    t.boolean  "or_pref_c"
+    t.boolean  "route_pref_t"
+    t.boolean  "route_pref_s"
+    t.boolean  "route_pref_c"
+    t.boolean  "route_tt_t"
+    t.boolean  "route_tt_c"
+    t.decimal  "congestion_speed"
+    t.integer  "max_data_points"
+    t.boolean  "fill_plots"
+    t.boolean  "legend"
+    t.datetime "creation_time"
+    t.decimal  "execution_time"
+    t.decimal  "percent_complete"
+    t.binary   "cpu_instance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "simulation_batches", :force => true do |t|
+    t.integer  "scenario_id"
+    t.string   "name"
+    t.integer  "number_of_runs"
+    t.string   "mode"
+    t.decimal  "b_time"
+    t.decimal  "duration"
+    t.boolean  "control"
+    t.boolean  "qcontrol"
+    t.boolean  "events"
+    t.datetime "start_time"
+    t.decimal  "execution_time"
+    t.integer  "percent_complete"
+    t.binary   "cpu_instance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "split_ratio_profile_sets", :force => true do |t|
     t.integer   "network_id"

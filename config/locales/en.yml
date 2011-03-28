@@ -973,9 +973,9 @@ en:
   relteq_export: Export
   relteq_delete: Delete
 
-  field_dt: Reporting Period
-  field_b_time: Begin time
-  field_e_time: End time
+  field_dt: Sampling Period
+  field_b_time: Begin Time
+  field_e_time: End Time
   field_length_units: Length Units
   field_v_types: Vehicle Types
   field_controller_set: Controller Set
@@ -1002,6 +1002,7 @@ en:
   label_max_uncertainty: Max. Uncertainty
   label_network: Network
   label_name: Name
+  label_reporting_period: Reporting Period
   button_create_and_configure: Create and Configure
   label_delete_all: 'You are about to delete all your items, are you sure you want to do this?'
   label_delete_all_header: Delete All
@@ -1024,5 +1025,6 @@ en:
   label_progress: Progress
   label_time: Time
   label_description: Description
+  label_actions: Actions
 
   ##### end relteq additions
