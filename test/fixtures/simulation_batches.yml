@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  scenario_id: 980190968
+  scenario_id: 1 
   name: Sim Batch 1
   number_of_runs: 1
   mode: Sim Batch 1 Mode
@@ -16,7 +16,7 @@ one:
   cpu_instance: 
 
 two:
-  scenario_id: 980190967
+  scenario_id: 2
   name: Sim Batch 2 
   number_of_runs: 1
   mode: Sim Batch 1 Mode
