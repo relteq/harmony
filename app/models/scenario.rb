@@ -11,8 +11,9 @@ class Scenario < ActiveRecord::Base
   belongs_to :split_ratio_profile_set
   belongs_to :controller_set
   belongs_to :event_set
-  belongs_to :simulation_batch
-  belongs_to :default_batch_setting
+  
+  has_one :simulation_batch
+  has_one :default_batch_setting
 
   has_many :vehicle_types
   

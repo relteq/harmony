@@ -67,12 +67,12 @@ class ConfigurationsApplicationController < ApplicationController
     end
 
     @network = nil
-    @item_count = model.count(:conditions => "network_id = " + sid);
+    @item_count = model.count(:conditions => {:network_id =>  sid});
     @items_pages = Paginator.new self, @item_count, @limit, params['page']
 
     @offset ||= @items_pages.current.offset
 
-    @items = model.find :all, :conditions => "network_id = " +sid,
+    @items = model.find :all, :conditions => {:network_id => sid},
                               :order => sort_clause,
                               :limit  =>  @limit,
                               :offset =>  @offset
@@ -89,12 +89,12 @@ class ConfigurationsApplicationController < ApplicationController
     @limit = per_page_option
     end
 
-    @item_count = model.count(:conditions => "project_id = " + @project.id.to_s);
+    @item_count = model.count(:conditions => {:project_id => @project.id});
     @project_id = params[:project_id]
     @item_pages = Paginator.new self, @item_count, @limit, params['page']
     @offset ||= @item_pages.current.offset
     @items_show = model.find  :all,
-                              :conditions => "project_id = " + @project.id.to_s,
+                              :conditions => {:project_id => @project.id},
                               :order => sort_clause,
                               :limit  =>  @limit,
                               :offset =>  @offset
