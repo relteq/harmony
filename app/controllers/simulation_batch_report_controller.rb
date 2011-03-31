@@ -17,14 +17,11 @@ class SimulationBatchReportController < ApplicationController
       @actions =  {'Share' => 'share','Export XML' => 'export','Export PDF' => 'pdf','Rename' => 'rename','Delete' => 'delete'}
       
       @project = Project.find(params[:project_id])
-      
-      @ReportedBatch.find( :conditions => {:simulation_batch_id => @project.scenarios.each {|scen| scen.simuation_batch})
-      
+        
       @item_count = SimulationBatchReport.count(:all);
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatchReport.find  :all,
-                                :conditions => {:simulation_batch_list_id => @project.scenarios},
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset

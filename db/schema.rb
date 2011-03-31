@@ -836,6 +836,14 @@ ActiveRecord::Schema.define(:version => 20110328035914) do
   add_index "users", ["auth_source_id"], :name => "index_users_on_auth_source_id"
   add_index "users", ["id", "type"], :name => "index_users_on_id_and_type"
 
+  create_table "vehicle_types", :force => true do |t|
+    t.integer  "scenario_id"
+    t.string   "name"
+    t.float    "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "versions", :force => true do |t|
     t.integer   "project_id",      :default => 0,      :null => false
     t.string    "name",            :default => "",     :null => false

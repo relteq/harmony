@@ -4,6 +4,8 @@ tmp/**/*
 doc/api
 doc/app
 db/*.sqlite3
+db/schema.rb
+files/*
 *.swp
 *~
 .DS_Store
