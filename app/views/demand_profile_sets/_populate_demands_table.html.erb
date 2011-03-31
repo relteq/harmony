@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'demand_profile_sets',  :action => 'populate_demands_table', :project_id =>@project,:demand_profile_set_id =>@dpset },:caption => l(:field_destination),:default_order => 'desc'}) %>
+			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'demand_profile_sets',  :action => 'populate_demands_table', :project_id =>@project,:demand_profile_set_id =>@dpset },:caption => l(:field_origin),:default_order => 'desc'}) %>
 				<% else%>
 				<th title="Origin"><%= l(:field_origin) %></th>
 			<% end %>
