@@ -10,9 +10,7 @@ class ScenariosControllerTest < ActionController::TestCase
     end
 
     context "get index" do
-      setup do
-        get :index, :project_id => 1
-      end
+      setup { get :index, :project_id => 1 }
 
       should "respond with success and assign @scenarios" do
         assert_response :success
@@ -24,9 +22,7 @@ class ScenariosControllerTest < ActionController::TestCase
     end
 
     context "get new" do
-      setup do
-        get :new, :project_id => 1
-      end
+      setup { get :new, :project_id => 1 }
 
       should "respond with success" do
         assert_response :success
@@ -94,6 +90,36 @@ class ScenariosControllerTest < ActionController::TestCase
         assert_redirected_to :controller => 'scenarios', 
                              :action => 'index', 
                              :project_id => assigns(:project) 
+      end
+    end
+  end
+
+  context "with unauthorized user" do
+    setup do
+      @request = ActionController::TestRequest.new
+      @request.session[:user_id] = 7
+    end
+
+    context "all actions" do
+      should "return forbidden" do
+        get :new, :project_id => 1
+        assert_response 403 
+        
+        get :edit, :project_id => 1, :scenario_id => scenarios(:one).to_param
+        assert_response 403 
+
+        post :create, :project_id => 1, :scenario => { :name => 'unique', 
+            :network_id => networks(:one).id }
+        assert_response 403 
+
+        put :update, :project_id => 1,
+            :scenario_id => scenarios(:one).to_param,
+            :scenario => { :name => 'foobar' }
+        assert_response 403 
+
+        delete :destroy, :project_id => 1, 
+               :scenario_id => scenarios(:one).to_param
+        assert_response 403 
       end
     end
   end
