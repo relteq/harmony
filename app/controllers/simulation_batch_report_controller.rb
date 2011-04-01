@@ -14,10 +14,10 @@ class SimulationBatchReportController < ApplicationController
         @limit = per_page_option
       end
      
-      @project_id = params[:project_id]
       @actions =  {'Share' => 'share','Export XML' => 'export','Export PDF' => 'pdf','Rename' => 'rename','Delete' => 'delete'}
       
-      @project = Project.find(@project_id)
+      @project = Project.find(params[:project_id])
+        
       @item_count = SimulationBatchReport.count(:all);
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset

@@ -1,3 +1,3 @@
 class DefaultBatchSetting < ActiveRecord::Base
-  has_one :scenario
+  belongs_to :scenario
 end

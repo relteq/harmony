@@ -1,5 +1,5 @@
 class SimulationBatch < ActiveRecord::Base
-  has_many :scenarios
+  belongs_to :scenarios
   
   belongs_to :output_file
   
