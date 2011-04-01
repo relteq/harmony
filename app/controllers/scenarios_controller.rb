@@ -36,10 +36,7 @@ class ScenariosController <  ConfigurationsApplicationController
     respond_to do |format|
       if(@scenario.save)
         flash[:notice] = @scenario.name + ', was successfully created. You may configure the scenario below.'
-        format.html do
-          redirect_to edit_project_configuration_scenario_path(:project_id => @project,
-                                                               :id => @scenario.id)
-        end
+        format.html { redirect_to edit_project_configuration_scenario_path(@project, @scenario) }
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
         clear_fields
@@ -55,7 +52,7 @@ class ScenariosController <  ConfigurationsApplicationController
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'  
-        format.html { redirect_to  edit_project_configuration_scenario_path(:project_id => @project, :id => @scenario.id) }
+        format.html { redirect_to edit_project_configuration_scenario_path(@project, @scenario) }
         format.xml  { head :ok }
       else
         clear_fields

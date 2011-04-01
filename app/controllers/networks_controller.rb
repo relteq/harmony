@@ -10,20 +10,17 @@ class NetworksController <  ConfigurationsApplicationController
   # DELETE /networks/1
   # DELETE /networks/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
-    @network = @project.networks.find(params[:network_id])
     @network.remove_from_scenario
     @network.destroy
 
     respond_to do |format|
       flash[:notice] = @network.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project   }
+      format.html { redirect_to project_configuration_networks_path(@project) }
       format.xml  { head :ok }
     end
   end
     
   def delete_all
-    @project = Project.find(params[:project_id])
     @items = @project.networks.all
 
     @items.each do | i |
@@ -33,7 +30,7 @@ class NetworksController <  ConfigurationsApplicationController
 
     respond_to do |format|
       flash[:notice] = 'All networks have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project  }
+      format.html { redirect_to project_configuration_networks_path(@project) }
       format.xml  { head :ok }
     end
   end
@@ -49,8 +46,6 @@ class NetworksController <  ConfigurationsApplicationController
   end
 
   def edit
-    @network = Network.find(params[:network_id])
-
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @network }
@@ -60,17 +55,13 @@ class NetworksController <  ConfigurationsApplicationController
   # PUT /networks/1
   # PUT /networks/1.xml
   def update
-    @network = Network.find(params[:network_id])
-
+    if(@network.update_attributes(params[:network]))
+      flash[:notice] = l(:notice_successful_update)
+    end
     respond_to do |format|
-      if(@network.update_attributes(params[:network]))
-        flash[:notice] = l(:notice_successful_update)
-        format.html { redirect_to  :controller => 'networks', :action => 'edit',:project_id =>@project, :network_id => @network  }
-        format.xml  { head :ok }
-      else
-        format.html { redirect_to :controller => 'networks', :action => 'edit',:project_id =>@project, :network_id => @network }
-        format.api  { render_validation_errors(@network) }
-      end
+      format.html { redirect_to edit_project_configuration_network_path(@project, @network) }
+      format.xml  { head :ok }
+      format.api  { render_validation_errors(@network) }
     end
   end
   
@@ -81,13 +72,12 @@ class NetworksController <  ConfigurationsApplicationController
     respond_to do |format|
       if(@network.save)
         flash[:notice] = l(:notice_successful_create)
-        format.html { redirect_to  :controller => 'networks', :action => 'edit',:project_id =>@project, :network_id => @network }
+        format.html { redirect_to edit_project_configuration_network_path(@project, @network) }
         format.xml  { render :xml => @network, :status => :created, :location => @network }
       else
         flash[:error] = "The network, " + @network.name + ", was not not saved. See errors."
-        format.html { redirect_to  :controller => 'networks', :action => 'new', :project_id => @project, :network_id => @network }
+        format.html { redirect_to new_project_configuration_network_path(@project) }
         format.xml  { render :xml => @network.errors, :status => :unprocessable_entity }
-  
       end
     end
   end
@@ -97,7 +87,7 @@ class NetworksController <  ConfigurationsApplicationController
 private
   def require_network
     begin
-      @network = Network.find(params[:network_id])
+      @network = Network.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Network not found.'

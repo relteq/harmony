@@ -50,7 +50,7 @@ class NetworksControllerTest < ActionController::TestCase
     context "get edit" do
       context "with valid params" do
         setup do
-          get :edit, :project_id => @project, :network_id => @network.id 
+          get :edit, :project_id => @project, :id => @network.id 
         end
 
         should "respond with success" do
@@ -64,7 +64,7 @@ class NetworksControllerTest < ActionController::TestCase
 
       context "with invalid network" do
         setup do
-          get :edit, :project_id => @project, :network_id => -1
+          get :edit, :project_id => @project, :id => -1
         end
 
         should "redirect to networks index" do
@@ -85,14 +85,14 @@ class NetworksControllerTest < ActionController::TestCase
         assert_redirected_to :controller => 'networks',
                              :action => 'edit',
                              :project_id => assigns(:project),
-                             :network_id => assigns(:network).id
+                             :id => assigns(:network).id
       end
     end
 
     context "put update" do
       setup do 
         put :update, :project_id => @project,
-            :network_id => @network.id,
+            :id => @network.id,
             :network => { :name => 'foobar' }
       end
 
@@ -104,7 +104,7 @@ class NetworksControllerTest < ActionController::TestCase
         assert_redirected_to :controller => 'networks',
                              :action => 'edit',
                              :project_id => @project,
-                             :network_id => @network.id
+                             :id => @network.id
       end
     end
 
@@ -112,7 +112,7 @@ class NetworksControllerTest < ActionController::TestCase
       should "reduce network count by 1, redirect to index" do
         assert_difference('Network.count', -1) do
           delete :destroy, :project_id => @project, 
-                 :network_id => @network.to_param
+                 :id => @network.to_param
         end
 
         assert_redirected_to :controller => 'networks', 
@@ -150,19 +150,19 @@ class NetworksControllerTest < ActionController::TestCase
         get :new, :project_id => @project 
         assert_response 403 
         
-        get :edit, :project_id => @project, :network_id => @network.id
+        get :edit, :project_id => @project, :id => @network.id
         assert_response 403 
 
         post :create, :project_id => @project, :network => {:name => 'unique'}
         assert_response 403 
 
         put :update, :project_id => @project,
-            :network_id => @network.to_param,
+            :id => @network.to_param,
             :network => { :name => 'foobar' }
         assert_response 403 
 
         delete :destroy, :project_id => @project, 
-               :network_id => @network.to_param
+               :id => @network.to_param
         assert_response 403 
 
         post :delete_all, :project_id => @project

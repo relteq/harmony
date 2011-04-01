@@ -83,19 +83,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.with_options :controller => 'networks' do |network_routes|
-    network_routes.with_options :conditions => {:method => :get} do |network_actions|
-      network_actions.connect 'project/:project_id/configuration/networks', :action => 'index'
-      network_actions.connect 'project/:project_id/configuration/networks/new', :action => 'new'
-      network_actions.connect 'project/:project_id/configuration/networks/dall', :action => 'delete_all'
-      network_actions.connect 'project/:project_id/configuration/networks/:network_id/delete', :action => 'destroy'
-      network_actions.connect 'project/:project_id/configuration/networks/create', :action => 'create',:conditions => {:method => :put}
-      network_actions.connect 'project/:project_id/configuration/networks/:network_id/edit', :action => 'edit',:conditions => {:method => :get}
-      network_actions.connect 'project/:project_id/configuration/networks/:network_id/flash_edit', :action => 'flash_edit',:conditions => {:method => :get}
-      network_actions.connect 'project/:project_id/configuration/networks/:network_id/update', :action => 'update',:conditions => {:method => :put}
-    end
-  end
-  
   map.home '', :controller => 'welcome'
   
   map.signin 'login', :controller => 'account', :action => 'login'

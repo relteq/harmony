@@ -7,7 +7,7 @@
 		     	  <li class="config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"
                 id="config-sidebar-scenario-<%= s.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-			        	<%= link_to s.name, edit_project_configuration_scenario_path(:project_id => @project, :id => s.id)%>
+			        	<%= link_to s.name, edit_project_configuration_scenario_path(@project, s)%>
                 <div class="scenario-launch" id="scenario-launch-<%= s.id %>" style="display: none;">
                   <button class="scenario-overlay-cancel" id="<%= s.id %>-overlay-cancel">Cancel</button>
                   <h2>Launch Scenario</h2>
@@ -27,7 +27,7 @@
 				 	  <li class="config-sidebar-network <%= highlight_if(n==highlighted_item)%>" 
                 id="config-sidebar-network-<%= n.id %>"> 
 			        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-							<%= link_to  n.name, {:controller => 'networks', :action => 'edit', :project_id => @project,:network_id => n.id } %>
+							<%= link_to n.name, edit_project_configuration_network_path(@project, n) %>
 				    </li>
 				<% end %>
 
