@@ -10,40 +10,66 @@ class ScenariosControllerTest < ActionController::TestCase
     end
 
     context "get index" do
-      setup { get :index, :project_id => 1 }
+      context "with valid params" do
+        setup { get :index, :project_id => 1 }
 
-      should "respond with success and assign @scenarios" do
-        assert_response :success
+        should "respond with success and assign @scenarios" do
+          assert_response :success
+        end
+
+        should "assign @scenarios" do
+          assert_not_nil assigns(:scenarios)
+        end
       end
 
-      should "assign @scenarios" do
-        assert_not_nil assigns(:scenarios)
+      context "with invalid project ID" do
+        setup { get :index, :project_id => -1 }
+
+        should "redirect to 404" do
+          assert_response 404
+        end
       end
     end
 
     context "get new" do
       setup { get :new, :project_id => 1 }
 
-      should "respond with success" do
-        assert_response :success
-      end
+      context "with valid params" do
+        should "respond with success" do
+          assert_response :success
+        end
 
-      should "assign @scenario" do
-        assert_not_nil assigns(:scenario)
+        should "assign @scenario" do
+          assert_not_nil assigns(:scenario)
+        end
       end
     end
 
     context "get edit" do
-      setup do
-        get :edit, :project_id => 1, :scenario_id => scenarios(:one).to_param
-      end
-    
-      should "respond with success" do
-        assert_response :success
+      context "with valid params" do
+        setup do
+          get :edit, :project_id => 1, :scenario_id => scenarios(:one).to_param
+        end
+
+        should "respond with success" do
+          assert_response :success
+        end
+
+        should "assign @scenario" do
+          assert_equal assigns(:scenario), scenarios(:one)
+        end
       end
 
-      should "assign @scenario" do
-        assert_equal assigns(:scenario), scenarios(:one)
+      context "with invalid scenario" do
+        setup do
+          get :edit, :project_id => 1, :scenario_id => -1
+        end
+
+        should "redirect to scenario index" do
+          assert_redirected_to :controller => 'scenarios',
+                               :action => 'index',
+                               :project_id => assigns(:project)
+        end
       end
     end
 
@@ -92,6 +118,20 @@ class ScenariosControllerTest < ActionController::TestCase
                              :project_id => assigns(:project) 
       end
     end
+
+    context "post delete_all" do
+      setup { post :delete_all, :project_id => 1 }
+
+      should "reduce scenario count to 0" do
+        assert_equal assigns(:project).scenarios.count, 0 
+      end
+
+      should "redirect to index" do
+        assert_redirected_to :controller => 'scenarios', 
+                             :action => 'index', 
+                             :project_id => assigns(:project) 
+      end
+    end
   end
 
   context "with unauthorized user" do
@@ -119,6 +159,9 @@ class ScenariosControllerTest < ActionController::TestCase
 
         delete :destroy, :project_id => 1, 
                :scenario_id => scenarios(:one).to_param
+        assert_response 403 
+
+        post :delete_all, :project_id => 1
         assert_response 403 
       end
     end

@@ -8,9 +8,16 @@ class ConfigurationsApplicationController < ApplicationController
   helper :configurations
   include SortHelper
   
+protected
   # Populates the Models Tabs menu
   def populate_menu
-    @project = Project.find(params[:project_id])
+    begin
+      @project = Project.find(params[:project_id])
+    rescue ActiveRecord::RecordNotFound
+      render :file => "#{Rails.root}/public/404.html", :status => 404
+      return false
+    end
+
     @scenarios = @project.scenarios
     @networks = @project.networks ||= Array.new 
     @csets = @project.controller_sets ||= Array.new 

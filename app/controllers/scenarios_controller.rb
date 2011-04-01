@@ -1,5 +1,6 @@
 class ScenariosController <  ConfigurationsApplicationController
-  before_filter :get_sets, :only => [:new, :edit,:update,:create]
+  before_filter :get_sets, :only => [:new, :edit, :update, :create]
+  before_filter :require_scenario, :only => [:edit, :update, :destroy]
   
   # GET /scenarios
   # GET /scenarios.xml
@@ -20,8 +21,6 @@ class ScenariosController <  ConfigurationsApplicationController
 
   # GET /scenarios/1/edit
   def edit
-    @scenario = (params[:scenario_id] != nil) ?  Scenario.find(params[:scenario_id]) :  Scenario.new
-   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @scenario }
@@ -31,7 +30,6 @@ class ScenariosController <  ConfigurationsApplicationController
   # POST /scenarios
   # POST /scenarios.xml
   def create
-    @project = Project.find(params[:project_id])
     @scenario = Scenario.new(params[:scenario])
     @scenario.project_id = @project.id
 
@@ -51,7 +49,6 @@ class ScenariosController <  ConfigurationsApplicationController
   # PUT /scenarios/1
   # PUT /scenarios/1.xml
   def update
-    @scenario = Scenario.find(params[:scenario_id])
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'  
@@ -68,8 +65,6 @@ class ScenariosController <  ConfigurationsApplicationController
   # DELETE /scenarios/1
   # DELETE /scenarios/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
-    @scenario = @project.scenarios.find(params[:scenario_id])
     @scenario.destroy
 
     respond_to do |format|
@@ -80,7 +75,6 @@ class ScenariosController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @project = Project.find(params[:project_id])
     @scenarios = @project.scenarios.all
     
     @scenarios.each do | s |
@@ -95,6 +89,16 @@ class ScenariosController <  ConfigurationsApplicationController
   end
   
 private
+  def require_scenario 
+    begin
+      @scenario = Scenario.find(params[:scenario_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Scenario not found.'
+      return false
+    end
+  end
+
   def get_sets
     @units = %w{miles feet kilometers meters}
     
@@ -117,7 +121,6 @@ private
     @prompt_event = (@esets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
   end
   
-private
   def clear_fields
     #if name or network existed and then removed clear the name/network
     if params[:scenario][:name] == ""
@@ -135,6 +138,5 @@ private
     if params[:scenario][:dt] == ""
       @scenario.dt  = nil 
     end
-    
   end
 end
