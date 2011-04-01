@@ -1,23 +1,10 @@
 class ScenariosController <  ConfigurationsApplicationController
-
   before_filter :get_sets, :only => [:new, :edit,:update,:create]
-
-  
   
   # GET /scenarios
   # GET /scenarios.xml
   def index
     get_index_view(Scenario,@scenarios)
-  end
-
-  # GET /scenarios/1
-  # GET /scenarios/1.xml
-  def show
-    @scenario = Scenario.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @scenario }
-    end
   end
 
   # GET /scenarios/new

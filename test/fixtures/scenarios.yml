@@ -9,6 +9,7 @@ one:
   e_time: 9.99
   length_units: cm
   project_id: 1
+  network_id: 1
 
 two:
   id: 2
