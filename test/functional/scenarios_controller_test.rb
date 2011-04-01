@@ -15,7 +15,7 @@ class ScenariosControllerTest < ActionController::TestCase
       context "with valid params" do
         setup { get :index, :project_id => @project }
 
-        should "respond with success and assign @scenarios" do
+        should "respond with success" do
           assert_response :success
         end
 
