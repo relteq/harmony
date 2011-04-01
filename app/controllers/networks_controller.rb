@@ -1,60 +1,60 @@
 class NetworksController <  ConfigurationsApplicationController
+  before_filter :require_network, :only => [:edit, :update, :destroy]
 
-    # GET /networks
-    # GET /networks.xml
-    def index
-      get_index_view(Network,@networks)
+  # GET /networks
+  # GET /networks.xml
+  def index
+    get_index_view(Network,@networks)
+  end
+
+  # DELETE /networks/1
+  # DELETE /networks/1.xml
+  def destroy
+    @project = Project.find(params[:project_id])
+    @network = @project.networks.find(params[:network_id])
+    @network.remove_from_scenario
+    @network.destroy
+
+    respond_to do |format|
+      flash[:notice] = @network.name + " successfully deleted."    
+      format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project   }
+      format.xml  { head :ok }
+    end
+  end
+    
+  def delete_all
+    @project = Project.find(params[:project_id])
+    @items = @project.networks.all
+
+    @items.each do | i |
+      i.remove_from_scenario
+      i.destroy
     end
 
-    # DELETE /networks/1
-    # DELETE /networks/1.xml
-    def destroy
-      @project = Project.find(params[:project_id])
-      @network = @project.networks.find(params[:network_id])
-      @network.remove_from_scenario
-      @network.destroy
-
-      respond_to do |format|
-        flash[:notice] = @network.name + " successfully deleted."    
-        format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project   }
-        format.xml  { head :ok }
-      end
+    respond_to do |format|
+      flash[:notice] = 'All networks have been successfully deleted.'  
+      format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project  }
+      format.xml  { head :ok }
     end
+  end
     
-    def delete_all
-      @project = Project.find(params[:project_id])
-      @items = @project.networks.all
-
-      @items.each do | i |
-        i.remove_from_scenario
-        i.destroy
-      end
-
-      respond_to do |format|
-        flash[:notice] = 'All networks have been successfully deleted.'  
-        format.html { redirect_to  :controller => 'networks', :action => 'index',:project_id =>@project  }
-        format.xml  { head :ok }
-      end
-   end
-    
-   # GET /networks/new
-   # GET /networks/new.xml
-   def new
-     @network = Network.new
-     respond_to do |format|
-       format.html # new.html.erb
-       format.xml  { render :xml => @network }
-     end
-   end
+  # GET /networks/new
+  # GET /networks/new.xml
+  def new
+    @network = Network.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @network }
+    end
+  end
 
   def edit
-     @network = Network.find(params[:network_id])
+    @network = Network.find(params[:network_id])
 
-     respond_to do |format|
-       format.html # edit.html.erb
-       format.xml  { render :xml => @network }
-     end
-      
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.xml  { render :xml => @network }
+    end   
   end
   
   # PUT /networks/1
@@ -94,5 +94,14 @@ class NetworksController <  ConfigurationsApplicationController
 
   def flash_edit
   end
-  
+private
+  def require_network
+    begin
+      @network = Network.find(params[:network_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Network not found.'
+      return false
+    end
+  end
 end
