@@ -3,13 +3,13 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function( 'New ' +  l(:label_network), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to (l(:label_delete_all_header), {:controller => 'networks', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
+	<span><%= link_to(l(:label_delete_all_header), {:controller => 'networks', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
 	<span><a href=""><%= l(:label_import_header) + ' ' + l(:label_network)%>s</a></span> |
 	<span><a href=""><%=  l(:label_share_header) + ' ' + l(:label_network)%>s</a></span> 
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">
-	<% form_tag ({:controller => 'networks', :action => 'create', :project_id => @project},:method => :put) do |f|%>
+	<% form_tag({:controller => 'networks', :action => 'create', :project_id => @project},:method => :put) do %>
 	<label><%= l(:label_name) %>:</label>
 	<%= text_field_tag 'network[name]', params[:name], :size => 30 %>
 	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>
