@@ -36,7 +36,10 @@ class ScenariosController <  ConfigurationsApplicationController
     respond_to do |format|
       if(@scenario.save)
         flash[:notice] = @scenario.name + ', was successfully created. You may configure the scenario below.'
-        format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario }
+        format.html do
+          redirect_to edit_project_configuration_scenario_path(:project_id => @project,
+                                                               :id => @scenario.id)
+        end
         format.xml  { render :xml => @scenario, :status => :created, :location => @scenario }
       else
         clear_fields
@@ -52,7 +55,7 @@ class ScenariosController <  ConfigurationsApplicationController
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'  
-        format.html { redirect_to  :controller => 'scenarios', :action => 'edit',:project_id =>@project, :scenario_id => @scenario  }
+        format.html { redirect_to  edit_project_configuration_scenario_path(:project_id => @project, :id => @scenario.id) }
         format.xml  { head :ok }
       else
         clear_fields
@@ -91,7 +94,7 @@ class ScenariosController <  ConfigurationsApplicationController
 private
   def require_scenario 
     begin
-      @scenario = Scenario.find(params[:scenario_id])
+      @scenario = Scenario.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Scenario not found.'

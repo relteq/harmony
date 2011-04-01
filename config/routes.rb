@@ -4,8 +4,6 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :simulation_batch, :path_prefix => '/project/:project_id', :only => [:index,:show]
   map.resources :simulation_batch_report, :path_prefix => '/project/:project_id', :only => [:index,:show]
- 
-  map.resources :project, :has_one => :configuration, :only => [:show ] 
 
   map.with_options :controller => 'event_sets' do |es_routes|
     es_routes.with_options :conditions => {:method => :get} do |es_views|
@@ -75,18 +73,6 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'simulations' do |simulation_routes|
     simulation_routes.with_options do |simulation_actions|
       simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'
-    end
-  end
-
-  map.with_options :controller => 'scenarios' do |scenario_routes|
-    scenario_routes.with_options :conditions => {:method => :get} do |scenario_actions|
-      scenario_actions.connect 'project/:project_id/configuration/scenarios', :action => 'index'
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/new', :action => 'new'
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/dall', :action => 'delete_all'
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/delete', :action => 'destroy'
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/create', :action => 'create',:conditions => {:method => :put}
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/edit', :action => 'edit',:conditions => {:method => :get}
-      scenario_actions.connect 'project/:project_id/configuration/scenarios/:scenario_id/update', :action => 'update',:conditions => {:method => :put}
     end
   end
 
@@ -250,6 +236,23 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :versions, :collection => {:close_completed => :put}, :member => {:status_by => :post}
     project.resources :news, :shallow => true
     project.resources :time_entries, :controller => 'timelog'#, :path_prefix => 'projects/:project_id'
+
+    project.resource :configuration, :only => [:show] do |config|
+      config.resources :scenarios, :except => [:show], 
+                       :collection => {:delete_all => :post}
+      config.resources :networks, :member => [:flash_edit],
+                       :collection => {:delete_all => :post}
+      config.resources :controller_sets, :member => [:ptable],
+                       :collection => {:delete_all => :post}
+      config.resources :capacity_profile_sets, :member => [:ptable],
+                       :collection => {:delete_all => :post}
+      config.resources :demand_profile_sets, :member => [:ptable],
+                       :collection => {:delete_all => :post}
+      config.resources :split_ratio_profile_sets, :member => [:ptable],
+                       :collection => {:delete_all => :post}
+      config.resources :event_sets, :member => [:ptable],
+                       :collection => {:delete_all => :post}
+    end
 
     project.wiki_start_page 'wiki', :controller => 'wiki', :action => 'show', :conditions => {:method => :get}
     project.wiki_index 'wiki/index', :controller => 'wiki', :action => 'index', :conditions => {:method => :get}

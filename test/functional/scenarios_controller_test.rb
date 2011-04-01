@@ -51,7 +51,7 @@ class ScenariosControllerTest < ActionController::TestCase
     context "get edit" do
       context "with valid params" do
         setup do
-          get :edit, :project_id => @project, :scenario_id => @scenario.id 
+          get :edit, :project_id => @project, :id => @scenario.id 
         end
 
         should "respond with success" do
@@ -86,14 +86,14 @@ class ScenariosControllerTest < ActionController::TestCase
         assert_redirected_to :controller => 'scenarios',
                              :action => 'edit',
                              :project_id => assigns(:project),
-                             :scenario_id => assigns(:scenario).id
+                             :id => assigns(:scenario).id
       end
     end
 
     context "put update" do
       setup do 
         put :update, :project_id => @project,
-            :scenario_id => @scenario.id,
+            :id => @scenario.id,
             :scenario => { :name => 'foobar' }
       end
 
@@ -105,7 +105,7 @@ class ScenariosControllerTest < ActionController::TestCase
         assert_redirected_to :controller => 'scenarios',
                              :action => 'edit',
                              :project_id => @project,
-                             :scenario_id => @scenario.id
+                             :id => @scenario.id
       end
     end
 
@@ -113,7 +113,7 @@ class ScenariosControllerTest < ActionController::TestCase
       should "reduce scenario count by 1, redirect to index" do
         assert_difference('Scenario.count', -1) do
           delete :destroy, :project_id => @project, 
-                 :scenario_id => @scenario.to_param
+                 :id => @scenario.to_param
         end
 
         assert_redirected_to :controller => 'scenarios', 

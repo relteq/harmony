@@ -7,7 +7,7 @@
 		     	  <li class="config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"
                 id="config-sidebar-scenario-<%= s.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-			        	<%= link_to  s.name, {:controller => 'scenarios', :action => 'edit', :project_id => @project,:scenario_id => s.id } %>					
+			        	<%= link_to s.name, edit_project_configuration_scenario_path(:project_id => @project, :id => s.id)%>
                 <div class="scenario-launch" id="scenario-launch-<%= s.id %>" style="display: none;">
                   <button class="scenario-overlay-cancel" id="<%= s.id %>-overlay-cancel">Cancel</button>
                   <h2>Launch Scenario</h2>
