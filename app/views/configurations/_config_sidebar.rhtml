@@ -82,7 +82,7 @@
 		     	  <li class="<%= highlight_if(c==highlighted_item)%>"
                 id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-								<%= link_to  c.name, {:controller => 'capacity_profile_sets', :action => 'edit', :project_id => @project,:capacity_profile_set_id => c.id } %>
+								<%= link_to c.name, edit_project_configuration_capacity_profile_set_path(@project, c) %>
 			      </li>
 			  <% end %>
 			</ul> 

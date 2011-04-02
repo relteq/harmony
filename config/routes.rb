@@ -31,19 +31,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
     
-  map.with_options :controller => 'capacity_profile_sets' do |cps_routes|
-    cps_routes.with_options :conditions => {:method => :get} do |cps_views|
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets', :action => 'index'
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/new', :action => 'new'
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/dall', :action => 'delete_all'
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/delete', :action => 'destroy'
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/ptable', :action => 'populate_capacities_table',:conditions => {:method => :get}
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/create', :action => 'create',:conditions => {:method => :put}
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/edit', :action => 'edit',:conditions => {:method => :get}
-      cps_views.connect 'project/:project_id/configuration/capacity_profile_sets/:capacity_profile_set_id/update', :action => 'update',:conditions => {:method => :put}
-    end
-  end
-  
   map.with_options :controller => 'demand_profile_sets' do |dps_routes|
     dps_routes.with_options :conditions => {:method => :get} do |dps_views|
       dps_views.connect 'project/:project_id/configuration/demand_profile_sets', :action => 'index'
