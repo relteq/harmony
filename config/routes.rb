@@ -5,19 +5,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :simulation_batch, :path_prefix => '/project/:project_id', :only => [:index,:show]
   map.resources :simulation_batch_report, :path_prefix => '/project/:project_id', :only => [:index,:show]
 
-  map.with_options :controller => 'event_sets' do |es_routes|
-    es_routes.with_options :conditions => {:method => :get} do |es_views|
-      es_views.connect 'project/:project_id/configuration/event_sets', :action => 'index'
-      es_views.connect 'project/:project_id/configuration/event_sets/new', :action => 'new'
-      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/delete', :action => 'destroy'
-      es_views.connect 'project/:project_id/configuration/event_sets/dall', :action => 'delete_all'
-      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/ptable', :action => 'populate_events_table',:conditions => {:method => :get}
-      es_views.connect 'project/:project_id/configuration/event_sets/create', :action => 'create',:conditions => {:method => :put}
-      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/edit', :action => 'edit',:conditions => {:method => :get}
-      es_views.connect 'project/:project_id/configuration/event_sets/:event_set_id/update', :action => 'update',:conditions => {:method => :put}
-    end
-  end
-
   map.with_options :controller => 'simulations' do |simulation_routes|
     simulation_routes.with_options do |simulation_actions|
       simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'

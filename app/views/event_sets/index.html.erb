@@ -9,7 +9,7 @@
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">
-	<% form_tag({:controller => 'event_sets', :action => 'new', :project_id => @project},:method => :get) do |f|%>
+	<% form_tag({:controller => 'event_sets', :action => 'new', :project_id => @project},:method => :get) do %>
 	<label><%= l(:label_name) %>:</label>
 	<%= text_field_tag 'event_set[name]', params[:name], :size => 30 %>
 	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>
@@ -37,7 +37,7 @@
 <% end %>
 <% @items_show.each_with_index do |es,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%= link_to es.name,  {:controller => 'event_sets', :action => 'edit',:project_id => @project, :event_set_id => es.id} %></td>
+	<td  ><%= link_to es.name, {:controller => 'event_sets', :action => 'edit',:project_id => @project, :event_set_id => es.id} %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h es.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
@@ -53,7 +53,7 @@
 
 <br />
 <script language="javascript">
-	leaf_menus = <%= all_leaf_menu_items(@project,'index' ,{:event_sets => @items_show}) %>;
-	hook_leaf_menus(leaf_menus);	
+	leaf_menus = <%= all_leaf_menu_items(@project,'index',{:event_sets => @items_show}) %>;
+	hook_leaf_menus(leaf_menus);
 </script>
 
