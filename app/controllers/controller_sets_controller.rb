@@ -1,38 +1,34 @@
 class ControllerSetsController <  ConfigurationsApplicationController
+  before_filter :require_controller_set, :only => [:edit, :update, :destroy]
 
-  
   def index
-    get_index_view(ControllerSet,@controller_sets)
+    get_index_view(ControllerSet,@csets)
   end
 
   def edit
-    @cset = ControllerSet.find(params[:controller_set_id])
     set_up_network_select(@cset,Controller)
           
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @cset }
     end
-    
   end
 
   def update
-    @cset = ControllerSet.find(params[:controller_set_id])
     if(@cset.update_attributes(params[:controller_set]))
-      redirect_save_success(:controller_set,{:controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset})
+      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset))
     else
       redirect_save_error(:controller_set,:new,@cset,ControllerSet)
     end
   end
 
   def create  
-       @cset = ControllerSet.new(params[:controller_set])
-       if(@cset.update_attributes(params[:controller_set]))
-         redirect_save_success(:controller_set,{:controller => 'controller_sets', :action => 'edit',:project_id =>@project, :controller_set_id => @cset})
-       else
-         redirect_save_error(:controller_set,:new,@cset,ControllerSet)
-       end
-    
+    @cset = ControllerSet.new(params[:controller_set])
+    if(@cset.update_attributes(params[:controller_set]))
+      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset))
+    else
+      redirect_save_error(:controller_set,:new,@cset,ControllerSet)
+    end
   end
 
   # GET /controller_sets/new
@@ -52,7 +48,6 @@ class ControllerSetsController <  ConfigurationsApplicationController
   # DELETE /controller_sets/1.xml
   def destroy
     @project = Project.find(params[:project_id])
-    @cset = @project.controller_sets.find(params[:controller_set_id])
     @cset.remove_from_scenario
     @cset.destroy
 
@@ -82,14 +77,22 @@ class ControllerSetsController <  ConfigurationsApplicationController
   def populate_controls_table
     #I populate cset so we can make sure to set checkboxes selected -- if there is no controller group id then 
     #you are creating a new controller_set 
-    @cset = params[:controller_set_id].to_s == '' ? ControllerSet.new : ControllerSet.find(params[:controller_set_id])
     if(params[:controller_set] != nil)
       @sid = params[:controller_set][:network_id].to_s == '' ? "-1" : params[:controller_set][:network_id].to_s
     else
       @sid = @cset.network_id.to_s
     end
     get_network_dependent_table_items(Controller,@sid)
-
   end
-  
+
+private
+  def require_controller_set
+    begin
+      @cset = @project.controller_sets.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Controller Set not found.'
+      return false
+    end
+  end
 end

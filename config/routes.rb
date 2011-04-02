@@ -44,19 +44,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.with_options :controller => 'controller_sets' do |cs_routes|
-    cs_routes.with_options :conditions => {:method => :get} do |cs_views|
-      cs_views.connect 'project/:project_id/configuration/controller_sets', :action => 'index'
-      cs_views.connect 'project/:project_id/configuration/controller_sets/new', :action => 'new'
-      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/delete', :action => 'destroy'
-      cs_views.connect 'project/:project_id/configuration/controller_sets/dall', :action => 'delete_all'
-      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/ptable', :action => 'populate_controls_table',:conditions => {:method => :get}
-      cs_views.connect 'project/:project_id/configuration/controller_sets/create', :action => 'create',:conditions => {:method => :put}
-      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/edit', :action => 'edit',:conditions => {:method => :get}
-      cs_views.connect 'project/:project_id/configuration/controller_sets/:controller_set_id/update', :action => 'update',:conditions => {:method => :put}
-    end
-  end
-  
   map.with_options :controller => 'simulations' do |simulation_routes|
     simulation_routes.with_options do |simulation_actions|
       simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'
