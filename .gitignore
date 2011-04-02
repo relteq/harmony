@@ -11,3 +11,6 @@ files/*
 .DS_Store
 .svn
 pull_*
+coverage/*
+coverage/**/*
+coverage.data
