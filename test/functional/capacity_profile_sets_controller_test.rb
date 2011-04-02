@@ -97,7 +97,7 @@ class CapacityProfileSetsControllerTest < ActionController::TestCase
             :capacity_profile_set => { :name => 'foobar' }
       end
 
-      should "update network" do
+      should "update capacity profile" do
         assert_equal 'foobar', assigns(:cpset).name
       end
       
