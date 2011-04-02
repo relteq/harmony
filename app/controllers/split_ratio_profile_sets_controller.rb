@@ -1,4 +1,5 @@
 class SplitRatioProfileSetsController <  ConfigurationsApplicationController
+  before_filter :require_srpset, :only => [:edit, :update, :destroy]
  
   def index
     get_index_view(SplitRatioProfileSet,@sprofilesets)
@@ -18,7 +19,6 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
 
   def edit
-   @srpset = SplitRatioProfileSet.find(params[:split_ratio_profile_set_id])
    set_up_network_select(@srpset,SplitRatioProfile)
 
    respond_to do |format|
@@ -30,16 +30,17 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   def create
    @srpset = SplitRatioProfileSet.new(params[:split_ratio_profile_set])
    if(@srpset.update_attributes(params[:split_ratio_profile_set]))
-     redirect_save_success(:split_ratio_profile_set,{:controller => 'split_ratio_profile_sets', :action => 'edit',:project_id =>@project, :split_ratio_profile_set_id => @srpset})
+     redirect_save_success(:split_ratio_profile_set,
+      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset))
    else
      redirect_save_error(:split_ratio_profile_set,:new,@srpset,SplitRatioProfile)
    end
   end
 
   def update
-   @srpset = SplitRatioProfileSet.find(params[:split_ratio_profile_set_id])
    if(@srpset.update_attributes(params[:split_ratio_profile_set]))
-     redirect_save_success(:split_ratio_profile_set,{:controller => 'split_ratio_profile_sets', :action => 'edit',:project_id =>@project, :split_ratio_profile_set_id => @srpset})
+     redirect_save_success(:split_ratio_profile_set,
+      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset))
    else
      redirect_save_error(:split_ratio_profile_set,:edit,@srpset,SplitRatioProfile)
    end
@@ -48,20 +49,17 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   # DELETE /split_ratio_profile_sets/1
   # DELETE /split_ratio_profile_sets/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
-    @srpset = @project.split_ratio_profile_sets.find(params[:split_ratio_profile_set_id])
     @srpset.remove_from_scenario
     @srpset.destroy
 
     respond_to do |format|
       flash[:notice] = @srpset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'split_ratio_profile_sets', :action => 'index',:project_id =>@project   }
+      format.html { redirect_to  project_configuration_split_ratio_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
   
   def delete_all
-    @project = Project.find(params[:project_id])
     @srpsets = @project.split_ratio_profile_sets.all
     
     @srpsets.each do | s |
@@ -71,7 +69,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
 
     respond_to do |format|
       flash[:notice] = 'All split ratio profile sets have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'split_ratio_profile_sets', :action => 'index',:project_id =>@project  }
+      format.html { redirect_to project_configuration_split_ratio_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
@@ -87,8 +85,14 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     end
      get_network_dependent_table_items(SplitRatioProfile,@sid)
   end
-
-
-
-
+private
+  def require_srpset
+    begin
+      @srpset = @project.split_ratio_profile_sets.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Split Ratio Profile Set not found.'
+      return false
+    end
+  end
 end

@@ -69,7 +69,7 @@
 		     	  <li class="<%= highlight_if(s==highlighted_item)%>"
                 id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-								<%= link_to  s.name, {:controller => 'split_ratio_profile_sets', :action => 'edit', :project_id => @project,:split_ratio_profile_set_id => s.id }  %>
+								<%= link_to s.name, edit_project_configuration_split_ratio_profile_set_path(@project, s) %>
 			      </li>
 			  <% end %>
 			</ul> 
