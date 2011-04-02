@@ -87,7 +87,7 @@ class NetworksController <  ConfigurationsApplicationController
 private
   def require_network
     begin
-      @network = Network.find(params[:id])
+      @network = @project.networks.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Network not found.'
