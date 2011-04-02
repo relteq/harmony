@@ -1,5 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'test/exemplars/controller_set'
 
 class ControllerSetsControllerTest < ActionController::TestCase
   context "with authorized user" do
