@@ -91,7 +91,7 @@ class ScenariosController <  ConfigurationsApplicationController
 private
   def require_scenario 
     begin
-      @scenario = Scenario.find(params[:id])
+      @scenario = @project.scenarios.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Scenario not found.'

@@ -1,4 +1,5 @@
 class CapacityProfileSetsController <  ConfigurationsApplicationController
+  before_filter :require_cp_set, :only => [:edit, :update, :destroy]
 
   def index
     get_index_view(CapacityProfileSet,@cprofilesets)
@@ -18,7 +19,6 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def edit
-   @cpset = CapacityProfileSet.find(params[:capacity_profile_set_id])
    set_up_network_select(@cpset,CapacityProfile)
 
    respond_to do |format|
@@ -30,38 +30,37 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   def create
    @cpset = CapacityProfileSet.new(params[:capacity_profile_set])
    if(@cpset.update_attributes(params[:capacity_profile_set]))
-     redirect_save_success(:capacity_profile_set,{:controller => 'capacity_profile_sets', :action => 'edit',:project_id =>@project, :capacity_profile_set_id => @cpset})
+     redirect_save_success(:capacity_profile_set, 
+       edit_project_configuration_capacity_profile_set_path(@project, @cpset))
    else
      redirect_save_error(:capacity_profile_set,:new,@cpset,CapacityProfile)
    end
   end
 
   def update
-   @cpset = CapacityProfileSet.find(params[:capacity_profile_set_id])
-   if(@cpset.update_attributes(params[:capacity_profile_set]))
-     redirect_save_success(:capacity_profile_set,{:controller => 'capacity_profile_sets', :action => 'edit',:project_id =>@project, :capacity_profile_set_id => @cpset})
-   else
-     redirect_save_error(:capacity_profile_set,:edit,@cpset,CapacityProfile)
-   end
+    if(@cpset.update_attributes(params[:capacity_profile_set]))
+      redirect_save_success(:capacity_profile_set,
+        edit_project_configuration_capacity_profile_set_path(@project, @cpset))
+    else
+      redirect_save_error(:capacity_profile_set,:edit,@cpset,CapacityProfile)
+    end
   end
   
   # DELETE /capacity_profile_sets/1
   # DELETE /capacity_profile_sets/1.xml
   def destroy
     @project = Project.find(params[:project_id])
-    @cpset = @project.capacity_profile_sets.find(params[:capacity_profile_set_id])
     @cpset.remove_from_scenario
     @cpset.destroy
 
     respond_to do |format|
       flash[:notice] = @cpset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'capacity_profile_sets', :action => 'index',:project_id =>@project   }
+      format.html { redirect_to project_configuration_capacity_profile_sets_path(@project) } 
       format.xml  { head :ok }
     end
   end
   
   def delete_all
-    @project = Project.find(params[:project_id])
     @cpsets = @project.capacity_profile_sets.all
     
     @cpsets.each do | cp |
@@ -71,7 +70,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 
     respond_to do |format|
       flash[:notice] = 'All capacity profile sets have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'capacity_profile_sets', :action => 'index',:project_id =>@project  }
+      format.html { redirect_to project_configuration_capacity_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
@@ -88,5 +87,14 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   
     get_network_dependent_table_items(CapacityProfile,@sid)
   end
-
+private
+  def require_cp_set
+    begin
+      @cpset = @project.capacity_profile_sets.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Capacity Profile Set not found.'
+      return false
+    end
+  end
 end

@@ -1,12 +1,15 @@
 require File.expand_path('../../test_helper', __FILE__)
+require 'test/exemplars/capacity_profile_set'
 
-class NetworksControllerTest < ActionController::TestCase
+class CapacityProfileSetsControllerTest < ActionController::TestCase
   context "with authorized user" do
-    setup do 
-      @request = ActionController::TestRequest.new
+    setup do
       @project = Project.generate!
-      @network = Network.generate! 
+      @capacity_profile_set = CapacityProfileSet.generate!
+      @project.capacity_profile_sets << @capacity_profile_set
+      @network = @capacity_profile_set.network
       @project.networks << @network
+      @request = ActionController::TestRequest.new
       @request.session[:user_id] = 1
     end
 
@@ -18,9 +21,8 @@ class NetworksControllerTest < ActionController::TestCase
           assert_response :success
         end
 
-        should "assign @networks" do
-          assert_not_nil assigns(:networks)
-          assert_equal @project.networks, assigns(:networks)
+        should "assign @cprofilesets" do
+          assert_equal @project.capacity_profile_sets, assigns(:cprofilesets)
         end
       end
 
@@ -41,8 +43,8 @@ class NetworksControllerTest < ActionController::TestCase
           assert_response :success
         end
 
-        should "assign @network" do
-          assert_not_nil assigns(:network)
+        should "assign @cpset" do
+          assert_not_nil assigns(:cpset)
         end
       end
     end
@@ -50,79 +52,72 @@ class NetworksControllerTest < ActionController::TestCase
     context "get edit" do
       context "with valid params" do
         setup do
-          get :edit, :project_id => @project, :id => @network.id 
+          get :edit, :project_id => @project, :id => @capacity_profile_set.id 
         end
 
         should "respond with success" do
           assert_response :success
         end
 
-        should "assign @network" do
-          assert_equal @network, assigns(:network)
+        should "assign @cpset" do
+          assert_equal @capacity_profile_set, assigns(:cpset)
         end
       end
 
-      context "with invalid network" do
+      context "with invalid capacity profile set" do
         setup do
           get :edit, :project_id => @project, :id => -1
         end
 
-        should "redirect to networks index" do
-          assert_redirected_to :controller => 'networks',
+        should "redirect to capacity_profile_sets index" do
+          assert_redirected_to :controller => 'capacity_profile_sets',
                                :action => 'index',
                                :project_id => assigns(:project)
         end
       end
     end
 
-    context "get flash_edit" do
-      should "succeed" do
-        get :flash_edit, :project_id => @project, :id => @network.id
-        assert_response :success
-      end
-    end
-
     context "post create" do
-      should "increase network count by 1, redirect to edit" do
-        assert_difference('Network.count') do
+      should "increase capacity profile set count by 1, redirect to edit" do
+        assert_difference('CapacityProfileSet.count') do
           post :create, :project_id => @project, 
-               :network => { :name => 'unique'}
+               :capacity_profile_set => { :network_id => @network, :name => 'test'}
         end
 
-        assert_redirected_to :controller => 'networks',
+        assert_redirected_to :controller => 'capacity_profile_sets',
                              :action => 'edit',
                              :project_id => assigns(:project),
-                             :id => assigns(:network).id
+                             :id => assigns(:cpset).id
       end
     end
 
     context "put update" do
       setup do 
         put :update, :project_id => @project,
-            :id => @network.id,
-            :network => { :name => 'foobar' }
+            :id => @capacity_profile_set.id,
+            :capacity_profile_set => { :name => 'foobar' }
       end
 
       should "update network" do
-        assert_equal 'foobar', assigns(:network).name
+        assert_equal 'foobar', assigns(:cpset).name
       end
       
       should "redirect to edit" do
-        assert_redirected_to :controller => 'networks',
+        assert_redirected_to :controller => 'capacity_profile_sets',
                              :action => 'edit',
                              :project_id => @project,
-                             :id => @network.id
+                             :id => @capacity_profile_set.id
       end
     end
 
     context "delete destroy" do
-      should "reduce network count by 1, redirect to index" do
-        assert_difference('Network.count', -1) do
+      should "reduce capacity profile set count by 1, redirect to index" do
+        assert_difference('CapacityProfileSet.count', -1) do
           delete :destroy, :project_id => @project, 
-                 :id => @network.to_param
+                 :id => @capacity_profile_set.to_param
         end
 
-        assert_redirected_to :controller => 'networks', 
+        assert_redirected_to :controller => 'capacity_profile_sets', 
                              :action => 'index', 
                              :project_id => @project 
       end
@@ -131,12 +126,12 @@ class NetworksControllerTest < ActionController::TestCase
     context "post delete_all" do
       setup { post :delete_all, :project_id => @project }
 
-      should "reduce network count to 0" do
-        assert_equal @project.networks.count, 0 
+      should "reduce capacity profile set count to 0" do
+        assert_equal @project.capacity_profile_sets.count, 0 
       end
 
       should "redirect to index" do
-        assert_redirected_to :controller => 'networks', 
+        assert_redirected_to :controller => 'capacity_profile_sets', 
                              :action => 'index', 
                              :project_id => @project 
       end
@@ -145,11 +140,13 @@ class NetworksControllerTest < ActionController::TestCase
 
   context "with unauthorized user" do
     setup do
+      @project = Project.generate!
+      @capacity_profile_set = CapacityProfileSet.generate!
+      @project.capacity_profile_sets << @capacity_profile_set
+      @network = @capacity_profile_set.network
+      @project.networks << @network
       @request = ActionController::TestRequest.new
       @request.session[:user_id] = 7
-      @project = Project.generate!
-      @network = Network.generate! 
-      @project.networks << @network
     end
 
     context "all actions" do
@@ -157,19 +154,19 @@ class NetworksControllerTest < ActionController::TestCase
         get :new, :project_id => @project 
         assert_response 403 
         
-        get :edit, :project_id => @project, :id => @network.id
+        get :edit, :project_id => @project, :id => @capacity_profile_set.id
         assert_response 403 
 
-        post :create, :project_id => @project, :network => {:name => 'unique'}
+        post :create, :project_id => @project, :capacity_profile_set => {:name => 'unique'}
         assert_response 403 
 
         put :update, :project_id => @project,
-            :id => @network.to_param,
+            :id => @capacity_profile_set.to_param,
             :network => { :name => 'foobar' }
         assert_response 403 
 
         delete :destroy, :project_id => @project, 
-               :id => @network.to_param
+               :id => @capacity_profile_set.to_param
         assert_response 403 
 
         post :delete_all, :project_id => @project
@@ -177,5 +174,4 @@ class NetworksControllerTest < ActionController::TestCase
       end
     end
   end
-
 end
