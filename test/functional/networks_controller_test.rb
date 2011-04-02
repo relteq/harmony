@@ -75,6 +75,13 @@ class NetworksControllerTest < ActionController::TestCase
       end
     end
 
+    context "get flash_edit" do
+      should "succeed" do
+        get :flash_edit, :project_id => @project, :id => @network.id
+        assert_response :success
+      end
+    end
+
     context "post create" do
       should "increase network count by 1, redirect to edit" do
         assert_difference('Network.count') do
