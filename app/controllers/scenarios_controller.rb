@@ -100,7 +100,7 @@ private
   end
 
   def get_sets
-    @units = %w{miles feet kilometers meters}
+    @units = [Scenario::US_UNITS, Scenario::METRIC_UNITS]
     
     # All these strings should be localized.
     @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}

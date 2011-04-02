@@ -1,4 +1,7 @@
 class Scenario < ActiveRecord::Base
+  US_UNITS = "US"
+  METRIC_UNITS = "Metric"
+  
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
   validates_presence_of :network

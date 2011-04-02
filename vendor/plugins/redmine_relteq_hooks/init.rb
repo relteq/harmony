@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_relteq_hooks do
   permission :view_simulation_models, :configurations => [:index, :show]
   permission :edit_simulation_models, :configurations => [:edit, :update, :destroy, :delete_all, :flash_edit]
   permission :create_simulation_models, :configurations => [:new, :create]
-  menu :project_menu, :configurations, {:controller => 'configurations', :action => 'show'}, :caption => 'Models', :param => :project_id, :after => :overview
+  menu :project_menu, :configurations,{:controller => 'configurations', :action => 'show'}, :caption => 'Models', :param => :project_id, :after => :overview
 
   permission :view_simulation_batch, :simulation_batch => [:index, :show]
   permission :delete_simulation_batch, :simulation_batch => [:destroy]

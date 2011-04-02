@@ -90,3 +90,8 @@ table.index td.index-menu-multiple {
 	padding-top:4px;
 	width:0.25%;
 }
+
+.simulation-overlay-cancel{
+	float:right;
+	margin-top:-50px;
+}
