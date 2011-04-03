@@ -1,5 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'test/exemplars/capacity_profile_set'
 
 class CapacityProfileSetsControllerTest < ActionController::TestCase
   context "with authorized user" do
@@ -98,7 +97,7 @@ class CapacityProfileSetsControllerTest < ActionController::TestCase
             :capacity_profile_set => { :name => 'foobar' }
       end
 
-      should "update network" do
+      should "update capacity profile" do
         assert_equal 'foobar', assigns(:cpset).name
       end
       

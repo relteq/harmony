@@ -1,4 +1,5 @@
 class DemandProfileSetsController <  ConfigurationsApplicationController
+  before_filter :require_dpset, :only => [:edit, :update, :destroy]
   
   def index
     get_index_view(DemandProfileSet,@dprofilesets)
@@ -18,7 +19,6 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def edit
-    @dpset = DemandProfileSet.find(params[:demand_profile_set_id])
     set_up_network_select(@dpset,DemandProfile)
           
     respond_to do |format|
@@ -30,39 +30,36 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def create
     @dpset = DemandProfileSet.new(params[:demand_profile_set])
     if(@dpset.update_attributes(params[:demand_profile_set]))
-      redirect_save_success(:demand_profile_set,{:controller => 'demand_profile_sets', :action => 'edit',:project_id =>@project, :demand_profile_set_id => @dpset})
+      redirect_save_success(:demand_profile_set,
+        edit_project_configuration_demand_profile_set_path(@project,@dpset))
     else
       redirect_save_error(:demand_profile_set,:new,@dpset,DemandProfile)
     end
   end
 
   def update
-    @dpset = DemandProfileSet.find(params[:demand_profile_set_id])
-     if(@dpset.update_attributes(params[:demand_profile_set]))
-       redirect_save_success(:demand_profile_set,{:controller => 'demand_profile_sets', :action => 'edit',:project_id =>@project, :demand_profile_set_id => @dpset})
-     else
-       redirect_save_error(:demand_profile_set,:edit,@dpset,DemandProfile)
-     end
-
+    if(@dpset.update_attributes(params[:demand_profile_set]))
+      redirect_save_success(:demand_profile_set,
+        edit_project_configuration_demand_profile_set_path(@project,@dpset))
+    else
+      redirect_save_error(:demand_profile_set,:edit,@dpset,DemandProfile)
+    end
   end
  
   # DELETE /demand_profile_sets/1
   # DELETE /demand_profile_sets/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
-    @dset = @project.demand_profile_sets.find(params[:demand_profile_set_id])
-    @dset.remove_from_scenario
-    @dset.destroy
+    @dpset.remove_from_scenario
+    @dpset.destroy
 
     respond_to do |format|
-      flash[:notice] = @dset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'index',:project_id =>@project   }
+      flash[:notice] = @dpset.name + " successfully deleted."    
+      format.html { redirect_to project_configuration_demand_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
   
   def delete_all
-    @project = Project.find(params[:project_id])
     @dsets = @project.demand_profile_sets.all
     
     @dsets.each do | d |
@@ -72,7 +69,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
     respond_to do |format|
       flash[:notice] = 'All demand profile sets have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'demand_profile_sets', :action => 'index',:project_id =>@project  }
+      format.html { redirect_to project_configuration_demand_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
@@ -86,10 +83,16 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     else
         @sid = @dpset.network_id.to_s
     end
-
-    get_network_dependent_table_items(DemandProfile,@sid)
-   
+    get_network_dependent_table_items(DemandProfile,@sid)   
   end
-  
-
+private
+  def require_dpset
+    begin
+      @dpset = @project.demand_profile_sets.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => :index, :project_id => @project
+      flash[:error] = 'Demand Profile Set not found.'
+      return false
+    end
+  end
 end

@@ -4,7 +4,7 @@
 
 <h2><%= link_to "Split Ratio Profile Sets", :controller => 'split_ratio_profile_sets', :action => 'index' %> &#187; <%= "New Split Ratio Profile Set"%></h2>
 
-<% labelled_tabular_form_for :split_ratio_profile_set, @srpset, :url => { :action => "create" }, :html => { :method => :put } do |f| %>
+<% labelled_tabular_form_for :split_ratio_profile_set, @srpset, :url => { :action => "create" } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
 		<%= submit_tag l(:button_create) %>

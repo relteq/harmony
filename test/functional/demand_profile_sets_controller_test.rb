@@ -1,12 +1,12 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class SplitRatioProfileSetsControllerTest < ActionController::TestCase
+class DemandProfileSetsControllerTest < ActionController::TestCase
   context "with authorized user" do
     setup do 
       @project = Project.generate!
-      @split_ratio_profile_set = SplitRatioProfileSet.generate!
-      @project.split_ratio_profile_sets << @split_ratio_profile_set
-      @network = @split_ratio_profile_set.network
+      @demand_profile_set = DemandProfileSet.generate!
+      @project.demand_profile_sets << @demand_profile_set
+      @network = @demand_profile_set.network
       @project.networks << @network
       @request = ActionController::TestRequest.new
       @request.session[:user_id] = 1
@@ -20,8 +20,8 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
           assert_response :success
         end
 
-        should "assign @sprofilesets" do
-          assert_equal @project.split_ratio_profile_sets, assigns(:sprofilesets)
+        should "assign @dprofilesets" do
+          assert_equal @project.demand_profile_sets, assigns(:dprofilesets)
         end
       end
 
@@ -42,8 +42,8 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
           assert_response :success
         end
 
-        should "assign @srpset" do
-          assert_not_nil assigns(:srpset)
+        should "assign @dpset" do
+          assert_not_nil assigns(:dpset)
         end
       end
     end
@@ -51,25 +51,25 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
     context "get edit" do
       context "with valid params" do
         setup do
-          get :edit, :project_id => @project, :id => @split_ratio_profile_set.id 
+          get :edit, :project_id => @project, :id => @demand_profile_set.id 
         end
 
         should "respond with success" do
           assert_response :success
         end
 
-        should "assign @srpset" do
-          assert_equal @split_ratio_profile_set, assigns(:srpset)
+        should "assign @dpset" do
+          assert_equal @demand_profile_set, assigns(:dpset)
         end
       end
 
-      context "with invalid split ratio profile set" do
+      context "with invalid demand profile set" do
         setup do
           get :edit, :project_id => @project, :id => -1
         end
 
-        should "redirect to split_ratio_profile_sets index" do
-          assert_redirected_to :controller => 'split_ratio_profile_sets',
+        should "redirect to demand_profile_sets index" do
+          assert_redirected_to :controller => 'demand_profile_sets',
                                :action => 'index',
                                :project_id => assigns(:project)
         end
@@ -77,46 +77,46 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
     end
 
     context "post create" do
-      should "increase split ratio profile set count by 1, redirect to edit" do
-        assert_difference('SplitRatioProfileSet.count') do
+      should "increase demand profile set count by 1, redirect to edit" do
+        assert_difference('DemandProfileSet.count') do
           post :create, :project_id => @project, 
-               :split_ratio_profile_set => { :network_id => @network, :name => 'test'}
+               :demand_profile_set => { :network_id => @network, :name => 'test'}
         end
 
-        assert_redirected_to :controller => 'split_ratio_profile_sets',
+        assert_redirected_to :controller => 'demand_profile_sets',
                              :action => 'edit',
                              :project_id => assigns(:project),
-                             :id => assigns(:srpset).id
+                             :id => assigns(:dpset).id
       end
     end
 
     context "put update" do
       setup do 
         put :update, :project_id => @project,
-            :id => @split_ratio_profile_set.id,
-            :split_ratio_profile_set => { :name => 'foobar' }
+            :id => @demand_profile_set.id,
+            :demand_profile_set => { :name => 'foobar' }
       end
 
-      should "update split ratio profile" do
-        assert_equal 'foobar', assigns(:srpset).name
+      should "update demand profile" do
+        assert_equal 'foobar', assigns(:dpset).name
       end
       
       should "redirect to edit" do
-        assert_redirected_to :controller => 'split_ratio_profile_sets',
+        assert_redirected_to :controller => 'demand_profile_sets',
                              :action => 'edit',
                              :project_id => @project,
-                             :id => @split_ratio_profile_set.id
+                             :id => @demand_profile_set.id
       end
     end
 
     context "delete destroy" do
-      should "reduce split ratio profile set count by 1, redirect to index" do
-        assert_difference('SplitRatioProfileSet.count', -1) do
+      should "reduce demand profile set count by 1, redirect to index" do
+        assert_difference('DemandProfileSet.count', -1) do
           delete :destroy, :project_id => @project, 
-                 :id => @split_ratio_profile_set.to_param
+                 :id => @demand_profile_set.to_param
         end
 
-        assert_redirected_to :controller => 'split_ratio_profile_sets', 
+        assert_redirected_to :controller => 'demand_profile_sets', 
                              :action => 'index', 
                              :project_id => @project 
       end
@@ -125,12 +125,12 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
     context "post delete_all" do
       setup { post :delete_all, :project_id => @project }
 
-      should "reduce split ratio profile set count to 0" do
-        assert_equal @project.split_ratio_profile_sets.count, 0 
+      should "reduce demand profile set count to 0" do
+        assert_equal @project.demand_profile_sets.count, 0 
       end
 
       should "redirect to index" do
-        assert_redirected_to :controller => 'split_ratio_profile_sets', 
+        assert_redirected_to :controller => 'demand_profile_sets', 
                              :action => 'index', 
                              :project_id => @project 
       end
@@ -140,9 +140,9 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
   context "with unauthorized user" do
     setup do
       @project = Project.generate!
-      @split_ratio_profile_set = SplitRatioProfileSet.generate!
-      @project.split_ratio_profile_sets << @split_ratio_profile_set
-      @network = @split_ratio_profile_set.network
+      @demand_profile_set = DemandProfileSet.generate!
+      @project.demand_profile_sets << @demand_profile_set
+      @network = @demand_profile_set.network
       @project.networks << @network
       @request = ActionController::TestRequest.new
       @request.session[:user_id] = 7
@@ -153,19 +153,19 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
         get :new, :project_id => @project 
         assert_response 403 
         
-        get :edit, :project_id => @project, :id => @split_ratio_profile_set.id
+        get :edit, :project_id => @project, :id => @demand_profile_set.id
         assert_response 403 
 
-        post :create, :project_id => @project, :split_ratio_profile_set => {:name => 'unique'}
+        post :create, :project_id => @project, :demand_profile_set => {:name => 'unique'}
         assert_response 403 
 
         put :update, :project_id => @project,
-            :id => @split_ratio_profile_set.to_param,
+            :id => @demand_profile_set.to_param,
             :network => { :name => 'foobar' }
         assert_response 403 
 
         delete :destroy, :project_id => @project, 
-               :id => @split_ratio_profile_set.to_param
+               :id => @demand_profile_set.to_param
         assert_response 403 
 
         post :delete_all, :project_id => @project
