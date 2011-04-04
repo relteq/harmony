@@ -250,8 +250,10 @@
                     }
                     
                     if (!allow && lastMatch + 1 < partialPosition) {
-                        input.setValue("");
-                        clearBuffer(0, len);
+                        if(!settings.partials_allowed) {
+                            input.setValue("");
+                            clearBuffer(0, len);
+                        }
                     } else if (allow || lastMatch + 1 >= partialPosition) {
                         writeBuffer();
                         if (!allow) input.setValue(input.getValue().substring(0, lastMatch + 1));
