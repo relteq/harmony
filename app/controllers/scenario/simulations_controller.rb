@@ -20,13 +20,13 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
       options[:param][:qcontrol] = true
       options[:param][:events] = true
     else
-      if params[:begin_time] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
+      if params[:begin_time] =~ /(\d\d)h (\d\d)m (\d\d\.\d)s/
         options[:param][:b_time] = hours_from_hms($1,$2,$3)
       else
         Rails.logger.error "Problem with begin time input #{params[:begin_time]}"
       end
 
-      if params[:duration] =~ /(\d\d)H (\d\d)m (\d\d\.\d)s/
+      if params[:duration] =~ /(\d\d)h (\d\d)m (\d\d\.\d)s/
         options[:param][:duration] = hours_from_hms($1,$2,$3)
 
         if options[:param][:duration] < 0
