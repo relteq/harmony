@@ -157,11 +157,13 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :files, :only => [:index, :new, :create]
     project.resources :versions, :collection => {:close_completed => :put}, :member => {:status_by => :post}
     project.resources :news, :shallow => true
-    project.resources :time_entries, :controller => 'timelog'#, :path_prefix => 'projects/:project_id'
+    project.resources :time_entries, :controller => 'timelog'
 
     project.resource :configuration, :only => [:show] do |config|
       config.resources :scenarios, :except => [:show], 
-                       :collection => {:delete_all => :post}
+                       :collection => {:delete_all => :post} do |scenario|
+        scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
+      end
       config.resources :networks, :member => [:flash_edit],
                        :collection => {:delete_all => :post}
       config.resources :controller_sets, :member => [:ptable],
