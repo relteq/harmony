@@ -2,8 +2,7 @@ class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
   validates_presence_of :network
-
-    
+ 
   belongs_to :project
   belongs_to :network
   belongs_to :demand_profile_set
@@ -16,6 +15,8 @@ class Scenario < ActiveRecord::Base
   has_one :default_batch_setting
 
   has_many :vehicle_types
+
+  after_create :add_default_vehicle_type
   
   def milliseconds_since_midnight(time)
     if(time != nil)
@@ -62,4 +63,7 @@ class Scenario < ActiveRecord::Base
        @dt_invalid = true
   end
 
+  def add_default_vehicle_type
+    self.vehicle_types.create(:name => 'General', :weight => 1.0)
+  end
 end
