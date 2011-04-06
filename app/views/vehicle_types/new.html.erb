@@ -1,0 +1,16 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+
+<%= error_messages_for 'vehicle_type' %>
+
+<h2><%= link_to @scenario.name, edit_project_configuration_scenario_path(@project, @scenario) %> &#187; New Vehicle Type</h2>
+
+<% form_for([@project, 'configuration', @scenario, @vehicle_type]) do |f| %>
+  <%= error_messages_for 'vehicle_type' %> 
+  <div class="box tabular">
+    <p><%= label_tag :name %><%= f.text_field :name, :required => true %></p>
+    <p><%= label_tag :weight %><%= f.text_field :weight, :required => true %></p>
+    <p><%= f.submit 'Create Vehicle Type' %>
+  </div>
+<% end %>

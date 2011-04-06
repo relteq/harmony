@@ -30,16 +30,16 @@ class VehicleTypesController < ConfigurationsApplicationController
   def destroy
     @vehicle_type = @scenario.vehicle_types.find(params[:id])
     if @scenario.vehicle_types.count > 1
-      @success = @vehicle_type.destroy
+      @success = !!@vehicle_type.destroy
     else
-      @error_message = 'Cannot delete only vehicle type.'
+      @error_message = 'Cannot delete only vehicle type from scenario.'
     end
     respond_to do |format|
       format.html do 
         flash[:error] = @error_message
         redirect_to edit_project_configuration_scenario_path(@project, @scenario) 
       end
-      format.json { render :json => {:success => @success, 
+      format.json { render :json => {:success => @success,
                                      :error_message => @error_message}}
     end
   end

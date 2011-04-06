@@ -22,15 +22,39 @@ function clearTextFieldDefault(id,value) {
 }
 
 function show_box(div) {
-     $(div).show();
-     ol.show($(div), {click_hide: false,
-                      position: 'center', 
-                      auto_hide: false, 
-                      modal: true,
-                      bckg_opacity: 0.9});
-  }
+  $(div).show();
+  ol.show($(div), {click_hide: false,
+                   position: 'center', 
+                   auto_hide: false, 
+                   modal: true,
+                   bckg_opacity: 0.9});
+}
+
+function vehicle_delete() {
+  event.preventDefault();
+  var current_vehicle_option = $$('#scenario_vehicle_types option').detect(
+    function(option) { return option.selected; }
+  );
+  var url = '/projects/' + project_id + 
+            '/configuration/scenarios/' + scenario_id + 
+            '/vehicle_types/' + current_vehicle_option.value +
+            '.json';
+  new Ajax.Request(url, {
+    method: 'delete',
+    onSuccess: function(transport) {
+      var result = transport.responseText.evalJSON();
+      console.log(result);
+      if(result.success) {
+        current_vehicle_option.remove();
+      }
+      else {
+        alert('Error in Delete Vehicle Type: ' + result.error_message);
+      }
+    }
+  }); 
+}
 
 function hide_box(div) {
-	    $(div).hide();
-	    ol.hide();
-	  }
+  $(div).hide();
+	ol.hide();
+}
