@@ -43,7 +43,6 @@ function vehicle_delete() {
     method: 'delete',
     onSuccess: function(transport) {
       var result = transport.responseText.evalJSON();
-      console.log(result);
       if(result.success) {
         current_vehicle_option.remove();
       }
