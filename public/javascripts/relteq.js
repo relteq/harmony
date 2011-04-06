@@ -53,6 +53,28 @@ function vehicle_delete() {
   }); 
 }
 
+function vehicle_create() {
+  event.preventDefault();
+  var url = '/projects/' + project_id + 
+            '/configuration/scenarios/' + scenario_id + 
+            '/vehicle_types.json';
+  new Ajax.Request(url, {
+    method: 'post',
+    parameters: { 'vehicle_type[name]' : $('vehicle_type_name').getValue(),
+                  'vehicle_type[weight]': $('vehicle_type_weight').getValue() },
+    onSuccess: function(transport) {
+      var result = transport.responseText.evalJSON();
+      if(result.success) {
+        var e = new Element('option', { 'value': result.id }).update(result.display);
+        $('scenario_vehicle_types').appendChild(e); 
+      }
+      else {
+        alert('Error in Create Vehicle Type: ' + result.errors);
+      }
+    }
+  }); 
+}
+
 function hide_box(div) {
   $(div).hide();
   ol.hide();

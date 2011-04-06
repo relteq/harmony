@@ -22,7 +22,7 @@ class VehicleTypesController < ConfigurationsApplicationController
       respond_to do |format|
         format.html { render :new }
         format.json { render :json => {:success => false,
-                                       :errors => @vehicle_type.errors}}
+                                       :errors => @vehicle_type.errors.full_messages}}
       end
     end
   end

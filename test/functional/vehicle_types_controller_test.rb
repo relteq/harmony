@@ -24,6 +24,20 @@ class VehicleTypesControllerTest < ActionController::TestCase
             post :create, @params
           end
         end 
+
+        context "as JSON" do
+          setup do
+            @params[:format] = 'json'
+            post :create, @params
+            @nice_response = JSON.parse(@response.body)
+          end
+
+          should "render as JSON" do
+            assert @nice_response['success']
+            assert_equal "#{@params[:vehicle_type][:name]}/#{@params[:vehicle_type][:weight]}", 
+                         @nice_response['display']
+          end
+        end
       end
     end
 

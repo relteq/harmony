@@ -14,7 +14,17 @@
   <% if controller.action_name != 'new' %>
     <p><%= label_tag :vehicle_types %> <%= select_tag 'scenario[vehicle_types]', options_for_select(@scenario.vehicle_types.map{ |v| [v.short_display, v.id] }), :multiple => true %></p>
     <p><button id="delete_vehicle_type" onclick="vehicle_delete();">Delete One Vehicle Type</button></p>
-    <p><%= link_to 'New Vehicle Type', new_project_configuration_scenario_vehicle_type_path(@project, @scenario) %></p>
+    <div id="new_vehicle_type_formlet">
+      <h4>Add Vehicle Type</h4>
+      <p> 
+        <%= label_tag 'Name' %>
+        <%= text_field_tag 'vehicle_type[name]', 'General', :required => true %> 
+        <br/>
+        <%= label_tag 'Weight' %>
+        <%= text_field_tag 'vehicle_type[weight]', '1.0', :required => true %> 
+      </p>
+      <p><button id="create_vehicle_type" onclick="vehicle_create();">Add Vehicle Type</button></p>
+    </div>
   <% end %>
   <p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic', :required => true %></p>
   <p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic', :required => true %></p>

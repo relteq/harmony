@@ -90,3 +90,10 @@ table.index td.index-menu-multiple {
 	padding-top:4px;
 	width:0.25%;
 }
+
+#new_vehicle_type_formlet {
+  border: 1px solid #eee;
+  background-color: #eee;
+  margin: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px;
+}
