@@ -56,5 +56,5 @@ function vehicle_delete() {
 
 function hide_box(div) {
   $(div).hide();
-	ol.hide();
+  ol.hide();
 }
