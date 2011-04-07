@@ -1,8 +1,8 @@
   <ul id="config-sidebar-root" class="config-sidebar-menu">
 		<li>
-			<a href='javascript:void(0);' childid = 'c_12' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' childid='list_scenarios' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
       <%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
-			<ul id='c_12'>
+			<ul id='list_scenarios'>
  				  <% @scenarios.each do |s|  %>
 		     	  <li class="config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"
                 id="config-sidebar-scenario-<%= s.id %>"> 
@@ -19,9 +19,9 @@
 			</ul>
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_13' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='n_tree_button' childid='list_networks' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
       <%= link_to( "Networks", {:controller => 'networks', :action => 'index', :project_id => @project}, :id => 'config-sidebar-networks') %>
-			<ul id='c_13'>
+			<ul id='list_networks'>
 
 				<% @networks.each do |n|  %>
 				 	  <li class="config-sidebar-network <%= highlight_if(n==highlighted_item)%>" 
@@ -34,9 +34,9 @@
 			</ul> 
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_14' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='cs_tree_button' childid='list_controller_sets' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 	  	<%= link_to( "Controller Sets", {:controller => 'controller_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-controller-sets') %>
- 	   	<ul id='c_14'>
+ 	   	<ul id='list_controller_sets'>
  			  <% @csets.each do |c|  %>
 		     	  <li class="<%= highlight_if(c==highlighted_item)%>"
                 id="config-sidebar-controller-set-<%= c.id %>"> 
@@ -47,10 +47,10 @@
 		    </ul> 
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_15' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='dps_tree_button' childid='list_demand_profile_sets' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 	  	<%= link_to( "Demand Profile Sets", {:controller => 'demand_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-demand-profile-sets') %>
 
-			<ul id='c_15'>
+			<ul id='list_demand_profile_sets'>
 			  <% @dprofilesets.each do |d|  %>
 		     	  <li class="<%= highlight_if(d==highlighted_item)%>"
                 id="config-sidebar-demand-profile-set-<%= d.id %>"> 
@@ -61,10 +61,10 @@
 			</ul> 
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_16' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='srp_tree_button' childid='list_split_ratio_profile_sets' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 	  	<%= link_to( "Split Ratio Profile Sets", {:controller => 'split_ratio_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-split-ratio-profile-sets') %>
 
-			<ul id='c_16'>
+			<ul id='list_split_ratio_profile_sets'>
 			  <% @sprofilesets.each do |s|  %>
 		     	  <li class="<%= highlight_if(s==highlighted_item)%>"
                 id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
@@ -75,9 +75,9 @@
 			</ul> 
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_17' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='cp_tree_button' childid = 'list_capacity_profile_sets' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 	  	<%= link_to( "Capacity Profile Sets", {:controller => 'capacity_profile_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-capacity-profile-sets') %>
-			<ul id='c_17'>
+			<ul id='list_capacity_profile_sets'>
 			  <% @cprofilesets.each do |c|  %>
 		     	  <li class="<%= highlight_if(c==highlighted_item)%>"
                 id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
@@ -88,9 +88,9 @@
 			</ul> 
 		</li>
 		<li>
-			<a href='javascript:void(0);' childid = 'c_18' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='es_tree_button' childid='list_event_sets' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 	  	<%= link_to( "Event Sets", {:controller => 'event_sets', :action => 'index', :project_id => @project}, :id => 'config-sidebar-event-sets') %>
-			<ul id='c_18'>
+			<ul id='list_event_sets'>
  			  <% @eventsets.each do |e|  %>
 		     	  <li class="<%= highlight_if(e==highlighted_item)%>"
                 id="config-sidebar-event-set-<%= e.id %>"> 

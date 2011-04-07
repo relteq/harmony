@@ -273,13 +273,43 @@ function hideOnLoad() {
 Event.observe(window, 'load', hideOnLoad);
 //  ******************* tree menu
 <!--//--><![CDATA[//><!--
- jQuery(document).ready(function() {
+jQuery(document).ready(function() {
+  if(!Cookie.retrieve()) { 
+    Cookie.init({name: 'folders'}, {expires: 90}); 
+  }
+
 	jQuery("#config-sidebar-root .category").click(function() {
 		var childid = "#" + jQuery(this).attr("childid");
-		if (jQuery(childid).css("display") == "none") {jQuery(childid).css("display", "block");}
-		else {jQuery(childid).css("display", "none");}
-		if (jQuery(this).hasClass("cat_close")) {jQuery(this).removeClass("cat_close").addClass("cat_open");}
-		else{jQuery(this).removeClass("cat_open").addClass("cat_close");}
+
+		if (jQuery(childid).css("display") == "none") {
+      jQuery(childid).css("display", "block");
+    }
+		else {
+      jQuery(childid).css("display", "none");
+    }
+
+		if (jQuery(this).hasClass("cat_close")) {
+      jQuery(this).removeClass("cat_close").addClass("cat_open");
+      Cookie.setData(jQuery(this).attr('id'), 'open');
+    }
+		else {
+      jQuery(this).removeClass("cat_open").addClass("cat_close");
+      Cookie.setData(jQuery(this).attr('id'), 'closed');
+    }
 	});
+
+  jQuery("#config-sidebar-root .category").each(function() {
+    var tree_handler = jQuery(this);
+    var tree_status = Cookie.getData(tree_handler.attr('id'));
+    var tree = jQuery('#' + tree_handler.attr('childid'));
+
+    if(tree_status == 'open') {
+      tree_handler.removeClass('cat_close').addClass('cat_open');
+      tree.css("display","block");
+    } else if(tree_status == 'closed') {
+      tree_handler.removeClass('cat_open').addClass('cat_close');
+      tree.css("display","none");
+    }
+  });
 });
 //--><!]]>
