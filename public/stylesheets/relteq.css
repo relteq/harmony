@@ -97,3 +97,13 @@ table.index td.index-menu-multiple {
   margin: 5px 5px 5px 5px;
   padding: 5px 5px 5px 5px;
 }
+
+button.scenario-overlay-cancel {
+  border: 0;
+  height: 40px;
+  width: 40px;
+  text-indent: -1000em;
+  overflow: hidden;
+  margin-left: 90%;
+  background: transparent url(/images/win_close.png) no-repeat center top;
+}
