@@ -275,7 +275,7 @@ Event.observe(window, 'load', hideOnLoad);
 <!--//--><![CDATA[//><!--
 jQuery(document).ready(function() {
   if(!Cookie.retrieve()) { 
-    Cookie.init({name: 'folders'}, {expires: 90}); 
+    Cookie.init({name: 'folders', expires: 90}); 
   }
 
 	jQuery("#config-sidebar-root .category").click(function() {
