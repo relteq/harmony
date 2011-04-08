@@ -2,8 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 <div>	
-	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_capacity_profile_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to("Delete All", {:controller => 'capacity_profile_sets', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
+	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_capacity_profile_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> | <span><%= link_to("Delete All", {:controller => 'capacity_profile_sets', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
 	<span><a href="">Import Capacity Profile Set</a></span> |
 	<span><a href="">Share All Capacity Profile Sets</a></span> 
 </div>
@@ -38,7 +37,7 @@
 <% end %>
 <% @items_show.each_with_index do |cps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%= link_to cps.name,  {:controller => 'capacity_profile_sets', :action => 'edit',:project_id => @project, :capacity_profile_set_id => cps.id} %></td>
+	<td  ><%= link_to cps.name, edit_project_configuration_capacity_profile_set_path(@project, cps) %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h cps.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>

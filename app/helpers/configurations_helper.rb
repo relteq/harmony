@@ -67,7 +67,7 @@ module ConfigurationsHelper
        :controller => 'scenarios',
        :action => 'destroy',
        :project_id => project.id,
-       :scenario_id => scenario.id
+       :id => scenario.id
     )
 
     duplicate_callback = not_implemented_callback 
@@ -92,13 +92,13 @@ module ConfigurationsHelper
   def network_specific_menu_items(project, network,where)
     edit_callback = js_callback_new_window :controller => 'networks', 
                                          :action => 'flash_edit',
-                                         :project_id => project.id,
-                                         :network_id => network.id
+                                         :project_id => project,
+                                         :id => network.id
 
     delete_callback = js_callback_redirect :controller => 'networks',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :network_id => network.id 
+                                           :project_id => project,
+                                           :id => network.id 
 
     duplicate_callback = not_implemented_callback
     share_callback = not_implemented_callback
@@ -121,13 +121,13 @@ module ConfigurationsHelper
   def controller_set_specific_menu_items(project, cs,where)
     edit_callback = js_callback_redirect :controller => 'controller_sets', 
                                          :action => 'edit',
-                                         :project_id => project.id,
-                                         :controller_set_id => cs.id
+                                         :project_id => project,
+                                         :id => cs.id
 
     delete_callback = js_callback_redirect :controller => 'controller_sets',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :controller_set_id => cs.id 
+                                           :project_id => project,
+                                           :id => cs.id 
 
     duplicate_callback = not_implemented_callback
 
@@ -140,16 +140,16 @@ module ConfigurationsHelper
     }
   end
 
-  def demand_profile_set_specific_menu_items(project, ds,where)
+  def demand_profile_set_specific_menu_items(project, ds, where)
     edit_callback = js_callback_redirect :controller => 'demand_profile_sets', 
                                          :action => 'edit',
-                                         :project_id => project.id,
-                                         :demand_profile_set_id => ds.id
+                                         :project_id => project,
+                                         :id => ds.id
 
     delete_callback = js_callback_redirect :controller => 'demand_profile_sets',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :demand_profile_set_id => ds.id 
+                                           :project_id => project,
+                                           :id => ds.id 
 
     duplicate_callback = not_implemented_callback
 
@@ -162,16 +162,16 @@ module ConfigurationsHelper
     }
   end
 
-  def split_ratio_profile_set_specific_menu_items(project, srp,where)
+  def split_ratio_profile_set_specific_menu_items(project, srp, where)
     edit_callback = js_callback_redirect :controller => 'split_ratio_profile_sets', 
                                          :action => 'edit',
-                                         :project_id => project.id,
-                                         :split_ratio_profile_set_id => srp.id
+                                         :project_id => project,
+                                         :id => srp.id
 
     delete_callback = js_callback_redirect :controller => 'split_ratio_profile_sets',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :split_ratio_profile_set_id => srp.id 
+                                           :project_id => project,
+                                           :id => srp.id 
 
     duplicate_callback = not_implemented_callback
 
@@ -184,16 +184,16 @@ module ConfigurationsHelper
     }
   end
 
-  def capacity_profile_set_specific_menu_items(project, cs,where)
+  def capacity_profile_set_specific_menu_items(project, cs, where)
     edit_callback = js_callback_redirect :controller => 'capacity_profile_sets', 
                                          :action => 'edit',
-                                         :project_id => project.id,
-                                         :capacity_profile_set_id => cs.id
+                                         :project_id => project,
+                                         :id => cs.id
 
     delete_callback = js_callback_redirect :controller => 'capacity_profile_sets',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :capacity_profile_set_id => cs.id 
+                                           :project_id => project,
+                                           :id => cs.id 
 
     duplicate_callback = not_implemented_callback
 
@@ -206,16 +206,16 @@ module ConfigurationsHelper
     }
   end
   
-  def event_set_specific_menu_items(project, es,where)
+  def event_set_specific_menu_items(project, es, where)
     edit_callback = js_callback_redirect :controller => 'event_sets', 
                                          :action => 'edit',
-                                         :project_id => project.id,
-                                         :event_set_id => es.id
+                                         :project_id => project,
+                                         :id => es.id
 
     delete_callback = js_callback_redirect :controller => 'event_sets',
                                            :action => 'destroy',
-                                           :project_id => project.id,
-                                           :event_set_id => es.id 
+                                           :project_id => project,
+                                           :id => es.id 
 
     duplicate_callback = not_implemented_callback
 
