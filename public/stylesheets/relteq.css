@@ -91,10 +91,7 @@ table.index td.index-menu-multiple {
 	width:0.25%;
 }
 
-.simulation-overlay-cancel{
-	float:right;
-	margin-top:-50px;
-}
+
 
 #new_vehicle_type_formlet {
   border: 1px solid #eee;
@@ -103,13 +100,28 @@ table.index td.index-menu-multiple {
   padding: 5px 5px 5px 5px;
 }
 
-button.scenario-overlay-cancel {
-  border: 0;
-  height: 40px;
+.simulation-info label{
+	font-weight:bold;
+}
+
+button.config{
+	border: 0;
+	height: 40px;
   width: 40px;
+  background: transparent url(/images/win_close.png) no-repeat center top;	
+}
+button.simulation-overlay-cancel{
+  overflow: hidden;
+  margin-left:95%;
+  
+}
+button.scenario-overlay-cancel {
   text-indent: -1000em;
   overflow: hidden;
-  margin-left: 90%;
-  background: transparent url(/images/win_close.png) no-repeat center top;
+  margin-left: 95%;
+}
+.scenario-launch, .simulation-info {
+  background-color: #ffffff;
+  padding: 0em 2em 2em 2em;
 }
 

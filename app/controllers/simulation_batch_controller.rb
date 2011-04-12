@@ -19,7 +19,13 @@ class SimulationBatchController < ApplicationController
      
       @actions =  {'Generate Report' => 'report','Share' => 'share','Export XML' => 'export','Rename' => 'rename',' Delete' => 'delete'}
       
-      @project = Project.find(params[:project_id])
+      begin
+        @project = Project.find(params[:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+        return false
+      end
+   
       @item_count = SimulationBatch.count( :conditions => {:scenario_id => @project.scenarios});
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
@@ -36,12 +42,19 @@ class SimulationBatchController < ApplicationController
   end
 
   def show
-    @item_show = SimulationBatch.find_by_id(params[:id])
+    begin
+       @item_show = SimulationBatch.find_by_id(params[:id])
+     rescue ActiveRecord::RecordNotFound
+       render :file => "#{Rails.root}/public/404.html", :status => 404
+       return false
+     end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item_show }
     end
   end
+  
   
 
   

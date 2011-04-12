@@ -15,8 +15,13 @@ class SimulationBatchReportController < ApplicationController
       end
      
       @actions =  {'Share' => 'share','Export XML' => 'export','Export PDF' => 'pdf','Rename' => 'rename','Delete' => 'delete'}
-      
-      @project = Project.find(params[:project_id])
+
+      begin
+        @project = Project.find(params[:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+        return false
+      end      
         
       @item_count = SimulationBatchReport.count(:all);
       @item_pages = Paginator.new self, @item_count, @limit, params['page']

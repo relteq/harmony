@@ -31,7 +31,8 @@
  	<td  >Not Implemented</td>
   </tr>
 	<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
-		
+		<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>
+		  <h2>Simulation Data Information</h2>
     <%= render :partial => 'simulation_batch/show', 
                :locals => {:item_show => sim} %>
   </div>
