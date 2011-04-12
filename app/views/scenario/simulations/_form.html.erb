@@ -37,6 +37,7 @@
 <% end %>
 
 <script language="javascript">
-	new MaskedInput("#begin_time_<%= scenario.id %>", '99H 99m 99.9s');
-	new MaskedInput("#duration_<%= scenario.id %>", '99H 99m 99.9s');
+  MaskedInput.definitions['5'] = '[0-5]';
+	new MaskedInput("#begin_time_<%= scenario.id %>", '99h 59m 59.9s', {partials_allowed: true});
+	new MaskedInput("#duration_<%= scenario.id %>", '99h 59m 59.9s', {partials_allowed: true});
 </script>

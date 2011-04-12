@@ -977,7 +977,7 @@ en:
   field_b_time: Begin Time
   field_e_time: End Time
   field_length_units: Length Units
-  field_v_types: Vehicle Types
+  field_vehicle_types: Vehicle Types
   field_controller_set: Controller Set
   field_demand_profile_set: Demand Profile Set
   field_split_ratio_profile_set: Split Ratio Profile Set
@@ -990,6 +990,7 @@ en:
   field_destination: Destination
   field_node: Node
   field_event: Event
+  field_weight: Weight
   label_new: New
   label_scenario: Scenario
   label_controller_set: Controller Set
@@ -1026,5 +1027,6 @@ en:
   label_time: Time
   label_description: Description
   label_actions: Actions
+  label_vehicle_type_weight: Weight
 
   ##### end relteq additions

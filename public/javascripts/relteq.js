@@ -22,15 +22,60 @@ function clearTextFieldDefault(id,value) {
 }
 
 function show_box(div) {
-     $(div).show();
-     ol.show($(div), {click_hide: false,
-                      position: 'center', 
-                      auto_hide: false, 
-                      modal: true,
-                      bckg_opacity: 0.9});
-  }
+  $(div).show();
+  ol.show($(div), {click_hide: false,
+                   position: 'center', 
+                   auto_hide: false, 
+                   modal: true,
+                   bckg_opacity: 0.9});
+}
+
+function vehicle_delete() {
+  event.preventDefault();
+  var current_vehicle_option = $$('#scenario_vehicle_types option').detect(
+    function(option) { return option.selected; }
+  );
+  var url = '/projects/' + project_id + 
+            '/configuration/scenarios/' + scenario_id + 
+            '/vehicle_types/' + current_vehicle_option.value +
+            '.json';
+  new Ajax.Request(url, {
+    method: 'delete',
+    onSuccess: function(transport) {
+      var result = transport.responseText.evalJSON();
+      if(result.success) {
+        current_vehicle_option.remove();
+      }
+      else {
+        alert('Error in Delete Vehicle Type: ' + result.error_message);
+      }
+    }
+  }); 
+}
+
+function vehicle_create() {
+  event.preventDefault();
+  var url = '/projects/' + project_id + 
+            '/configuration/scenarios/' + scenario_id + 
+            '/vehicle_types.json';
+  new Ajax.Request(url, {
+    method: 'post',
+    parameters: { 'vehicle_type[name]' : $('vehicle_type_name').getValue(),
+                  'vehicle_type[weight]': $('vehicle_type_weight').getValue() },
+    onSuccess: function(transport) {
+      var result = transport.responseText.evalJSON();
+      if(result.success) {
+        var e = new Element('option', { 'value': result.id }).update(result.display);
+        $('scenario_vehicle_types').appendChild(e); 
+      }
+      else {
+        alert('Error in Create Vehicle Type: ' + result.errors);
+      }
+    }
+  }); 
+}
 
 function hide_box(div) {
-	    $(div).hide();
-	    ol.hide();
-	  }
+  $(div).hide();
+  ol.hide();
+}

@@ -40,7 +40,7 @@
 <% end %>
 <% @items_show.each_with_index do |scenario,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%= link_to scenario.name,  {:controller => 'scenarios', :action => 'edit',:project_id => @project, :scenario_id => scenario.id} %></td>
+	<td  ><%= link_to scenario.name, edit_project_configuration_scenario_path(@project, scenario) %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h scenario.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>

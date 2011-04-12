@@ -95,3 +95,21 @@ table.index td.index-menu-multiple {
 	float:right;
 	margin-top:-50px;
 }
+
+#new_vehicle_type_formlet {
+  border: 1px solid #eee;
+  background-color: #eee;
+  margin: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px;
+}
+
+button.scenario-overlay-cancel {
+  border: 0;
+  height: 40px;
+  width: 40px;
+  text-indent: -1000em;
+  overflow: hidden;
+  margin-left: 90%;
+  background: transparent url(/images/win_close.png) no-repeat center top;
+}
+

@@ -38,7 +38,7 @@
 <% end %>
 <% @items_show.each_with_index do |srps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	<td  ><%= link_to srps.name,  {:controller => 'split_ratio_profile_sets', :action => 'edit',:project_id => @project, :split_ratio_profile_set_id => srps.id} %></td>
+	<td  ><%= link_to srps.name, edit_project_configuration_split_ratio_profile_set_path(@project, srps) %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h srps.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
