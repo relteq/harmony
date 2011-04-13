@@ -40,22 +40,6 @@ class SimulationBatchController < ApplicationController
         format.xml  { render :xml =>  @items_show}
       end
   end
-
-  def show
-    begin
-       @item_show = SimulationBatch.find_by_id(params[:id])
-     rescue ActiveRecord::RecordNotFound
-       render :file => "#{Rails.root}/public/404.html", :status => 404
-       return false
-     end
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @item_show }
-    end
-  end
   
-  
-
   
 end
