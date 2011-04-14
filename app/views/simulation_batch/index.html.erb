@@ -1,4 +1,4 @@
-<% form_tag(:controller => {}) do %>
+<% form_tag(process_choices_simulation_batch_path(@project)) do %>
 <div>
 	 <%= render :partial => 'simulation_batch/menu', 
                :locals => {:project => :project_id} %>
@@ -7,7 +7,9 @@
 <table class="index list"> 
 	<thead>
 	  <tr>
-		  <th class='checkbox index-menu-multiple'><%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, "form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
+		  <th class='checkbox index-menu-multiple'>
+				<%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, 	
+							"form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
        </th>
     
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
@@ -24,7 +26,7 @@
 <% end %>
 <% @items_show.each_with_index do |sim,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-  <td class='index-menu-multiple'><%= check_box_tag("ids[]", sim.id, false, :id => nil) %></td>
+  <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, :id => nil) %></td>
 	<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
  	<td  >Not Implemented</td>
  	<td  ><%=h sim.created_at.strftime("%m/%d/%Y") %></td>

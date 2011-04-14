@@ -17,15 +17,13 @@ class SimulationBatchController < ApplicationController
       end
      
      
-      @actions =  {'Generate Report' => 'report','Share' => 'share','Export XML' => 'export','Rename' => 'rename',' Delete' => 'delete'}
-      
       begin
         @project = Project.find(params[:project_id])
       rescue ActiveRecord::RecordNotFound
         render :file => "#{Rails.root}/public/404.html", :status => 404
         return false
       end
-   
+ 
       @item_count = SimulationBatch.count( :conditions => {:scenario_id => @project.scenarios});
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
@@ -41,5 +39,39 @@ class SimulationBatchController < ApplicationController
       end
   end
   
+  def process_choices
+   
+      begin
+        @project = Project.find(params[:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+        return false
+      end
+ 
+      redir_path =  get_simulation_batch_action(params[:simulation_batch_action],params[:sim_ids])
+      respond_to do |format|
+        if(redir_path != '' && (params[:sim_ids] != nil))
+         format.html { redirect_to  redir_path}
+        else
+          if(redir_path == '')
+            flash[:error] = "There was a problem processing your action, please try again."
+          else 
+            flash[:error] = "Please check a simulation batch below before requesting an action."
+          end
+          format.html { redirect_to  simulation_batch_index_path(@project) } # index.html.erb         
+        end
+      end
+    
+  end
+  
+
+  private 
+    def get_simulation_batch_action(str,sims)
+      if(str == 'generate') 
+        return report_gen_simulation_batch_report_path(@project,{:sim_ids => sims})
+      else
+        return ''
+      end
+    end
   
 end

@@ -29,5 +29,24 @@ class SimulationBatchControllerTest < ActionController::TestCase
       end
     end
     
+    context "post :process_choices" do
+      context "with valid params" do
+        setup { post :process_choices, {:project_id => @project, :simulation_batch_action=>'generate',:sim_ids => ['1','2'] } }
+
+        should "respond with success" do
+          assert_response :redirect
+        end
+
+      end
+
+      context "with invalid project ID" do
+        setup { post :process_choices, :project_id => -1 }
+
+        should "redirect to 404" do
+          assert_response 404
+        end
+      end
+    end
+    
   end
 end

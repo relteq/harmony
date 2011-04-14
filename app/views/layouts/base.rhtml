@@ -11,6 +11,7 @@
 <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
 <%= stylesheet_link_tag 'proto.menu' %>
 <%= stylesheet_link_tag 'relteq', :media => 'all' %>
+<%= stylesheet_link_tag 'relteq-tabbed'%>
 
 <%= javascript_include_tag 'relteq' %>
 <%= javascript_include_tag 'jquery' %>
@@ -21,6 +22,8 @@
 <%= javascript_include_tag "proto.menu" %>
 <%= javascript_include_tag 'overlay' %>
 <%= javascript_include_tag 'simple_cookie' %>
+<%= javascript_include_tag 'livepipe' %>
+<%= javascript_include_tag 'tabs' %>
 
 <%= heads_for_theme %>
 <%= heads_for_wiki_formatter %>

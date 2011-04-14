@@ -36,4 +36,17 @@ class SimulationBatchReportController < ApplicationController
         format.xml  { render :xml =>  @items_show}
       end
  end
+ 
+ def report_gen
+   @simulation_report = SimulationBatchReport.new
+   @simulation_batches = Array.new
+   params[:post][:sim_ids].each do |s|
+     @simulation_batches.push (SimulationBatch.find_by_id(s))
+   end
+  
+   respond_to do |format|
+     format.html # report_gen.html.erb
+   end
+ 
+ end
 end
