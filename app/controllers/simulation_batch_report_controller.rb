@@ -14,7 +14,6 @@ class SimulationBatchReportController < ApplicationController
         @limit = per_page_option
       end
      
-      @actions =  {'Share' => 'share','Export XML' => 'export','Export PDF' => 'pdf','Rename' => 'rename','Delete' => 'delete'}
 
       begin
         @project = Project.find(params[:project_id])
@@ -40,7 +39,7 @@ class SimulationBatchReportController < ApplicationController
  def report_gen
    @simulation_report = SimulationBatchReport.new
    @simulation_batches = Array.new
-   params[:post][:sim_ids].each do |s|
+   params [:sim_ids].each do |s|
      @simulation_batches.push (SimulationBatch.find_by_id(s))
    end
   

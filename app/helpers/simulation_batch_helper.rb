@@ -1,7 +1,7 @@
 module SimulationBatchHelper
    
   def simulation_batch_select_options()
-    actions =  [
+    return [
       ['Select Action ...' , ''],
       ['Generate Report' , 'generate'],
       ['Share' , 'share'],
