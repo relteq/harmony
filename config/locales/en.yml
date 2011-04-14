@@ -1035,4 +1035,17 @@ en:
   label_to: To
   label_from: From
   label_contents: Contents
+  label_congestion_speed: Congestion Speed[mph]
+  label_max_data: Maximum number data points to read
+  label_color: Color
+  label_fill_plots: Fill plots
+  label_legend: Include Legend
+  label_performance_measures: Performance Measures
+  label_custom_x_axis: Custom X-axis
+  label_box_plot: Box plot
+  label_x_axis_subnetwork: X-axis Sub-Network
+  label_y_axis_subnetwork: Y-axis Sub-Network
+  label_x_axis_quantity: X-axis Quantity
+  label_y_axis_quantity: Y-axis Quantity
+  label_groups: Groups  
   ##### end relteq additions

@@ -39,10 +39,17 @@ class SimulationBatchReportController < ApplicationController
  def report_gen
    @simulation_report = SimulationBatchReport.new
    @simulation_batches = Array.new
-   params[:sim_ids].each do |s|
-     @simulation_batches.push (SimulationBatch.find_by_id(s))
+   @scenarios = Array.new
+   begin
+     params[:sim_ids].each do |s|
+       sb = SimulationBatch.find_by_id(s)
+       @simulation_batches.push (sb)
+       @scenarios.push (Scenario.find_by_id(sb.scenario_id))
+     end
+   rescue NoMethodError
+     
    end
-  
+   
    respond_to do |format|
      format.html # report_gen.html.erb
    end

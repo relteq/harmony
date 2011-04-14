@@ -1,1 +1,45 @@
-scatter-plots
+<p>
+	<label><%=l(:label_performance_measures)%>: </label>
+  <div style="width:350px">
+		<div style="border:1px solid #ccc;padding:5px">
+			<button type="load_routes">Load Routes</button></br>
+			<label><%=l(:label_custom_x_axis)%>: </label>
+			<%= text_field_tag 'custom_x' %>
+			<%= check_box_tag 'box_plot' %>
+			<label><%=l(:label_box_plot)%></label>
+		</div>
+		<div style="border:1px solid #ccc;margin-top:2px;padding:5px;height:70px">
+			<div style="float:left;border-right:2px solid #ccc">
+				<label><%=l(:label_x_axis_subnetwork)%>: </label></br>
+				<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%></br>
+				<label><%=l(:label_x_axis_quantity)%>: </label></br>
+				<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%></br>
+			</div>
+			<div style="float:left;padding-left:10px;">
+				<label><%=l(:label_y_axis_subnetwork)%>: </label></br>
+				<%= select_tag 'y-axis-sub', options_for_select(simulation_report_axis_network_select_options())%></br>
+				<label><%=l(:label_y_axis_quantity)%>: </label></br>
+				<%= select_tag 'y-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%>
+			</div>
+		</div>
+	</div></br>
+	<label><%=l(:label_groups)%>: </label>
+	<table class="index list"> 
+		<thead>
+		  <tr>
+				<th>Name</th>
+				<th>&nbsp;</th>
+		  </tr>
+		</thead>
+		<tbody>	
+			<tr class="user active odd">
+		 	  <td  >&nbsp;</td>
+		 	  <td  >&nbsp;</td>
+		  </tr>
+			<tr class="user active even">
+		 	  <td  >&nbsp;</td>
+		 	  <td  >&nbsp;</td>
+		  </tr>
+		</tbody>
+	</table>
+</p>

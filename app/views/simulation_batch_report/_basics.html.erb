@@ -19,6 +19,11 @@
 		  </tr>
 		</thead>
 		<tbody>
+			<% if @simulation_batches.count == 0 %>
+			<tr>
+			  <td colspan='2' >The system does not show you having chosen any simulations to report on.</td>
+			</tr>
+			<% end %>
 			<% @simulation_batches.each_with_index do |sim,i| %>
 			<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 		    <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, :id => nil) %></td>

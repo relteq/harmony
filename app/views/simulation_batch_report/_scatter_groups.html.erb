@@ -1,1 +1,21 @@
-scatter-groups
+<table class="index list"> 
+	<thead>
+	  <tr>
+			<th>Scenario</th>
+			<th>Group</th>
+	  </tr>
+	</thead>
+	<tbody>
+		<% if @scenarios.count == 0 %>
+		<tr>
+		  <td colspan='2' >The system does not show you having chosen any scenarios to report on.</td>
+		</tr>
+		<% end %>
+		<% @scenarios.each_with_index do |s,i| %>
+		<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	 	  <td  ><%= s.name %></td>
+	 	  <td  >&nbsp;</td>
+	  </tr>
+	  <% end %>
+	</tbody>
+</table>
