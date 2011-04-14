@@ -1,0 +1,69 @@
+#report-main  {
+  margin-left:80px;
+  width:628px;
+}
+#report-main .content {
+  border:1px solid #ccc;
+}
+#report-main .tab-content {
+  margin:7px 7px 7px 7px;
+}
+#report-main .tab{
+	margin-top:5px;	
+}
+#report-main .buttons{
+	margin-top:5px;
+}
+#report-main a {
+    text-decoration:none;
+    font-weight:bold;
+    color:#2777a1;
+}
+
+#report-main label {
+  font-weight:bold;
+}
+	
+/* Subsection Tabs
+--------------------*/
+#report-main ul.subsection_tabs {
+    list-style:none;
+    margin:0 0 6px 0;
+    padding:0;
+    clear:both;
+    height:28px;
+    clear:both;
+}
+
+#report-main ul.subsection_tabs li.tab {
+    float:left;
+    margin-right:7px;
+    text-align:center;
+    border-bottom:1px solid #ccc;
+
+}
+
+#report-main ul.subsection_tabs li.tab a {
+    display:block;
+    height:20px;
+    padding:6px 6px 0 6px;
+    background-color:#fff;
+    color:#666;
+    width:100px;
+}
+
+#report-main ul.subsection_tabs li.tab a:hover {
+    color:#666;
+}
+
+#report-main ul.subsection_tabs li.tab a.active {
+    background-color:#ddd;
+}
+
+#report-main ul.subsection_tabs li.source_code {
+    float:right;
+}
+
+
+
+

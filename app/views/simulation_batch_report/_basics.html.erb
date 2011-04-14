@@ -1,0 +1,31 @@
+<p>
+	<label><%=l(:label_export_format)%>: </label>
+  <%= select_tag 'export-format-select', options_for_select(simulation_report_export_select_options())%>
+</p>
+<p>
+	<label><%=l(:label_type_of_report)%>: </label>
+  <%= select_tag 'export-format-select', options_for_select(simulation_report_type_of_select_options())%>
+</p>    	
+<p>
+	<label><%=l(:label_available_files)%>: </label>
+	<table class="index list"> 
+		<thead>
+		  <tr>
+			  <th class='checkbox index-menu-multiple'>
+					<%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, 	
+								"form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
+	      </th>
+				<th>Name</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<% @simulation_batches.each_with_index do |sim,i| %>
+			<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+		    <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, :id => nil) %></td>
+			  <td  ><%= sim.name %></td>
+		  </tr>
+		  <% end %>
+		</tbody>
+	</table>
+</p>    	
+

@@ -1,0 +1,54 @@
+<p>
+	<label><%=l(:label_time_range)%>: </label>
+	<p>
+  	&nbsp;&nbsp;
+		<label><%=l(:label_from)%>: </label><%= f.text_field :b_time %>
+	 	<label><%=l(:label_to)%>: </label> <%= f.text_field :duration %>
+	</p>
+</p>
+<p>
+	<label><%=l(:label_contents)%>: </label>
+	<table class="index list"> 
+		<thead>
+		  <tr>
+				<th>&nbsp;</th>
+				<th>over time</th>
+				<th>over space</th>
+				<th>contour</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<tr class="user active odd">
+		   	<td>Each Link State</td>
+		 		<td><%= f.check_box :link_perf %></td>
+			  <td>&nbsp;</td>
+			  <td>&nbsp;</td>
+		  </tr>
+			<tr class="user active even">
+		   	<td>System Performance</td>
+		 		<td><%= f.check_box :network_perf %></td>
+			  <td>&nbsp;</td>
+			  <td>&nbsp;</td>
+		  </tr>
+			<tr class="user active odd">
+		   	<td>Onramp Performance</td>
+		 		<td><%= f.check_box :or_perf_t %></td>
+			  <td><%= f.check_box :or_perf_s %></td>
+			  <td><%= f.check_box :or_perf_c %></td>
+		  </tr>
+			<tr class="user active even">
+		   	<td>Route Performance</td>
+		 		<td><%= f.check_box :route_perf_t %></td>
+			  <td><%= f.check_box :route_perf_s %></td>
+			  <td><%= f.check_box :route_perf_c %></td>
+		  </tr>
+			<tr class="user active odd">
+		   	<td>Route Travel Time</td>
+		 		<td><%= f.check_box :route_tt_t %></td>
+		    <td>&nbsp;</td>
+			  <td><%= f.check_box :route_tt_c %></td>
+		  </tr>
+		</tbody>
+	</table>
+</p>
+
