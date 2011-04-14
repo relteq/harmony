@@ -39,7 +39,7 @@ class SimulationBatchReportController < ApplicationController
  def report_gen
    @simulation_report = SimulationBatchReport.new
    @simulation_batches = Array.new
-   params [:sim_ids].each do |s|
+   params[:sim_ids].each do |s|
      @simulation_batches.push (SimulationBatch.find_by_id(s))
    end
   
