@@ -28,7 +28,7 @@ class SimulationBatchController < ApplicationController
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatch.find  :all,
-                                :conditions => {:scenario_id => @project.scenarios},
+                                :conditions => {:scenario_id = @project.scenarios},
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset
