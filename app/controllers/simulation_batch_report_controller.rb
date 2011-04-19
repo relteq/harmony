@@ -43,8 +43,8 @@ class SimulationBatchReportController < ApplicationController
    begin
      params[:sim_ids].each do |s|
        sb = SimulationBatch.find_by_id(s)
-       @simulation_batches.push (sb)
-       @scenarios.push (Scenario.find_by_id(sb.scenario_id))
+       @simulation_batches.push(sb)
+       @scenarios.push(Scenario.find_by_id(sb.scenario_id))
      end
    rescue NoMethodError
      
