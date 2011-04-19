@@ -14,11 +14,11 @@
     </p>
     <p>
       <%= label_tag :begin_time %>
-      <%= text_field_tag :begin_time, '0', :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
+      <%= text_field_tag :begin_time, RelteqTime.zero_time_string, :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :duration %>
-	  <%= text_field_tag :duration, '0', :id => "duration_#{scenario.id}", :class => 'time_mask' %>
+	    <%= text_field_tag :duration, RelteqTime.zero_time_string, :id => "duration_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :control %>

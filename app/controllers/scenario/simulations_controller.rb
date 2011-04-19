@@ -1,4 +1,5 @@
 class Scenario::SimulationsController < ConfigurationsApplicationController
+  include RelteqTime
   before_filter :load_scenario
 
   def new
@@ -20,17 +21,17 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
       options[:param][:qcontrol] = true
       options[:param][:events] = true
     else
-      if params[:begin_time] =~ /(\d\d)h (\d\d)m (\d\d\.\d)s/
-        options[:param][:b_time] = hours_from_hms($1,$2,$3)
+      if RelteqTime.is_valid_time?(params[:begin_time])
+        options[:param][:b_time] = RelteqTime.parse_time_to_seconds(params[:begin_time])
       else
         Rails.logger.error "Problem with begin time input #{params[:begin_time]}"
       end
 
-      if params[:duration] =~ /(\d\d)h (\d\d)m (\d\d\.\d)s/
-        options[:param][:duration] = hours_from_hms($1,$2,$3)
-
+      if RelteqTime.is_valid_time?(params[:duration]) 
+        options[:param][:duration] = RelteqTime.parse_time_to_seconds(params[:duration])
+ 
         if options[:param][:duration] < 0
-           flash[:error] = "Simulation duration less than zero.<br/>"
+          flash[:error] = "Simulation duration less than zero.<br/>"
         end
       else
         Rails.logger.error "Problem with duration input #{params[:duration]}."
@@ -62,9 +63,5 @@ private
       flash[:error] = 'Error: scenario does not exist.'
       redirect_to :root
     end
-  end
-
-  def hours_from_hms(h,m,s)
-    h.to_f + m.to_f/60.0 + s.to_f/3600.0
   end
 end
