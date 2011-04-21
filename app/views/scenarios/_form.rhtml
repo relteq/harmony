@@ -26,9 +26,7 @@
       <p><button id="create_vehicle_type" onclick="vehicle_create();">Add Vehicle Type</button></p>
     </div>
   <% end %>
-  <p><%= f.text_field :b_time, :value => params[:b_time] != 0 ? @scenario.b_time : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:b_time] != 0 ? '' : 'grey italic', :required => true %></p>
-  <p><%= f.text_field :e_time,  :value => params[:e_time] != 0 ?  @scenario.e_time  : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:e_time] != 0 ? '' : 'grey italic', :required => true %></p>
-  <p><label><%=l(:label_reporting_period)%><span class='required'> *</span></label><%= text_field :scenario, :dt, :value => params[:dt] != 0 ?  @scenario.dt  : '00:00:00.00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00.00")' ,:class => params[:dt] != 0.0 ? '' : 'grey italic', :required => true %></p>
-
-
+  <p><%= f.text_field :b_time, :value => @scenario.display_time(:b_time), :required => true %></p>
+  <p><%= f.text_field :e_time,  :value => @scenario.display_time(:e_time), :required => true %></p>
+  <p><%= f.text_field :dt, :value => @scenario.display_time(:dt), :required => true %></p>
 </div>

@@ -6,7 +6,7 @@
 <p><%= f.check_box :q_control %></p>
 <p><%= f.check_box :ml_control %></p>
 
-<p><%= f.text_field :dt, :value => params[:dt] != 0 ?  @network.dt  : '00:00:00',:onfocus =>  'clearTextFieldDefault(this,"00:00:00")' ,:class =>  @network.dt != '00:00:00' ? '' : 'grey italic',:required => true %></p>
+<p><%= f.text_field :dt, :value => @network.display_time(:dt), :required => true %></p>
 
 
 </div>

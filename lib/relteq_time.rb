@@ -38,7 +38,34 @@ public
     seconds_to_string(0)
   end
 
-  def display_time(sym)
-    RelteqTime.seconds_to_string(self.send(sym) || 0.0)
+  module ActiveRecordMethods
+    Parent = RelteqTime
+  public
+    module ClassMethods
+      def relteq_time_attr(attr, base = self)
+        attr_sym = attr.to_s
+        punctuated_attr_sym = (attr_sym.to_s + '=').to_sym
+        define_method punctuated_attr_sym,
+                      relteq_time_attr_setter_string_wrap(attr_sym)
+      end
+
+      def relteq_time_attr_setter_string_wrap(raw_attr)
+        Proc.new do |val|
+          if val.is_a?(String)
+            write_attribute(raw_attr, Parent.parse_time_to_seconds(val))
+          else
+            write_attribute(raw_attr, val)
+          end
+        end
+      end
+    end
+
+    def display_time(sym)
+      Parent.seconds_to_string(self.send(sym) || 0.0)
+    end
+
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
   end
 end

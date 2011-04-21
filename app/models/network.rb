@@ -1,4 +1,6 @@
 class Network < ActiveRecord::Base
+  include RelteqTime::ActiveRecordMethods
+
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
   
@@ -37,7 +39,8 @@ class Network < ActiveRecord::Base
   has_many :sensor_locations
   has_many :sensors, :through => :sensor_locations
   has_many :links, :through => :sensor_locations
-  
+
+  relteq_time_attr :dt
   
   def remove_from_scenario
     #remove this demand profile set from anything it is attached to
@@ -48,27 +51,4 @@ class Network < ActiveRecord::Base
         @scen.save
     end
   end
-  
-  def dt
-    milliseconds_to_string_time(read_attribute("dt") || 1.0)
-  end
-  
-  def dt=(dt)
-    write_attribute("dt",milliseconds_since_midnight(dt)) 
-    rescue ArgumentError
-       @dt_invalid = true
-  end
-  
-  def milliseconds_to_string_time(mil)
-     hours = (mil / 3600).to_i
-     minutes = ((mil - (hours * 3600)) / 60).to_i
-     seconds = (mil - (hours * 3600) - (minutes * 60))  
-     "%02d:%02d:%04.1f" % [hours, minutes, seconds]
-  end
-  
-  def milliseconds_since_midnight(time)
-    elems = time.split(":")
-    seconds = elems[0].to_i * 3600 + elems[1].to_i * 60 + elems[2].to_f
-  end
-  
 end
