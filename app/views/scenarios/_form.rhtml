@@ -29,4 +29,7 @@
   <p><%= f.text_field :b_time, :value => @scenario.display_time(:b_time), :required => true %></p>
   <p><%= f.text_field :e_time,  :value => @scenario.display_time(:e_time), :required => true %></p>
   <p><%= f.text_field :dt, :value => @scenario.display_time(:dt), :required => true %></p>
+  <%= masked_input_js 'scenario_b_time' %>
+  <%= masked_input_js 'scenario_e_time' %>
+  <%= masked_input_js 'scenario_dt' %>
 </div>

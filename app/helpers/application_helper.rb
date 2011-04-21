@@ -745,6 +745,17 @@ module ApplicationHelper
       valid_languages.collect{|lang| [ ll(lang.to_s, :general_lang_name), lang.to_s]}.sort{|x,y| x.last <=> y.last }
   end
 
+  def time_input_field(name, val=nil, options = {})
+    out = text_field_tag name, (val || RelteqTime.zero_time_string), options
+    out << masked_input_js(options[:id] || name)
+  end
+
+  def masked_input_js(id)
+    content_tag('script', 
+                "new MaskedInput('##{id}', '#{RelteqTime.mask}', {partials_allowed: true});",
+                :language => 'javascript')
+  end
+
   def label_tag_for(name, option_tags = nil, options = {})
     label_text = l(("field_"+field.to_s.gsub(/\_id$/, "")).to_sym) + (options.delete(:required) ? @template.content_tag("span", " *", :class => "required"): "")
     content_tag("label", label_text)

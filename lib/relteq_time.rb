@@ -1,5 +1,10 @@
 module RelteqTime
-  MASKED_INPUT_REPRESENTATION = "99h 59m 59s"
+  # WARNING - right now ADDITIONAL_MASKED_FIELDS doesn't get mapped out, 
+  # changing the fields requires editing of
+  # public/javascripts/prototype.maskedinput.js. I think it would be a good
+  # idea to automatically generate that JS code in the future.
+  ADDITIONAL_MASKED_FIELDS = { '5' => '[0-5]' }
+  MASKED_INPUT_REPRESENTATION = "99h 59m 59.9s"
   REGEX_REPRESENTATION = /(\d\d)h (\d\d)m (\d\d\.\d)s/
   PRINTF_REPRESENTATION = "%02dh %02dm %04.1fs"
 
@@ -36,6 +41,10 @@ public
 
   def self.zero_time_string
     seconds_to_string(0)
+  end
+
+  def self.mask
+    MASKED_INPUT_REPRESENTATION
   end
 
   module ActiveRecordMethods

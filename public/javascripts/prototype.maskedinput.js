@@ -289,6 +289,7 @@
 
     Object.extend(MaskedInput,{    
         definitions: {
+            '5': "[0-5]",
             '9': "[0-9]",
             'a': "[A-Za-z]",
             '*': "[A-Za-z0-9]"
