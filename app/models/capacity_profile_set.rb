@@ -5,7 +5,7 @@ class CapacityProfileSet < ActiveRecord::Base
   validates_presence_of :network
   
   belongs_to:network
-  belongs_to:project
+
   
   has_many:capacity_profiles
   has_many:scenarios

@@ -4,7 +4,6 @@ class EventSet < ActiveRecord::Base
   validates_presence_of :network
   
   belongs_to:network
-  belongs_to:project
   
   has_many :events
   has_many :scenarios

@@ -5,7 +5,6 @@ class DemandProfileSet < ActiveRecord::Base
   validates_presence_of :network
   
   belongs_to:network
-  belongs_to:project
   
   has_many:demand_profiles
   has_many:scenarios

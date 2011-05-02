@@ -5,7 +5,6 @@ class ControllerSet < ActiveRecord::Base
   validates_presence_of :network
   
   belongs_to :network
-  belongs_to :project
   
   has_many :controllers
   has_many :scenarios

@@ -29,4 +29,7 @@ class Scenario < ActiveRecord::Base
   def add_default_vehicle_type
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
   end
+  
+  
+  
 end

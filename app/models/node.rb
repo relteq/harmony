@@ -3,7 +3,8 @@ class Node < ActiveRecord::Base
   has_many:split_ratio_profiles  
   has_many:events
   has_many:controllers
-  
+    
+  belongs_to:network
   
   has_many:network_nodes
   has_many:networks, :through => :network_nodes

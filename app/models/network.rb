@@ -13,20 +13,16 @@ class Network < ActiveRecord::Base
   has_many :event_sets
   has_many :events
   has_many :controllers
-  has_many :demand_profiles
+
   has_many :scenarios
   
-  has_many :network_families, :foreign_key => "network_id", :class_name => "NetworkFamily"
-  has_many :children, :through => :network_families  
-  
-  has_many :network_routes
-  has_many :routes, :through => :network_routes
- 
-  has_many :network_nodes
-  has_many :nodes, :through => :network_nodes
- 
-  has_many :network_links
-  has_many :links, :through => :network_links
+  has_many :network_lists, :foreign_key => "network_id", :class_name => "NetworkList"
+  has_many :children, :through => :network_lists  
+
+  has_many :routes
+  has_many :nodes
+  has_many :links
+  has_many :sensors
   
   has_many :output_links
   has_many :nodes, :through => :output_links
@@ -36,10 +32,8 @@ class Network < ActiveRecord::Base
   has_many :nodes, :through => :input_links
   has_many :links, :through => :input_links
 
-  has_many :sensor_locations
-  has_many :sensors, :through => :sensor_locations
-  has_many :links, :through => :sensor_locations
 
+  
   relteq_time_attr :dt
   
   def remove_from_scenario

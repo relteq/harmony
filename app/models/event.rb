@@ -1,3 +1,3 @@
 class Event < ActiveRecord::Base
-  belongs_to:event_group
+  belongs_to:event_set
 end
