@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  initial_condition_set_id: 1
+  link_id: 1
+  density: MyString
+
+two:
+  initial_condition_set_id: 1
+  link_id: 1
+  density: MyString
