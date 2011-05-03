@@ -5,10 +5,7 @@ class Node < ActiveRecord::Base
   has_many:controllers
     
   belongs_to:network
-  
-  has_many:network_nodes
-  has_many:networks, :through => :network_nodes
-  
+   
   has_many:output_links
   has_many:networks, :through => :output_links
   has_many:links, :through => :output_links
