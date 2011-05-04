@@ -6,12 +6,5 @@ class Node < ActiveRecord::Base
     
   belongs_to:network
    
-  has_many:output_links
-  has_many:networks, :through => :output_links
-  has_many:links, :through => :output_links
-
-  has_many:input_links
-  has_many:networks, :through => :input_links
-  has_many:links, :through => :input_links
   
 end

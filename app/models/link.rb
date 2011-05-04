@@ -11,14 +11,6 @@ class Link < ActiveRecord::Base
   
   has_many:route_links
   has_many:routes, :through => :route_links
-    
-  has_many:output_links
-  has_many:nodes, :through => :output_links
-  has_many:networks, :through => :output_links
-
-  has_many:input_links
-  has_many:nodes, :through => :input_links
-  has_many:networks, :through => :input_links
   
   has_many:sensors
   

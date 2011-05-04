@@ -24,15 +24,6 @@ class Network < ActiveRecord::Base
   has_many :links
   has_many :sensors
   
-  has_many :output_links
-  has_many :nodes, :through => :output_links
-  has_many :links, :through => :output_links
-
-  has_many :input_links
-  has_many :nodes, :through => :input_links
-  has_many :links, :through => :input_links
-
-
   
   relteq_time_attr :dt
   
