@@ -7,12 +7,13 @@ class Scenario < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
   validates_presence_of :network
-  relteq_time_attr :b_time
-  relteq_time_attr :e_time
+  relteq_time_attr :begin_time
+  relteq_time_attr :duration
   relteq_time_attr :dt
  
   belongs_to :project
   belongs_to :network
+  belongs_to :initial_condition_set
   belongs_to :demand_profile_set
   belongs_to :capacity_profile_set
   belongs_to :split_ratio_profile_set
