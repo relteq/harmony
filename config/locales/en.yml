@@ -974,7 +974,8 @@ en:
   relteq_delete: Delete
 
   field_dt: Sampling Period
-  field_b_time: Begin Time
+  field_begin_time: Begin Time
+  field_duration: Duration
   field_e_time: End Time
   field_length_units: Length Units
   field_vehicle_types: Vehicle Types

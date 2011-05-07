@@ -11,7 +11,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     @dpset = DemandProfileSet.new
     @dpset.name = params[:demand_profile_set] != nil ? params[:demand_profile_set][:name] ||= '' : '' 
     set_up_network_select(@dpset,DemandProfile)
-  
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @dpset }
@@ -20,7 +20,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@dpset,DemandProfile)
-          
+    set_up_elements_table(@dpset.demand_profiles) 
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @dpset }
@@ -88,7 +88,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 private
   def require_dpset
     begin
-      @dpset = @project.demand_profile_sets.find(params[:id])
+      @dpset = @dprofilesets.fetch(@dprofilesets.index {|e| e = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Demand Profile Set not found.'

@@ -19,12 +19,18 @@ protected
     end
 
     @scenarios = @project.scenarios
-    @networks = @project.networks ||= Array.new 
-    @csets = @project.controller_sets ||= Array.new 
-    @dprofilesets = @project.demand_profile_sets ||= Array.new 
-    @cprofilesets = @project.capacity_profile_sets ||= Array.new 
-    @sprofilesets = @project.split_ratio_profile_sets ||= Array.new 
-    @eventsets = @project.event_sets ||= Array.new   
+
+    @networks = Array.new
+    @scenarios.each {|e| @networks.push(e.network)} 
+    
+    @networks.each { |n|
+      @csets =  (n.controller_sets ||= Array.new).sort_by(&:name) 
+      @dprofilesets = (n.demand_profile_sets ||= Array.new).sort_by(&:name) 
+      @cprofilesets = (n.capacity_profile_sets ||= Array.new).sort_by(&:name) 
+      @sprofilesets = (n.split_ratio_profile_sets ||= Array.new).sort_by(&:name) 
+      @eventsets =  (n.event_sets ||= Array.new).sort_by(&:name)  
+    }
+
   end
 
   def redirect_save_success(set,url)
@@ -57,13 +63,13 @@ protected
   def set_up_network_select(record,model)
     @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
     
-    @network = record.network_id == nil ? nil : Network.find(record.network_id) 
+    @network = record.network == nil ? nil : record.network
   
     #set up events table with split_ratio profile set network
-    get_network_dependent_table_items(model,@network == nil ? "-1" : @network.id.to_s)
+    #get_network_dependent_table_items(record,model,@network == nil ? "-1" : @network.id.to_s)
   end
   
-  def get_network_dependent_table_items(model,sid)
+  def set_up_elements_table(model_elements)
     sort_init 'name', 'asc'
     sort_update %w(name)
     case params[:format]
@@ -73,16 +79,20 @@ protected
       @limit = per_page_option
     end
 
-    @network = nil
-    @item_count = model.count(:conditions => {:network_id =>  sid});
+#   @network = nil
+#   @item_count = model.count(:conditions => {:network_id =>  sid});
+    @item_count = model_elements.count
+ 
     @items_pages = Paginator.new self, @item_count, @limit, params['page']
 
     @offset ||= @items_pages.current.offset
-
-    @items = model.find :all, :conditions => {:network_id => sid},
-                              :order => sort_clause,
-                              :limit  =>  @limit,
-                              :offset =>  @offset
+ 
+    @items = model_elements[@offset,@offset + @limit ]
+ 
+    # @items = model.find :all, :conditions => {:network_id => sid},
+    #                           :order => sort_clause,
+    #                           :limit  =>  @limit,
+    #                           :offset =>  @offset
   end
   
   def get_index_view(model,records)

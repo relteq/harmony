@@ -105,20 +105,12 @@ private
     # All these strings should be localized.
     @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
      
-    @csets = @project.controller_sets.sort_by(&:name)
     @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
-    
-    @dsets = @project.demand_profile_sets.sort_by(&:name)
-    @prompt_demand = (@dsets.empty?) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
-
-    @cpsets = @project.capacity_profile_sets.sort_by(&:name)
-    @prompt_capacity = (@cpsets.empty?) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
+    @prompt_demand = (@dprofilesets.empty?) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
+    @prompt_capacity = (@cprofilesets.empty?) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
+    @prompt_split = (@sprofilesets.empty?) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
+    @prompt_event = (@eventsets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
  
-    @spsets = @project.split_ratio_profile_sets.sort_by(&:name)
-    @prompt_split = (@spsets.empty?) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
-
-    @esets = @project.event_sets.sort_by(&:name)
-    @prompt_event = (@esets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
   end
   
   def clear_fields

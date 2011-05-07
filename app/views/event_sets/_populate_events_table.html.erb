@@ -19,7 +19,7 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
+					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.type %></td>
 		 			<td  ><%=h item.event_type %></td>
 		 			<td  ><%=h item.updated_at %></td>
 		  	</tr>

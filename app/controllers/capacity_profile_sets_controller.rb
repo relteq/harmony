@@ -20,7 +20,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@cpset,CapacityProfile)
-
+   set_up_elements_table(@cpset.capacity_profiles) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @cpset }
@@ -90,7 +90,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 private
   def require_cp_set
     begin
-      @cpset = @project.capacity_profile_sets.find(params[:id])
+      @cpset = @cprofilesets.fetch(@cprofilesets.index {|e| e = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Capacity Profile Set not found.'

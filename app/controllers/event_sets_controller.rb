@@ -20,7 +20,7 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@eset,Event)
-  
+   set_up_elements_table(@eset.events) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @eset }
@@ -90,7 +90,7 @@ class EventSetsController <  ConfigurationsApplicationController
 private
   def require_event_set
     begin
-      @eset = @project.event_sets.find(params[:id])
+      @eset = @eventsets.fetch(@eventsets.index {|e| e = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Event Set not found.'

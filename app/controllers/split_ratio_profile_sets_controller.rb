@@ -20,7 +20,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@srpset,SplitRatioProfile)
-
+   set_up_elements_table(@srpset.split_ratio_profiles) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @srpset }
@@ -88,7 +88,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
 private
   def require_srpset
     begin
-      @srpset = @project.split_ratio_profile_sets.find(params[:id])
+      @srpset = @sprofilesets.fetch(@sprofilesets.index {|e| e = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Split Ratio Profile Set not found.'

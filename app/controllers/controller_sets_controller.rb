@@ -7,7 +7,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@cset,Controller)
-          
+    set_up_elements_table(@cset.controllers)   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @cset }
@@ -88,7 +88,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 private
   def require_controller_set
     begin
-      @cset = @project.controller_sets.find(params[:id])
+      @cset = @csets.fetch(@csets.index {|e| e = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Controller Set not found.'
