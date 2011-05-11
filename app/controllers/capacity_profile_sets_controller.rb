@@ -2,7 +2,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_cp_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view(CapacityProfileSet,@cprofilesets)
+    get_index_view_sets(@cprofilesets)
   end
 
   # GET /capacity_profile_sets/new
@@ -20,7 +20,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@cpset,CapacityProfile)
-   set_up_elements_table(@cpset.capacity_profiles) 
+   get_network_dependent_table_items('capacity_profile_sets','capacity_profiles',@cpset.network_id) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @cpset }
@@ -78,14 +78,14 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   def populate_capacities_table
    #I populate cpset so we can make sure to set checkboxes selected -- if there is no capacity profile set id then 
    #you are creating a new capacity profile set 
-   @cpset = params[:capacity_profile_set_id].to_s == '' ? CapacityProfileSet.new : CapacityProfileSet.find(params[:capacity_profile_set_id])
+   @cpset = params[:capacity_profile_set_id].to_s == '' ? CapacityProfileSet.new : get_set(@cprofilesets,params[:capacity_profile_set_id].to_i)
    if(params[:capacity_profile_set] != nil)
        @sid = params[:capacity_profile_set][:network_id].to_s == '' ? "-1" : params[:capacity_profile_set][:network_id].to_s
    else
        @sid = @cpset.network_id.to_s
    end
   
-    get_network_dependent_table_items(CapacityProfile,@sid)
+    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles',@sid)
   end
 private
   def require_cp_set

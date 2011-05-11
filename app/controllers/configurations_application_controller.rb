@@ -1,9 +1,9 @@
 class ConfigurationsApplicationController < ApplicationController
   before_filter :populate_menu
   menu_item :configurations  
-  before_filter do |controller|
-    controller.authorize(:configurations)
-  end
+#  before_filter do |controller|
+#    controller.authorize(:configurations)
+#  end
   helper :sort
   helper :configurations
   include SortHelper
@@ -19,17 +19,29 @@ protected
     end
 
     @scenarios = @project.scenarios
-
-    @networks = Array.new
-    @scenarios.each {|e| @networks.push(e.network)} 
+    @networks = @project.networks
+    
+    if(@csets == nil)
+      @csets = Array.new
+      @dprofilesets = Array.new
+      @cprofilesets = Array.new
+      @sprofilesets = Array.new
+      @eventsets = Array.new
+    end
     
     @networks.each { |n|
-      @csets =  (n.controller_sets ||= Array.new).sort_by(&:name) 
-      @dprofilesets = (n.demand_profile_sets ||= Array.new).sort_by(&:name) 
-      @cprofilesets = (n.capacity_profile_sets ||= Array.new).sort_by(&:name) 
-      @sprofilesets = (n.split_ratio_profile_sets ||= Array.new).sort_by(&:name) 
-      @eventsets =  (n.event_sets ||= Array.new).sort_by(&:name)  
+      n.controller_sets.each {|e| @csets.push(e)}
+      n.demand_profile_sets.each {|e| @dprofilesets.push(e)} 
+      n.capacity_profile_sets.each { |e| @cprofilesets.push(e)} 
+      n.split_ratio_profile_sets.each { |e| @sprofilesets.push(e)} 
+      n.event_sets.each { |e| @eventsets.push(e)  }
     }
+ 
+    @csets.sort_by(&:name)  
+    @dprofilesets.sort_by(&:name)  
+    @cprofilesets.sort_by(&:name)  
+    @sprofilesets.sort_by(&:name)  
+    @eventsets.sort_by(&:name)  
 
   end
 
@@ -69,30 +81,41 @@ protected
     #get_network_dependent_table_items(record,model,@network == nil ? "-1" : @network.id.to_s)
   end
   
-  def set_up_elements_table(model_elements)
-    sort_init 'name', 'asc'
-    sort_update %w(name)
-    case params[:format]
-    when 'xml', 'json'
-      @offset, @limit = api_offset_and_limit      
-    else
-      @limit = per_page_option
-    end
 
-#   @network = nil
-#   @item_count = model.count(:conditions => {:network_id =>  sid});
-    @item_count = model_elements.count
- 
-    @items_pages = Paginator.new self, @item_count, @limit, params['page']
+  
+  def get_network_dependent_table_items(sets,subitems,sid)
+      sort_init 'name', 'asc'
+      sort_update %w(name)
+      case params[:format]
+      when 'xml', 'json'
+        @offset, @limit = api_offset_and_limit      
+      else
+        @limit = per_page_option
+      end
 
-    @offset ||= @items_pages.current.offset
- 
-    @items = model_elements[@offset,@offset + @limit ]
- 
-    # @items = model.find :all, :conditions => {:network_id => sid},
-    #                           :order => sort_clause,
-    #                           :limit  =>  @limit,
-    #                           :offset =>  @offset
+      @items = Array.new
+      Network.find(sid).send(sets).each { |cs|
+         cs.send(subitems).each { |c|
+           @items.push(c) 
+         }   
+      }
+      @item_count = @items.length
+      @items_pages = Paginator.new self, @item_count, @limit, params['page']
+      @offset ||= @items_pages.current.offset
+      @items =  @items[@offset,@offset + @limit ]
+     
+      #@items = model.find  :all, :conditions => {:network_id => sid},
+      #                          :order => sort_clause,
+      #                           :limit  =>  @limit,
+      #                           :offset =>  @offset
+  end
+  
+  def get_set(sets,id)
+    sets.each {|item| 
+      if(item.id  == id)        
+       return item 
+      end
+    }
   end
   
   def get_index_view(model,records)
@@ -116,6 +139,41 @@ protected
                               :limit  =>  @limit,
                               :offset =>  @offset
 
+    respond_to do |format|
+      format.html { render :layout => !request.xhr? } # index.html.erb
+      format.xml  { render :xml => records }
+    end
+  end
+  
+  def get_index_view_sets(records)
+    sort_init 'name', 'asc'
+    sort_update %w(name updated_at)
+
+    case params[:format]
+    when 'xml', 'json'
+    @offset, @limit = api_offset_and_limit      
+    else
+    @limit = per_page_option
+    end
+
+    @item_count = records.length
+    @item_pages = Paginator.new self, @item_count, @limit, params['page']
+    @offset ||= @item_pages.current.offset
+    @items = Array.new
+    
+    sort = sort_clause.split(' ')
+
+    if(sort.length <= 1)
+      records.sort_by{|item| sort[0]}
+    else
+      if(sort[1] == 'DESC')
+        records.sort_by{|item| sort[0]}.reverse!
+      end
+    end
+    
+    @items_show = records[@offset,@offset + @limit ]
+
+ 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
       format.xml  { render :xml => records }

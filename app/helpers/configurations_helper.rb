@@ -296,4 +296,9 @@ module ConfigurationsHelper
                      :class => css})               
    end
    
+   def display_menu_item(s)
+      s.length < 16 ? s : s[0,15] + "..."
+   end
+   
+   
 end

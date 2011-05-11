@@ -3,6 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
+			<th title="">&nbsp;</th>
 			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'demand_profile_sets',  :action => 'populate_demands_table', :project_id =>@project,:demand_profile_set_id =>@dpset },:caption => l(:field_origin),:default_order => 'desc'}) %>
 				<% else%>
 				<th title="Origin"><%= l(:field_origin) %></th>
@@ -19,8 +20,9 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "demand_profile_set[demand_profile_ids][]", item.id,@dpset.demand_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
-		 			<td  ><%= text_field_tag item.id,item.profile %></td>
+					<td  ><%= check_box_tag "demand_profile_set[demand_profile_ids][]", item.id,@dpset.demand_profiles.include?(item) || false %></td>
+		 			<td  ><%= h item.link.type_link %></td>
+					<td  ><%= text_field_tag item.id,item.profile %></td>
 		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
 		  	</tr>
 			<% end %>

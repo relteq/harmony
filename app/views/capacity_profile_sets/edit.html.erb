@@ -4,7 +4,7 @@
 
 <h2><%= link_to "Capacity Profile Sets", project_configuration_capacity_profile_sets_path(@project)  %> &#187; <%= "Edit Capacity Profile Set"%></h2>
 
-<% labelled_tabular_form_for :capacity_profile_set, @cpset, :url => project_configuration_capacity_profile_sets_path(@project) , :html => { :method => :post } do |f| %>
+<% labelled_tabular_form_for :capacity_profile_set, @cpset, :url => {:action => "update"} , :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
 		<%= submit_tag l(:button_update) %>

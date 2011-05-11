@@ -2,7 +2,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_dpset, :only => [:edit, :update, :destroy]
   
   def index
-    get_index_view(DemandProfileSet,@dprofilesets)
+    get_index_view_sets(@dprofilesets)
   end
 
   # GET /demand_profile_sets/new
@@ -20,7 +20,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@dpset,DemandProfile)
-    set_up_elements_table(@dpset.demand_profiles) 
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles',@dpset.network_id)   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @dpset }
@@ -77,13 +77,13 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def populate_demands_table
     #I populate dpset so we can make sure to set checkboxes selected -- if there is no demand profile set id then 
     #you are creating a new demand profile set 
-    @dpset = params[:demand_profile_set_id].to_s == '' ? DemandProfileSet.new : DemandProfileSet.find(params[:demand_profile_set_id])
+    @dpset = params[:demand_profile_set_id].to_s == '' ? DemandProfileSet.new : get_set(@dprofilesets,params[:demand_profile_set_id].to_i)
     if(params[:demand_profile_set] != nil)
         @sid = params[:demand_profile_set][:network_id].to_s == '' ? "-1" : params[:demand_profile_set][:network_id].to_s 
     else
         @sid = @dpset.network_id.to_s
     end
-    get_network_dependent_table_items(DemandProfile,@sid)   
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles',@sid)   
   end
 private
   def require_dpset

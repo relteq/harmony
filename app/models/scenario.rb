@@ -32,5 +32,4 @@ class Scenario < ActiveRecord::Base
   end
   
   
-  
 end

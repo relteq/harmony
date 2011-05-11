@@ -2,12 +2,13 @@ class ControllerSetsController <  ConfigurationsApplicationController
   before_filter :require_controller_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view(ControllerSet,@csets)
+    get_index_view_sets(@csets)
   end
 
   def edit
+    @cset = get_set(@csets,params[:id].to_i)
     set_up_network_select(@cset,Controller)
-    set_up_elements_table(@cset.controllers)   
+    get_network_dependent_table_items('controller_sets','controllers',@cset.network_id)   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @cset }
@@ -23,7 +24,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
 
   def create  
-    @cset = ControllerSet.new(params[:controller_set])
+    @cset = ControllerSet.new
     if(@cset.update_attributes(params[:controller_set]))
       redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset))
     else
@@ -75,20 +76,22 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
   
   def populate_controls_table
-    #I populate cset so we can make sure to set checkboxes selected -- if there is no controller group id then 
-    #you are creating a new controller_set 
+    #I populate cset so we can make sure to set checkboxes selected -- if there is no controller set id then 
+    #you are creating a new controller_set
+    @cset = params[:controller_set_id].to_s == '' ? ControllerSet.new : get_set(@csets,params[:controller_set_id].to_i)
     if(params[:controller_set] != nil)
       @sid = params[:controller_set][:network_id].to_s == '' ? "-1" : params[:controller_set][:network_id].to_s
     else
       @sid = @cset.network_id.to_s
     end
-    get_network_dependent_table_items(Controller,@sid)
+
+    get_network_dependent_table_items('controller_sets','controllers',@sid)
   end
 
 private
   def require_controller_set
     begin
-      @cset = @csets.fetch(@csets.index {|e| e = params[:id]})
+      @cset = @csets.fetch(@csets.index {|e| e.id = params[:id]})
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Controller Set not found.'

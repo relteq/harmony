@@ -2,7 +2,7 @@ class EventSetsController <  ConfigurationsApplicationController
   before_filter :require_event_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view(EventSet,@esets)
+    get_index_view_sets(@eventsets)
   end
   
   # GET /event_sets/new
@@ -20,7 +20,7 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@eset,Event)
-   set_up_elements_table(@eset.events) 
+   get_network_dependent_table_items('event_sets','events',@eset.network_id) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @eset }
@@ -79,13 +79,13 @@ class EventSetsController <  ConfigurationsApplicationController
   def populate_events_table
     #I populate srpset so we can make sure to set checkboxes selected -- if there is no event set id then 
     #you are creating a new split ratio profile set 
-    @eset = params[:event_set_id].to_s == '' ? EventSet.new : EventSet.find(params[:event_set_id])
+    @eset = params[:event_set_id].to_s == '' ? EventSet.new : get_set(@eventsets,params[:event_set_id].to_i)
     if(params[:event_set] != nil)
       @sid = params[:event_set][:network_id].to_s == '' ? "-1" : params[:event_set][:network_id].to_s
     else
       @sid = @eset.network_id.to_s
     end
-    get_network_dependent_table_items(Event,@sid)
+     get_network_dependent_table_items('event_sets','events',@sid)   
   end
 private
   def require_event_set
