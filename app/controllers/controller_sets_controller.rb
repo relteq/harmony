@@ -2,13 +2,12 @@ class ControllerSetsController <  ConfigurationsApplicationController
   before_filter :require_controller_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view_sets(@csets)
+    get_index_view(@csets)
   end
 
   def edit
-    @cset = get_set(@csets,params[:id].to_i)
     set_up_network_select(@cset,Controller)
-    get_network_dependent_table_items('controller_sets','controllers',@cset.network_id)   
+    get_network_dependent_table_items('controller_sets','controllers','controller_type',@cset.network_id)   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @cset }
@@ -60,9 +59,6 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @project = Project.find(params[:project_id])
-    @csets = @project.controller_sets.all
-    
     @csets.each do | c |
       c.remove_from_scenario
       c.destroy
@@ -85,13 +81,14 @@ class ControllerSetsController <  ConfigurationsApplicationController
       @sid = @cset.network_id.to_s
     end
 
-    get_network_dependent_table_items('controller_sets','controllers',@sid)
+    get_network_dependent_table_items('controller_sets','controllers','controller_type',@sid)
+
   end
 
 private
   def require_controller_set
     begin
-      @cset = @csets.fetch(@csets.index {|e| e.id = params[:id]})
+      @cset = get_set(@csets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Controller Set not found.'

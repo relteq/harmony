@@ -2,7 +2,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_cp_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view_sets(@cprofilesets)
+    get_index_view(@cprofilesets)
   end
 
   # GET /capacity_profile_sets/new
@@ -20,7 +20,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@cpset,CapacityProfile)
-   get_network_dependent_table_items('capacity_profile_sets','capacity_profiles',@cpset.network_id) 
+   get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@cpset.network_id) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @cpset }
@@ -28,7 +28,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def create
-   @cpset = CapacityProfileSet.new(params[:capacity_profile_set])
+   @cpset = CapacityProfileSet.new
    if(@cpset.update_attributes(params[:capacity_profile_set]))
      redirect_save_success(:capacity_profile_set, 
        edit_project_configuration_capacity_profile_set_path(@project, @cpset))
@@ -49,7 +49,6 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   # DELETE /capacity_profile_sets/1
   # DELETE /capacity_profile_sets/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
     @cpset.remove_from_scenario
     @cpset.destroy
 
@@ -61,9 +60,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @cpsets = @project.capacity_profile_sets.all
-    
-    @cpsets.each do | cp |
+    @cprofilesets.each do | cp |
       cp.remove_from_scenario
       cp.destroy
     end
@@ -85,12 +82,12 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
        @sid = @cpset.network_id.to_s
    end
   
-    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles',@sid)
+    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@sid)
   end
 private
   def require_cp_set
     begin
-      @cpset = @cprofilesets.fetch(@cprofilesets.index {|e| e = params[:id]})
+      @cpset =  get_set(@cprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Capacity Profile Set not found.'

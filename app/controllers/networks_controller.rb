@@ -4,7 +4,7 @@ class NetworksController <  ConfigurationsApplicationController
   # GET /networks
   # GET /networks.xml
   def index
-    get_index_view(Network,@networks)
+    get_index_view(@networks)
   end
 
   # DELETE /networks/1

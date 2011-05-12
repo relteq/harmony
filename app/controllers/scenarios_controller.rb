@@ -5,7 +5,7 @@ class ScenariosController <  ConfigurationsApplicationController
   # GET /scenarios
   # GET /scenarios.xml
   def index
-    get_index_view(Scenario,@scenarios)
+    get_index_view(@scenarios)
   end
 
   # GET /scenarios/new

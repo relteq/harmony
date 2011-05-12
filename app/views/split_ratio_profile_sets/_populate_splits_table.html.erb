@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-			<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset },:caption => l(:field_node),:default_order => 'desc'}) %>
+			<%= sort_header_tag_relteq('node.name', {:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset },:caption => l(:field_node),:default_order => 'desc'}) %>
 			<% else%>
 				<th title="Node"><%= l(:field_node) %></th>
 			<% end %>

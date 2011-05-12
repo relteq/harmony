@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-				<%= sort_header_tag_relteq('name', {:url =>{ :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset },:caption => l(:field_destination),:default_order => 'desc'}) %>
+				<%= sort_header_tag_relteq('link.type_link', {:url =>{ :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset },:caption => l(:field_destination),:default_order => 'desc'}) %>
 			<% else%>
 				<th title="Destination"><%= l(:field_destination) %></th>
 			<% end %>
@@ -19,7 +19,7 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "capacity_profile_set[capacity_profile_ids][]", item.id,@cpset.capacity_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.name %></td>
+					<td  ><%= check_box_tag "capacity_profile_set[capacity_profile_ids][]", item.id,@cpset.capacity_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.link.type_link %></td>
 		 			<td  ><%= text_field_tag item.id,item.profile %></td>
 		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
 		  	</tr>

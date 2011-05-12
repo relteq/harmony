@@ -2,7 +2,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_srpset, :only => [:edit, :update, :destroy]
  
   def index
-    get_index_view_sets(@sprofilesets)
+    get_index_view(@sprofilesets)
   end
   
   # GET /split_ratio_profile_sets/new
@@ -20,7 +20,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@srpset,SplitRatioProfile)
-   get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles',@srpset.network_id)   
+   get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@srpset.network_id)   
    
    respond_to do |format|
      format.html # edit.html.erb
@@ -29,7 +29,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
 
   def create
-   @srpset = SplitRatioProfileSet.new(params[:split_ratio_profile_set])
+   @srpset = SplitRatioProfileSet.new
    if(@srpset.update_attributes(params[:split_ratio_profile_set]))
      redirect_save_success(:split_ratio_profile_set,
       edit_project_configuration_split_ratio_profile_set_path(@project, @srpset))
@@ -61,9 +61,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @srpsets = @project.split_ratio_profile_sets.all
-    
-    @srpsets.each do | s |
+    @sprofilesets.each do | s |
       s.remove_from_scenario 
       s.destroy
     end
@@ -84,12 +82,12 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     else
       @sid = @srpset.network_id.to_s
     end
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles',@sid)
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@sid)
   end
 private
   def require_srpset
     begin
-      @srpset = @sprofilesets.fetch(@sprofilesets.index {|e| e = params[:id]})
+      @srpset = get_set(@sprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Split Ratio Profile Set not found.'

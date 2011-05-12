@@ -83,9 +83,10 @@ protected
   
 
   
-  def get_network_dependent_table_items(sets,subitems,sid)
-      sort_init 'name', 'asc'
-      sort_update %w(name)
+  def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
+      sort_init sort_attribute, 'asc'
+      sort_update [sort_attribute]
+      
       case params[:format]
       when 'xml', 'json'
         @offset, @limit = api_offset_and_limit      
@@ -99,61 +100,35 @@ protected
            @items.push(c) 
          }   
       }
+      sort = sort_clause.split(/,* /)
+      subs = sort[0].split('.')
+      if(subs.length == 2)
+        @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
+      else
+        @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
+      end
+      
+      if(sort[1] == 'DESC')
+        @items.reverse!
+      end
+    
       @item_count = @items.length
       @items_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @items_pages.current.offset
       @items =  @items[@offset,@offset + @limit ]
      
-      #@items = model.find  :all, :conditions => {:network_id => sid},
-      #                          :order => sort_clause,
-      #                           :limit  =>  @limit,
-      #                           :offset =>  @offset
   end
   
-  def get_set(sets,id)
-    sets.each {|item| 
-      if(item.id  == id)        
-       return item 
-      end
-    }
-  end
-  
-  def get_index_view(model,records)
+
+  def get_index_view(records)
     sort_init 'name', 'asc'
     sort_update %w(name updated_at)
-
+     
     case params[:format]
     when 'xml', 'json'
-    @offset, @limit = api_offset_and_limit      
+      @offset, @limit = api_offset_and_limit      
     else
-    @limit = per_page_option
-    end
-
-    @item_count = model.count(:conditions => {:project_id => @project.id});
-    @project_id = params[:project_id]
-    @item_pages = Paginator.new self, @item_count, @limit, params['page']
-    @offset ||= @item_pages.current.offset
-    @items_show = model.find  :all,
-                              :conditions => {:project_id => @project.id},
-                              :order => sort_clause,
-                              :limit  =>  @limit,
-                              :offset =>  @offset
-
-    respond_to do |format|
-      format.html { render :layout => !request.xhr? } # index.html.erb
-      format.xml  { render :xml => records }
-    end
-  end
-  
-  def get_index_view_sets(records)
-    sort_init 'name', 'asc'
-    sort_update %w(name updated_at)
-
-    case params[:format]
-    when 'xml', 'json'
-    @offset, @limit = api_offset_and_limit      
-    else
-    @limit = per_page_option
+      @limit = per_page_option
     end
 
     @item_count = records.length
@@ -161,15 +136,12 @@ protected
     @offset ||= @item_pages.current.offset
     @items = Array.new
     
-    sort = sort_clause.split(' ')
-
-    if(sort.length <= 1)
-      records.sort_by{|item| sort[0]}
-    else
-      if(sort[1] == 'DESC')
-        records.sort_by{|item| sort[0]}.reverse!
-      end
+    sort = sort_clause.split(/,* /)
+    records.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
+    if(sort[1] == 'DESC')
+      records.reverse!
     end
+  
     
     @items_show = records[@offset,@offset + @limit ]
 
@@ -178,5 +150,9 @@ protected
       format.html { render :layout => !request.xhr? } # index.html.erb
       format.xml  { render :xml => records }
     end
+  end
+  
+  def get_set(sets,id)
+    sets.fetch(sets.index {|e| e.id == id})
   end
 end

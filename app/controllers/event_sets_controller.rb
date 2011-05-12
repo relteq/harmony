@@ -2,7 +2,7 @@ class EventSetsController <  ConfigurationsApplicationController
   before_filter :require_event_set, :only => [:edit, :update, :destroy]
 
   def index
-    get_index_view_sets(@eventsets)
+    get_index_view(@eventsets)
   end
   
   # GET /event_sets/new
@@ -20,7 +20,7 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def edit
    set_up_network_select(@eset,Event)
-   get_network_dependent_table_items('event_sets','events',@eset.network_id) 
+   get_network_dependent_table_items('event_sets','events','event_type',@eset.network_id) 
    respond_to do |format|
      format.html # edit.html.erb
      format.xml  { render :xml => @eset }
@@ -62,9 +62,7 @@ class EventSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @esets = @project.event_sets.all
-    
-    @esets.each do | e |
+    @eventsets.each do | e |
       e.remove_from_scenario
       e.destroy
     end
@@ -85,12 +83,12 @@ class EventSetsController <  ConfigurationsApplicationController
     else
       @sid = @eset.network_id.to_s
     end
-     get_network_dependent_table_items('event_sets','events',@sid)   
+     get_network_dependent_table_items('event_sets','events','event_type',@sid)   
   end
 private
   def require_event_set
     begin
-      @eset = @eventsets.fetch(@eventsets.index {|e| e = params[:id]})
+      @eset = get_set(@eventsets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Event Set not found.'

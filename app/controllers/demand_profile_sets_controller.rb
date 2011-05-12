@@ -2,7 +2,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_dpset, :only => [:edit, :update, :destroy]
   
   def index
-    get_index_view_sets(@dprofilesets)
+    get_index_view(@dprofilesets)
   end
 
   # GET /demand_profile_sets/new
@@ -20,7 +20,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@dpset,DemandProfile)
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles',@dpset.network_id)   
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@dpset.network_id)   
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @dpset }
@@ -28,7 +28,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def create
-    @dpset = DemandProfileSet.new(params[:demand_profile_set])
+    @dpset = DemandProfileSet.new
     if(@dpset.update_attributes(params[:demand_profile_set]))
       redirect_save_success(:demand_profile_set,
         edit_project_configuration_demand_profile_set_path(@project,@dpset))
@@ -60,8 +60,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @dsets = @project.demand_profile_sets.all
-    
+  
     @dsets.each do | d |
       d.remove_from_scenario
       d.destroy
@@ -83,12 +82,12 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     else
         @sid = @dpset.network_id.to_s
     end
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles',@sid)   
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@sid)   
   end
 private
   def require_dpset
     begin
-      @dpset = @dprofilesets.fetch(@dprofilesets.index {|e| e = params[:id]})
+      @dpset = get_set(@dprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
       redirect_to :action => :index, :project_id => @project
       flash[:error] = 'Demand Profile Set not found.'

@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil) %>
-			<%= sort_header_tag_relteq('type', {:url =>{ :controller => 'controller_sets',  :action => 'populate_controllers_table', :project_id =>@project,:controller_set_id => @cset },:caption => l(:field_type),:default_order => 'desc'}) %>
+			<%= sort_header_tag_relteq('controller_type', {:url =>{ :controller => 'controller_sets',  :action => 'populate_controls_table', :project_id =>@project,:controller_set_id => @cset },:caption => l(:field_type),:default_order => 'desc'}) %>
 			<% else %>
 				<th title="Name"><%= l(:field_name) %></th>
 			<% end %>
@@ -20,8 +20,8 @@
 		<% else %>
 		<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "controller_set[controller_ids][]", item.id, @cset.controllers.include?(item) || false %>&nbsp;&nbsp;<%=h item.type %></td>
-		 			<td  ></td>
+					<td  ><%= check_box_tag "controller_set[controller_ids][]", item.id, @cset.controllers.include?(item) || false %>&nbsp;&nbsp;<%=h item.controller_type %></td>
+		 			<td  ><%=h item.type %></td>
 		 			<td  ><%= h item.dt_to_time_format %></td>
 		  	</tr>
 			<% end %>
