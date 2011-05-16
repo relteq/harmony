@@ -10,6 +10,7 @@ class Network < ActiveRecord::Base
   has_many :split_ratio_profile_sets
   has_many :capacity_profile_sets
   has_many :demand_profile_sets
+  has_many :initial_condition_sets
   has_many :event_sets
   has_many :events
   has_many :controllers
