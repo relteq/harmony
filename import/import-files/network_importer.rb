@@ -21,7 +21,10 @@ module Aurora
       Aurora::set_name_from(network_xml["name"], ctx,network)
       
       ###### TESTING FOR ONE FILE -- REMOVE
-      network.name = network.name + rand.to_s
+      if(AuroraModelClassMethods::am_testing)
+        network.name = network.name + rand.to_s
+      end
+      
       descs = network_xml.xpath("description").map {|desc| desc.text}
       network.description = descs.join("\n")
 

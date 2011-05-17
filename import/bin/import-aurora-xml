@@ -78,6 +78,7 @@ module Aurora
     attr_reader :scenario_xml
     attr_reader :scenario
     attr_reader :treat_as_new
+    attr_reader :am_testing
     attr_reader :project_id
     
     
@@ -99,8 +100,13 @@ module Aurora
     # Returns the ID of the imported scenario.
     def import
       validate_project_id
+      
+      am_testing =  @opts[:am_testing] || false
+      AuroraModelClassMethods::set_am_testing(am_testing)
+  
       treat_as_new = @opts[:is_new] || false
       AuroraModelClassMethods::set_treat_as_new(treat_as_new)
+  
       scenario_xml = parse(src)
       ActiveRecord::Base.transaction do
          scenario = ScenarioImporter.create_from_xml(scenario_xml,project_id)
@@ -197,12 +203,14 @@ module Aurora
   end
 end
 
+am_testing = true
+
 test_results = Hash.new
 project_id = 8
 Aurora.remove_dev_data
-sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => true})
-sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => false})
-sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => false})
+sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => true, :am_testing => am_testing})
+sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
+sc_id = Aurora.import(File.read(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
 
 test_results = Aurora.verify_import_tests(project_id,test_results)
 

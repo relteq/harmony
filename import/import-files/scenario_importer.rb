@@ -34,7 +34,9 @@ module Aurora
       Aurora::set_name_from scenario_xml["name"], ctx,scenario
       
       ###### TESTING FOR ONE FILE -- REMOVE
-      scenario.name = scenario.name + rand.to_s
+      if(AuroraModelClassMethods::am_testing)
+        scenario.name = scenario.name + rand.to_s
+      end
       
       descs = scenario_xml.xpath("description").map {|desc_xml| desc_xml.text}
       scenario.description = descs.join("\n")

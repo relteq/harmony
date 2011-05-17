@@ -105,6 +105,14 @@ module AuroraModelClassMethods
   def self.record_exists
     @record_exists
   end
+
+  def self.set_am_testing(flag)
+    @am_testing = flag
+  end
+  
+  def self.am_testing
+    @am_testing
+  end
   
    # Creates and return an instance with ID parsed from s. If s is not
    # parsable as an integer, the instance will be assigned a new id.
