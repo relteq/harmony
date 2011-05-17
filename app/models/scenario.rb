@@ -1,5 +1,6 @@
 class Scenario < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include Export::Scenario
 
   US_UNITS = "US"
   METRIC_UNITS = "Metric"
