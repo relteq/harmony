@@ -1643,6 +1643,25 @@
 </ODList>
 
 <SensorList>
+	<sensor type="loop" id="400852" link_type="ML">
+	 <description>Stone Valley Rd</description>
+	 <links>200216804</links>
+	 <parameters>
+	    <parameter name="data_id" value="400852" />
+	    <parameter name="vds" value="400852" />
+	   <parameter name="length" value="0.24" />
+	    <parameter name="hwy_name" value="680" />
+	    <parameter name="hwy_dir" value="S" />
+	    <parameter name="postmile" value="40.202" />
+	    <parameter name="lanes" value="4" />
+	  </parameters>
+	  <display_position>
+	    <point lat="37.835136" lng="-122.009773" elevation="0.0"/>
+	  </display_position>
+	  <position>
+	    <point lat="37.835136" lng="-122.009773" elevation="0.0"/>
+	  </position>
+	</sensor>
 </SensorList>
 </network>
 
