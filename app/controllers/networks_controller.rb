@@ -82,6 +82,23 @@ class NetworksController <  ConfigurationsApplicationController
     end
   end
 
+  def import
+    file_url = params[:furl] if params[:furl] 
+    
+    result = `#{Rails.root}/import/bin/import #{file_url} #{@project.id}`
+    respond_to do |format|
+      if(true)
+        flash[:notice] = "Import successful: " + result   
+        format.html { redirect_to project_configuration_networks_path(@project) }
+        format.xml  { head :ok }
+      else
+        flash[:error] = "Import NOT successful."  
+        format.html { redirect_to project_configuration_networks_path(@project) }
+        format.xml  { head :ok }      
+      end
+    end
+  end
+  
   def flash_edit
   end
 private

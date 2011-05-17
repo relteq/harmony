@@ -165,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
       end
       config.resources :networks, :member => [:flash_edit],
-                       :collection => {:delete_all => :post}
+                       :collection => {:delete_all => :post, :import => :get}
       config.resources :controller_sets, :member => [:ptable],
                        :collection => {:delete_all => :post}
       config.resources :capacity_profile_sets, :member => [:ptable],
