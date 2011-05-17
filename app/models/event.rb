@@ -1,3 +1,4 @@
 class Event < ActiveRecord::Base
-  belongs_to:event_set
+  include Export::Event
+  belongs_to :event_set
 end
