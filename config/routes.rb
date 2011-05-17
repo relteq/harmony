@@ -160,8 +160,7 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :time_entries, :controller => 'timelog'
 
     project.resource :configuration, :only => [:show] do |config|
-      config.resources :scenarios, :except => [:show], 
-                       :collection => {:delete_all => :post} do |scenario|
+      config.resources :scenarios, :collection => {:delete_all => :post} do |scenario|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
       end
       config.resources :networks, :member => [:flash_edit],

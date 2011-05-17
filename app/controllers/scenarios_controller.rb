@@ -1,6 +1,6 @@
 class ScenariosController <  ConfigurationsApplicationController
   before_filter :get_sets, :only => [:new, :edit, :update, :create]
-  before_filter :require_scenario, :only => [:edit, :update, :destroy]
+  before_filter :require_scenario, :only => [:edit, :update, :destroy, :show]
   
   # GET /scenarios
   # GET /scenarios.xml
@@ -16,6 +16,13 @@ class ScenariosController <  ConfigurationsApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @scenario }
+    end
+  end
+
+  # GET /scenarios/1.xml
+  def show
+    respond_to do |format|
+      format.xml { render :xml => @scenario }
     end
   end
 
