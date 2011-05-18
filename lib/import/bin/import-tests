@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'import-files/init'
+require 'lib/import/import-files/init'
 
 if ARGV.size == 0 or ARGV.size > 2 or ARGV.delete("-h")
   puts <<-END
@@ -35,7 +35,7 @@ db_url = ARGV[1]
 
 DB = ActiveRecord::Base.establish_connection(
    :adapter => "sqlite3",
-   :database  => "../../db/development.sqlite3")
+   :database  => Dir.pwd + "/db/development.sqlite3")
    
 am_testing = true
 
