@@ -1,7 +1,3 @@
-require 'controller_importer'
-require 'controller_set'
-
-
 module Aurora
   class ControllerSetImporter < ControllerSet
     include Aurora

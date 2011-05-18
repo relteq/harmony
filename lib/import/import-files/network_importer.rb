@@ -1,9 +1,3 @@
-require 'node_importer'
-require 'link_importer'
-require 'route_importer'
-require 'sensor_importer'
-require 'network'
-
 module Aurora
   class NetworkImporter < Network
     include Aurora

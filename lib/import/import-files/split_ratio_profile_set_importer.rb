@@ -1,6 +1,3 @@
-require 'split_ratio_profile_importer'
-require 'split_ratio_profile_set'
-
 module Aurora
   class SplitRatioProfileSetImporter < SplitRatioProfileSet
     include Aurora

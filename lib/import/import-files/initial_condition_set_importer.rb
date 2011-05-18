@@ -1,6 +1,3 @@
-require 'initial_condition_importer'
-require 'initial_condition_set'
-
 module Aurora
   # corresponds to <InitialDensityProfile> element
   class InitialConditionSetImporter < InitialConditionSet

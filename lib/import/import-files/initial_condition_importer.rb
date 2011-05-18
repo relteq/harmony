@@ -1,5 +1,3 @@
-require 'initial_condition'
-
 module Aurora
   # corresponds to <density> element
   class InitialConditionImporter <InitialCondition

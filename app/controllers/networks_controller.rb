@@ -85,7 +85,7 @@ class NetworksController <  ConfigurationsApplicationController
   def import
     file_url = params[:furl] if params[:furl] 
     
-    result = `#{Rails.root}/import/bin/import #{file_url} #{@project.id}`
+    result = `#{Rails.root}/lib/import/bin/import #{file_url} #{@project.id}`
     respond_to do |format|
       if(true)
         flash[:notice] = "Import successful: " + result   

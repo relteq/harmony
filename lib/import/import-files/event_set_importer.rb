@@ -1,7 +1,3 @@
-require 'event_importer'
-require 'event_set'
-
-
 module Aurora
   class EventSetImporter < EventSet
     include Aurora

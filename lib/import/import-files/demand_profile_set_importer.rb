@@ -1,6 +1,3 @@
-require 'demand_profile_importer'
-require 'demand_profile_set'
-
 module Aurora
   class DemandProfileSetImporter < DemandProfileSet
     include Aurora

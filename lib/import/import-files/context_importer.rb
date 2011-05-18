@@ -1,5 +1,3 @@
-require 'util-ar'
-
 module Aurora
   # Exists during one scenario import operation.
   class ImportContext

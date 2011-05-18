@@ -1,5 +1,3 @@
-require 'demand_profile'
-
 module Aurora
   # corresponds to <demand> element
   class DemandProfileImporter < DemandProfile

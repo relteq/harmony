@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+require 'import-files/init'
+
+if ARGV.size == 0 or ARGV.size > 2 or ARGV.delete("-h")
+  puts <<-END
+  
+    Usage: #{$0} [--log] aurora_xml_file [db]
+    
+    Read aurora_xml_file, parse according to aurora.xsd, and import into
+    a database.
+    
+    The database is either an in-memory sqlite3 database (for testing) or
+    specified by the db argument, which may be any valid database connection
+    string:
+    
+      sqlite://foo.db
+      postgres://user:password@host:port/database_name
+    </out>
+    Options:
+    
+      --log     print full SQL log to stderr
+      
+  END
+  exit
+end
+
+if ARGV.delete("--log")
+  require 'logger'
+  DB.loggers << Logger.new($stderr)
+end
+
+xml_file = ARGV[0]
+db_url = ARGV[1]
+
+
+DB = ActiveRecord::Base.establish_connection(
+   :adapter => "sqlite3",
+   :database  => "../../db/development.sqlite3")
+   
+am_testing = true
+
+test_results = Hash.new
+project_id = 8
+
+remove_dev_data
+
+sc_id = Aurora.import(open(xml_file),project_id, {:is_new => true, :am_testing => am_testing})
+#sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
+#sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
+
+test_results = verify_import_tests(project_id,test_results)
+
+test_results.each do|object,value|
+ p "#{object}: #{value}"
+end
+

@@ -1,5 +1,3 @@
-require 'vehicle_type'
-
 module Aurora
   class VehicleTypeImporter < VehicleType
     def self.create_from_xml vtype_xml, ctx

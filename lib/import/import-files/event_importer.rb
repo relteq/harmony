@@ -1,9 +1,3 @@
-require 'event'
-require 'link_event'
-require 'network_event'
-require 'node_event'
-
-
 module Aurora
   class EventImporter < Event
     include Aurora

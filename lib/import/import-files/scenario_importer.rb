@@ -1,15 +1,3 @@
-require 'network_importer'
-require 'split_ratio_profile_set_importer'
-require 'capacity_profile_set_importer'
-require 'demand_profile_set_importer'
-require 'initial_condition_set_importer'
-require 'event_set_importer'
-require 'controller_set_importer'
-require 'context_importer'
-require 'vehicle_type_importer'
-
-require 'scenario'
-
 module Aurora
   class ScenarioImporter < Scenario
     include Aurora

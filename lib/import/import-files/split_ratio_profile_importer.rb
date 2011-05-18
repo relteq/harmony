@@ -1,5 +1,3 @@
-require 'split_ratio_profile'
-
 module Aurora
   # corresponds to <splitratios> element, plus children <srm> elements
   class SplitRatioProfileImporter < SplitRatioProfile

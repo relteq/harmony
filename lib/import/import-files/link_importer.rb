@@ -1,6 +1,3 @@
-require 'link'
-
-
 module Aurora
   class LinkImporter < Link
     include Aurora

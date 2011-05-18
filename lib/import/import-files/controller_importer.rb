@@ -1,9 +1,3 @@
-require 'controller'
-require 'link_controller'
-require 'network_controller'
-require 'node_controller'
-
-
 module Aurora
   class ControllerImporter < Controller
     include Aurora

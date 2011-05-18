@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'lib/import/import-files/init'
+
+
+xml_file = ARGV[0]
+project_id = ARGV[1]
+db_url = ARGV[2]
+am_testing = true
+
+
+DB = ActiveRecord::Base.establish_connection(
+ :adapter => "sqlite3",
+ :database  => Dir.pwd + "/db/development.sqlite3")
+
+
+sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
+
+p xml_file

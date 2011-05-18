@@ -1,67 +1,67 @@
-#!/usr/bin/env ruby
-
-if ARGV.size == 0 or ARGV.size > 2 or ARGV.delete("-h")
-  puts <<-END
-  
-    Usage: #{$0} [--log] aurora_xml_file [db]
-    
-    Read aurora_xml_file, parse according to aurora.xsd, and import into
-    a database.
-    
-    The database is either an in-memory sqlite3 database (for testing) or
-    specified by the db argument, which may be any valid database connection
-    string:
-    
-      sqlite://foo.db
-      postgres://user:password@host:port/database_name
-    </out>
-    Options:
-    
-      --log     print full SQL log to stderr
-      
-  END
-  exit
-end
-
-if ARGV.delete("--log")
-  require 'logger'
-  DB.loggers << Logger.new($stderr)
-end
-
-xml_file = ARGV[0]
-db_url = ARGV[1]
-
-#File.exist? xml_file or abort "no such file: #{xml_file}"
-require 'rubygems'
-require 'sqlite3'
-require 'active_record'
-require 'open-uri'
-require 'nokogiri'
-
-
-DB = ActiveRecord::Base.establish_connection(
-   :adapter => "sqlite3",
-   :database  => "../db/development.sqlite3")
-   
-topdir = File.expand_path("../..", File.dirname(__FILE__))
+topdir = File.expand_path("../../..", File.dirname(__FILE__))
 modeldir = File.join(topdir, "app/models")
 $LOAD_PATH.unshift modeldir
-
-importdir = File.join(topdir, "import/import-files")
-$LOAD_PATH.unshift importdir
 
 libdir = File.join(topdir, "lib")
 $LOAD_PATH.unshift libdir
 
+importdir = File.join(libdir, "import")
+$LOAD_PATH.unshift importdir
 
-require 'importer'
-
-# create tables if they don't exist
-#require 'db/schema'
+importfilesdir = File.join(importdir, "import-files")
+$LOAD_PATH.unshift importfilesdir
 
 
-#using test.xml for now. 
-def self.verify_import_tests(project_id,t)
+
+require 'rubygems'
+require 'sqlite3'
+require 'active_record'
+require 'nokogiri'
+require 'open-uri'
+
+Dir.glob(libdir + '/export/*') {|file| 
+  if(!FileTest.directory?(file))
+    require file
+  end
+}
+
+require 'util-ar'
+require 'relteq_time'
+require 'scenario'
+require 'initial_condition_set'
+require 'initial_condition'
+require 'demand_profile_set'
+require 'demand_profile'
+require 'capacity_profile_set'
+require 'capacity_profile'
+require 'split_ratio_profile_set'
+require 'split_ratio_profile'
+require 'controller_set'
+require 'controller'
+require 'link_controller'
+require 'network_controller'
+require 'node_controller'
+require 'event_set'
+require 'event'
+require 'link_event'
+require 'node_event'
+require 'network_event'
+require 'network'
+require 'node'
+require 'link'
+require 'route'
+require 'sensor'
+require 'vehicle_type'
+require 'route_link'
+
+Dir.glob(importfilesdir + '/*') {|file| 
+  if(!FileTest.directory?(file))
+    require file
+  end
+}
+
+################### HELPERS
+def verify_import_tests(project_id,t)
   sum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
   n = Network.find_all_by_project_id(project_id)
@@ -113,7 +113,7 @@ def self.verify_import_tests(project_id,t)
   t   
 end
 
-def self.remove_dev_data
+def remove_dev_data
   Scenario.find(:all).each {|e| e.destroy}
   InitialConditionSet.find(:all).each {|e| e.destroy}
   InitialCondition.find(:all).each {|e| e.destroy}
@@ -138,17 +138,8 @@ def self.remove_dev_data
   RouteLink.find(:all).each {|e| e.destroy}
 end
 
-am_testing = true
 
-test_results = Hash.new
-project_id = 8
-remove_dev_data
-sc_id = Aurora.import(open(xml_file),project_id, {:is_new => true, :am_testing => am_testing})
-sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
-sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
 
-test_results = verify_import_tests(project_id,test_results)
 
-test_results.each do|object,value|
-  p "#{object}: #{value}"
-end
+
+

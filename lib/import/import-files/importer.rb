@@ -1,6 +1,3 @@
-require 'relteq_time'
-require 'scenario_importer'
-require 'util-ar'
 module Aurora
   module Parser
     # +src+ can be io, string, etc.

@@ -1,5 +1,3 @@
-require 'capacity_profile'
-
 module Aurora
   # corresponds to <capacity> element
   class CapacityProfileImporter < CapacityProfile

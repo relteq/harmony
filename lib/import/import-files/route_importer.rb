@@ -1,7 +1,3 @@
-require 'route'
-require 'route_link'
-
-
 module Aurora
   class RouteImporter < Route
     include Aurora

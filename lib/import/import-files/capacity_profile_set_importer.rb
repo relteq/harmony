@@ -1,6 +1,3 @@
-require 'capacity_profile_importer'
-require 'capacity_profile_set'
-
 module Aurora
   class CapacityProfileSetImporter < CapacityProfileSet
     include Aurora

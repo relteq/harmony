@@ -1,6 +1,3 @@
-require 'node'
-
-
 module Aurora
   class NodeImporter < Node
     include Aurora

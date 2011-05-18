@@ -1,6 +1,3 @@
-require 'sensor'
-
-
 module Aurora
   class SensorImporter < Sensor
     include Aurora
