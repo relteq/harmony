@@ -1,5 +1,6 @@
 class Network < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include Export::Network
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
@@ -29,8 +30,6 @@ class Network < ActiveRecord::Base
   relteq_time_attr :dt
   
   def remove_from_scenario
-    #remove this demand profile set from anything it is attached to
-
     @scen = Scenario.find_by_network_id(id)
     if(@scen != nil)
         @scen.network_id = nil

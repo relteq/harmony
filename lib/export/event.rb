@@ -3,17 +3,17 @@ module Export
     module InstanceMethods
       def build_xml(xml)
         attrs = {
-          :type => self[:type],
+          :type => event_type,
           :enabled => enabled,
           :tstamp => time
         }
         
-        case self.class
-        when NetworkEvent 
+        case self.type
+        when "NetworkEvent"
           attrs[:network_id] = network_id
-        when NodeEvent
+        when "NodeEvent"
           attrs[:node_id] = node_id
-        when LinkEvent
+        when "LinkEvent"
           attrs[:link_id] = link_id
         end
         

@@ -1,3 +1,3 @@
 class NodeController < Controller
-  belongs_to:node
+  belongs_to :node
 end

@@ -2,8 +2,7 @@ module Export
   module Scenario
     module InstanceMethods 
       def build_xml(xml)
-        attrs = { :id => id, :schemaVersion => '1.0.2' }
-        attrs[:name] = name
+        attrs = { :id => id, :schemaVersion => '1.0.2', :name => name }
         xml.scenario(attrs) {
           xml.description description unless !description || description.empty?
           xml.settings {
@@ -18,8 +17,9 @@ module Export
             }
           }
 
-          parts = [controller_set, event_set, split_ratio_profile_set,
-                   capacity_profile_set, initial_condition_set]
+          parts = [network, controller_set, event_set, 
+                  split_ratio_profile_set, capacity_profile_set, 
+                  initial_condition_set, demand_profile_set]
           parts.each do |part|
             part.build_xml(xml) if part
           end

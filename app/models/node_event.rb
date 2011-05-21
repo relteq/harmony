@@ -1,3 +1,3 @@
 class NodeEvent < Event
-  belongs_to:network
+  belongs_to :node
 end

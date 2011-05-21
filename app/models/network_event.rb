@@ -1,3 +1,3 @@
 class NetworkEvent < Event
-  belongs_to:network
+  belongs_to :network
 end

@@ -1,13 +1,15 @@
 class DemandProfileSet < ActiveRecord::Base
+  include Export::DemandProfileSet
+
   validates_presence_of :name
   validates_uniqueness_of :name
 
   validates_presence_of :network
   
-  belongs_to:network
+  belongs_to :network
   
-  has_many:demand_profiles
-  has_many:scenarios
+  has_many :demand_profiles
+  has_many :scenarios
 
   def remove_from_scenario
     #remove this demand profile set from anything it is attached to
@@ -17,5 +19,4 @@ class DemandProfileSet < ActiveRecord::Base
         @scen.save
     end
   end
-  
 end

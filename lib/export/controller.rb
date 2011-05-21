@@ -2,7 +2,7 @@ module Export
   module Controller 
     module InstanceMethods 
       def build_xml(xml)
-        attrs = { :type => self.type,
+        attrs = { :type => controller_type,
                   :dt => dt,
                   #:usesensors => use_sensors 
                   # Should Controller.use_sensors exist? It currently does not.
