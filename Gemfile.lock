@@ -11,8 +11,14 @@ GEM
     activeresource (2.3.5)
       activesupport (= 2.3.5)
     activesupport (2.3.5)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
+    builder (3.0.0)
     edavis10-object_daddy (0.4.3)
     i18n (0.4.2)
+    mime-types (1.16)
     mocha (0.9.12)
     nokogiri (1.4.4)
     rack (1.0.1)
@@ -25,11 +31,13 @@ GEM
       rake (>= 0.8.3)
     rake (0.8.7)
     shoulda (2.10.3)
+    xml-simple (1.0.15)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-s3
   edavis10-object_daddy
   i18n (~> 0.4.2)
   mocha

@@ -67,6 +67,7 @@ Rails::Initializer.run do |config|
 
   config.gem 'rubytree', :lib => 'tree'
   config.gem 'nokogiri'
+  config.gem 'aws-s3', :lib => 'aws/s3'
   
   # Load any local configuration that is kept out of source control
   # (e.g. gems, patches).
