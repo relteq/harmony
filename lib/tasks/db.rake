@@ -7,7 +7,8 @@ namespace :db do
                          InitialCondition, InitialConditionSet, Scenario,
                          DemandProfile, DemandProfileSet, CapacityProfile,
                          CapacityProfileSet, Controller, ControllerSet,
-                         SplitRatioProfile, SplitRatioProfileSet]
+                         SplitRatioProfile, SplitRatioProfileSet,
+                         RouteLink]
     if options['all']
       road_config_types.each do |model|
         puts "Destroying all #{model.name.pluralize}"
