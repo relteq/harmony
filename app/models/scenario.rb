@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class Scenario < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
   include Export::Scenario
@@ -32,5 +34,13 @@ class Scenario < ActiveRecord::Base
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
   end
   
-  
+  def export
+    bucket = ENV['S3_Bucket']
+    data = to_xml
+    key = Digest::MD5.hexdigest(data) + ".xml"
+    opts = { 'x-amz-meta-expiry' => Time.at(Time.now + 1.day) }
+    AWS::S3::S3Object.store key, data, bucket, opts
+
+    return "https://s3.amazonaws.com/#{bucket}/#{key}"
+  end 
 end

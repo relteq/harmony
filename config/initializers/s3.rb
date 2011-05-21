@@ -6,7 +6,7 @@ if File.exists?(filename)
   env_vars = s3config[Rails.env]
 
   if env_vars
-    ENV['S3_BUCKET'] = env_vars['bucket']
+    ENV['S3_Bucket'] = env_vars['bucket']
 
     AWS::S3::Base.establish_connection!(
       :access_key_id => env_vars['access_key_id'],
