@@ -24,7 +24,12 @@ class ScenariosController <  ConfigurationsApplicationController
   # GET /scenarios/1.xml
   def show
     respond_to do |format|
-      format.xml { render :xml => @scenario }
+      format.xml { 
+        headers['Content-Disposition'] = 
+          "attachment; filename=\"scenario-#{@scenario.name}.xml\""
+        headers['Content-Type'] = 'text/xml'
+        render :xml => @scenario 
+      }
     end
   end
 
