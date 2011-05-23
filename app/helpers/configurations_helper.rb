@@ -63,9 +63,17 @@ module ConfigurationsHelper
 
     run_batch_callback = js_popup_show "scenario-launch-#{scenario.id}"
 
-    export_callback = js_callback_redirect(
+    edit_callback = js_callback_new_window(
       :controller => 'scenarios',
       :action => 'flash_edit',
+      :project_id => project.id,
+      :id => scenario.id
+    )
+
+    export_callback = js_callback_redirect(
+      :controller => 'scenarios',
+      :action => 'show',
+      :format => 'xml',
       :project_id => project.id,
       :id => scenario.id
     )
@@ -82,7 +90,8 @@ module ConfigurationsHelper
     share_callback = not_implemented_callback 
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
-          [#{sct(:scenario_run_simulation, run_simulation_callback)}
+          [#{sct(:relteq_edit, edit_callback)}
+           #{sct(:scenario_run_simulation, run_simulation_callback)}
            #{sct(:scenario_run_simulation_batch, run_batch_callback)}
            #{sct(:relteq_duplicate, duplicate_callback)}
            #{sct(:relteq_shallow_duplicate, shallow_dup_callback)}
