@@ -49,6 +49,7 @@ class ScenariosController <  ConfigurationsApplicationController
     # NOTE Full URL escaping will make this fail, as S3Object.url_for
     # creates the correct %xx entities for most special characters
     @s3_url = url.gsub(/%/,'%2525').gsub(/&/,'%26').gsub(/=/,'%3D')
+    render :layout => 'shell'
   end
 
   # POST /scenarios

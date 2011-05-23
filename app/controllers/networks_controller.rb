@@ -100,6 +100,7 @@ class NetworksController <  ConfigurationsApplicationController
   end
   
   def flash_edit
+    render :layout => 'shell'
   end
 private
   def require_network
