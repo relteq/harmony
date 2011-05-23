@@ -1,6 +1,8 @@
 class ScenariosController <  ConfigurationsApplicationController
   before_filter :get_sets, :only => [:new, :edit, :update, :create]
-  before_filter :require_scenario, :only => [:edit, :update, :destroy, :show]
+  before_filter :require_scenario, :only => [
+    :edit, :update, :destroy, :show, :flash_edit
+  ]
   
   # GET /scenarios
   # GET /scenarios.xml
@@ -32,6 +34,16 @@ class ScenariosController <  ConfigurationsApplicationController
       format.html # edit.html.erb
       format.xml  { render :xml => @scenario }
     end
+  end
+
+  # GET /scenarios/1/flash_edit
+  # Export sccenario and open in flash editor
+  def flash_edit
+    @s3_key = ENV['S3_Access_Key']
+    url = @scenario.export
+    # NOTE Full URL escaping will make this fail, as S3Object.url_for
+    # creates the correct %xx entities for most special characters
+    @s3_url = url.gsub(/%/,'%2525').gsub(/&/,'%26').gsub(/=/,'%3D')
   end
 
   # POST /scenarios

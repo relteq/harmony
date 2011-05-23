@@ -45,7 +45,7 @@ module ConfigurationsHelper
   end
   alias :sct :simple_callback_template
 
-  def scenario_specific_menu_items(project, scenario ,where)
+  def scenario_specific_menu_items(project, scenario, where)
     run_simulation_callback = js_callback_redirect(
        :controller => 'scenario/simulations',
        :action => 'create',
@@ -63,6 +63,13 @@ module ConfigurationsHelper
 
     run_batch_callback = js_popup_show "scenario-launch-#{scenario.id}"
 
+    export_callback = js_callback_redirect(
+      :controller => 'scenarios',
+      :action => 'flash_edit',
+      :project_id => project.id,
+      :id => scenario.id
+    )
+
     delete_callback = js_callback_redirect(
        :controller => 'scenarios',
        :action => 'destroy',
@@ -73,7 +80,6 @@ module ConfigurationsHelper
     duplicate_callback = not_implemented_callback 
     shallow_dup_callback = not_implemented_callback 
     share_callback = not_implemented_callback 
-    export_callback = not_implemented_callback 
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:scenario_run_simulation, run_simulation_callback)}

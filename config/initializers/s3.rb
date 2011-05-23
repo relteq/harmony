@@ -7,6 +7,8 @@ if File.exists?(filename)
 
   if env_vars
     ENV['S3_Bucket'] = env_vars['bucket']
+    ENV['S3_Access_Key'] = env_vars['access_key_id']
+    ENV['S3_Secret'] = env_vars['secret_access_key']
 
     AWS::S3::Base.establish_connection!(
       :access_key_id => env_vars['access_key_id'],

@@ -41,6 +41,6 @@ class Scenario < ActiveRecord::Base
     opts = { 'x-amz-meta-expiry' => Time.at(Time.now + 1.day) }
     AWS::S3::S3Object.store key, data, bucket, opts
 
-    return "https://s3.amazonaws.com/#{bucket}/#{key}"
+    return AWS::S3::S3Object.url_for(key, bucket)
   end 
 end
