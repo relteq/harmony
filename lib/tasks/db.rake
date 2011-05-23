@@ -8,7 +8,7 @@ namespace :db do
                          DemandProfile, DemandProfileSet, CapacityProfile,
                          CapacityProfileSet, Controller, ControllerSet,
                          SplitRatioProfile, SplitRatioProfileSet,
-                         RouteLink]
+                         RouteLink, Network, Node]
     if options['all']
       road_config_types.each do |model|
         puts "Destroying all #{model.name.pluralize}"
