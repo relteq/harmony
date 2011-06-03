@@ -9,7 +9,7 @@
   <p><label><%=l(:label_capacity_profile_set)%></label><%= collection_select :scenario,:capacity_profile_set_id,@cprofilesets,:id,:name, @prompt_capacity %></p>
   <p><label><%=l(:label_split_ratio_profile_set)%></label><%= collection_select :scenario,:split_ratio_profile_set_id, @sprofilesets,:id,:name, @prompt_split %></p>
   <p><label><%=l(:label_event_set)%></label><%= collection_select :scenario,:event_set_id, @eventsets,:id,:name, @prompt_event %></p>
-  <p><%= f.select :length_units, @units,{ :index => nil }, :prompt => true %></p>
+  <p><%= f.select :units, @units,{ :index => nil }, :prompt => true %></p>
 
   <% if controller.action_name != 'new' %>
     <p><%= label_tag :vehicle_types %> <%= select_tag 'scenario[vehicle_types]', options_for_select(@scenario.vehicle_types.map{ |v| [v.short_display, v.id] }), :multiple => true %></p>
