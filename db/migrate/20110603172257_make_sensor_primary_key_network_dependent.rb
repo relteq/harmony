@@ -7,7 +7,7 @@ class MakeSensorPrimaryKeyNetworkDependent < ActiveRecord::Migration
         lat decimal, lng decimal, elevation decimal, 
         created_at timestamp, updated_at timestamp, 
         network_id integer, link_id integer, 
-        parameters blob, description varchar(255), 
+        parameters text, description varchar(255), 
         display_lat decimal, display_lng decimal, 
         display_elev decimal
       )
