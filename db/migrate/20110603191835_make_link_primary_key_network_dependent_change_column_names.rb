@@ -32,13 +32,6 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
         ON DELETE CASCADE
       )
     }
-    # Can't use * because we're switching column order
-    execute %Q{
-      INSERT INTO links (SELECT network_id, id, type_link,
-        name, length, lanes, created_at, updated_at, begin_node_id,
-        end_node_id, begin_node_order, end_node_order, qmax, fd,
-        weaving_factors, description FROM links_backup)
-    }
   end
 
   def self.down
