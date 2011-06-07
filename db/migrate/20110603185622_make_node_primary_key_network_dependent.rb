@@ -16,7 +16,7 @@ class MakeNodePrimaryKeyNetworkDependent < ActiveRecord::Migration
         `network_id` integer NOT NULL REFERENCES `networks`,
         `id` INTEGER NOT NULL REFERENCES `node_families`, 
         `name` varchar(255), `description` varchar(255), 
-        `type_node` varchar(255), `lat` decimal, `lng` decimal, 
+        `type_node` varchar(255), `lat` float(32), `lng` float(32),
         `elevation` decimal, `created_at` datetime, `updated_at` datetime, 
         PRIMARY KEY(`network_id`,`id`)
       )

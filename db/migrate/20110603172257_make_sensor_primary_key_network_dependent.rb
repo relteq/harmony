@@ -18,11 +18,11 @@ class MakeSensorPrimaryKeyNetworkDependent < ActiveRecord::Migration
     execute %Q{  
       CREATE TABLE `sensors` (
           `id` INTEGER NOT NULL, `type_sensor` varchar(255), 
-          `link_type` varchar(255), `measurement` boolean, `lat` decimal, 
-          `lng` decimal, `elevation` decimal, `created_at` datetime, 
+          `link_type` varchar(255), `measurement` boolean, `lat` float(32), 
+          `lng` float(32), `elevation` decimal, `created_at` datetime, 
           `updated_at` datetime, `network_id` integer NOT NULL, `link_id` integer,
-          `parameters` blob, `description` varchar(255), `display_lat` decimal, 
-          `display_lng` decimal, `display_elev` decimal,
+          `parameters` text, `description` varchar(255), `display_lat` float(32), 
+          `display_lng` float(32), `display_elev` decimal,
           PRIMARY KEY(`network_id`, `id`)
       );
     }

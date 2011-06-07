@@ -23,7 +23,7 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
         `created_at` datetime, `updated_at` datetime, 
         `begin_id` integer NOT NULL, `end_id` integer NOT NULL, 
         `begin_order` integer, `end_order` integer, 
-        `qmax` decimal, `fd` varchar(255), `weaving_factors` varchar(255),
+        `qmax` decimal(10,5), `fd` varchar(255), `weaving_factors` varchar(255),
         `description` varchar(255),
         PRIMARY KEY(`network_id`,`id`),
         FOREIGN KEY(`network_id`) REFERENCES `networks`(`id`),
