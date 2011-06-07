@@ -29,6 +29,7 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
         FOREIGN KEY(`network_id`) REFERENCES `networks`(`id`),
         FOREIGN KEY(`network_id`,`begin_id`) REFERENCES `nodes`(`network_id`,`id`),
         FOREIGN KEY(`network_id`,`end_id`) REFERENCES `nodes`(`network_id`,`id`)
+        ON DELETE CASCADE
       )
     }
     # Can't use * because we're switching column order
