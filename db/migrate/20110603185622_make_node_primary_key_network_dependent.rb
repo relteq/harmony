@@ -4,8 +4,8 @@ class MakeNodePrimaryKeyNetworkDependent < ActiveRecord::Migration
       CREATE TEMPORARY TABLE nodes_backup (
         id INTEGER, name varchar(255), description varchar(255), 
         type_node varchar(255), lat decimal, lng decimal, 
-        elevation decimal, created_at datetime, 
-        updated_at datetime, network_id integer
+        elevation decimal, created_at timestamp, 
+        updated_at timestamp, network_id integer
       )
     }
     
@@ -17,7 +17,7 @@ class MakeNodePrimaryKeyNetworkDependent < ActiveRecord::Migration
         id INTEGER NOT NULL REFERENCES node_families, 
         name varchar(255), description varchar(255), 
         type_node varchar(255), lat float(32), lng float(32),
-        elevation decimal, created_at datetime, updated_at datetime, 
+        elevation decimal, created_at timestamp, updated_at timestamp, 
         PRIMARY KEY(network_id,id)
       )
     }

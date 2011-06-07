@@ -5,7 +5,7 @@ class MakeSensorPrimaryKeyNetworkDependent < ActiveRecord::Migration
         id INTEGER, type_sensor varchar(255), 
         link_type varchar(255), measurement boolean, 
         lat decimal, lng decimal, elevation decimal, 
-        created_at datetime, updated_at datetime, 
+        created_at timestamp, updated_at timestamp, 
         network_id integer, link_id integer, 
         parameters blob, description varchar(255), 
         display_lat decimal, display_lng decimal, 
@@ -19,8 +19,8 @@ class MakeSensorPrimaryKeyNetworkDependent < ActiveRecord::Migration
       CREATE TABLE sensors (
           id INTEGER NOT NULL, type_sensor varchar(255), 
           link_type varchar(255), measurement boolean, lat float(32), 
-          lng float(32), elevation decimal, created_at datetime, 
-          updated_at datetime, network_id integer NOT NULL, link_id integer,
+          lng float(32), elevation decimal, created_at timestamp, 
+          updated_at timestamp, network_id integer NOT NULL, link_id integer,
           parameters text, description varchar(255), display_lat float(32), 
           display_lng float(32), display_elev decimal,
           PRIMARY KEY(network_id, id)

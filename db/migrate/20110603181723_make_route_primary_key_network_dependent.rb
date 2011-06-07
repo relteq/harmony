@@ -3,7 +3,7 @@ class MakeRoutePrimaryKeyNetworkDependent < ActiveRecord::Migration
     execute %Q{
       CREATE TEMPORARY TABLE routes_backup (
         id INTEGER , name varchar(255), 
-        created_at datetime, updated_at datetime, 
+        created_at timestamp, updated_at timestamp, 
         network_id integer
       )
     }
@@ -14,7 +14,7 @@ class MakeRoutePrimaryKeyNetworkDependent < ActiveRecord::Migration
       CREATE TABLE routes (
         network_id integer NOT NULL,
         id INTEGER NOT NULL, name varchar(255), 
-        created_at datetime, updated_at datetime, 
+        created_at timestamp, updated_at timestamp, 
          PRIMARY KEY(network_id,id)
       )
     }
