@@ -3,7 +3,7 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
     execute %Q{
       CREATE TEMPORARY TABLE links_backup (
         id INTEGER NOT NULL, type_link varchar(255), 
-        name text(255), length decimal, lanes decimal, 
+        name text, length decimal, lanes decimal, 
         created_at timestamp, updated_at timestamp, network_id integer, 
         begin_node_id integer, end_node_id integer, 
         begin_node_order integer, end_node_order integer, 
@@ -19,7 +19,7 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
         network_id integer NOT NULL, 
         id INTEGER NOT NULL REFERENCES link_families, 
         type_link varchar(255), 
-        name text(255), length decimal, lanes decimal, 
+        name text, length decimal, lanes decimal, 
         created_at timestamp, updated_at timestamp, 
         begin_id integer NOT NULL, end_id integer NOT NULL, 
         begin_order integer, end_order integer, 
