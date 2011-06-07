@@ -22,12 +22,6 @@ class MakeRouteLinkPrimaryKeyComposite < ActiveRecord::Migration
         FOREIGN KEY(network_id, link_id) REFERENCES links (network_id, id)
       )
     }
-
-    execute %Q{
-      INSERT INTO route_links (SELECT network_id, id, route_id,
-        link_id, ordinal, created_at, updated_at
-        FROM route_links_backup)
-    }
   end
 
   def self.down
