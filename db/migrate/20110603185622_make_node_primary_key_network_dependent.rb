@@ -21,12 +21,6 @@ class MakeNodePrimaryKeyNetworkDependent < ActiveRecord::Migration
         PRIMARY KEY(network_id,id)
       )
     }
-    # Can't use * because we're switching column order
-    execute %Q{
-      INSERT INTO nodes (SELECT network_id, id, 
-        name, description, type_node, lat, 
-        lng, elevation, created_at, updated_at FROM nodes_backup)
-    }
   end
 
   def self.down
