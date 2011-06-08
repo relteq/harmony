@@ -33,14 +33,4 @@ class Scenario < ActiveRecord::Base
   def add_default_vehicle_type
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
   end
-  
-  def export
-    bucket = ENV['S3_Bucket']
-    data = to_xml
-    key = Digest::MD5.hexdigest(data) + ".xml"
-    opts = { 'x-amz-meta-expiry' => Time.at(Time.now + 1.day) }
-    AWS::S3::S3Object.store key, data, bucket, opts
-
-    return AWS::S3::S3Object.url_for(key, bucket)
-  end 
 end
