@@ -1,6 +1,4 @@
 class Link < ActiveRecord::Base
-  include Export::Link
-
   belongs_to :network
 
   belongs_to :begin_node, :class_name => "Node"

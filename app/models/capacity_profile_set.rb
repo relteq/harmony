@@ -1,16 +1,12 @@
 class CapacityProfileSet < ActiveRecord::Base
-  include Export::CapacityProfileSet  
-
   validates_presence_of :name
   validates_uniqueness_of :name
-  
   validates_presence_of :network
   
-  belongs_to:network
+  belongs_to :network
 
-  
-  has_many:capacity_profiles
-  has_many:scenarios
+  has_many :capacity_profiles
+  has_many :scenarios
   
   def remove_from_scenario
     #remove this capacity profile set from anything it is attached to
