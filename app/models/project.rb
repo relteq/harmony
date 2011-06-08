@@ -25,15 +25,8 @@ class Project < ActiveRecord::Base
   # Maximum length for project identifiers
   IDENTIFIER_MAX_LENGTH = 100
   
-  has_many:scenarios
-  has_many:networks
-  has_many:controller_sets
-  has_many:demand_profile_sets
-  has_many:capacity_profile_sets
-  has_many:split_ratio_profile_sets
-  has_many:event_sets
-
-  
+  has_many :scenarios
+  has_many :networks
 
   # Specific overidden Activities
   has_many :time_entry_activities
@@ -847,5 +840,26 @@ class Project < ActiveRecord::Base
       subproject.send :archive!
     end
     update_attribute :status, STATUS_ARCHIVED
+  end
+
+public
+  def capacity_profile_sets
+    CapacityProfileSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
+  end
+
+  def controller_sets
+    ControllerSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
+  end
+
+  def split_ratio_profile_sets
+    SplitRatioProfileSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
+  end
+
+  def demand_profile_sets
+    DemandProfileSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
+  end
+
+  def event_sets
+    EventSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
   end
 end

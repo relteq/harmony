@@ -80,7 +80,7 @@ class SplitRatioProfileSetsControllerTest < ActionController::TestCase
       should "increase split ratio profile set count by 1, redirect to edit" do
         assert_difference('SplitRatioProfileSet.count') do
           post :create, :project_id => @project, 
-               :split_ratio_profile_set => { :network_id => @network, :name => 'test'}
+               :split_ratio_profile_set => { :network_id => @network.id, :name => 'test'}
         end
 
         assert_redirected_to :controller => 'split_ratio_profile_sets',

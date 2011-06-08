@@ -1,9 +1,9 @@
 class ConfigurationsApplicationController < ApplicationController
   before_filter :populate_menu
   menu_item :configurations  
-#  before_filter do |controller|
-#    controller.authorize(:configurations)
-#  end
+  before_filter do |controller|
+    controller.authorize(:configurations)
+  end
   helper :sort
   helper :configurations
   include SortHelper
@@ -21,28 +21,11 @@ protected
     @scenarios = @project.scenarios
     @networks = @project.networks
     
-    if(@csets == nil)
-      @csets = Array.new
-      @dprofilesets = Array.new
-      @cprofilesets = Array.new
-      @sprofilesets = Array.new
-      @eventsets = Array.new
-    end
-    
-    @networks.each { |n|
-      n.controller_sets.each {|e| @csets.push(e)}
-      n.demand_profile_sets.each {|e| @dprofilesets.push(e)} 
-      n.capacity_profile_sets.each { |e| @cprofilesets.push(e)} 
-      n.split_ratio_profile_sets.each { |e| @sprofilesets.push(e)} 
-      n.event_sets.each { |e| @eventsets.push(e)  }
-    }
- 
-    @csets.sort_by(&:name)  
-    @dprofilesets.sort_by(&:name)  
-    @cprofilesets.sort_by(&:name)  
-    @sprofilesets.sort_by(&:name)  
-    @eventsets.sort_by(&:name)  
-
+    @csets = @project.controller_sets.sort_by(&:name)
+    @dprofilesets = @project.demand_profile_sets.sort_by(&:name)
+    @cprofilesets = @project.capacity_profile_sets.sort_by(&:name)
+    @sprofilesets = @project.split_ratio_profile_sets.sort_by(&:name)
+    @eventsets = @project.event_sets.sort_by(&:name)
   end
 
   def redirect_save_success(set,url)
@@ -81,44 +64,40 @@ protected
     #get_network_dependent_table_items(record,model,@network == nil ? "-1" : @network.id.to_s)
   end
   
-
-  
   def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
-      sort_init sort_attribute, 'asc'
-      sort_update [sort_attribute]
-      
-      case params[:format]
-      when 'xml', 'json'
-        @offset, @limit = api_offset_and_limit      
-      else
-        @limit = per_page_option
-      end
-
-      @items = Array.new
-      Network.find(sid).send(sets).each { |cs|
-         cs.send(subitems).each { |c|
-           @items.push(c) 
-         }   
-      }
-      sort = sort_clause.split(/,* /)
-      subs = sort[0].split('.')
-      if(subs.length == 2)
-        @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
-      else
-        @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
-      end
-      
-      if(sort[1] == 'DESC')
-        @items.reverse!
-      end
-    
-      @item_count = @items.length
-      @items_pages = Paginator.new self, @item_count, @limit, params['page']
-      @offset ||= @items_pages.current.offset
-      @items =  @items[@offset,@offset + @limit ]
+    sort_init sort_attribute, 'asc'
+    sort_update [sort_attribute]
      
+    case params[:format]
+    when 'xml', 'json'
+      @offset, @limit = api_offset_and_limit      
+    else
+      @limit = per_page_option
+    end
+
+    @items = Array.new
+    Network.find(sid).send(sets).each { |cs|
+       cs.send(subitems).each { |c|
+         @items.push(c) 
+       }   
+    }
+    sort = sort_clause.split(/,* /)
+    subs = sort[0].split('.')
+    if(subs.length == 2)
+      @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
+    else
+      @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
+    end
+      
+    if(sort[1] == 'DESC')
+      @items.reverse!
+    end
+    
+    @item_count = @items.length
+    @items_pages = Paginator.new self, @item_count, @limit, params['page']
+    @offset ||= @items_pages.current.offset
+    @items =  @items[@offset,@offset + @limit ]
   end
-  
 
   def get_index_view(records)
     sort_init 'name', 'asc'
@@ -141,10 +120,8 @@ protected
     if(sort[1] == 'DESC')
       records.reverse!
     end
-  
     
     @items_show = records[@offset,@offset + @limit ]
-
  
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
@@ -153,6 +130,6 @@ protected
   end
   
   def get_set(sets,id)
-    sets.fetch(sets.index {|e| e.id == id})
+    sets.select{|e| e.id == id}.first
   end
 end

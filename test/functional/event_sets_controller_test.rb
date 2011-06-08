@@ -80,7 +80,7 @@ class EventSetsControllerTest < ActionController::TestCase
       should "increase event set count by 1, redirect to edit" do
         assert_difference('EventSet.count') do
           post :create, :project_id => @project, 
-               :event_set => { :network_id => @network, :name => 'test'}
+               :event_set => { :network_id => @network.id, :name => 'test'}
         end
 
         assert_redirected_to :controller => 'event_sets',

@@ -5,7 +5,6 @@ class CapacityProfileSetsControllerTest < ActionController::TestCase
     setup do
       @project = Project.generate!
       @capacity_profile_set = CapacityProfileSet.generate!
-      @project.capacity_profile_sets << @capacity_profile_set
       @network = @capacity_profile_set.network
       @project.networks << @network
       @request = ActionController::TestRequest.new
@@ -80,7 +79,7 @@ class CapacityProfileSetsControllerTest < ActionController::TestCase
       should "increase capacity profile set count by 1, redirect to edit" do
         assert_difference('CapacityProfileSet.count') do
           post :create, :project_id => @project, 
-               :capacity_profile_set => { :network_id => @network, :name => 'test'}
+               :capacity_profile_set => { :network_id => @network.id, :name => 'test'}
         end
 
         assert_redirected_to :controller => 'capacity_profile_sets',
