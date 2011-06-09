@@ -26,8 +26,8 @@ class MakeLinkPrimaryKeyNetworkDependentChangeColumnNames < ActiveRecord::Migrat
         qmax decimal(10,5), fd varchar(255), weaving_factors varchar(255),
         description varchar(255),
         PRIMARY KEY(network_id,id),
-        FOREIGN KEY(network_id) REFERENCES networks(id),
-        FOREIGN KEY(network_id,begin_id) REFERENCES nodes(network_id,id),
+        FOREIGN KEY(network_id) REFERENCES networks(id) ON DELETE CASCADE,
+        FOREIGN KEY(network_id,begin_id) REFERENCES nodes(network_id,id) ON DELETE CASCADE,
         FOREIGN KEY(network_id,end_id) REFERENCES nodes(network_id,id)
         ON DELETE CASCADE
       )

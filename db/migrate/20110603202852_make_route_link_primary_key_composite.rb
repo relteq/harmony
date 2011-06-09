@@ -18,8 +18,8 @@ class MakeRouteLinkPrimaryKeyComposite < ActiveRecord::Migration
         link_id integer, ordinal integer, 
         created_at timestamp, updated_at timestamp,
         PRIMARY KEY(network_id, route_id, link_id),
-        FOREIGN KEY(network_id, route_id) REFERENCES routes (network_id, id),
-        FOREIGN KEY(network_id, link_id) REFERENCES links (network_id, id)
+        FOREIGN KEY(network_id, route_id) REFERENCES routes (network_id, id) ON DELETE CASCADE,
+        FOREIGN KEY(network_id, link_id) REFERENCES links (network_id, id) ON DELETE CASCADE
       )
     }
   end

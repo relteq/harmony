@@ -15,7 +15,7 @@ class MakeRoutePrimaryKeyNetworkDependent < ActiveRecord::Migration
         network_id integer NOT NULL,
         id INTEGER NOT NULL, name varchar(255), 
         created_at timestamp, updated_at timestamp, 
-         PRIMARY KEY(network_id,id)
+        PRIMARY KEY(network_id,id)
       )
     }
     execute %Q{
