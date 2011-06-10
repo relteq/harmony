@@ -12,7 +12,6 @@ class S3UploadsController < ApplicationController
   # Sigh.  OK that's not completely true - you might want to look at https and expiration_date below.
   #        Possibly these should also be configurable from S3Config...
 
-  before_filter :require_login
   skip_before_filter :verify_authenticity_token
   include S3SwfUpload::Signature
   
