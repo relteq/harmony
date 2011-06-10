@@ -25,7 +25,7 @@ class S3UploadsController < ApplicationController
     https           = 'false'
 
     max_file_size = S3SwfUpload::S3Config.max_file_size
-    max_file_MB   = (max_file_size/1024/1024).to_i
+    max_file_MB   = (max_file_size.to_i/1024/1024)
 
     error_message   = "Selected file is too large (max is #{max_file_size}MB)" if file_size.to_i >  S3SwfUpload::S3Config.max_file_size
 
