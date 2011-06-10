@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :s3_uploads
+
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
  
@@ -161,7 +163,8 @@ ActionController::Routing::Routes.draw do |map|
 
     project.resource :configuration, :only => [:show] do |config|
       config.resources :scenarios, :member => [:flash_edit], 
-                       :collection => {:delete_all => :post} do |scenario|
+                       :collection => {:delete_all => :post, 
+                                       :import => :get} do |scenario|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
       end
       config.resources :networks, :member => [:flash_edit],

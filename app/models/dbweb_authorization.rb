@@ -7,4 +7,8 @@ class DbwebAuthorization < ActiveRecord::Base
       :access_token => ActiveSupport::SecureRandom.base64(50)
     )
   end
+
+  def escaped_token
+    CGI.escape(access_token)
+  end
 end

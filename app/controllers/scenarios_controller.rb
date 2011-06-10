@@ -3,6 +3,11 @@ class ScenariosController <  ConfigurationsApplicationController
   before_filter :require_scenario, :only => [
     :edit, :update, :destroy, :show, :flash_edit
   ]
+
+  def import
+    auth = DbwebAuthorization.create_for(@project)
+    @token = auth.access_token
+  end
   
   # GET /scenarios
   # GET /scenarios.xml
@@ -24,10 +29,9 @@ class ScenariosController <  ConfigurationsApplicationController
   # GET /scenarios/1.xml
   def show
     auth = DbwebAuthorization.create_for(@scenario)
-    escaped_token = CGI.escape(auth.access_token)
     redirect_to ENV['DBWEB_URL_BASE'] + 
                 "/model/scenario/#{@scenario.id}.xml" +
-                "?access_token=#{escaped_token}"
+                "?access_token=#{auth.escaped_token}"
   end
 
   # GET /scenarios/1/edit
@@ -42,10 +46,9 @@ class ScenariosController <  ConfigurationsApplicationController
   # Export sccenario and open in flash editor
   def flash_edit
     auth = DbwebAuthorization.create_for(@scenario)
-    escaped_token = CGI.escape(auth.access_token)
     redirect_to ENV['DBWEB_URL_BASE'] + 
                 "/editor/scenario/#{@scenario.id}.html" +
-                "?access_token=#{escaped_token}"
+                "?access_token=#{auth.escaped_token}"
   end
 
   # POST /scenarios
