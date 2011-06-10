@@ -5,6 +5,18 @@ module ConfigurationsHelper
       }}
   end
 
+  def js_callback_delete(url_options)
+    %Q{function() {
+          $('ajax-indicator').show();
+          $j.post("#{url_for(url_options)}", 
+                  { '_method': 'delete' }, 
+                  function() { 
+                    $('ajax-indicator').hide();
+                    location.reload();
+                  });
+    }}
+  end
+
   def js_callback_new_window(url_options)
     %Q{function() {
           window.open("#{url_for(url_options)}");
@@ -78,7 +90,7 @@ module ConfigurationsHelper
       :id => scenario.id
     )
 
-    delete_callback = js_callback_redirect(
+    delete_callback = js_callback_delete(
        :controller => 'scenarios',
        :action => 'destroy',
        :project_id => project.id,
@@ -110,7 +122,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => network.id
 
-    delete_callback = js_callback_redirect :controller => 'networks',
+    delete_callback = js_callback_delete   :controller => 'networks',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => network.id 
@@ -139,7 +151,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => cs.id
 
-    delete_callback = js_callback_redirect :controller => 'controller_sets',
+    delete_callback = js_callback_delete   :controller => 'controller_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => cs.id 
@@ -161,7 +173,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => ds.id
 
-    delete_callback = js_callback_redirect :controller => 'demand_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'demand_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => ds.id 
@@ -183,7 +195,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => srp.id
 
-    delete_callback = js_callback_redirect :controller => 'split_ratio_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'split_ratio_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => srp.id 
@@ -205,7 +217,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => cs.id
 
-    delete_callback = js_callback_redirect :controller => 'capacity_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'capacity_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => cs.id 
@@ -227,7 +239,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => es.id
 
-    delete_callback = js_callback_redirect :controller => 'event_sets',
+    delete_callback = js_callback_delete   :controller => 'event_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => es.id 
