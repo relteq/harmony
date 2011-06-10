@@ -6,11 +6,12 @@ module ConfigurationsHelper
   end
 
   def js_callback_delete(url_options)
+    url_options.merge!({:format => :xml}) # to avoid bad redirects
     %Q{function() {
           $('ajax-indicator').show();
-          $j.post("#{url_for(url_options)}", 
-                  { '_method': 'delete' }, 
-                  function() { 
+          $j.post("#{url_for(url_options)}",
+                  { '_method': 'delete' },
+                  function() {
                     $('ajax-indicator').hide();
                     location.reload();
                   });
