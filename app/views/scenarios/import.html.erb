@@ -1,0 +1,16 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar' %>
+<% end %>
+
+<%= error_messages_for 'scenario' %>
+
+<h2>
+  <%= link_to "Scenarios", project_configuration_scenarios_path(@project) %>
+  &#187; 
+  Import Scenario 
+</h2>
+
+<%= s3_swf_upload_tag :initial_message => 'Select a scenario XML file', 
+                      :width => 500, 
+                      :height => 40,
+                      :success => redirect_to_dbweb_import_url(@project.id) %>

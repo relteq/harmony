@@ -3,6 +3,11 @@ class ScenariosController <  ConfigurationsApplicationController
   before_filter :require_scenario, :only => [
     :edit, :update, :destroy, :show, :flash_edit
   ]
+
+  def import
+    auth = DbwebAuthorization.create_for(@project)
+    @token = auth.access_token
+  end
   
   # GET /scenarios
   # GET /scenarios.xml
@@ -23,14 +28,10 @@ class ScenariosController <  ConfigurationsApplicationController
 
   # GET /scenarios/1.xml
   def show
-    respond_to do |format|
-      format.xml { 
-        headers['Content-Disposition'] = 
-          "attachment; filename=\"scenario-#{@scenario.name}.xml\""
-        headers['Content-Type'] = 'text/xml'
-        render :xml => @scenario 
-      }
-    end
+    auth = DbwebAuthorization.create_for(@scenario)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/model/scenario/#{@scenario.id}.xml" +
+                "?access_token=#{auth.escaped_token}"
   end
 
   # GET /scenarios/1/edit
@@ -44,12 +45,10 @@ class ScenariosController <  ConfigurationsApplicationController
   # GET /scenarios/1/flash_edit
   # Export sccenario and open in flash editor
   def flash_edit
-    @s3_key = ENV['S3_Access_Key']
-    url = @scenario.export
-    # NOTE Full URL escaping will make this fail, as S3Object.url_for
-    # creates the correct %xx entities for most special characters
-    @s3_url = url.gsub(/%/,'%2525').gsub(/&/,'%26').gsub(/=/,'%3D')
-    render :layout => 'shell'
+    auth = DbwebAuthorization.create_for(@scenario)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/scenario/#{@scenario.id}.html" +
+                "?access_token=#{auth.escaped_token}"
   end
 
   # POST /scenarios

@@ -5,6 +5,19 @@ module ConfigurationsHelper
       }}
   end
 
+  def js_callback_delete(url_options)
+    url_options.merge!({:format => :xml}) # to avoid bad redirects
+    %Q{function() {
+          $('ajax-indicator').show();
+          $j.post("#{url_for(url_options)}",
+                  { '_method': 'delete' },
+                  function() {
+                    $('ajax-indicator').hide();
+                    location.reload();
+                  });
+    }}
+  end
+
   def js_callback_new_window(url_options)
     %Q{function() {
           window.open("#{url_for(url_options)}");
@@ -78,7 +91,7 @@ module ConfigurationsHelper
       :id => scenario.id
     )
 
-    delete_callback = js_callback_redirect(
+    delete_callback = js_callback_delete(
        :controller => 'scenarios',
        :action => 'destroy',
        :project_id => project.id,
@@ -110,7 +123,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => network.id
 
-    delete_callback = js_callback_redirect :controller => 'networks',
+    delete_callback = js_callback_delete   :controller => 'networks',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => network.id 
@@ -139,7 +152,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => cs.id
 
-    delete_callback = js_callback_redirect :controller => 'controller_sets',
+    delete_callback = js_callback_delete   :controller => 'controller_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => cs.id 
@@ -161,7 +174,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => ds.id
 
-    delete_callback = js_callback_redirect :controller => 'demand_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'demand_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => ds.id 
@@ -183,7 +196,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => srp.id
 
-    delete_callback = js_callback_redirect :controller => 'split_ratio_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'split_ratio_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => srp.id 
@@ -205,7 +218,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => cs.id
 
-    delete_callback = js_callback_redirect :controller => 'capacity_profile_sets',
+    delete_callback = js_callback_delete   :controller => 'capacity_profile_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => cs.id 
@@ -227,7 +240,7 @@ module ConfigurationsHelper
                                          :project_id => project,
                                          :id => es.id
 
-    delete_callback = js_callback_redirect :controller => 'event_sets',
+    delete_callback = js_callback_delete   :controller => 'event_sets',
                                            :action => 'destroy',
                                            :project_id => project,
                                            :id => es.id 
@@ -278,42 +291,40 @@ module ConfigurationsHelper
     
   end
    
-   def sort_header_tag_relteq(column,options = {})
-     caption = options.delete(:caption) || column.to_s.humanize
-     default_order = options.delete(:default_order) || 'asc'
-     options[:title] = l(:label_sort_by, "\"#{caption}\"") unless options[:title]
-     content_tag('th', sort_link_relteq(column,caption, default_order,options[:url]), options)
-   end
+  def sort_header_tag_relteq(column,options = {})
+   caption = options.delete(:caption) || column.to_s.humanize
+   default_order = options.delete(:default_order) || 'asc'
+   options[:title] = l(:label_sort_by, "\"#{caption}\"") unless options[:title]
+   content_tag('th', sort_link_relteq(column,caption, default_order,options[:url]), options)
+  end
 
-   def sort_link_relteq(column,caption, default_order,url)
-     css, order = nil, default_order
+  def sort_link_relteq(column,caption, default_order,url)
+   css, order = nil, default_order
 
-     if column.to_s == @sort_criteria.first_key
-       if @sort_criteria.first_asc?
-         css = 'sort asc'
-         order = 'desc'
-       else
-         css = 'sort desc'
-         order = 'asc'
-       end
+   if column.to_s == @sort_criteria.first_key
+     if @sort_criteria.first_asc?
+       css = 'sort asc'
+       order = 'desc'
+     else
+       css = 'sort desc'
+       order = 'asc'
      end
-
-     caption = column.to_s.humanize unless caption
-
-     sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
-     # don't reuse params if filters are present
-     url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
-
-
-      link_to_remote(caption,
-                    { :url => url.merge(url_options), :method => :get},
-                    { :href => url_for(url_options),
-                     :class => css})               
    end
-   
-   def display_menu_item(s)
-      s.length < 16 ? s : s[0,15] + "..."
-   end
-   
-   
+
+   caption = column.to_s.humanize unless caption
+
+   sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
+   # don't reuse params if filters are present
+   url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
+
+
+    link_to_remote(caption,
+                  { :url => url.merge(url_options), :method => :get},
+                  { :href => url_for(url_options),
+                   :class => css})               
+  end
+
+  def display_menu_item(s)
+    s.length < 16 ? s : s[0,15] + "..." if s
+  end
 end

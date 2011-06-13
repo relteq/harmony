@@ -86,13 +86,20 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
 
 private
+  def not_found_redirect_to_index
+    redirect_to :action => :index, :project_id => @project
+    flash[:error] = 'Controller Set not found.'
+    return false
+  end
+
   def require_controller_set
     begin
       @cset = get_set(@csets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      redirect_to :action => :index, :project_id => @project
-      flash[:error] = 'Controller Set not found.'
-      return false
+      return not_found_redirect_to_index 
+    end
+    if !@cset
+      return not_found_redirect_to_index 
     end
   end
 end

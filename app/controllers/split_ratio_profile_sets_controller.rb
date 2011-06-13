@@ -85,13 +85,20 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@sid)
   end
 private
+  def not_found_redirect_to_index
+    redirect_to :action => :index, :project_id => @project
+    flash[:error] = 'Split Ratio Profile Set not found.'
+    return false
+  end
+
   def require_srpset
     begin
       @srpset = get_set(@sprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      redirect_to :action => :index, :project_id => @project
-      flash[:error] = 'Split Ratio Profile Set not found.'
-      return false
+      return not_found_redirect_to_index
+    end
+    if !@srpset
+      return not_found_redirect_to_index
     end
   end
 end

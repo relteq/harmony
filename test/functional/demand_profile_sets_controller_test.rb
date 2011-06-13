@@ -5,7 +5,6 @@ class DemandProfileSetsControllerTest < ActionController::TestCase
     setup do 
       @project = Project.generate!
       @demand_profile_set = DemandProfileSet.generate!
-      @project.demand_profile_sets << @demand_profile_set
       @network = @demand_profile_set.network
       @project.networks << @network
       @request = ActionController::TestRequest.new
@@ -80,7 +79,7 @@ class DemandProfileSetsControllerTest < ActionController::TestCase
       should "increase demand profile set count by 1, redirect to edit" do
         assert_difference('DemandProfileSet.count') do
           post :create, :project_id => @project, 
-               :demand_profile_set => { :network_id => @network, :name => 'test'}
+               :demand_profile_set => { :network_id => @network.id, :name => 'test'}
         end
 
         assert_redirected_to :controller => 'demand_profile_sets',

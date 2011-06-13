@@ -10,17 +10,18 @@
     </tr>
   </thead>
   <tbody>
-    <% if @simulations.count == 0 %>
+    <% if @simulations == :failure %> 
       <tr><td>Error connecting to simulation server.</td></tr>
-    <% end %>
-    <% @simulations.each_with_index do |s,i| %>
-      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
-        <td><%= h s[:name] %></td>
-        <td><%= h s[:mode] %></td>
-        <td><%= h format_time(s[:start_time]) %></td>
-        <td><%= h s[:start_time] %></td>
-        <%= progress_bar_display(s) %>
-      </tr>
+    <% else %>
+      <% @simulations.each_with_index do |s,i| %>
+        <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+          <td><%= h s[:name] %></td>
+          <td><%= h s[:mode] %></td>
+          <td><%= h format_time(s[:start_time]) %></td>
+          <td><%= h s[:start_time] %></td>
+          <%= progress_bar_display(s) %>
+        </tr>
+      <% end %>
     <% end %>
   <tbody>
 </table>

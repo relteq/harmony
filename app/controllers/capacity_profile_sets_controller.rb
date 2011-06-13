@@ -28,13 +28,13 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def create
-   @cpset = CapacityProfileSet.new
-   if(@cpset.update_attributes(params[:capacity_profile_set]))
-     redirect_save_success(:capacity_profile_set, 
-       edit_project_configuration_capacity_profile_set_path(@project, @cpset))
-   else
-     redirect_save_error(:capacity_profile_set,:new,@cpset,CapacityProfile)
-   end
+    @cpset = CapacityProfileSet.new
+    if(@cpset.update_attributes(params[:capacity_profile_set]))
+      redirect_save_success(:capacity_profile_set, 
+        edit_project_configuration_capacity_profile_set_path(@project, @cpset))
+    else
+      redirect_save_error(:capacity_profile_set,:new,@cpset,CapacityProfile)
+    end
   end
 
   def update
@@ -85,13 +85,20 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
     get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@sid)
   end
 private
+  def not_found_redirect_to_index
+    redirect_to :action => :index, :project_id => @project
+    flash[:error] = 'Capacity Profile Set not found.'
+    return false
+  end
+
   def require_cp_set
     begin
-      @cpset =  get_set(@cprofilesets,params[:id].to_i)
+      @cpset = get_set(@cprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      redirect_to :action => :index, :project_id => @project
-      flash[:error] = 'Capacity Profile Set not found.'
-      return false
+      return not_found_redirect_to_index 
+    end
+    if !@cpset
+      return not_found_redirect_to_index 
     end
   end
 end

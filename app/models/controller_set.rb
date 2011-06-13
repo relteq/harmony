@@ -1,6 +1,4 @@
 class ControllerSet < ActiveRecord::Base
-  include Export::ControllerSet
-  
   validates_presence_of :network
   
   belongs_to :network

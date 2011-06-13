@@ -5,9 +5,9 @@ class ControllerSetsControllerTest < ActionController::TestCase
     setup do 
       @request = ActionController::TestRequest.new
       @project = Project.generate!
-      @network = Network.generate!
       @controller_set = ControllerSet.generate!
-      @project.controller_sets << @controller_set
+      @network = @controller_set.network
+      @project.networks << @network
       @request.session[:user_id] = 1
     end
 
@@ -112,7 +112,7 @@ class ControllerSetsControllerTest < ActionController::TestCase
       should "reduce controller set count by 1, redirect to index" do
         assert_difference('ControllerSet.count', -1) do
           delete :destroy, :project_id => @project, 
-                 :id => @controller_set.to_param
+                 :id => @controller_set.id
         end
 
         assert_redirected_to :controller => 'controller_sets', 

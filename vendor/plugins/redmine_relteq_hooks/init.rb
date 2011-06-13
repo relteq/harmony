@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_relteq_hooks do
   url 'http://relteqsystems.com/'
 
   permission :view_simulation_models, :configurations => [:index, :show]
-  permission :edit_simulation_models, :configurations => [:edit, :update, :destroy, :delete_all, :flash_edit]
+  permission :edit_simulation_models, :configurations => [:edit, :update, :destroy, :delete_all, :flash_edit, :import]
   permission :create_simulation_models, :configurations => [:new, :create]
   menu :project_menu, :configurations,{:controller => 'configurations', :action => 'show'}, :caption => 'Models', :param => :project_id, :after => :overview
 

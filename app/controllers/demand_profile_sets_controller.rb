@@ -60,8 +60,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-  
-    @dsets.each do | d |
+    @dprofilesets.each do | d |
       d.remove_from_scenario
       d.destroy
     end
@@ -85,13 +84,20 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@sid)   
   end
 private
+  def not_found_redirect_to_index
+    redirect_to :action => :index, :project_id => @project
+    flash[:error] = 'Demand Profile Set not found.'
+    return false
+  end
+
   def require_dpset
     begin
       @dpset = get_set(@dprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      redirect_to :action => :index, :project_id => @project
-      flash[:error] = 'Demand Profile Set not found.'
-      return false
+      return not_found_redirect_to_index
+    end
+    if !@dpset
+      return not_found_redirect_to_index
     end
   end
 end

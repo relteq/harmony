@@ -1,5 +1,4 @@
 class Node < ActiveRecord::Base
-  include Export::Node
   has_many :intersections
   has_many :split_ratio_profiles  
   has_many :events

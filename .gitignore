@@ -15,3 +15,4 @@ coverage/*
 coverage/**/*
 coverage.data
 .bundle/*
+config/database.yml

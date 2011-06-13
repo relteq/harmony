@@ -977,7 +977,7 @@ en:
   field_begin_time: Begin Time
   field_duration: Duration
   field_e_time: End Time
-  field_length_units: Length Units
+  field_units: Length Units
   field_vehicle_types: Vehicle Types
   field_controller_set: Controller Set
   field_demand_profile_set: Demand Profile Set

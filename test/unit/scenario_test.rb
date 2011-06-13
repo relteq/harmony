@@ -21,13 +21,13 @@ class ScenarioTest < ActiveSupport::TestCase
       setup do
         @scenario = Scenario.generate!
       end
-      should "set b_time" do 
-        @scenario.b_time = "00h 01m 00.1s"
-        assert_equal 60.1, @scenario.b_time
+      should "set begin_time" do 
+        @scenario.begin_time = "00h 01m 00.1s"
+        assert_equal 60.1, @scenario.begin_time
       end
-      should "set e_time" do 
-        @scenario.e_time = "00h 01m 00.1s"
-        assert_equal 60.1, @scenario.e_time
+      should "set duration" do 
+        @scenario.duration = "00h 01m 00.1s"
+        assert_equal 60.1, @scenario.duration
       end
       should "set dt" do 
         @scenario.dt = "00h 01m 00.1s"

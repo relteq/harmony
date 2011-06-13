@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  link_id: <%= Fixtures.identify(:one) %>
-  network_id: <%= Fixtures.identify(:one) %>
-
-two:
-  link_id: <%= Fixtures.identify(:two) %>
-  network_id: <%= Fixtures.identify(:two) %>
