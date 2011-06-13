@@ -44,13 +44,13 @@ project_id = 8
 
 remove_dev_data
 
-sc_id = Aurora.import(open(xml_file),project_id, {:is_new => true, :am_testing => am_testing})
+#sc_id = Aurora.import(open(xml_file),project_id, {:is_new => true, :am_testing => am_testing})
 #sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
 #sc_id = Aurora.import(open(xml_file),project_id, {:is_new => false , :am_testing => am_testing})
 
-test_results = verify_import_tests(project_id,test_results)
+#test_results = verify_import_tests(project_id,test_results)
 
-test_results.each do|object,value|
- p "#{object}: #{value}"
-end
+#test_results.each do|object,value|
+# p "#{object}: #{value}"
+#end
 

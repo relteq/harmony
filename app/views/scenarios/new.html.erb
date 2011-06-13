@@ -4,7 +4,7 @@
 
 <%= error_messages_for 'scenario'%>
 
-<h2><%= link_to "Scenarios", project_configuration_scenarios_path(@project) %> &#187; <%= "New Scenario"%></h2>
+<h2><%= link_to "Scenarios", project_configuration_scenarios_path(@project) %> &#187; "New Scenario"</h2>
 
 <% labelled_tabular_form_for :scenario, @scenario, :url => { :action => "create" } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

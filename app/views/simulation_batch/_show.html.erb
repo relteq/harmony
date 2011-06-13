@@ -30,6 +30,16 @@
 		<%= label_tag :events %>:
 	  <%=h item_show.events %>
 </p>
-
-
+<p>
+		<%= label_tag :start_time %>:
+	  <%=h item_show.format_start_time %>
 </p>
+<p>
+		<%= label_tag :execution_time %>:
+	  <%=h item_show.execution_time %>
+</p>
+<p>
+		<%= label_tag :percent_complete %>:
+	  <%=h item_show.percent_complete %>
+</p>
+

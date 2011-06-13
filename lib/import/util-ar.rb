@@ -95,7 +95,7 @@ module AuroraModelClassMethods
   attr_reader :treat_as_new
   
   def self.import_id s
-    s && !(s =~ /[a-zA-Z]/)  && Integer(s) rescue nil
+    s && !(s =~ /[a-zA-Z]/) && Integer(s) != -1  && Integer(s) rescue nil
   end
   
   def self.set_treat_as_new(flag)
