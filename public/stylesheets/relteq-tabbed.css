@@ -1,5 +1,4 @@
 #report-main  {
-  margin-left:80px;
   width:628px;
 }
 #report-main .content {
@@ -22,6 +21,14 @@
 
 #report-main label {
   font-weight:bold;
+}
+
+#report-main label.underline {
+  text-decoration:underline;
+}
+
+#report-main table {
+ 	margin-left:140px;
 }
 	
 /* Subsection Tabs

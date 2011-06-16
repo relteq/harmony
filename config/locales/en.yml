@@ -1029,9 +1029,8 @@ en:
   label_description: Description
   label_actions: Actions
   label_vehicle_type_weight: Weight
-  label_export_format: Export Format
   label_type_of_report: Type of Report
-  label_available_files: Available Simulations
+  label_reference_simulations: Reference Simulation Batch(es) 
   label_time_range: Time Range
   label_to: To
   label_from: From

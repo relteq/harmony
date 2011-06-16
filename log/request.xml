@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guidata>
+  <cmb_export>PDF</cmb_export>
+  <cmb_reporttype>Aggregate vehicle types, multiple runs</cmb_reporttype>
+  <txt_congspeed></txt_congspeed>
+  <txt_maxpointspercurve></txt_maxpointspercurve>
+  <cbx_orperf_time>false</cbx_orperf_time>
+  <cbx_orperf_space>false</cbx_orperf_space>
+  <cbx_orperf_contour>false</cbx_orperf_contour>
+  <cbx_routeperf_time>true</cbx_routeperf_time>
+  <cbx_routeperf_space>false</cbx_routeperf_space>
+  <cbx_routeperf_contour>true</cbx_routeperf_contour>
+  <cbx_routetraveltime>true</cbx_routetraveltime>
+  <cbx_routetrajectories>true</cbx_routetrajectories>
+  <cbx_dolegend>false</cbx_dolegend>
+  <cbx_dofill>false</cbx_dofill>
+  <cbx_linkstate>false</cbx_linkstate>
+  <cbx_sysperf>true</cbx_sysperf>
+  <outputfile></outputfile>
+  <txt_timefrom>0.0</txt_timefrom>
+  <txt_timeto>0.0</txt_timeto>
+  <txt_customxaxis></txt_customxaxis>
+  <cbx_boxplot>false</cbx_boxplot>
+  <colors>#69A7D6,#980D92,#D32A64,#707826,#DFD555,#E17A8F,#2B478E,#4CDA1D,#F432C6,#07CAFF,#1C9F22</colors>
+  <tbl_groups></tbl_groups>
+  <tbl_scenariogroups/>
+</guidata>

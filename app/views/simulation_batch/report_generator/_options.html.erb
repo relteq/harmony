@@ -1,0 +1,54 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<%= stylesheet_link_tag 'color-picker-plugin'%>
+
+<p>
+	<label><%=l(:label_congestion_speed)%>: </label>
+	<%= f.text_field :congestion_speed %>
+</p>
+<p>
+	<label><%=l(:label_max_data)%>: </label>
+	<%= f.text_field :max_data_points %>
+</p>
+<p>
+	<label><%=l(:label_color)%>: </label>
+	<span id = "color1" style="background-color:#69A7D6" onclick="pickColor('color1');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color2" style="background-color:#980D92" onclick="pickColor('color2');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color3" style="background-color:#D32A64" onclick="pickColor('color3');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color4" style="background-color:#707826" onclick="pickColor('color4');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color5" style="background-color:#DFD555" onclick="pickColor('color5');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color6" style="background-color:#E17A8F" onclick="pickColor('color6');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color7" style="background-color:#2B478E" onclick="pickColor('color7');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color8" style="background-color:#4CDA1D" onclick="pickColor('color8');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color9" style="background-color:#F432C6" onclick="pickColor('color9');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color10" style="background-color:#07CAFF" onclick="pickColor('color10');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color11" style="background-color:#1C9F22" onclick="pickColor('color11');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</p>
+
+<p>
+	<label><%=l(:label_fill_plots)%>: </label>
+	<%= f.check_box :fill_plots %>
+</p>
+<p>
+	<label><%=l(:label_legend)%>: </label>
+	<%= f.check_box :legend %>
+</p>
+
+<%= javascript_include_tag "color-picker" %>
+<script>
+function pickColor(id) {
+	var swatch = document.getElementById(id);
+	var mainDiv = document.getElementById('report-gen');
+
+	CFInstall.check({ mode: "overlay" });
+	var picker = new Color.Picker(mainDiv,{
+		callback: function(hex) {
+			swatch.style.backgroundColor = "#" + hex;
+		}
+	});
+
+	picker.el.style.top = (swatch.offsetTop + 20) + "px";
+	picker.el.style.left = (swatch.offsetLeft) + "px";
+}
+</script>
+
+

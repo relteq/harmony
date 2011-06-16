@@ -1,3 +1,3 @@
 class OutputFile < ActiveRecord::Base
-  has_many :simulation_batch
+  belongs_to :simulation_batch
 end

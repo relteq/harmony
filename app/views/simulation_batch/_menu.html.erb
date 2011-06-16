@@ -1,6 +1,6 @@
 <div class="add-filter">
 	<p><label><%=l(:label_actions)%>: </label><%= select_tag 'simulation_batch_action',
-	 options_for_select(simulation_batch_select_options()), :onchange=> "if (this.value != \'\') { this.form.submit(); }"
-																			 %></p>
-	
+	 options_for_select(simulation_batch_select_options()), 	:onchange=> 'this.form.submit();'  
+
+	%></p>
 </div>

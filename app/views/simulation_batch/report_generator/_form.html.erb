@@ -1,0 +1,53 @@
+<script >
+	document.observe('dom:loaded',function(){
+		var tabs = new Control.Tabs('tabs',{});
+		tabs.disableTab('scatter-groups');
+		tabs.disableTab('scatter-plots');
+		tabs.setActiveTab('basics');
+		
+	});
+	
+</script>
+
+
+<% form_for :simulation_batch, @simulation_report, :url => { :controller => "simulation_batch_report", :action => "update" }, :html => {:method => :put} do |f| %>
+<%= hidden_field_tag 'project_id', params[:project_id] %>
+<%= hidden_field_tag 'sim_ids' %>
+<h2>Simulation Batch Report Generator</h2>
+<div id="report-main"  >
+	<div class="content">
+	  <ul id="tabs" class="subsection_tabs">  
+	    <li class="tab"><a href="#basics">Basics</a></li>  
+	    <li class="tab"><a href="#sections">Sections</a></li>  
+	    <li class="tab"><a href="#options">Options</a></li>  
+	    <li class="tab"><a href="#scatter-groups" style="color:#CCCCCC;">Scatter Groups</a></li>  
+	    <li class="tab"><a href="#scatter-plots" style="color:#CCCCCC;">Scatter Plots</a></li>  
+	  </ul>  
+	  <div id="basics" class="tab-content">
+		 <%= render :partial => 'simulation_batch/report_generator/basics', 
+	              :locals => {:f => f} %>	
+	  </div>  
+	  <div id="sections" class="tab-content">
+		 <%= render :partial => 'simulation_batch/report_generator/sections', 
+	              :locals => {:f => f} %>
+	  </div>  
+	  <div id="options" class="tab-content">
+		 <%= render :partial => 'simulation_batch/report_generator/options', 
+	              :locals => {:f => f} %>
+	  </div>  
+	  <div id="scatter-groups" class="tab-content">
+		 <%= render :partial => 'simulation_batch/report_generator/scatter_groups', 
+	          :locals => {:f => f} %>
+	  </div>  
+	  <div id="scatter-plots" class="tab-content">
+		 <%= render :partial => 'simulation_batch/report_generator/scatter_plots', 
+	              :locals => {:f => f} %>
+	  </div>  
+  </div>
+	<div id="button-bar">
+		<div class="buttons">
+		  <span><%= submit_tag "Start" %></span>
+		</div>
+	</div>
+</div>
+<% end %>

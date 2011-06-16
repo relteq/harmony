@@ -36,23 +36,38 @@ class SimulationBatchReportController < ApplicationController
       end
  end
  
- def report_gen
-   @simulation_report = SimulationBatchReport.new
-   @simulation_batches = Array.new
-   @scenarios = Array.new
-   begin
-     params[:sim_ids].each do |s|
-       sb = SimulationBatch.find_by_id(s)
-       @simulation_batches.push(sb)
-       @scenarios.push(Scenario.find_by_id(sb.scenario_id))
-     end
-   rescue NoMethodError
-     
-   end
-   
+ def update
    respond_to do |format|
-     format.html # report_gen.html.erb
+     @simulation_report = SimulationBatchReport.new
+ 
+     if(@simulation_report.update_attributes(params[:simulation_batch]))
+       sbl = SimulationBatchList.new
+       sbl.save!
+       @simulation_report.simulation_batch_list_id = sbl.id
+       @simulation_report.save!
+       params[:sim_ids].each do |s|
+         rb = ReportedBatch.new
+         rb.simulation_batch_id = s
+         rb.simulation_batch_list_id =  @simulation_report.simulation_batch_list_id
+         rb.save!
+       end
+     
+       request_file = File.new("#{RAILS_ROOT}/log/request.xml","w")
+       request_file.puts @simulation_report.to_xml
+       flash[:notice] = 'Simulation Report was successfully started.'  
+       format.html { redirect_to simulation_batch_report_index_path(params[:project_id]) }
+       format.xml  { head :ok }
+     else
+       format.html { render :action => :edit}
+       format.api  { render_validation_errors(@simulation_report) }
+     end
    end
  
  end
+ 
+ 
+
+ 
+
+  
 end

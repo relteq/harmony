@@ -26,9 +26,9 @@
 <% end %>
 <% @items_show.each_with_index do |sim,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-  <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, :id => nil) %></td>
+  <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, { :id => sim.id.to_s + '-checkbox', :onclick => "processSimId('" + sim.id.to_s + "','" + sim.name + "');"}) %></td>
 	<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
- 	<td  >Not Implemented</td>
+ 	<td  ><%= link_to_function "Test Report Gen", "show_box('report-generator');" %></td>
  	<td  ><%=h sim.created_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
   </tr>
@@ -43,10 +43,49 @@
    </tbody>
 
 </table>
+<% end %>
+	<div id="report-generator" style="display: none;" class="box tabular">
+		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="hide_box('report-generator')"></button>
+  	<%= render :partial => 'simulation_batch/report_generator/form'%>
+	</div>
+
+
 </div>
 <p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
-<% end %>
+
 <script language="javascript">
-  var ol = new Overlay();
+	function processSimId(val,name){
+		strSimIds = 	document.getElementById('sim_ids').value;
+		strSimList = 	document.getElementById('simulation_batch_list').firstChild.nodeValue;
+		if(document.getElementById(val + '-checkbox').checked){
+				  if(strSimIds.length > 0)
+							strSimIds  += "," + val;
+					else
+						  strSimIds  = val;
+				
+					if(	strSimList.search("The system does not show you having chosen any simulations to report on.") != -1)
+							strSimList = "- " + name + "\n";
+					else
+							strSimList += "- " + name + "\n";
+		}
+		else
+		{
+				strSimIds  = strSimIds.replace(val + ",","");
+				if(str.search(val) != -1)
+				 					strSimIds  = strSimIds.replace(val,"");
+				 				
+				strSimList = strSimList.replace("&#149; " + name + "<br>","");
+
+		}
+		document.getElementById('sim_ids').value = strSimIds;
+		document.getElementById('simulation_batch_list').firstChild.nodeValue = strSimList;
+		// alert(document.getElementById('simulation_batch_list').firstChild.nodeValue);
+		// alert(document.getElementById('sim_ids').value);
+	}
+
+
+  
+
+	var ol = new Overlay();
 
 </script>

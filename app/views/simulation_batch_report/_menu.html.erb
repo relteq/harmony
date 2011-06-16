@@ -1,6 +1,6 @@
 <div class="add-filter">
 	<p><label><%=l(:label_actions)%></label><%= select_tag 'simulation_batch',
-	 options_for_select(simulation_batch__report_index_select_options()),
+	 options_for_select(simulation_batch_report_index_select_options()),
 	 { :onchange => remote_function( :url => simulation_batch_index_path(@project), :with=>"'change_to='+this.value+''" )}
 																			 %></p>
 	
