@@ -26,6 +26,7 @@ class SimulationBatchReportController < ApplicationController
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatchReport.find  :all,
+                                :conditions => {:percent_complete => 1},
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset
@@ -54,11 +55,12 @@ class SimulationBatchReportController < ApplicationController
      
        request_file = File.new("#{RAILS_ROOT}/log/request.xml","w")
        request_file.puts @simulation_report.to_xml
-       flash[:notice] = 'Simulation Report was successfully started.'  
-       format.html { redirect_to simulation_batch_report_index_path(params[:project_id]) }
+       
+       flash[:notice] = 'Simulation Report was successfully sent. You should see updates as they become available.'  
+       format.html { redirect_to  :my_page}
        format.xml  { head :ok }
      else
-       format.html { render :action => :edit}
+       format.html { render simulation_batch_index_path(params[:project_id])}
        format.api  { render_validation_errors(@simulation_report) }
      end
    end

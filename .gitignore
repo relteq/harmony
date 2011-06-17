@@ -1,4 +1,5 @@
 log/*.log
+log/request.xml
 tmp/*
 tmp/**/*
 doc/api

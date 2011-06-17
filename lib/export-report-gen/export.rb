@@ -9,6 +9,7 @@ module SimulationBatchReportExporter
       builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
         xml.guidata{
           xml.cmb_export "PDF"
+          xml.report_id self.id
           xml.cmb_reporttype self.name
           xml.txt_congspeed self.congestion_speed
           xml.txt_maxpointspercurve self.max_data_points
@@ -57,7 +58,7 @@ module SimulationBatchReportExporter
         	}
         	
         }
-
+     
     end
     builder.to_xml
   end

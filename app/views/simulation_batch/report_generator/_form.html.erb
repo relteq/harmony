@@ -6,9 +6,7 @@
 		tabs.setActiveTab('basics');
 		
 	});
-	
 </script>
-
 
 <% form_for :simulation_batch, @simulation_report, :url => { :controller => "simulation_batch_report", :action => "update" }, :html => {:method => :put} do |f| %>
 <%= hidden_field_tag 'project_id', params[:project_id] %>

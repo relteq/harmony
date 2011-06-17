@@ -28,12 +28,13 @@ class SimulationBatchController < ApplicationController
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatch.find  :all,
-                                :conditions => {:scenario_id => @project.scenarios},
+                                :conditions => {:scenario_id => @project.scenarios, :percent_complete => 1},
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset
 
-      
+       @items_show[1] = SimulationBatch.all[0]
+       @items_show[1].id=   @items_show[1].id + 1
       #sets up objects for report_generator
       set_up_report_gen
       

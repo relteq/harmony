@@ -4,12 +4,12 @@
 </p>
 <p>
 	<label><%=l(:label_type_of_report)%>: </label>
-  <%= select_tag 'export-format-select', options_for_select(simulation_report_type_of_select_options())%>
+  <%= f.select :report_type, options_for_select(simulation_report_type_of_select_options()) %>
 </p>    	
 <p>
 	<label><%=l(:label_reference_simulations)%>: </label>
-			<div id='simulation_batch_list'>
-			   &#149; The system does not show you having chosen any simulations to report on.
-			</div>
+	<span id="simulation-batch-list">
+		<span id="begin-msg">Please close this window and select a batch(es) for the report generator to reference.</span>
+	</span>
 </p>    	
 
