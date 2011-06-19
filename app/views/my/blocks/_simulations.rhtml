@@ -1,27 +1,21 @@
-<h3><%=l(:label_simulation_list)%></h3>
+<h3><%=l(:label_simulation_list)%> (<%= @simulations.count %>)</h3>
 <table class="list">
   <thead>
     <tr>
       <th><%= l(:field_name) %></th>
       <th><%= l(:field_type) %></th>
       <th><%= l(:label_started_at) %></th>
-      <th><%= l(:field_status) %></th>
       <th><%= l(:label_progress) %></th>
     </tr>
   </thead>
   <tbody>
-    <% if @simulations == :failure %> 
-      <tr><td>Error connecting to simulation server.</td></tr>
-    <% else %>
-      <% @simulations.each_with_index do |s,i| %>
-        <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
-          <td><%= h s[:name] %></td>
-          <td><%= h s[:mode] %></td>
-          <td><%= h format_time(s[:start_time]) %></td>
-          <td><%= h s[:start_time] %></td>
-          <%= progress_bar_display(s) %>
-        </tr>
-      <% end %>
+    <% @simulations.each_with_index do |s,i| %>
+      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+        <td><%= h s.name %></td>
+        <td><%= h s.mode %></td>
+        <td><%= h format_time(s.start_time) %></td>
+        <%= progress_bar_display(s) %>
+      </tr>
     <% end %>
   <tbody>
 </table>

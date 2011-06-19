@@ -17,22 +17,23 @@
 
 module MyHelper
   def progress_bar_display(sim)
-    return nil if !sim[:progress]
+    return nil if !sim.percent_complete
+    percent = sim.percent_complete * 100
 
-    bg_color = case sim[:progress]
+    bg_color = case percent 
       when 0..30 then "red"
       when 31..61 then "black"
       else "green"
     end
 
-    width = [sim[:progress], 1].max
+    width = [percent, 1].max
 
     content_tag(:td, 
       content_tag(:div, "&nbsp;",
-                  :id => "progress_bar_sim_#{sim[:id]}", 
+                  :id => "progress_bar_sim_#{sim.id}", 
                   :class => "progress_bar #{bg_color}",
                   :style => "width: #{width}%;") +
-      content_tag(:h5, "#{sim[:progress]} %")
+      content_tag(:h5, "#{percent} %")
     )
   end
 end

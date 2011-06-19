@@ -10,28 +10,39 @@ module Simulation
       END_TIME_TYPES
     end
 
-    def all_for_user(user_id)
-      begin
-        response = http_get_batches(user_id)
-        if response["status"] == "ok"
-          response["batches"].map{|s| s[:progress] = s[:n_complete] / s[:n_runs] if s[:n_runs] }
-          return response["batches"]
-        else
-          response = :failure 
-        end
-      rescue Exception => e
-        Rails.logger.error "Error loading Simulation data for user ID #{user_id}"
-        Rails.logger.error "error text: #{e.message}"
-        Rails.logger.error "backtrace: #{e.backtrace.inspect}"
-        response = []
-      end
-    end
+    def launch(scenario_id, name, simulation_spec = :simple)
+      options = { :engine => 'simulator' }
+      options[:param] = {}
+      # TODO once workers are instantiated dynamically, these should be
+      # the correct user and group IDs
+      options[:name] = name
+      options[:user] = ENV['AURORA_WORKER_USER']
+      options[:group] = ENV['AURORA_WORKER_GROUP']
+      options[:param][:update_period] = 1
 
-    def launch(simulation_spec)
+      # Beware that for the sake of runweb/runq arrays must be specified by strings -
+      # a colon prefix will be reflected in the output YAML and make the simulation fail.
+      options[:param]['inputs'] = ["@scenario(#{scenario_id})"] 
+      options[:param]['output_types'] = ['text/plain']
+
+      if simulation_spec == :simple
+        options[:n_runs] = 1
+        options[:param][:control] = true
+        options[:param][:qcontrol] = true
+        options[:param][:events] = true
+        options[:param]['inputs'] << '<time_range begin_time="0.0" duration="0.0" />'
+      else
+        begin_time = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:b_time))
+        duration = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:duration))
+        options[:param]['inputs'] << %Q{<time_range begin_time="#{begin_time}" duration="#{duration}" />}
+        simulation_spec[:param].merge!(options[:param])
+        options.merge!(simulation_spec)
+      end
+
       begin
-        http_post_simulation(simulation_spec)
+        http_post_simulation(options)
       rescue Exception => e
-        Rails.logger.error "Error launching simulation for user ID #{simulation_spec[:user]}"
+        Rails.logger.error "Error launching simulation, spec = #{simulation_spec}"
         Rails.logger.error "error text: #{e.message}"
         Rails.logger.error "backtrace: #{e.backtrace.inspect}"
         return false
@@ -39,18 +50,6 @@ module Simulation
     end
 
   private
-    def http_get_batches(user)
-      YAML.load(
-        Net::HTTP.get URI.parse(ENV['RUNWEB_URL_BASE'] + "/user/#{user}")
-      )
-    end
-
-    def http_get_batch(batch_id)
-      YAML.load( 
-        Net::HTTP.get URI.parse(ENV['RUNWEB_URL_BASE'] + "/batch/#{batch_id}")
-      )
-    end
-
     def http_post_simulation(options)
       uri = URI.parse(ENV['RUNWEB_URL_BASE'])
       host, port = uri.host, uri.port

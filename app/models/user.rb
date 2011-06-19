@@ -444,6 +444,10 @@ class User < Principal
       false
     end
   end
+
+  def simulation_batches
+    SimulationBatch.all
+  end
   
   def self.current=(user)
     @current_user = user

@@ -17,4 +17,8 @@ namespace :db do
       end
     end
   end
+
+  task :drop_simulation_data => :environment do
+    SimulationBatch.all.each(&:destroy)
+  end
 end

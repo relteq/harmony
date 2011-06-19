@@ -7,46 +7,24 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
   end
 
   def create
-    options = { :engine => 'aurora' }
+    options = {}
     options[:param] = {}
+
     # :simple being set means this was called from 'Run Simulation'
     # rather than 'Run Simulation Batch'
-    if params[:simple]
-      options[:name] = @scenario.name
-      options[:n_runs] = 1
-      options[:mode] = 'simulation'
-      options[:param][:b_time] = 0.0
-      options[:param][:duration] = 0.0
-      options[:param][:control] = true
-      options[:param][:qcontrol] = true
-      options[:param][:events] = true
+    unless params[:simple]
+      options[:n_runs] = params[:n_runs].to_i
+      options[:param][:b_time] = params[:begin_time]
+      options[:param][:duration] = params[:duration]
+      options[:param]['control'] = !!params[:control]
+      options[:param]['qcontrol'] = !!params[:qcontrol]
+      options[:param]['events'] = !!params[:events]
     else
-      if RelteqTime.is_valid_time?(params[:begin_time])
-        options[:param][:b_time] = RelteqTime.parse_time_to_seconds(params[:begin_time])
-      else
-        Rails.logger.error "Problem with begin time input #{params[:begin_time]}"
-      end
-
-      if RelteqTime.is_valid_time?(params[:duration]) 
-        options[:param][:duration] = RelteqTime.parse_time_to_seconds(params[:duration])
- 
-        if options[:param][:duration] < 0
-          flash[:error] = "Simulation duration less than zero.<br/>"
-        end
-      else
-        Rails.logger.error "Problem with duration input #{params[:duration]}."
-      end
-
-      options[:name] = params[:name]
-      options[:n_runs] = params[:n_runs]
-      options[:mode] = params[:mode]
-      options[:param][:control] = !!params[:control]
-      options[:param][:qcontrol] = !!params[:qcontrol]
-      options[:param][:events] = !!params[:events]
+      options = :simple
     end
-    options[:user] = User.current.id
 
-    if !flash[:error] && Simulation.launch(options)
+    name = params[:name] || @scenario.name
+    if !flash[:error] && Simulation.launch(params[:scenario_id], name, options)
       flash[:notice] = "Simulation launched successfully."
     elsif flash[:error]
       flash[:error] += "Error launching simulation.<br/>"
