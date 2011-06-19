@@ -6,8 +6,9 @@ class Scenario < ActiveRecord::Base
   US_UNITS = "US"
   METRIC_UNITS = "Metric"
   
-  validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :project_id
+  # TODO give imported scenarios unique names in import, re-add restriction
+  #validates_presence_of :name
+  #validates_uniqueness_of :name, :scope => :project_id
   validates_presence_of :network
   relteq_time_attr :begin_time
   relteq_time_attr :duration
