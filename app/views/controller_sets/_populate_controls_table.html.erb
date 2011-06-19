@@ -13,18 +13,18 @@
 	  </tr>
 	</thead>
 	<tbody id="controllers_table_body">
-			<% if @items == nil ||  @items.count == 0 %>
+    <% if @items == nil ||  @items.count == 0 %>
 		  <tr>
 		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
 			</tr>
 		<% else %>
-		<% @items.each_with_index do |item,i| %>
+      <% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "controller_set[controller_ids][]", item.id, @cset.controllers.include?(item) || false %>&nbsp;&nbsp;<%=h item.controller_type %></td>
-		 			<td  ><%=h item.type %></td>
-		 			<td  ><%= h item.dt_to_time_format %></td>
-		  	</tr>
-			<% end %>
+					<td><%= check_box_tag "controller_set[controller_ids][]", item.id, @cset.controllers.include?(item) || false %>&nbsp;&nbsp;<%=h item.controller_type %></td>
+		 			<td><%= h item.type %></td>
+		 			<td><%= h item.display_time(:dt) %></td>
+		    </tr>
+       <% end %>
 		<% end %>
   
    </tbody>
