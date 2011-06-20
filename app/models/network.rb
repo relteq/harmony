@@ -21,6 +21,7 @@ class Network < ActiveRecord::Base
   has_many :network_lists, :foreign_key => "network_id", :class_name => "NetworkList"
   has_many :children, :through => :network_lists
 
+  has_many :route_links, :dependent => :destroy
   has_many :routes, :dependent => :destroy
   has_many :nodes, :dependent => :destroy
   has_many :links, :dependent => :destroy
