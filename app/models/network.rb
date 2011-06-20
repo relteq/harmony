@@ -30,11 +30,13 @@ class Network < ActiveRecord::Base
   relteq_time_attr :dt
 
   def destroy_dependents_ordered 
-    ActiveRecord::Base.connection.execute "DELETE FROM route_links WHERE network_id=#{self.id}"
-    Route.delete(self.route_ids)
-    Link.delete(self.link_ids)
-    Sensor.delete(self.sensor_ids)
-    Node.delete(self.node_ids)
+    transaction do
+      ActiveRecord::Base.connection.execute "DELETE FROM route_links WHERE network_id=#{self.id}"
+      Route.delete(self.route_ids)
+      Link.delete(self.link_ids)
+      Sensor.delete(self.sensor_ids)
+      Node.delete(self.node_ids)
+    end
   end
 
   def remove_from_scenario
