@@ -3,7 +3,7 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
   before_filter :load_scenario
 
   def new
-    @simulation_modes = Simulation.modes 
+    @simulation_modes = Runweb.simulation_modes 
   end
 
   def create
@@ -24,7 +24,7 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
     end
 
     name = params[:name] || @scenario.name
-    if !flash[:error] && Simulation.launch(params[:scenario_id], name, options)
+    if !flash[:error] && Runweb.simulate(params[:scenario_id], name, options)
       flash[:notice] = "Simulation launched successfully."
     elsif flash[:error]
       flash[:error] += "Error launching simulation.<br/>"

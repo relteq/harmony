@@ -1,5 +1,4 @@
 class SimulationBatchReportController < ApplicationController
-  
   helper :sort
   include SortHelper
   
@@ -53,8 +52,7 @@ class SimulationBatchReportController < ApplicationController
          rb.save!
        end
      
-       request_file = File.new("#{RAILS_ROOT}/log/request.xml","w")
-       request_file.puts @simulation_report.to_xml
+       Runweb.launch @simulation_report.name, @simulation_report.to_xml
        
        flash[:notice] = 'Simulation Report was successfully sent. You should see updates as they become available.'  
        format.html { redirect_to  :my_page}
@@ -64,12 +62,5 @@ class SimulationBatchReportController < ApplicationController
        format.api  { render_validation_errors(@simulation_report) }
      end
    end
- 
  end
- 
- 
-
- 
-
-  
 end

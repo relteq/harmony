@@ -1,16 +1,16 @@
-module Simulation
+module Runweb 
   class << self
-    MODES = ['Simulation', 'Prediction']
+    SIMULATION_MODES = ['Simulation', 'Prediction']
 
-    def modes
-      MODES
+    def simulation_modes
+      SIMULATION_MODES
     end
 
     def end_time_types
       END_TIME_TYPES
     end
 
-    def launch(scenario_id, name, simulation_spec = :simple)
+    def simulate(scenario_id, name, simulation_spec = :simple)
       options = { :engine => 'simulator' }
       options[:param] = {}
       # TODO once workers are instantiated dynamically, these should be
@@ -40,7 +40,7 @@ module Simulation
       end
 
       begin
-        http_post_simulation(options)
+        http_post_runweb(options)
       rescue Exception => e
         Rails.logger.error "Error launching simulation, spec = #{simulation_spec}"
         Rails.logger.error "error text: #{e.message}"
@@ -49,8 +49,26 @@ module Simulation
       end
     end
 
+    def report(name, request_xml)
+      options = {:name => name, :engine => 'report generator', :n_runs => 1}
+      options[:user] = ENV['AURORA_WORKER_USER']
+      options[:group] = ENV['AURORA_WORKER_GROUP']
+      options[:param] = {
+        :inputs => request_xml,
+        :outputs => 'report_output.xml'
+      }
+
+      begin
+        http_post_runweb(options)
+      rescue Exception => e
+        Rails.logger.error "Error launching report generator, spec = #{options}"
+        Rails.logger.error "error text: #{e.message}"
+        Rails.logger.error "backtrace: #{e.backtrace.inspect}"
+        return false
+      end
+    end
   private
-    def http_post_simulation(options)
+    def http_post_runweb(options)
       uri = URI.parse(ENV['RUNWEB_URL_BASE'])
       host, port = uri.host, uri.port
       Net::HTTP.start(host, port) do |http|

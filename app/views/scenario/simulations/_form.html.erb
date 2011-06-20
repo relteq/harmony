@@ -9,7 +9,7 @@
     </p>
     <p>
       <%= label_tag :mode %>
-      <%= select_tag :mode, options_for_select(Simulation.modes), :id => "mode_#{scenario.id}" %>
+      <%= select_tag :mode, options_for_select(Runweb.simulation_modes), :id => "mode_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :begin_time %>
