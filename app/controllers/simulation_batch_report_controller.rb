@@ -52,7 +52,7 @@ class SimulationBatchReportController < ApplicationController
          rb.save!
        end
      
-       Runweb.launch @simulation_report.name, @simulation_report.to_xml
+       Runweb.report @simulation_report.name, @simulation_report.to_xml
        
        flash[:notice] = 'Simulation Report was successfully sent. You should see updates as they become available.'  
        format.html { redirect_to  :my_page}
