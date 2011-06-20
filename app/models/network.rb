@@ -1,5 +1,6 @@
 class Network < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  before_destroy :destroy_route_links
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
@@ -29,7 +30,7 @@ class Network < ActiveRecord::Base
   
   relteq_time_attr :dt
 
-  def before_destroy
+  def destroy_route_links 
     ActiveRecord::Base.connection.execute "DELETE FROM route_links WHERE network_id=#{self.id}"
   end
 
