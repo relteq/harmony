@@ -29,6 +29,10 @@ class Network < ActiveRecord::Base
   
   relteq_time_attr :dt
 
+  def before_destroy
+    ActiveRecord::Base.connection.execute "DELETE FROM route_links WHERE network_id=#{self.id}"
+  end
+
   def remove_from_scenario
     @scen = Scenario.find_by_network_id(id)
     if(@scen != nil)
