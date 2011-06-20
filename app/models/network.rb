@@ -19,12 +19,12 @@ class Network < ActiveRecord::Base
   has_many :scenarios, :dependent => :destroy
   
   has_many :network_lists, :foreign_key => "network_id", :class_name => "NetworkList"
-  has_many :children, :through => :network_lists  
+  has_many :children, :through => :network_lists
 
-  has_many :routes
+  has_many :routes, :dependent => :destroy
   has_many :nodes, :dependent => :destroy
-  has_many :links
-  has_many :sensors
+  has_many :links, :dependent => :destroy
+  has_many :sensors, :dependent => :destroy
   
   relteq_time_attr :dt
 
