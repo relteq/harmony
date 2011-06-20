@@ -30,12 +30,13 @@ class Network < ActiveRecord::Base
   relteq_time_attr :dt
 
   def destroy_dependents_ordered 
+    # Rails determination of how to do this can cause DB errors
     transaction do
       ActiveRecord::Base.connection.execute "DELETE FROM route_links WHERE network_id=#{self.id}"
-      Route.delete(self.route_ids)
-      Link.delete(self.link_ids)
-      Sensor.delete(self.sensor_ids)
-      Node.delete(self.node_ids)
+      ActiveRecord::Base.connection.execute "DELETE FROM routes WHERE network_id=#{self.id}"
+      ActiveRecord::Base.connection.execute "DELETE FROM links WHERE network_id=#{self.id}"
+      ActiveRecord::Base.connection.execute "DELETE FROM nodes WHERE network_id=#{self.id}"
+      ActiveRecord::Base.connection.execute "DELETE FROM sensors WHERE network_id=#{self.id}"
     end
   end
 
