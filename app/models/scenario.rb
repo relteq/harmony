@@ -23,7 +23,7 @@ class Scenario < ActiveRecord::Base
   belongs_to :controller_set
   belongs_to :event_set
   
-  has_one :simulation_batch
+  has_many :simulation_batches
   has_one :default_batch_setting
 
   has_many :vehicle_types

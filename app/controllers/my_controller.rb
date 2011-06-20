@@ -47,7 +47,9 @@ class MyController < ApplicationController
   def page
     @user = User.current
     @blocks = @user.pref[:my_page_layout] || DEFAULT_LAYOUT
-    @simulations = @user.simulation_batches 
+    @simulations = Project.visible.find(:all).
+                           map(&:scenarios).flatten.
+                           map(&:simulation_batches).flatten
   end
 
   # Edit user's account
