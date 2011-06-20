@@ -48,6 +48,7 @@ class MyController < ApplicationController
     @user = User.current
     @blocks = @user.pref[:my_page_layout] || DEFAULT_LAYOUT
     @simulations = Project.visible.find(:all).
+                           select {|p| @user.allowed_to?(:view_simulation_batch,p)}.
                            map(&:scenarios).flatten.
                            map(&:simulation_batches).flatten
   end
