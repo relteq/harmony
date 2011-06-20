@@ -55,7 +55,7 @@ module Runweb
       options[:group] = ENV['AURORA_WORKER_GROUP']
       options[:param] = {
         'inputs' => [request_xml],
-        'output_types' => ['text/xml']
+        'output_types' => ['application/xml']
       }
 
       begin
