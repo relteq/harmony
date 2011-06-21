@@ -1,7 +1,6 @@
 class SimulationBatchReport < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
   
-  
   relteq_time_attr :b_time
   relteq_time_attr :duration
   
