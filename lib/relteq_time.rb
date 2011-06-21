@@ -73,6 +73,10 @@ public
       Parent.seconds_to_string(self.send(sym) || 0.0)
     end
 
+    def display_time_from_string(sec)
+      Parent.seconds_to_string(sec || 0.0)
+    end
+
     def self.included(base)
       base.extend(ClassMethods)
     end

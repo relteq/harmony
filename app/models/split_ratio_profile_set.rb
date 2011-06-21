@@ -18,4 +18,7 @@ class SplitRatioProfileSet < ActiveRecord::Base
     end
   end
   
+  def format_updated_at
+    updated_at.strftime("%m/%d/%Y") if !(updated_at.nil?)
+  end
 end

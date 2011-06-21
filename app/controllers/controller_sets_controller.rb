@@ -9,7 +9,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
     set_up_network_select(@cset,Controller)
     get_network_dependent_table_items('controller_sets','controllers','controller_type',@cset.network_id)   
     respond_to do |format|
-      format.html # edit.html.erb
+      format.html { render :layout => !request.xhr? } 
       format.xml  { render :xml => @cset }
     end
   end

@@ -327,4 +327,6 @@ module ConfigurationsHelper
   def display_menu_item(s)
     s.length < 16 ? s : s[0,15] + "..." if s
   end
+  
+
 end

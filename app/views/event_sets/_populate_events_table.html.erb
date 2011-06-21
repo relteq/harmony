@@ -20,8 +20,8 @@
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.event_type %></td>
-		 			<td  ><%=h item.type %></td>
-		 			<td  ><%=h item.updated_at %></td>
+		 			<td  ><%=h item.description %></td>
+		 			<td  ><%=h item.convert_datetime %></td>
 		  	</tr>
 			<% end %>
 		<% end %>

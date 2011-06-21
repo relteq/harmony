@@ -22,7 +22,7 @@ class EventSetsController <  ConfigurationsApplicationController
    set_up_network_select(@eset,Event)
    get_network_dependent_table_items('event_sets','events','event_type',@eset.network_id) 
    respond_to do |format|
-     format.html # edit.html.erb
+     format.html { render :layout => !request.xhr? } 
      format.xml  { render :xml => @eset }
    end
   end

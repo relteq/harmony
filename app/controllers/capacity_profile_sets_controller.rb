@@ -22,7 +22,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
    set_up_network_select(@cpset,CapacityProfile)
    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@cpset.network_id) 
    respond_to do |format|
-     format.html # edit.html.erb
+     format.html { render :layout => !request.xhr? } 
      format.xml  { render :xml => @cpset }
    end
   end

@@ -21,8 +21,10 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def edit
     set_up_network_select(@dpset,DemandProfile)
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@dpset.network_id)   
+
+
     respond_to do |format|
-      format.html # edit.html.erb
+      format.html { render :layout => !request.xhr? } 
       format.xml  { render :xml => @dpset }
     end
   end

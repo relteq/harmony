@@ -23,7 +23,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@srpset.network_id)   
    
    respond_to do |format|
-     format.html # edit.html.erb
+     format.html { render :layout => !request.xhr? } 
      format.xml  { render :xml => @srpset }
    end
   end
