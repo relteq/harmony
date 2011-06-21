@@ -53,12 +53,12 @@ class SimulationBatchReport < ActiveRecord::Base
   def link_to_simulation_batches(sim_ids)
     sbl = SimulationBatchList.new
     sbl.save!
-    @simulation_report.simulation_batch_list_id = sbl.id
-    @simulation_report.save!
-    params[:sim_ids].each do |s|
+    self.simulation_batch_list_id = sbl.id
+    self.save!
+    sim_ids.each do |s|
       rb = ReportedBatch.new
       rb.simulation_batch_id = s
-      rb.simulation_batch_list_id =  @simulation_report.simulation_batch_list_id
+      rb.simulation_batch_list_id =  self.simulation_batch_list_id
       rb.save!
     end
   end
