@@ -9,4 +9,6 @@ class SimulationBatch < ActiveRecord::Base
   def format_start_time
     start_time.strftime("%m/%d/%Y at %I:%M%p") if !(start_time.nil?)
   end
+  
+    
 end

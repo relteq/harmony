@@ -39,18 +39,8 @@ class SimulationBatchReportController < ApplicationController
  def update
    respond_to do |format|
      @simulation_report = SimulationBatchReport.new
- 
      if(@simulation_report.update_attributes(params[:simulation_batch]))
-       sbl = SimulationBatchList.new
-       sbl.save!
-       @simulation_report.simulation_batch_list_id = sbl.id
-       @simulation_report.save!
-       params[:sim_ids].each do |s|
-         rb = ReportedBatch.new
-         rb.simulation_batch_id = s
-         rb.simulation_batch_list_id =  @simulation_report.simulation_batch_list_id
-         rb.save!
-       end
+       @simulation_report.link_to_simulation_batches(params[:sim_ids])
      
        Runweb.report @simulation_report.name, @simulation_report.to_xml
        

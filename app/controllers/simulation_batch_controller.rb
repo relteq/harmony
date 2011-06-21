@@ -1,7 +1,5 @@
 class SimulationBatchController < ApplicationController
-  #before_filter do |controller|
-  #  controller.authorize(:configurations)
-  #end
+
   helper :sort
   include SortHelper
   
@@ -33,10 +31,9 @@ class SimulationBatchController < ApplicationController
                                 :limit  =>  @limit,
                                 :offset =>  @offset
 
-       @items_show[1] = SimulationBatch.all[0]
-       @items_show[1].id=   @items_show[1].id + 1
       #sets up objects for report_generator
-      set_up_report_gen
+      @simulation_report = SimulationBatchReport.new
+      @simulation_report.default_report_settings!
       
       respond_to do |format|
         format.html { render :layout => !request.xhr? } # index.html.erb
@@ -54,7 +51,7 @@ class SimulationBatchController < ApplicationController
       end
  
       redir_path =  get_simulation_batch_action(params[:simulation_batch_action],params[:sim_ids])
-      logger.debug redir_path
+
       respond_to do |format|
         if(redir_path != '' && (params[:sim_ids] != nil))
             #render redir_path
@@ -81,30 +78,5 @@ class SimulationBatchController < ApplicationController
       end
     end
     
-  private
-    def set_up_report_gen
-      @simulation_report = SimulationBatchReport.new
-
-      #set up default values
-      @simulation_report.network_perf = true
-      @simulation_report.network_perf = true
-      @simulation_report.route_perf_t = true
-      @simulation_report.route_tt_t = true
-      @simulation_report.route_perf_c = true
-      @simulation_report.route_tt_c  = true
-
-      #@simulation_batches = Array.new
-      #@scenarios = Array.new
-      # begin
-      #    params[:sim_ids].each do |s|
-      #      sb = SimulationBatch.find_by_id(s)
-      #      @simulation_batches.push(sb)
-      #      @scenarios.push(Scenario.find_by_id(sb.scenario_id))
-      #    end
-      #  rescue NoMethodError
-      # 
-      #  end
-
-    end
   
 end
