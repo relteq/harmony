@@ -29,6 +29,7 @@ class SimulationBatchReport < ActiveRecord::Base
     self.route_tt_t = true
     self.route_perf_c = true
     self.route_tt_c  = true
+    self.duration  = 86400
 
     #These are used for ScaterPlots and ScatterGroups in 
     #report generator. Will add when we get there.

@@ -40,7 +40,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to dps.name, edit_project_configuration_demand_profile_set_path(@project, dps) %></td>
  	<td  >Not Implemented</td>
- 	<td  ><%=h dps.updated_at.strftime("%m/%d/%Y") %></td>
+ 	<td  ><%=h format_date_time(dps.updated_at) %></td>
  	<td  >Not Implemented</td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-demand-profile-set-<%= dps.id %>"></span></td>
 

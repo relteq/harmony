@@ -12,11 +12,11 @@
 </p>
 <p>
 		<%= label_tag :b_time, 'Begin Time' %>:
-	  <%=h item_show.b_time %>
+	  <%=h item_show.display_time(:b_time) %>
 </p>
 <p>
 		<%= label_tag :duration %>:
-	  <%=h item_show.duration %>
+	  <%=h item_show.display_time(:duration) %>
 </p>
 <p>
 		<%= label_tag :control %>:
@@ -32,14 +32,7 @@
 </p>
 <p>
 		<%= label_tag :start_time %>:
-	  <%=h item_show.format_start_time %>
+	  <%=h format_date_time(item_show.start_time) %>
 </p>
-<p>
-		<%= label_tag :execution_time %>:
-	  <%=h item_show.execution_time %>
-</p>
-<p>
-		<%= label_tag :percent_complete %>:
-	  <%=h item_show.percent_complete %>
-</p>
+
 

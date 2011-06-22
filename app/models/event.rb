@@ -3,9 +3,6 @@ class Event < ActiveRecord::Base
     
   belongs_to :event_set
   
-  def convert_datetime
-    display_time_from_string(time)
-  end
 
   def description
     index_start = parameters.index("<description>")

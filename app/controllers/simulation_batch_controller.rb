@@ -69,6 +69,7 @@ class SimulationBatchController < ApplicationController
   end
   
 
+
   private 
     def get_simulation_batch_action(str,sims)
       if(str == 'generate') 

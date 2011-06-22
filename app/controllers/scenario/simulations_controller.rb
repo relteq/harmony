@@ -37,6 +37,7 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
 private
   def load_scenario
     @scenario = Scenario.find(params[:scenario_id])
+    
     if !@scenario 
       flash[:error] = 'Error: scenario does not exist.'
       redirect_to :root

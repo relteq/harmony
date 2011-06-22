@@ -4,50 +4,50 @@
 </p>
 <p>
 		<%= label_tag :b_time, 'Begin Time' %>:
-	  <%=h item_show.b_time %>
+	  <%=h item_show.display_time(:b_time) %>
 </p>
 <p>
 		<%= label_tag :duration %>:
-	  <%=h item_show.duration %>
+	  <%=h item_show.display_time(:duration)  %>
 </p>
 <p>
-		<%= label_tag :network_perf %>:
+		<label><%=l(:label_network_perf)%></label>:
 	  <%=h item_show.network_perf %>
 </p>
 <p>
-		<%= label_tag :link_perf %>:
+		<label><%=l(:label_link_perf)%></label>:
 	  <%=h item_show.link_perf %>
 </p>
 <p>
-		<%= label_tag :or_perf_t %>:
+		<label><%=l(:label_or_perf_t)%></label>:
 	  <%=h item_show.or_perf_t %>
 </p>
 <p>
-		<%= label_tag :or_perf_s %>:
+		<label><%=l(:label_or_perf_s)%></label>:
 	  <%=h item_show.or_perf_s %>
 </p>
 <p>
-		<%= label_tag :or_perf_c %>:
+		<label><%=l(:label_or_perf_s)%></label>:
 	  <%=h item_show.or_perf_c %>
 </p>
 <p>
-		<%= label_tag :route_perf_t %>:
+		<label><%=l(:label_route_perf_t)%></label>:
 	  <%=h item_show.route_perf_t %>
 </p>
 <p>
-		<%= label_tag :route_perf_s %>:
-	  <%=h item_show.route_perf_s %>
+		<label><%=l(:label_route_perf_s)%></label>:
+		<%=h item_show.route_perf_s %>
 </p>
 <p>
-		<%= label_tag :route_perf_c %>:
+		<label><%=l(:label_route_perf_c)%></label>:
 	  <%=h item_show.route_perf_c %>
 </p>
 <p>
-		<%= label_tag :route_tt_t %>:
+		<label><%=l(:label_route_tt_t)%></label>:
 	  <%=h item_show.route_tt_t %>
 </p>
 <p>
-		<%= label_tag :route_tt_c %>:
+		<label><%=l(:label_route_tt_c)%></label>:
 	  <%=h item_show.route_tt_c %>
 </p>
 <p>
@@ -70,17 +70,6 @@
 		<%= label_tag :creation_time %>:
 	  <%=h item_show.format_creation_time %>
 </p>
-<p>
-		<%= label_tag :execution_time %>:
-	  <%=h item_show.execution_time %>
-</p>
-<p>
-		<%= label_tag :percent_complete %>:
-	  <%=h item_show.percent_complete %>
-</p>
-<p>
-		<%= label_tag :cpu_instance %>:
-	  <%=h item_show.cpu_instance %>
-</p>
+
 
 

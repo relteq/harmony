@@ -13,11 +13,11 @@
     </p>
     <p>
       <%= label_tag :begin_time %>
-      <%= time_input_field :begin_time, nil, :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
+      <%= time_input_field :begin_time, scenario.display_time_from_string(0.0), :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :duration %>
-	    <%= time_input_field :duration, nil, :id => "duration_#{scenario.id}", :class => 'time_mask' %>
+	    <%= time_input_field :duration, scenario.display_time_from_string(86400.0), :id => "duration_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :control %>
@@ -32,5 +32,5 @@
       <%= check_box_tag :events, true, true, :id => "events_#{scenario.id}" %>
     </p>
 
-	<p><%= submit_tag 'Run' %></p>
+	<p><%= submit_tag 'Run' %> </p>
 <% end %>

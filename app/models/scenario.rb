@@ -29,12 +29,12 @@ class Scenario < ActiveRecord::Base
   has_many :vehicle_types
 
   after_create :add_default_vehicle_type
+ 
   
   def add_default_vehicle_type
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
   end
   
-  def format_updated_at
-     updated_at.strftime("%m/%d/%Y") if !(updated_at.nil?)
-  end
+  
+  
 end

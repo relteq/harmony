@@ -5,7 +5,7 @@
 	<% else %>
 		<ul>
   	<% record.scenarios.each do |s| %>
-	  	<li><%= link_to s.name, :controller => 'scenarios', :action => 'edit', :project_id => @project, :scenario_id => s.id  %></li>
+	  	<li><%= link_to s.name, edit_project_configuration_scenario_path(@project,s)  %></li>
 	  <% end %>
 		</ul>
 	<% end %>

@@ -6,7 +6,7 @@
 <div>	
 	<span>	<%= link_to_function( l(:label_new) + " " + l(:label_scenario), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
 	<span><%= link_to("Delete All", {:controller => 'scenarios', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
-	<span><a href="">Import Scenario</a></span> |
+	<span><%= link_to "Import Scenario",import_project_configuration_scenarios_path(@project) %></span> |
 	<span><a href="">Share All Scenarios</a></span> 
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
@@ -42,7 +42,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to scenario.name, edit_project_configuration_scenario_path(@project, scenario) %></td>
  	<td  >Not Implemented</td>
- 	<td  ><%=h scenario.format_updated_at %></td>
+ 	<td  ><%=h format_date_time(scenario.updated_at) %></td>
  	<td  >Not Implemented</td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-scenario-<%= scenario.id %>"></span></td>
 

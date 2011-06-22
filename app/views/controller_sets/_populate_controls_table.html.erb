@@ -22,7 +22,7 @@
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "controller_set[controller_ids][]", item.id, @cset.controllers.include?(item) || false %>&nbsp;&nbsp;<%=h item.controller_type %></td>
 		 			<td  ><%=h item.controller_name %></td>
-		 			<td  ><%= h item.dt_to_time_format %></td>
+		 			<td  ><%= h item.display_time_from_string(item.dt) %></td>
 		  	</tr>
 			<% end %>
 		<% end %>

@@ -5,7 +5,6 @@ module SimulationBatchHelper
       ['Select Action ...' , ''],
       ['Generate Report' , 'generate'],
       ['Share' , 'share'],
-      ['Export XML' , 'export'],
       ['Rename' , 'rename'],
       ['Delete' , 'delete']
     ]

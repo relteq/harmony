@@ -14,7 +14,5 @@ class Controller < ActiveRecord::Base
     end  
   end
   
-  def dt_to_time_format
-    display_time_from_string(dt)
-  end
+
 end

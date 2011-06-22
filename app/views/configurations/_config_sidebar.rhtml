@@ -10,7 +10,7 @@
 			        	<%= link_to display_menu_item(s.name), edit_project_configuration_scenario_path(@project, s)%>
                 <div class="scenario-launch" id="scenario-launch-<%= s.id %>" style="display: none;">
                   <button class="scenario-overlay-cancel config" id="<%= s.id %>-overlay-cancel">Cancel</button>
-                  <h2>Launch Scenario</h2>
+                  <h2>Launch Simulation Batch</h2>
                   <%= render :partial => 'scenario/simulations/form', 
                              :locals => {:default_name => s.name, :scenario => s} %>
                 </div>

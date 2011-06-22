@@ -32,7 +32,7 @@
 	  </tr>
 		<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
 	  <button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>
-	    <h2>Simulation Batch Report</h2>
+	    <h2>Report Detail</h2>
 	    <%= render :partial => 'simulation_batch_report/show', 
 	               :locals => {:item_show => sim} %>
 	  </div>

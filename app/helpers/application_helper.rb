@@ -928,4 +928,7 @@ private
     )
   end
   
+  def format_date_time(date_time)
+    date_time.strftime("%m/%d/%Y at %I:%M%p")  if !(date_time.nil?)
+  end
 end

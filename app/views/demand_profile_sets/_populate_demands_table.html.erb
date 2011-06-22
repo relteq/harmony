@@ -21,7 +21,7 @@
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "demand_profile_set[demand_profile_ids][]", item.id,@dpset.demand_profiles.include?(item) || false %></td>
-		 			<td  ><%= h item.link.type_link %></td>
+		 			<td  ><%= h item.link.name %></td>
 					<td  ><%= text_field_tag item.id,item.profile %></td>
 		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
 		  	</tr>

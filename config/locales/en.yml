@@ -973,7 +973,7 @@ en:
   relteq_export: Export
   relteq_delete: Delete
 
-  field_dt: Sampling Period
+  field_dt: Data Recording Period
   field_begin_time: Begin Time
   field_duration: Duration
   field_e_time: End Time
@@ -1048,4 +1048,15 @@ en:
   label_x_axis_quantity: X-axis Quantity
   label_y_axis_quantity: Y-axis Quantity
   label_groups: Groups  
+  label_or_perf_t: On-ramp Performance over Time
+  label_or_perf_s: On-ramp Performance over Space
+  label_or_perf_c: On-ramp Performance over Contour Plot
+  label_route_perf_s: Route Performance over Space
+  label_route_perf_t: Route Performance over Time
+  label_route_perf_c: Route Performance over Contour Plot
+  label_route_tt_t: Route Travel Time over Time
+  label_route_tt_c: Route Travel Time over Contour Plot
+  label_network_perf: Network Performance
+  label_link_perf: Link Performance
+
   ##### end relteq additions
