@@ -19,6 +19,11 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
       options[:param]['control'] = !!params[:control]
       options[:param]['qcontrol'] = !!params[:qcontrol]
       options[:param]['events'] = !!params[:events]
+      
+      if(params[:save_defaults])
+        DefaultBatchSetting.save_default_batch_settings(params)
+      end
+      
     else
       options = :simple
     end

@@ -31,6 +31,11 @@
       <%= label_tag :events %>
       <%= check_box_tag :events, true, true, :id => "events_#{scenario.id}" %>
     </p>
+		<hr>
+    <p>
+      <label><%= l(:label_save_defaults) %></label>
+      <%= check_box_tag :save_defaults, true, true, :id => "save_defaults_#{scenario.id}" %>
+    </p>
 
 	<p><%= submit_tag 'Run' %> </p>
 <% end %>
