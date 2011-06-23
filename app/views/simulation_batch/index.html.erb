@@ -27,7 +27,7 @@
 <% else %>
 	<% @items_show.each_with_index do |sim,i| %>
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	  <td class='index-menu-multiple'><%= check_box_tag("sim_ids[]", sim.id, false, { :id => sim.id.to_s + '-checkbox', :onclick => "processSimId('" + sim.id.to_s + "','" + sim.name + "');"}) %></td>
+	  <td class='index-menu-multiple'><%= check_box_for_sim(sim) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  >Not Implemented</td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>

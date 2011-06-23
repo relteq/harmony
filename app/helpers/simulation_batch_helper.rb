@@ -31,4 +31,11 @@ module SimulationBatchHelper
      ['Type2' , 'type2']
     ]
   end
+
+  def check_box_for_sim(sim)
+    check_box_tag("sim_ids[]", sim.id, false, { 
+      :id => sim.id.to_s + '-checkbox',
+      :onclick => "processSimId('" + sim.id.to_s + "','" + sim.name.gsub(/'/,'') + "');"
+    })
+  end
 end
