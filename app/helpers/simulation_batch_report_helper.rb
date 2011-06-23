@@ -4,12 +4,6 @@ module SimulationBatchReportHelper
       return [
         ['Select Action ...' , ''],
         ['Share' , 'share'],
-        ['Export XML' , 'export'],
-        ['Export PDF' , 'pdf'],
-        ['Export XLS' , 'xls'],
-        ['Export PPT' , 'ppt'],
-        ['Rename' , 'rename'],
-        ['Delete' , 'delete']
       ]
    end
   

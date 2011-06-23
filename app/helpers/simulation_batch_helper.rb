@@ -4,9 +4,7 @@ module SimulationBatchHelper
     return [
       ['Select Action ...' , ''],
       ['Generate Report' , 'generate'],
-      ['Share' , 'share'],
-      ['Rename' , 'rename'],
-      ['Delete' , 'delete']
+      ['Share' , 'share']
     ]
   end
   

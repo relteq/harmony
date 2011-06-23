@@ -26,7 +26,7 @@ module Runweb
         options[:param][:control] = true
         options[:param][:qcontrol] = true
         options[:param][:events] = true
-        options[:param]['inputs'] << '<time_range begin_time="0.0" duration="0.0" />'
+        options[:param]['inputs'] << '<time_range begin_time="0.0" duration="24.0" />'
       else
         begin_time = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:b_time))
         duration = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:duration))
