@@ -11,15 +11,11 @@ module Runweb
     end
 
     def simulate(scenario_id, name, simulation_spec = :simple)
-      options = { :engine => 'simulator' }
-      options[:param] = {}
-      # TODO once workers are instantiated dynamically, these should be
-      # the correct user and group IDs
-      options[:name] = name
-      options[:user] = ENV['AURORA_WORKER_USER']
-      options[:group] = ENV['AURORA_WORKER_GROUP']
-      options[:param][:update_period] = 1
-
+      options = batch_options({ 
+        :name => name,
+        :engine => 'simulator',
+        :param => {:update_period => 1}
+      })
       # Beware that for the sake of runweb/runq arrays must be specified by strings -
       # a colon prefix will be reflected in the output YAML and make the simulation fail.
       options[:param]['inputs'] = ["@scenario(#{scenario_id})"] 
@@ -50,13 +46,18 @@ module Runweb
     end
 
     def report(name, request_xml)
-      options = {:name => name, :engine => 'report generator', :n_runs => 1}
-      options[:user] = ENV['AURORA_WORKER_USER']
-      options[:group] = ENV['AURORA_WORKER_GROUP']
-      options[:param] = {
-        'inputs' => [request_xml],
-        'output_types' => ['application/xml']
-      }
+      options = batch_options({
+        :name => name, 
+        :engine => 'report generator', 
+        :n_runs => 1,
+        :param => {
+          'inputs' => [request_xml],
+          'output_types' => ['application/xml', 
+                             'application/vnd.ms-powerpoint',
+                             'application/pdf',
+                             'application/vnd.ms-excel']
+        }
+      })
 
       begin
         http_post_runweb(options)
@@ -68,6 +69,15 @@ module Runweb
       end
     end
   private
+    def batch_options(plus)
+      # TODO once workers are instantiated dynamically, these should be
+      # the correct user and group IDs
+      options = { 
+        :user => ENV['AURORA_WORKER_USER'], 
+        :group => ENV['AURORA_WORKER_GROUP']
+      }.merge(plus)
+    end
+
     def http_post_runweb(options)
       uri = URI.parse(ENV['RUNWEB_URL_BASE'])
       host, port = uri.host, uri.port
