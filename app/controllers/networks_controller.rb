@@ -1,5 +1,5 @@
 class NetworksController <  ConfigurationsApplicationController
-  before_filter :require_network, :only => [:edit, :update, :destroy]
+  before_filter :require_network, :only => [:edit, :update, :destroy, :flash_edit]
 
   # GET /networks
   # GET /networks.xml
@@ -100,7 +100,10 @@ class NetworksController <  ConfigurationsApplicationController
   end
   
   def flash_edit
-    render :layout => 'shell'
+    auth = DbwebAuthorization.create_for(@network)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/network/#{@network.id}.html" +
+                "?access_token=#{auth.escaped_token}"
   end
 private
   def require_network
