@@ -50,7 +50,7 @@ class MyController < ApplicationController
     @simulations = Project.visible.find(:all).
                            select {|p| @user.allowed_to?(:view_simulation_batch,p)}.
                            map(&:scenarios).flatten.
-                           map(&:simulation_batches).flatten
+                           map {|s| s.simulation_batches.incomplete}.flatten
   end
 
   # Edit user's account
