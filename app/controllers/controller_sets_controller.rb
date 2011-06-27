@@ -1,5 +1,5 @@
 class ControllerSetsController <  ConfigurationsApplicationController
-  before_filter :require_controller_set, :only => [:edit, :update, :destroy]
+  before_filter :require_controller_set, :only => [:edit, :update, :destroy, :flash_edit]
 
   def index
     get_index_view(@csets)
@@ -83,6 +83,13 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
     get_network_dependent_table_items('controller_sets','controllers','controller_type',@sid)
 
+  end
+
+  def flash_edit
+    auth = DbwebAuthorization.create_for(@cset)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/controller_set/#{@cset.id}.html" +
+                "?access_token=#{auth.escaped_token}"
   end
 
 private

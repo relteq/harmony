@@ -21,7 +21,7 @@ class SimulationBatchReportController < ApplicationController
         return false
       end      
         
-      @item_count = SimulationBatchReport.count(:all);
+      @item_count = SimulationBatchReport.count(:all)
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatchReport.find  :all,

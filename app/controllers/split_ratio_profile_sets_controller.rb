@@ -1,5 +1,5 @@
 class SplitRatioProfileSetsController <  ConfigurationsApplicationController
-  before_filter :require_srpset, :only => [:edit, :update, :destroy]
+  before_filter :require_srpset, :only => [:edit, :update, :destroy, :flash_edit]
  
   def index
     get_index_view(@sprofilesets)
@@ -72,7 +72,14 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
       format.xml  { head :ok }
     end
   end
-  
+ 
+  def flash_edit
+    auth = DbwebAuthorization.create_for(@srpset)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/split_ratio_profile_set/#{@srpset.id}.html" +
+                "?access_token=#{auth.escaped_token}"
+  end
+ 
   def populate_splits_table
     #I populate srpset so we can make sure to set checkboxes selected -- if there is no split ratio profile set id then 
     #you are creating a new split ratio profile set 

@@ -162,22 +162,23 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :time_entries, :controller => 'timelog'
 
     project.resource :configuration, :only => [:show] do |config|
-      config.resources :scenarios, :member => [:flash_edit], 
+      config.resources :scenarios, 
+                       :member => {:flash_edit => :get},
                        :collection => {:delete_all => :post, 
                                        :import => :get} do |scenario|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
       end
       config.resources :networks, :member => [:flash_edit],
                        :collection => {:delete_all => :post, :import => :get}
-      config.resources :controller_sets, :member => [:ptable],
+      config.resources :controller_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
-      config.resources :capacity_profile_sets, :member => [:ptable],
+      config.resources :capacity_profile_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
-      config.resources :demand_profile_sets, :member => [:ptable],
+      config.resources :demand_profile_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
-      config.resources :split_ratio_profile_sets, :member => [:ptable],
+      config.resources :split_ratio_profile_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
-      config.resources :event_sets, :member => [:ptable],
+      config.resources :event_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
     end
 

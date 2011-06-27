@@ -1,5 +1,5 @@
 class CapacityProfileSetsController <  ConfigurationsApplicationController
-  before_filter :require_cp_set, :only => [:edit, :update, :destroy]
+  before_filter :require_cp_set, :only => [:edit, :update, :destroy, :flash_edit]
 
   def index
     get_index_view(@cprofilesets)
@@ -8,23 +8,23 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   # GET /capacity_profile_sets/new
   # GET /capacity_profile_sets/new.xml
   def new
-   @cpset = CapacityProfileSet.new
-   @cpset.name = params[:capacity_profile_set] != nil ? params[:capacity_profile_set][:name] ||= '' : '' 
-   set_up_network_select(@cpset,CapacityProfile)
+    @cpset = CapacityProfileSet.new
+    @cpset.name = params[:capacity_profile_set] != nil ? params[:capacity_profile_set][:name] ||= '' : '' 
+    set_up_network_select(@cpset,CapacityProfile)
 
-   respond_to do |format|
-     format.html # new.html.erb
-     format.xml  { render :xml => @cpset }
-   end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @cpset }
+    end
   end
 
   def edit
-   set_up_network_select(@cpset,CapacityProfile)
-   get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@cpset.network_id) 
-   respond_to do |format|
-     format.html { render :layout => !request.xhr? } 
-     format.xml  { render :xml => @cpset }
-   end
+    set_up_network_select(@cpset,CapacityProfile)
+    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@cpset.network_id) 
+    respond_to do |format|
+      format.html { render :layout => !request.xhr? } 
+      format.xml  { render :xml => @cpset }
+    end
   end
 
   def create
@@ -71,6 +71,14 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def flash_edit
+    auth = DbwebAuthorization.create_for(@cpset)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/capacity_profile_set/#{@cpset.id}.html" +
+                "?access_token=#{auth.escaped_token}"
+  end
+
   
   def populate_capacities_table
    #I populate cpset so we can make sure to set checkboxes selected -- if there is no capacity profile set id then 

@@ -1,5 +1,5 @@
 class EventSetsController <  ConfigurationsApplicationController
-  before_filter :require_event_set, :only => [:edit, :update, :destroy]
+  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit]
 
   def index
     get_index_view(@eventsets)
@@ -8,23 +8,23 @@ class EventSetsController <  ConfigurationsApplicationController
   # GET /event_sets/new
   # GET /event_sets/new.xml
   def new
-   @eset = EventSet.new
-   @eset.name = params[:event_set] != nil ? params[:event_set][:name] ||= '' : '' 
-   set_up_network_select(@eset,Event)
+    @eset = EventSet.new
+    @eset.name = params[:event_set] != nil ? params[:event_set][:name] ||= '' : '' 
+    set_up_network_select(@eset,Event)
  
-   respond_to do |format|
-     format.html # new.html.erb
-     format.xml  { render :xml => @eset }
-   end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @eset }
+    end
   end
 
   def edit
-   set_up_network_select(@eset,Event)
-   get_network_dependent_table_items('event_sets','events','event_type',@eset.network_id) 
-   respond_to do |format|
-     format.html { render :layout => !request.xhr? } 
-     format.xml  { render :xml => @eset }
-   end
+    set_up_network_select(@eset,Event)
+    get_network_dependent_table_items('event_sets','events','event_type',@eset.network_id) 
+    respond_to do |format|
+      format.html { render :layout => !request.xhr? } 
+      format.xml  { render :xml => @eset }
+    end
   end
 
   def create
@@ -39,12 +39,12 @@ class EventSetsController <  ConfigurationsApplicationController
   end
 
   def update
-   if(@eset.update_attributes(params[:event_set]))
-     redirect_save_success(:event_set,
-       edit_project_configuration_event_set_path(@project, @eset))
-   else
-     redirect_save_error(:event_set,:edit,@eset,Event)
-   end
+    if(@eset.update_attributes(params[:event_set]))
+      redirect_save_success(:event_set,
+        edit_project_configuration_event_set_path(@project, @eset))
+    else
+      redirect_save_error(:event_set,:edit,@eset,Event)
+    end
 
   end
   
@@ -72,6 +72,13 @@ class EventSetsController <  ConfigurationsApplicationController
       format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project  }
       format.xml  { head :ok }
     end
+  end
+
+  def flash_edit
+    auth = DbwebAuthorization.create_for(@eset)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/event_set/#{@eset.id}.html" +
+                "?access_token=#{auth.escaped_token}"
   end
   
   def populate_events_table

@@ -147,8 +147,8 @@ module ConfigurationsHelper
   end
 
   def controller_set_specific_menu_items(project, cs,where)
-    edit_callback = js_callback_redirect :controller => 'controller_sets', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'controller_sets', 
+                                         :action => 'flash_edit',
                                          :project_id => project,
                                          :id => cs.id
 
@@ -169,8 +169,8 @@ module ConfigurationsHelper
   end
 
   def demand_profile_set_specific_menu_items(project, ds, where)
-    edit_callback = js_callback_redirect :controller => 'demand_profile_sets', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'demand_profile_sets', 
+                                         :action => 'flash_edit',
                                          :project_id => project,
                                          :id => ds.id
 
@@ -191,8 +191,8 @@ module ConfigurationsHelper
   end
 
   def split_ratio_profile_set_specific_menu_items(project, srp, where)
-    edit_callback = js_callback_redirect :controller => 'split_ratio_profile_sets', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'split_ratio_profile_sets', 
+                                         :action => 'flash_edit',
                                          :project_id => project,
                                          :id => srp.id
 
@@ -213,8 +213,8 @@ module ConfigurationsHelper
   end
 
   def capacity_profile_set_specific_menu_items(project, cs, where)
-    edit_callback = js_callback_redirect :controller => 'capacity_profile_sets', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'capacity_profile_sets', 
+                                         :action => 'flash_edit',
                                          :project_id => project,
                                          :id => cs.id
 
@@ -235,8 +235,8 @@ module ConfigurationsHelper
   end
   
   def event_set_specific_menu_items(project, es, where)
-    edit_callback = js_callback_redirect :controller => 'event_sets', 
-                                         :action => 'edit',
+    edit_callback = js_callback_new_window :controller => 'event_sets', 
+                                         :action => 'flash_edit',
                                          :project_id => project,
                                          :id => es.id
 

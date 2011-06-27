@@ -1,5 +1,5 @@
 class DemandProfileSetsController <  ConfigurationsApplicationController
-  before_filter :require_dpset, :only => [:edit, :update, :destroy]
+  before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit]
   
   def index
     get_index_view(@dprofilesets)
@@ -74,6 +74,13 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     end
   end
   
+  def flash_edit
+    auth = DbwebAuthorization.create_for(@dpset)
+    redirect_to ENV['DBWEB_URL_BASE'] + 
+                "/editor/demand_profile_set/#{@dpset.id}.html" +
+                "?access_token=#{auth.escaped_token}"
+  end
+
   def populate_demands_table
     #I populate dpset so we can make sure to set checkboxes selected -- if there is no demand profile set id then 
     #you are creating a new demand profile set 
