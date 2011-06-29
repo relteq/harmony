@@ -10,7 +10,12 @@ module Runweb
       END_TIME_TYPES
     end
 
-    def simulate(scenario_id, name, simulation_spec = :simple)
+    def simulate(scenario, name, simulation_spec = :simple)
+      batch = scenario.simulation_batches.create(
+        :name => name,
+        :percent_complete => 0
+      )
+
       options = batch_options({ 
         :name => name,
         :engine => 'simulator',
@@ -18,8 +23,9 @@ module Runweb
       })
       # Beware that for the sake of runweb/runq arrays must be specified by strings -
       # a colon prefix will be reflected in the output YAML and make the simulation fail.
-      options[:param]['inputs'] = ["@scenario(#{scenario_id})"] 
+      options[:param]['inputs'] = ["@scenario(#{scenario.id})"] 
       options[:param]['output_types'] = ['text/plain']
+      options[:param][:redmine_simulation_batch_id] = batch.id
 
       if simulation_spec == :simple
         options[:n_runs] = 1
