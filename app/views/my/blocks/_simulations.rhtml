@@ -1,4 +1,4 @@
-<h3><%=l(:label_simulation_list)%> (<%= @simulations.count %>)</h3>
+<h3><%=l(:label_simulation_list)%> (<%= @jobs.count %>)</h3>
 <table class="list">
   <thead>
     <tr>
@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @simulations.each_with_index do |s,i| %>
+    <% @jobs.each_with_index do |s,i| %>
       <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
         <td><%= h s.name %></td>
         <td><%= h s.mode %></td>

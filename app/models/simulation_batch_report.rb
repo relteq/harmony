@@ -1,6 +1,9 @@
 class SimulationBatchReport < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
-  
+ 
+  named_scope :incomplete, :conditions => ['percent_complete < 1']
+  named_scope :complete, :conditions => ['percent_complete = 1']
+ 
   relteq_time_attr :b_time
   relteq_time_attr :duration
   
@@ -9,6 +12,13 @@ class SimulationBatchReport < ActiveRecord::Base
   belongs_to :scatter_plot
   belongs_to :color_pallette
   
+  def mode
+    'Create Report'
+  end
+
+  def start_time
+    created_at
+  end
 
   def colors
     "#69A7D6,#980D92,#D32A64,#707826,#DFD555,#E17A8F,#2B478E,#4CDA1D,#F432C6,#07CAFF,#1C9F22"
