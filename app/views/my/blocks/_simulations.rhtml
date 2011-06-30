@@ -13,7 +13,7 @@
       <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
         <td><%= h s.name %></td>
         <td><%= h s.mode %></td>
-        <td><%= h format_time(s.start_time) %></td>
+        <td><%= h (format_time(s.start_time) or "Queued") %></td>
         <%= progress_bar_display(s) %>
       </tr>
     <% end %>
