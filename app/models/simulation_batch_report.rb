@@ -67,7 +67,6 @@ class SimulationBatchReport < ActiveRecord::Base
     builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
       xml.guidata {
         xml.cmb_export "PDF"
-        xml.report_id self.id
         xml.cmb_reporttype self.report_type
         xml.txt_congspeed self.congestion_speed
         xml.txt_maxpointspercurve self.max_data_points

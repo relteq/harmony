@@ -42,7 +42,7 @@ class SimulationBatchReportController < ApplicationController
      if(@simulation_report.update_attributes(params[:simulation_batch]))
        @simulation_report.link_to_simulation_batches(params[:sim_ids])
      
-       Runweb.report @simulation_report.name, @simulation_report.to_xml
+       Runweb.report @simulation_report
        
        flash[:notice] = 'Simulation Report was successfully sent. You should see updates as they become available.'  
        format.html { redirect_to  :my_page}

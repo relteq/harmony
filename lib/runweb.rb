@@ -51,13 +51,14 @@ module Runweb
       end
     end
 
-    def report(name, request_xml)
+    def report(sim_report)
       options = batch_options({
-        :name => name, 
+        :name => sim_report.name, 
         :engine => 'report generator', 
         :n_runs => 1,
         :param => {
-          'inputs' => [request_xml],
+          :redmine_batch_report_id => sim_report.id,
+          'inputs' => [sim_report.to_xml],
           'output_types' => ['application/xml', 
                              'application/vnd.ms-powerpoint',
                              'application/pdf',
