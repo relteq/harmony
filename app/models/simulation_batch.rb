@@ -10,4 +10,8 @@ class SimulationBatch < ActiveRecord::Base
   
   named_scope :incomplete, :conditions => ['percent_complete < 1']
   named_scope :complete, :conditions => ['percent_complete = 1']
+ 
+  def mode
+    'Run Simulation'
+  end
 end
