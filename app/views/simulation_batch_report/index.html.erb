@@ -28,7 +28,7 @@
 	  <td class='index-menu-multiple'><%= check_box_tag("ids[]", sim.id, false, :id => nil) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  >Not Implemented</td>
-	 	<td  ><%=h sim.created_at.strftime("%m/%d/%Y") %></td>
+	 	<td  ><%=h format_date_time(sim.created_at) %></td>
 	 	<td  >Not Implemented</td>
 	 	<td  >
 			<%= link_to '','' , :class => 'icon icon-del' %> | 

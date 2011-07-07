@@ -4,7 +4,7 @@ class SimulationBatchReportController < ApplicationController
   
   def index
       sort_init 'name', 'asc'
-      sort_update %w(name)
+      sort_update %w(name created_at)
 
       case params[:format]
       when 'xml', 'json'
