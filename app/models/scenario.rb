@@ -36,6 +36,9 @@ class Scenario < ActiveRecord::Base
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
   end
   
+  def get_default_batch_setting
+    default_batch_setting != nil ? default_batch_setting : DefaultBatchSetting.new
+  end
   
   
 end

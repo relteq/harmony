@@ -12,7 +12,7 @@
                   <button class="scenario-overlay-cancel config" id="<%= s.id %>-overlay-cancel">Cancel</button>
                   <h2>Launch Simulation Batch</h2>
                   <%= render :partial => 'scenario/simulations/form', 
-                             :locals => {:default_name => s.name, :scenario => s} %>
+                             :locals => {:default_name => s.name, :scenario => s, :default_simulation_batch => s.get_default_batch_setting} %>
                 </div>
 			      </li> 
 			  <% end %>
