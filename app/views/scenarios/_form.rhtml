@@ -3,13 +3,13 @@
   <p><%= f.text_field :name, :required => true %></p>
   <p><%= f.text_field :description %></p>
 
-  <p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :scenario, :network_id, @networks, :id, :name, @prompt_network %></p>
-  <p><label><%=l(:label_controller_set)%></label><%= collection_select :scenario,:controller_set_id,@csets,:id,:name, @prompt_controller %></p>
-  <p><label><%=l(:label_demand_profile_set)%></label><%= collection_select :scenario,:demand_profile_set_id,@dprofilesets,:id,:name, @prompt_demand %></p>
-  <p><label><%=l(:label_capacity_profile_set)%></label><%= collection_select :scenario,:capacity_profile_set_id,@cprofilesets,:id,:name, @prompt_capacity %></p>
-  <p><label><%=l(:label_split_ratio_profile_set)%></label><%= collection_select :scenario,:split_ratio_profile_set_id, @sprofilesets,:id,:name, @prompt_split %></p>
-  <p><label><%=l(:label_event_set)%></label><%= collection_select :scenario,:event_set_id, @eventsets,:id,:name, @prompt_event %></p>
-  <p><%= f.select :units, @units,{ :index => nil }, :prompt => true %></p>
+  <p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :scenario, :network_id, @networks, :id, :name, {:prompt => l(:label_please_select)} %></p>
+  <p><label><%=l(:label_controller_set)%></label><%= collection_select :scenario,:controller_set_id,@csets,:id,:name, {:include_blank => l(:label_no_controller_set)} %></p>
+  <p><label><%=l(:label_demand_profile_set)%></label><%= collection_select :scenario,:demand_profile_set_id,@dprofilesets,:id,:name, {:include_blank => l(:label_no_demand_set)} %></p>
+  <p><label><%=l(:label_capacity_profile_set)%></label><%= collection_select :scenario,:capacity_profile_set_id,@cprofilesets,:id,:name, {:include_blank => l(:label_no_capacity_set)} %></p>
+  <p><label><%=l(:label_split_ratio_profile_set)%></label><%= collection_select :scenario,:split_ratio_profile_set_id, @sprofilesets,:id,:name, {:include_blank => l(:label_no_split_set)} %></p>
+  <p><label><%=l(:label_event_set)%></label><%= collection_select :scenario,:event_set_id, @eventsets,:id,:name,  {:include_blank => l(:label_no_event_set)} %></p>
+  <p><%= f.select :units, Scenario::UNITS,{ :index => nil }, :prompt => true %></p>
 
   <% if controller.action_name != 'new' %>
     <p><%= label_tag :vehicle_types %> <%= select_tag 'scenario[vehicle_types]', options_for_select(@scenario.vehicle_types.map{ |v| [v.short_display, v.id] }), :multiple => true %></p>
