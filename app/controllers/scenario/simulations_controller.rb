@@ -31,6 +31,7 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
     name = params[:name] || @scenario.name
     if !flash[:error] && Runweb.simulate(@scenario, name, options)
       flash[:notice] = "Simulation launched successfully."
+      SimulationBatch.save_batch(params)
     elsif flash[:error]
       flash[:error] += "Error launching simulation.<br/>"
     else

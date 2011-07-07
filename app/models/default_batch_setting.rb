@@ -10,10 +10,10 @@ class DefaultBatchSetting < ActiveRecord::Base
     
     dbs = DefaultBatchSetting.new if(dbs.nil?)
     dbs.number_of_runs =  params[:n_runs].to_i
-    dbs.b_time = params[:begin_time]
+    dbs.b_time = RelteqTime.parse_time_to_seconds(params[:begin_time])
     dbs.name = params[:name]
     dbs.mode = params[:mode]
-    dbs.duration = params[:duration]
+    dbs.duration = RelteqTime.parse_time_to_seconds(params[:duration])
     dbs.control = params[:control]
     dbs.qcontrol = params[:qcontrol]
     dbs.events = params[:events]

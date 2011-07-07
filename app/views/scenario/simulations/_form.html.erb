@@ -4,32 +4,32 @@
       <%= text_field_tag :name, default_name, :id => "name_#{scenario.id}" %>
     </p>
     <p>
-      <%= label_tag :n_runs, 'Number of Runs' %>
-      <%= text_field_tag :n_runs, '1', :id => "n_runs_#{scenario.id}" %>
+      <%= label_tag :n_runs,  l(:field_number_of_runs) %>
+      <%= text_field_tag :n_runs, default_simulation_batch.number_of_runs || '1', :id => "n_runs_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :mode %>
-      <%= select_tag :mode, options_for_select(Runweb.simulation_modes), :id => "mode_#{scenario.id}" %>
+      <%= select_tag :mode, options_for_select(Runweb.simulation_modes,default_simulation_batch.mode), :id => "mode_#{scenario.id}" %>
     </p>
     <p>
-      <%= label_tag :begin_time %>
-      <%= time_input_field :begin_time, scenario.display_time_from_string(0.0), :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
+      <%= label_tag :begin_time, l(:field_begin_time)  %>
+      <%= time_input_field :begin_time, scenario.display_time_from_string(default_simulation_batch.b_time || 0.0), :id => "begin_time_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :duration %>
-	    <%= time_input_field :duration, scenario.display_time_from_string(86400.0), :id => "duration_#{scenario.id}", :class => 'time_mask' %>
+	    <%= time_input_field :duration, scenario.display_time_from_string(default_simulation_batch.duration || 86400.0), :id => "duration_#{scenario.id}", :class => 'time_mask' %>
     </p>
     <p>
       <%= label_tag :control %>
-      <%= check_box_tag :control, true, true, :id => "control_#{scenario.id}" %>
+      <%= check_box_tag :control, default_simulation_batch.control, default_simulation_batch.control, :id => "control_#{scenario.id}" %>
     </p>
     <p>
-      <%= label_tag :qcontrol, 'Queue Control' %>
-      <%= check_box_tag :qcontrol, true, true, :id => "qcontrol_#{scenario.id}" %>
+      <%= label_tag :qcontrol,  l(:field_q_control) %>
+      <%= check_box_tag :qcontrol, default_simulation_batch.qcontrol, default_simulation_batch.qcontrol, :id => "qcontrol_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :events %>
-      <%= check_box_tag :events, true, true, :id => "events_#{scenario.id}" %>
+      <%= check_box_tag :events, default_simulation_batch.events, default_simulation_batch.events, :id => "events_#{scenario.id}" %>
     </p>
 		<hr>
     <p>

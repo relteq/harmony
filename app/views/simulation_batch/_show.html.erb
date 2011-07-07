@@ -3,7 +3,7 @@
 		<%=h item_show.name %>
 </p>
 <p>
-		<%= label_tag :number_of_runs, 'Number of Runs' %>:
+		<%= label_tag :number_of_runs, l(:field_number_of_runs)	 %>:
 		<%=h item_show.number_of_runs %>
 </p>
 <p>
@@ -11,7 +11,7 @@
 	  <%=h item_show.mode %>
 </p>
 <p>
-		<%= label_tag :b_time, 'Begin Time' %>:
+		<%= label_tag :b_time, l(:field_begin_time) %>:
 	  <%=h item_show.display_time(:b_time) %>
 </p>
 <p>
@@ -23,7 +23,7 @@
 	  <%=h item_show.control %>
 </p>
 <p>
-		<%= label_tag :qcontrol, "Queue Control" %>:
+		<%= label_tag :qcontrol,  l(:field_q_control) %>:
 	  <%=h item_show.qcontrol %>
 </p>
 <p>
@@ -31,7 +31,7 @@
 	  <%=h item_show.events %>
 </p>
 <p>
-		<%= label_tag :start_time %>:
+		<%= label_tag :start_time,  l(:field_start_time) %>:
 	  <%=h format_date_time(item_show.start_time) %>
 </p>
 

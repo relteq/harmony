@@ -10,8 +10,20 @@ class SimulationBatch < ActiveRecord::Base
   
   named_scope :incomplete, :conditions => ['percent_complete < 1']
   named_scope :complete, :conditions => ['percent_complete = 1']
- 
-  def mode
-    'Run Simulation'
+
+    
+  def self.save_batch(params)
+    s = SimulationBatch.new
+    s.name = params[:name]
+    s.duration = RelteqTime.parse_time_to_seconds(params[:duration])
+    s.b_time = RelteqTime.parse_time_to_seconds(params[:begin_time])
+    s.control = params[:control]
+    s.qcontrol = params[:qcontrol]
+    s.events = params[:events]
+    s.scenario_id = params[:scenario_id]
+    s.mode = params[:mode]
+    s.number_of_runs = params[:n_runs].to_i
+    s.save  
   end
+  
 end
