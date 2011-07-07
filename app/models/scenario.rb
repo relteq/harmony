@@ -5,7 +5,8 @@ class Scenario < ActiveRecord::Base
 
   US_UNITS = "US"
   METRIC_UNITS = "Metric"
-  
+  UNITS = [US_UNITS, METRIC_UNITS] 
+   
   # TODO give imported scenarios unique names in import, re-add restriction
   #validates_presence_of :name
   #validates_uniqueness_of :name, :scope => :project_id

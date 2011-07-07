@@ -1060,4 +1060,9 @@ en:
   label_network_perf: Network Performance
   label_link_perf: Link Performance
   label_save_defaults: Save settings as default
+  label_no_controller_set : No Controller Set
+  label_no_demand_set : No Demand Profile Set
+  label_no_capacity_set : No Capacity Profile Set
+  label_no_split_set : No Split Ratio Profile Set
+  label_no_event_set : No Event Set
   ##### end relteq additions

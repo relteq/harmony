@@ -1,8 +1,8 @@
 class ScenariosController <  ConfigurationsApplicationController
-  before_filter :get_sets, :only => [:new, :edit, :update, :create]
   before_filter :require_scenario, :only => [
     :edit, :update, :destroy, :show, :flash_edit
   ]
+
 
   def import
     auth = DbwebAuthorization.create_for(@project)
@@ -121,21 +121,7 @@ private
       return false
     end
   end
-
-  def get_sets
-    @units = [Scenario::US_UNITS, Scenario::METRIC_UNITS]
-    
-    # All these strings should be localized.
-    @prompt_network = (@networks.empty?) ? {:prompt => 'Create a Network'} : {:prompt => 'Please Select'}
-     
-    @prompt_controller = (@csets.empty?) ? {:prompt => 'Create a Controller Set'} : {:prompt => 'Please Select'}
-    @prompt_demand = (@dprofilesets.empty?) ? {:prompt => 'Create a Demand Profile Set'} : {:prompt => 'Please Select'}
-    @prompt_capacity = (@cprofilesets.empty?) ? {:prompt => 'Create a Capacity Profile Set'} : {:prompt => 'Please Select'}
-    @prompt_split = (@sprofilesets.empty?) ? {:prompt => 'Create a Split Ratio Profile Set'} : {:prompt => 'Please Select'}
-    @prompt_event = (@eventsets.empty?) ? {:prompt => 'Create an Event Set'} : {:prompt => 'Please Select'}
  
-  end
-  
   def clear_fields
     #if name or network existed and then removed clear the name/network
     if params[:scenario][:name] == ""
