@@ -65,6 +65,7 @@
 		
 		var sp = jQuery('#simulation-batch-list');
 		var spBegin = jQuery('#begin-msg');
+		var spName = jQuery('#simulation_batch_name');
 		strSimIds = 	document.getElementById('sim_ids').value;
 		if(document.getElementById(val + '-checkbox').checked){
 				  //this maintains the hidden tag of sim_ids
@@ -78,6 +79,8 @@
 						spBegin.remove();
 						
 					sp.append("<li id='" + replaceAllSpaces(name) + "'>" + name + "</li>");
+					if(spName.val().length <= 0)
+						spName.val(name);
 
 		}
 		else

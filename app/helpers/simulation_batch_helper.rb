@@ -10,11 +10,10 @@ module SimulationBatchHelper
   
   def simulation_report_type_of_select_options
     return  [
-     ['Compare vehicle types, single run' , 'Compare vehicle types, single run'],
-     ['Aggregate Vehicle Types, Multiple Runs' , 'Aggregate Vehicle Types, Multiple Runs'],
-     ['Best/Worst case performance' , 'Best/Worst case performance']
-   #  ['Scatter plot' , 'Scatter plot']
-     
+     ['Compare vehicle types, single run' ],
+     ['Aggregate Vehicle Types, Multiple Runs' ],
+     ['Best/Worst case performance' ],
+     ['Scatter plot'] 
     ]
   end
 
