@@ -8,8 +8,8 @@ class SimulationBatch < ActiveRecord::Base
   has_many :reported_batches
   has_many :simulation_batch_lists, :through => :reported_batches
   
-  named_scope :incomplete, :conditions => ['percent_complete < 1']
-  named_scope :complete, :conditions => ['percent_complete = 1']
+  named_scope :incomplete, :conditions => ['percent_complete < 1 OR (NOT succeeded)']
+  named_scope :complete, :conditions => ['percent_complete = 1 AND succeeded']
 
     
   def self.save_batch(params)

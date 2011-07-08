@@ -1,8 +1,8 @@
 class SimulationBatchReport < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
  
-  named_scope :incomplete, :conditions => ['percent_complete < 1']
-  named_scope :complete, :conditions => ['percent_complete = 1']
+  named_scope :incomplete, :conditions => ['percent_complete < 1 OR (NOT succeeded)']
+  named_scope :complete, :conditions => ['percent_complete = 1 AND succeeded']
  
   relteq_time_attr :b_time
   relteq_time_attr :duration
