@@ -20,20 +20,27 @@ module MyHelper
     return nil if !sim.percent_complete
     percent = sim.percent_complete * 100
 
-    bg_color = case percent 
-      when 0..30 then "red"
-      when 31..61 then "black"
-      else "green"
+    if sim.succeeded != false
+      bg_color = case percent 
+        when 0..30 then "red"
+        when 31..61 then "black"
+        else "green"
+      end
+
+      width = [percent, 1].max
+
+      content_tag(:td, 
+        content_tag(:div, "&nbsp;",
+                    :id => "progress_bar_sim_#{sim.id}", 
+                    :class => "progress_bar #{bg_color}",
+                    :style => "width: #{width}%;") +
+        content_tag(:h5, "#{percent} %")
+      )
+    else
+      content_tag(:td,
+        content_tag(:p, "Failed",
+                    :class => "status error")
+      )
     end
-
-    width = [percent, 1].max
-
-    content_tag(:td, 
-      content_tag(:div, "&nbsp;",
-                  :id => "progress_bar_sim_#{sim.id}", 
-                  :class => "progress_bar #{bg_color}",
-                  :style => "width: #{width}%;") +
-      content_tag(:h5, "#{percent} %")
-    )
   end
 end
