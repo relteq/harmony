@@ -1,5 +1,6 @@
 class SimulationBatchController < ApplicationController
 
+  
   helper :sort
   include SortHelper
   

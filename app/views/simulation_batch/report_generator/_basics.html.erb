@@ -5,7 +5,7 @@
 <p>
 	<label><%=l(:label_type_of_report)%>: </label>
 	  
-  <%= f.select :report_type, options_for_select(simulation_report_type_of_select_options()) %>
+  <%= f.select :report_type, relteq_options_for_select(simulation_report_type_of_select_options()),{} ,{:onchange => "doReportTypeAction();"} %>
 </p>    	
 <p>
 	<label><%=l(:label_reference_simulations)%>: </label>
@@ -14,4 +14,24 @@
 	</span>
 </p>    	
 
+<script language="javascript">
+	function doReportTypeAction(){
+		var sel = jQuery('#simulation_batch_report_type');
+		var tabs = new Control.Tabs('tabs',{});	
+		switch(sel.val()){
+			case 'Scatter plot': 
+				tabs.enableTab('scatter-groups');
+				tabs.enableTab('scatter-plots');
+				jQuery('#group-color').css('color','#666666');
+				jQuery('#plot-color').css('color','#666666');
+				break;
+			default:
+				tabs.disableTab('scatter-groups');
+				tabs.disableTab('scatter-plots');
+				jQuery('#group-color').css('color','#CCCCCC');
+				jQuery('#plot-color').css('color','#CCCCCC');
+				break;				
+		}
+	}
+</script>
 
