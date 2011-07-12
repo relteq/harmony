@@ -5,7 +5,7 @@
 <p>
 	<label><%=l(:label_type_of_report)%>: </label>
 	  
-  <%= f.select :report_type, relteq_options_for_select(simulation_report_type_of_select_options()),{} ,{:onchange => "doReportTypeAction();"} %>
+  <%= f.select :report_type, options_for_select(simulation_report_type_of_select_options()),{} ,{:onchange => "doReportTypeAction();"} %>
 </p>    	
 <p>
 	<label><%=l(:label_reference_simulations)%>: </label>

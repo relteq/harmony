@@ -1,9 +1,9 @@
-<p>
-	<label class="underline"><%=l(:label_time_range)%> </label></br>
-		<label><%=l(:label_from)%>: </label><%= f.text_field :b_time,:value => @simulation_report.display_time(:b_time) %></br>
-	 	<label><%=l(:label_to)%>: </label> <%= f.text_field :duration,:value => @simulation_report.display_time(:duration) %>
-</p>
-<p>
+<div id="sections-time">
+		<label class="underline"><%=l(:label_time_range)%> </label><br/>
+		<label class="sub-label"><%=l(:label_from)%>: </label><%= f.text_field :b_time,:value => @simulation_report.display_time(:b_time) %><br/>
+	 	<label class="sub-label"><%=l(:label_to)%>: </label> <%= f.text_field :duration,:value => @simulation_report.display_time(:duration) %><br/>
+</div>
+<div id="sections-content">
 	<label><%=l(:label_contents)%>: </label>
 	<table class="index list"> 
 		<thead>
@@ -47,7 +47,7 @@
 		  </tr>
 		</tbody>
 	</table>
-</p>
+</div>
   <%= masked_input_js 'simulation_batch_b_time' %>
   <%= masked_input_js 'simulation_batch_duration' %>
 

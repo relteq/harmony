@@ -1,3 +1,12 @@
+#report-generator  {
+	padding:5px;
+	margin-bottom:3px;
+	margin-top:3px;
+}
+
+#report-generator-overlay-cancel{
+	padding:0px;
+}
 #report-main  {
   width:628px;
 }
@@ -21,15 +30,87 @@
 
 #report-main label {
   font-weight:bold;
+
 }
 
 #report-main label.underline {
   text-decoration:underline;
 }
 
-#report-main table {
+#report-main .indent {
  	margin-left:140px;
 }
+
+#sections label{
+	margin-left:15px;
+	text-align:left;
+}
+
+#sections .sub-label{
+	margin-left:30px;
+	width:70px;
+}
+
+#sections-content table{
+	margin-left:30px;
+}
+
+#scatter-plots label{
+	margin-left:15px;
+	text-align:left;
+}
+
+#scatter-plots div  {
+	margin-left:15px;
+}
+#load-routes   {
+	border:1px solid #ccc;
+	padding:5px;
+	width:65%;
+}
+#load-routes span  {
+	display: block;
+}
+
+#x-y-config{
+	border:1px solid #ccc;
+	padding:5px;
+	width:80%;
+	height:65px;
+}
+
+#x-y-config label{
+	width:100px;
+}
+#x-y-config .left{
+	float:left;
+	border-right:2px solid #ccc;
+	display:inline;
+	padding-right:5px;
+}
+#x-y-config .right{
+	float:left;
+	padding-left:10px;
+	display:inline;
+}
+#x-y-config select{
+	margin-left:5px;
+}
+	
+#groups label{
+	margin-left:0px;
+	text-align:left;
+}
+
+#groups table{
+	width:69%;
+}
+
+
+
+
+
+
 	
 /* Subsection Tabs
 --------------------*/
