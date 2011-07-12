@@ -1,29 +1,37 @@
-<p>
-	<label><%=l(:label_performance_measures)%>: </label>
-  <div style="width:350px">
-		<div style="border:1px solid #ccc;padding:5px">
-			<button type="load_routes">Load Routes</button></br>
-			<label><%=l(:label_custom_x_axis)%>: </label>
-			<%= text_field_tag 'custom_x' %>
-			<%= check_box_tag 'box_plot' %>
-			<label><%=l(:label_box_plot)%></label>
-		</div>
-		<div style="border:1px solid #ccc;margin-top:2px;padding:5px;height:70px">
-			<div style="float:left;border-right:2px solid #ccc">
-				<label><%=l(:label_x_axis_subnetwork)%>: </label></br>
-				<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%></br>
-				<label><%=l(:label_x_axis_quantity)%>: </label></br>
-				<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%></br>
-			</div>
-			<div style="float:left;padding-left:10px;">
-				<label><%=l(:label_y_axis_subnetwork)%>: </label></br>
-				<%= select_tag 'y-axis-sub', options_for_select(simulation_report_axis_network_select_options())%></br>
-				<label><%=l(:label_y_axis_quantity)%>: </label></br>
-				<%= select_tag 'y-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%>
-			</div>
-		</div>
-	</div></br>
-	<label><%=l(:label_groups)%>: </label>
+
+<label><%=l(:label_performance_measures)%>: </label><br/>
+
+<div id="load-routes">
+	<button type="load_routes">Load Routes</button><br/>
+	<span>
+		<label class><%=l(:label_custom_x_axis)%>: </label>
+		<%= text_field_tag 'custom_x' %>
+	</span>
+	<span>
+		<%= check_box_tag 'box_plot' %>
+		<label><%=l(:label_box_plot)%>: </label>
+	</span>
+</div>
+<br/>
+<div id="x-y-config">
+	<span class='left'>
+		<label class="underline"><%=l(:label_x_axis)%></label><br/>
+		<label><%=l(:label_subnetwork)%>: </label>
+		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
+		<label><%=l(:label_quantity)%>: </label>
+		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%><br/>
+	</span>
+	<span class='right'>
+		<label class="underline"><%=l(:label_y_axis)%></label><br/>
+		<label><%=l(:label_subnetwork)%>: </label>
+		<%= select_tag 'y-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
+		<label><%=l(:label_quantity)%>: </label>
+		<%= select_tag 'y-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%>
+	</span>
+</div>
+<br/>
+<div id="groups">
+	<label><%=l(:label_groups)%>: </label><br/>
 	<table class="index list"> 
 		<thead>
 		  <tr>
@@ -42,4 +50,4 @@
 		  </tr>
 		</tbody>
 	</table>
-</p>
+	</div>
