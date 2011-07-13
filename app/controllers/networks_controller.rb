@@ -100,11 +100,9 @@ class NetworksController <  ConfigurationsApplicationController
   end
   
   def flash_edit
-    auth = DbwebAuthorization.create_for(@network)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/network/#{@network.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.network_editor_url(@network)
   end
+
 private
   def require_network
     begin

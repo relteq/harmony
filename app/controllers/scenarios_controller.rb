@@ -42,12 +42,8 @@ class ScenariosController <  ConfigurationsApplicationController
   end
 
   # GET /scenarios/1/flash_edit
-  # Export scenario and open in flash editor
   def flash_edit
-    auth = DbwebAuthorization.create_for(@scenario)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/scenario/#{@scenario.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.scenario_editor_url(@scenario)
   end
 
   # POST /scenarios

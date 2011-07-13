@@ -86,10 +86,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
 
   def flash_edit
-    auth = DbwebAuthorization.create_for(@cset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/controller_set/#{@cset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.ctrl_set_editor_url(@cset)
   end
 
 private

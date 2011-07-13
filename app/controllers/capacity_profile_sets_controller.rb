@@ -73,10 +73,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def flash_edit
-    auth = DbwebAuthorization.create_for(@cpset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/capacity_profile_set/#{@cpset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.cp_set_editor_url(@cpset)
   end
 
   

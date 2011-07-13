@@ -74,10 +74,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
  
   def flash_edit
-    auth = DbwebAuthorization.create_for(@srpset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/split_ratio_profile_set/#{@srpset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.srp_set_editor_url(@srpset)
   end
  
   def populate_splits_table
