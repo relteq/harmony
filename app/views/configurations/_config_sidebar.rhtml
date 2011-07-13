@@ -1,7 +1,7 @@
   <ul id="config-sidebar-root" class="config-sidebar-menu">
 		<li>
 			<a href='javascript:void(0);' childid='list_scenarios' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-      <%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %></a>
+      <%= link_to( "Scenarios", {:controller => 'scenarios', :action => 'index', :project_id => @project}, :id => 'config-sidebar-scenarios') %>
 			<ul id='list_scenarios'>
  				  <% @scenarios.each do |s|  %>
 		     	  <li class="config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"

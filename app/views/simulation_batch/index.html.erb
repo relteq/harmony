@@ -13,10 +13,8 @@
        </th>
     
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-	    <th title="Sort by 'Owner'">Owner</th>
 		<%= sort_header_tag('created_at', :caption => "Created",:default_order => 'desc') %>
-	    <th title="Shared">Shared</th>
-			<th title="Actions">Actions</th>
+	 		<th title="Actions">Actions</th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -29,20 +27,12 @@
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	  <td class='index-menu-multiple'><%= check_box_for_sim(sim) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
-	 	<td  >Not Implemented</td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
-	 	<td  >Not Implemented</td>
 	 	<td  >
 			<%= link_to l(:relteq_delete),'' , :class => 'icon icon-del' %> | 
 			<%= link_to l(:relteq_rename), '', :class => 'icon icon-edit' %> 
 		</td>
 	  </tr>
-		<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
-			<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>
-			  <h2>Simulation Data Information</h2>
-	    <%= render :partial => 'simulation_batch/show', 
-	               :locals => {:item_show => sim} %>
-	  </div>
 
 	<% end %>
 <% end %>
@@ -51,6 +41,15 @@
 
 </table>
 <% end %>
+<% @items_show.each_with_index do |sim,i| %>
+	<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
+		<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>
+		  <h2>Simulation Data Information</h2>
+	  <%= render :partial => 'simulation_batch/show', 
+	             :locals => {:item_show => sim} %>
+	</div>
+<% end %>
+
 	<div id="report-generator" style="display: none;" class="box tabular">
 		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="hide_box('report-generator')"></button>
   	<%= render :partial => 'simulation_batch/report_generator/form'%>
@@ -110,6 +109,12 @@
 		return str;
 	}
   
+  function validateAtLeastOneSimChecked(){
+		var nbChecked = jQuery("input:checked[id*=checkbox]").size(); //find all checked checkboxes + radio buttons  
+		if(nbChecked > 0)
+			return true;
+		return false;
+	}
 
 	var ol = new Overlay();
 

@@ -3,8 +3,7 @@ module SimulationBatchHelper
   def simulation_batch_select_options()
     return [
       ['Select Action ...' , ''],
-      ['Generate Report' , 'generate'],
-      ['Share' , 'share']
+      ['Generate Report' , 'generate']
     ]
   end
   

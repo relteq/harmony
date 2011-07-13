@@ -4,7 +4,6 @@ var configSidebarContextMenus = {
       callback: <%= js_callback_redirect :controller => 'scenarios', :action => 'new', :project_id => @project.id %> },
     { name: "<%= l(:scenarios_import) %>",
       callback: <%= js_callback_redirect :controller => 'scenarios', :action => 'import', :project_id => @project.id %> },
-    { name: "<%= l(:scenarios_share_all) %>" },
     { name: "<%= l(:scenarios_delete_all) %>", className: 'delete', 
       callback: <%= js_callback_redirect :controller => 'scenarios', :action => 'delete_all', :project_id => @project.id %> }
   ],
@@ -12,7 +11,6 @@ var configSidebarContextMenus = {
     { name: "<%= l(:networks_new) %>",
       callback: <%= js_callback_redirect :controller => 'networks', :action => 'new'%>},
     { name: "<%= l(:networks_import) %>" },
-    { name: "<%= l(:networks_share_all) %>" },
     { name: "<%= l(:networks_delete_all) %>", className: 'delete' }
   ],
   controllerSetsNode : [

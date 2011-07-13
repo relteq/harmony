@@ -121,15 +121,15 @@ module ConfigurationsHelper
       edit_project_configuration_scenario_path(project, '**ID**')
     )
 
-    share_callback = not_implemented_callback 
+    copy_to_callback = not_implemented_callback
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:relteq_edit, edit_callback)}
            #{sct(:scenario_run_simulation, run_simulation_callback)}
            #{sct(:scenario_run_simulation_batch, run_batch_callback)}
+           #{sct(:relteq_copy_to, copy_to_callback)}
            #{sct(:relteq_duplicate, duplicate_callback)}
            #{sct(:relteq_shallow_duplicate, shallow_dup_callback)}
-           #{sct(:relteq_share, share_callback)}
            #{sct(:relteq_export, export_callback)}
            { name: '#{l(:relteq_delete)}',
              callback: #{delete_callback},
@@ -154,14 +154,14 @@ module ConfigurationsHelper
       edit_project_configuration_network_path(project, '**ID**')
     )
 
-    share_callback = not_implemented_callback
+    copy_to_callback = not_implemented_callback
     export_callback = not_implemented_callback
 
   
     %Q{'#config-#{where}-network-#{network.id}':
         [#{sct(:relteq_edit, edit_callback)}
          #{sct(:relteq_duplicate, duplicate_callback)}
-         #{sct(:relteq_share, share_callback)}
+         #{sct(:relteq_copy_to, copy_to_callback)}
          #{sct(:relteq_export, export_callback)}
          { name: "#{l(:relteq_delete)}", 
            callback: #{delete_callback},

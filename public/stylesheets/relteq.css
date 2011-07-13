@@ -128,3 +128,9 @@ button.scenario-overlay-cancel {
 
 .icon-file.application-xls { background-image: url(../images/files/xls.png); }
 .icon-file.application-ppt { background-image: url(../images/files/ppt.png); }
+
+.select-error {
+	color:red;
+	font-weight: bold;
+	display:none;
+}
