@@ -18,6 +18,22 @@ module ConfigurationsHelper
     }}
   end
 
+  def js_callback_duplicate(url, redirect_base, url_params = {})
+    %Q{function() {
+          var redirect_url = '#{redirect_base}';
+          $('ajax-indicator').show();
+          $j.getJSON("#{url}&jsoncallback=?",
+                     #{url_params.to_json},
+                     function(data) {
+                        if(data.success) {
+                          var edit_url = redirect_url.replace('**ID**',data.success);
+                          window.location = edit_url;
+                        }
+                        $('ajax-indicator').hide();
+                     });
+    }}
+  end
+
   def js_callback_new_window(url_options)
     %Q{function() {
           window.open("#{url_for(url_options)}");
@@ -36,7 +52,7 @@ module ConfigurationsHelper
   end
 
   def not_implemented_callback
-    %Q{function() { 
+    %Q{function() {
          alert("This function has not yet been implemented"); 
       }}
   end
@@ -99,8 +115,13 @@ module ConfigurationsHelper
     )
 
     duplicate_callback = not_implemented_callback 
+
+    shallow_dup_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(scenario),
+      edit_project_configuration_scenario_path(project, '**ID**')
+    )
+
     copy_to_callback = not_implemented_callback
-    shallow_dup_callback = not_implemented_callback 
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:relteq_edit, edit_callback)}
@@ -128,7 +149,11 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => network.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(network),
+      edit_project_configuration_network_path(project, '**ID**')
+    )
+
     copy_to_callback = not_implemented_callback
     export_callback = not_implemented_callback
 
@@ -157,7 +182,10 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => cs.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(cs),
+      edit_project_configuration_controller_set_path(project, '**ID**')
+    )
 
     %Q{'#config-#{where}-controller-set-#{cs.id}':
         [#{sct(:relteq_edit, edit_callback)}
@@ -179,7 +207,10 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => ds.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(ds),
+      edit_project_configuration_demand_profile_set_path(project, '**ID**')
+    )
 
     %Q{'#config-#{where}-demand-profile-set-#{ds.id}':
         [#{sct(:relteq_edit, edit_callback)}
@@ -201,7 +232,10 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => srp.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(srp),
+      edit_project_configuration_split_ratio_profile_set_path(project, '**ID**')
+    )
 
     %Q{'#config-#{where}-split-ratio-profile-set-#{srp.id}':
         [#{sct(:relteq_edit, edit_callback)}
@@ -223,7 +257,10 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => cs.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(cs),
+      edit_project_configuration_capacity_profile_set_path(project, '**ID**')
+    )
 
     %Q{'#config-#{where}-capacity-profile-set-#{cs.id}':
         [#{sct(:relteq_edit, edit_callback)}
@@ -245,7 +282,10 @@ module ConfigurationsHelper
                                            :project_id => project,
                                            :id => es.id 
 
-    duplicate_callback = not_implemented_callback
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(es),
+      edit_project_configuration_event_set_path(project, '**ID**')
+    )
 
     %Q{'#config-#{where}-event-set-#{es.id}':
         [#{sct(:relteq_edit, edit_callback)}

@@ -30,12 +30,11 @@ class EventSetsController <  ConfigurationsApplicationController
   def create
     @eset = EventSet.new(params[:event_set])
     if(@eset.save)
-         redirect_save_success(:event_set,
-           edit_project_configuration_event_set_path(@project, @eset))
+      redirect_save_success(:event_set,
+         edit_project_configuration_event_set_path(@project, @eset))
     else
-         redirect_save_error(:event_set,:new,@eset,Event)
+      redirect_save_error(:event_set,:new,@eset,Event)
     end
-  
   end
 
   def update
@@ -75,10 +74,7 @@ class EventSetsController <  ConfigurationsApplicationController
   end
 
   def flash_edit
-    auth = DbwebAuthorization.create_for(@eset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/event_set/#{@eset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.object_editor_url(@eset)
   end
   
   def populate_events_table
