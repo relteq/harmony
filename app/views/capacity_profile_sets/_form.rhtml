@@ -9,11 +9,6 @@
 <div id="capacity_profiles_table" class="autoscroll">
 	<%= render :partial => 'populate_capacities_table' %>
 </div>
-<p>
-  <label><%= l(:label_uncertainty) %></label><%= text_field :page_attr, :uncertainty %>
-	<%= submit_tag 'Apply', :name => '_apply_button', 
-	   :onclick => {:onclick => remote_function(:url =>{ :controller => 'capacity_profile_sets',  :action => 'apply_uncertainty', :project_id =>@project,:capacity_profile_set_id =>@cpset } , :method => :get)} %>
-</p>
 
 
 </div>
