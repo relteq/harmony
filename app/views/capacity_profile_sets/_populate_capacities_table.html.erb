@@ -8,7 +8,7 @@
 				<th title="Destination"><%= l(:field_destination) %></th>
 			<% end %>
 	    <th title="Profile"><%= l(:label_profile) %></th>
-	    <th title="Max. Uncertainty"><%= l(:label_max_uncertainty) %></th>
+	    <th title="Max. Uncertainty"><%= l(:label_demand_coefficient) %></th>
 	  </tr>
 	</thead>
 	<tbody id="profiles_table_body">
@@ -20,8 +20,8 @@
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "capacity_profile_set[capacity_profile_ids][]", item.id,@cpset.capacity_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.link.name %></td>
-		 			<td  ><%= text_field_tag item.id,item.profile %></td>
-		 			<td  ><%=h number_to_percentage(item.max_uncertainty) %></td>
+		 			<td  ><%= text_area_tag item.id,item.profile,:size=>"40x5" %></td>
+		 			<td  ><%= text_field_tag item.id,item.knob %></td>
 		  	</tr>
 			<% end %>
 		<% end %>
