@@ -8,43 +8,43 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   # GET /split_ratio_profile_sets/new
   # GET /split_ratio_profile_sets/new.xml
   def new
-   @srpset = SplitRatioProfileSet.new
-   @srpset.name = params[:split_ratio_profile_set] != nil ? params[:split_ratio_profile_set][:name] ||= '' : '' 
-   set_up_network_select(@srpset,SplitRatioProfile)
- 
-   respond_to do |format|
+    @srpset = SplitRatioProfileSet.new
+    @srpset.name = params[:split_ratio_profile_set] != nil ? params[:split_ratio_profile_set][:name] ||= '' : '' 
+    set_up_network_select(@srpset,SplitRatioProfile)
+
+    respond_to do |format|
      format.html # new.html.erb
      format.xml  { render :xml => @srpset }
-   end
+    end
   end
 
   def edit
-   set_up_network_select(@srpset,SplitRatioProfile)
-   get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@srpset.network_id)   
-   
-   respond_to do |format|
+    set_up_network_select(@srpset,SplitRatioProfile)
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@srpset.network_id)   
+
+    respond_to do |format|
      format.html { render :layout => !request.xhr? } 
      format.xml  { render :xml => @srpset }
-   end
+    end
   end
 
   def create
-   @srpset = SplitRatioProfileSet.new
-   if(@srpset.update_attributes(params[:split_ratio_profile_set]))
+    @srpset = SplitRatioProfileSet.new
+    if(@srpset.update_attributes(params[:split_ratio_profile_set]))
      redirect_save_success(:split_ratio_profile_set,
       edit_project_configuration_split_ratio_profile_set_path(@project, @srpset))
-   else
+    else
      redirect_save_error(:split_ratio_profile_set,:new,@srpset,SplitRatioProfile)
-   end
+    end
   end
 
   def update
-   if(@srpset.update_attributes(params[:split_ratio_profile_set]))
+    if(@srpset.update_attributes(params[:split_ratio_profile_set]))
      redirect_save_success(:split_ratio_profile_set,
       edit_project_configuration_split_ratio_profile_set_path(@project, @srpset))
-   else
+    else
      redirect_save_error(:split_ratio_profile_set,:edit,@srpset,SplitRatioProfile)
-   end
+    end
   end
   
   # DELETE /split_ratio_profile_sets/1
@@ -74,10 +74,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
  
   def flash_edit
-    auth = DbwebAuthorization.create_for(@srpset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/split_ratio_profile_set/#{@srpset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.object_editor_url(@srpset)
   end
  
   def populate_splits_table

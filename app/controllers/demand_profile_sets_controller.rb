@@ -75,10 +75,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
   def flash_edit
-    auth = DbwebAuthorization.create_for(@dpset)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/editor/demand_profile_set/#{@dpset.id}.html" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.object_editor_url(@dpset)
   end
 
   def populate_demands_table

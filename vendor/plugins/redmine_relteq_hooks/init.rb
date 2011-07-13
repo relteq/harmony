@@ -14,15 +14,15 @@ Redmine::Plugin.register :redmine_relteq_hooks do
 
   permission :view_simulation_batch, :simulation_batch => [:index, :show]
   permission :delete_simulation_batch, :simulation_batch => [:destroy]
-  menu :project_menu, :simulation_batch, {:controller => 'simulation_batch', :action => 'index'}, :caption => 'Simulation Data', :param => :project_id, :after => :scenarios
+  menu :project_menu, :simulation_batch, {:controller => 'simulation_batch', :action => 'index'}, :caption => 'Simulation Data', :param => :project_id, :after => :configurations
 
   permission :create_reports, :simulation_batch_report => [:new, :create]
   permission :view_reports, :simulation_batch_report => [:index, :show]
   permission :edit_reports, :simulation_batch_report => [:edit, :update, :destroy]
-  menu :project_menu, :simulation_batch_report, {:controller => 'simulation_batch_report', :action => 'index'}, :caption => 'Reports', :param => :project_id, :after => :simulation_data
+  menu :project_menu, :simulation_batch_report, {:controller => 'simulation_batch_report', :action => 'index'}, :caption => 'Reports', :param => :project_id, :after => :simulation_batch
 
   permission :create_measurement_data, :measurement_data => [:new, :create]
   permission :view_measurement_data, :measurement_data => [:show, :index]
   permission :edit_measurement_data, :measurement_data => [:edit, :update, :destroy, :delete_all]
-  menu :project_menu, :measurement_data, {:controller => 'measurement_data', :action => 'index'}, :caption => 'Measurement Data', :param => :project_id, :after => :reports
+  menu :project_menu, :measurement_data, {:controller => 'measurement_data', :action => 'index'}, :caption => 'Measurement Data', :param => :project_id, :after => :simulation_batch_report
 end
