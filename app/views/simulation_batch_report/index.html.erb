@@ -11,7 +11,6 @@
        </th>
     
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-	    <th title="Sort by 'Owner'">Owner</th>
 		<%= sort_header_tag('created_at', :caption => "Created",:default_order => 'desc') %>
 	    <th title="Shared">Shared</th>
 			<th title="Actions">Actions</th>
@@ -27,7 +26,6 @@
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	  <td class='index-menu-multiple'><%= check_box_tag("ids[]", sim.id, false, :id => nil) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
-	 	<td  >Not Implemented</td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
 	 	<td  >Not Implemented</td>
 	 	<td  >

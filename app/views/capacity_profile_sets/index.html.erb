@@ -22,7 +22,6 @@
 	<thead>
 	  <tr>
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-	    <th title="Sort by 'Owner'">Owner</th>
 		<%= sort_header_tag('updated_at', :caption => "Last Modified",:default_order => 'desc') %>
 	    <th title="Sort by 'Modified By'">Modified By</th>
 			<th title="Actions">&nbsp;</th>
@@ -38,7 +37,6 @@
 <% @items_show.each_with_index do |cps,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to cps.name, edit_project_configuration_capacity_profile_set_path(@project, cps) %></td>
- 	<td  >Not Implemented</td>
  	<td  ><%=h format_date_time(cps.updated_at) %></td>
  	<td  >Not Implemented</td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-capacity-profile-set-<%= cps.id %>"></span></td>

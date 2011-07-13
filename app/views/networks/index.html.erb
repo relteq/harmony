@@ -23,7 +23,6 @@
 	<thead>
 	  <tr>
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-	    <th title="Sort by 'Owner'"><%= l(:label_owner_index) %></th>
 		<%= sort_header_tag('updated_at', :caption =>l(:label_last_modified_index),:default_order => 'desc') %>
 	    <th title="Sort by 'Modified By'"><%= l(:label_modified_by_index) %></th>
 	    <th title="Actions" >&nbsp;</th>
@@ -39,7 +38,6 @@
 <% @items_show.each_with_index do |network,i| %>
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to network.name, edit_project_configuration_network_path(@project, network) %></td>
- 	<td  >Not Implemented</td>
  	<td  ><%=h network.updated_at.strftime("%m/%d/%Y") %></td>
  	<td  >Not Implemented</td>
  	<td  class="index-menu-td"><span class="index-menu" id="config-index-network-<%= network.id %>"></span></td>
