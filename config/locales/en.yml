@@ -1003,7 +1003,7 @@ en:
   label_split_ratio_profile_set: Split Ratio Profile Set
   label_event_set: Event Set
   label_profile: Profile
-  label_max_uncertainty: Max. Uncertainty
+  label_demand_coefficient: Demand Coefficient
   label_network: Network
   label_name: Name
   label_reporting_period: Reporting Period
@@ -1023,7 +1023,6 @@ en:
   label_invocation_period: Invocation Period
   label_controllers: Controllers
   label_attach: Attach
-  label_uncertainty: Uncertainty(%)
   label_started_at: Started
   label_progress: Progress
   label_time: Time

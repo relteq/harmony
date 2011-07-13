@@ -19,7 +19,7 @@
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.node.name %></td>
-		 			<td  ><%= text_field_tag item.id,item.profile %></td>
+		 			<td  ><%= text_area_tag item.id,item.profile,:size=>"40x5" %></td>
 		  	</tr>
 			<% end %>
 		<% end %>
