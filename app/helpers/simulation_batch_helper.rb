@@ -37,4 +37,6 @@ module SimulationBatchHelper
       :onclick => "processSimId('" + sim.id.to_s + "','" + sim.name.gsub(/'/,'') + "');"
     })
   end
+  
+      
 end

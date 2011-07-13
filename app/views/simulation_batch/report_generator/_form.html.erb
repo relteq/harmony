@@ -1,9 +1,12 @@
 <script >
+
 	document.observe('dom:loaded',function(){
 		var tabs = new Control.Tabs('tabs',{});
 		tabs.disableTab('scatter-groups');
 		tabs.disableTab('scatter-plots');
 		tabs.setActiveTab('basics');
+		jQuery('#group-color').css('color','#CCCCCC');
+		jQuery('#plot-color').css('color','#CCCCCC');
 		
 	});
 </script>
@@ -18,8 +21,8 @@
 	    <li class="tab"><a href="#basics">Basics</a></li>  
 	    <li class="tab"><a href="#sections">Sections</a></li>  
 	    <li class="tab"><a href="#options">Options</a></li>  
-	    <li class="tab"><a href="#scatter-groups" style="color:#CCCCCC;">Scatter Groups</a></li>  
-	    <li class="tab"><a href="#scatter-plots" style="color:#CCCCCC;">Scatter Plots</a></li>  
+	    <li class="tab"><a href="#scatter-groups" ><span id='group-color'>Scatter Groups</span></a></li>  
+	    <li class="tab"><a href="#scatter-plots" ><span id='plot-color'>Scatter Plots</span></a></li>  
 	  </ul>  
 	  <div id="basics" class="tab-content">
 		 <%= render :partial => 'simulation_batch/report_generator/basics', 
@@ -37,7 +40,7 @@
 		 <%= render :partial => 'simulation_batch/report_generator/scatter_groups', 
 	          :locals => {:f => f} %>
 	  </div>  
-	  <div id="scatter-plots" class="tab-content">
+	  <div id="scatter-plots" class="tab-content" >
 		 <%= render :partial => 'simulation_batch/report_generator/scatter_plots', 
 	              :locals => {:f => f} %>
 	  </div>  
