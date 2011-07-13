@@ -4,8 +4,7 @@
 <div>	
 	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_event_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
 	<span><%= link_to("Delete All", {:controller => 'event_sets', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
-	<span><a href="">Import Event Set</a></span> |
-	<span><a href="">Share All Event Sets</a></span> 
+	<span><a href="">Import Event Set</a></span>
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">

@@ -6,8 +6,7 @@
 <div>	
 	<span>	<%= link_to_function( l(:label_new) + " " + l(:label_scenario), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
 	<span><%= link_to("Delete All", {:controller => 'scenarios', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
-	<span><%= link_to "Import Scenario",import_project_configuration_scenarios_path(@project) %></span> |
-	<span><a href="">Share All Scenarios</a></span> 
+	<span><%= link_to "Import Scenario",import_project_configuration_scenarios_path(@project) %></span>
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">

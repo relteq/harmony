@@ -939,12 +939,10 @@ en:
   ##### relteq additions 
   scenarios_new: New Scenario
   scenarios_import: Import Scenario
-  scenarios_share_all: Share All Scenarios
   scenarios_delete_all: Delete All Scenarios
 
   networks_new: New Network
   networks_import: Import Network
-  networks_share_all: Share All Networks
   networks_delete_all: Delete All Networks
 
   controller_sets_new: New Controller Set 
@@ -970,6 +968,7 @@ en:
   relteq_duplicate: Duplicate
   relteq_shallow_duplicate: Shallow Duplicate
   relteq_share: Share
+  relteq_copy_to: Copy to another project
   relteq_export: Export
   relteq_delete: Delete
   relteq_rename: Rename
@@ -1012,7 +1011,6 @@ en:
   label_delete_all: 'You are about to delete all your items, are you sure you want to do this?'
   label_delete_all_header: Delete All
   label_import_header: Import
-  label_share_header: Share All
   label_owner_index: Owner
   label_modified_by_index: Modified By
   label_last_modified_index: Last Modified
