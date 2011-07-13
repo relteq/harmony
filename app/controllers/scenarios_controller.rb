@@ -3,7 +3,6 @@ class ScenariosController <  ConfigurationsApplicationController
     :edit, :update, :destroy, :show, :flash_edit
   ]
 
-
   def import
     auth = DbwebAuthorization.create_for(@project)
     @token = auth.access_token
@@ -27,10 +26,7 @@ class ScenariosController <  ConfigurationsApplicationController
 
   # GET /scenarios/1.xml
   def show
-    auth = DbwebAuthorization.create_for(@scenario)
-    redirect_to ENV['DBWEB_URL_BASE'] + 
-                "/model/scenario/#{@scenario.id}.xml" +
-                "?access_token=#{auth.escaped_token}"
+    redirect_to Dbweb.scenario_export_url(@scenario)
   end
 
   # GET /scenarios/1/edit
@@ -43,7 +39,7 @@ class ScenariosController <  ConfigurationsApplicationController
 
   # GET /scenarios/1/flash_edit
   def flash_edit
-    redirect_to Dbweb.scenario_editor_url(@scenario)
+    redirect_to Dbweb.object_editor_url(@scenario)
   end
 
   # POST /scenarios

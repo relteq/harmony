@@ -73,7 +73,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def flash_edit
-    redirect_to Dbweb.cp_set_editor_url(@cpset)
+    redirect_to Dbweb.object_editor_url(@cpset)
   end
 
   

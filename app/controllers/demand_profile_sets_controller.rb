@@ -75,7 +75,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
   def flash_edit
-    redirect_to Dbweb.dp_set_editor_url(@dpset)
+    redirect_to Dbweb.object_editor_url(@dpset)
   end
 
   def populate_demands_table

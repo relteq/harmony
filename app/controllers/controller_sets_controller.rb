@@ -86,7 +86,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
 
   def flash_edit
-    redirect_to Dbweb.ctrl_set_editor_url(@cset)
+    redirect_to Dbweb.object_editor_url(@cset)
   end
 
 private

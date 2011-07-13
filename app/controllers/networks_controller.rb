@@ -100,7 +100,7 @@ class NetworksController <  ConfigurationsApplicationController
   end
   
   def flash_edit
-    redirect_to Dbweb.network_editor_url(@network)
+    redirect_to Dbweb.object_editor_url(@network)
   end
 
 private

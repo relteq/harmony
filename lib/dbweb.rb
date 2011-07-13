@@ -1,51 +1,32 @@
 module Dbweb
   class << self
+    TYPE_TRANSLATOR = {
+      Scenario => 'scenario',
+      Network => 'network',
+      CapacityProfileSet => 'capacity_profile_set',
+      DemandProfileSet => 'demand_profile_set',
+      SplitRatioProfileSet => 'split_ratio_profile_set',
+      ControllerSet => 'controller_set'
+    }
+
     def flash_editor_url(type, id, token)
       ENV['DBWEB_URL_BASE'] + 
         "/editor/#{type}/#{id}.html" +
         "?access_token=#{token}"
     end
 
-    def scenario_editor_url(scenario)
+    def object_editor_url(object)
+      auth = DbwebAuthorization.create_for(object)
+      flash_editor_url TYPE_TRANSLATOR[object.class], 
+                       object.id, 
+                       auth.escaped_token
+    end
+
+    def scenario_export_url(scenario)
       auth = DbwebAuthorization.create_for(scenario)
-      flash_editor_url 'scenario', 
-                       scenario.id, 
-                       auth.escaped_token
-    end
-
-    def network_editor_url(network)
-      auth = DbwebAuthorization.create_for(network)
-      flash_editor_url 'network', 
-                       network.id, 
-                       auth.escaped_token
-    end
-
-    def ctrl_set_editor_url(cset)
-      auth = DbwebAuthorization.create_for(cset)
-      flash_editor_url 'controller_set', 
-                       cset.id, 
-                       auth.escaped_token
-    end
-
-    def cp_set_editor_url(cpset)
-      auth = DbwebAuthorization.create_for(cpset)
-      flash_editor_url 'capacity_profile_set',
-                       cpset.id,
-                       auth.escaped_token
-    end
-
-    def dp_set_editor_url(dpset)
-      auth = DbwebAuthorization.create_for(dpset)
-      flash_editor_url 'demand_profile_set',
-                       dpset.id,
-                       auth.escaped_token
-    end
-
-    def srp_set_editor_url(srpset)
-      auth = DbwebAuthorization.create_for(srpset)
-      flash_editor_url 'split_ratio_profile_set',
-                       srpset.id,
-                       auth.escaped_token
+      ENV['DBWEB_URL_BASE'] + 
+        "/model/scenario/#{scenario.id}.xml" +
+        "?access_token=#{auth.escaped_token}"
     end
   end
 end
