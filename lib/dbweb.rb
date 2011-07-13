@@ -6,7 +6,8 @@ module Dbweb
       CapacityProfileSet => 'capacity_profile_set',
       DemandProfileSet => 'demand_profile_set',
       SplitRatioProfileSet => 'split_ratio_profile_set',
-      ControllerSet => 'controller_set'
+      ControllerSet => 'controller_set',
+      EventSet => 'event_set'
     }
 
     def flash_editor_url(type, id, token)
@@ -20,6 +21,18 @@ module Dbweb
       flash_editor_url TYPE_TRANSLATOR[object.class], 
                        object.id, 
                        auth.escaped_token
+    end
+
+    def object_duplicate_url(object)
+      # Needs longer expiration because it is created
+      # on an unrelated page load
+      auth = DbwebAuthorization.create_for(
+        object,
+        :expiration => Time.now.utc + 8.hours
+      )
+      ENV['DBWEB_URL_BASE'] +
+        "/duplicate/#{TYPE_TRANSLATOR[object.class]}/#{object.id}" +
+        "?access_token=#{auth.escaped_token}"
     end
 
     def scenario_export_url(scenario)
