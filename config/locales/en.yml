@@ -1002,9 +1002,14 @@ en:
   label_demand_profile_set: Demand Profile Set
   label_capacity_profile_set: Capacity Profile Set
   label_split_ratio_profile_set: Split Ratio Profile Set
+  label_split_ratio_profile: Split Ratio Profile
+  label_capacity_profile: Capacity Profile
+  label_demand_profile: Demand Profile
   label_event_set: Event Set
+  label_event: Event
   label_profile: Profile
   label_demand_coefficient: Demand Coefficient
+  label_time_period: Time Period
   label_network: Network
   label_name: Name
   label_reporting_period: Reporting Period
