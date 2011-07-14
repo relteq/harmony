@@ -114,7 +114,11 @@ module ConfigurationsHelper
        :id => scenario.id
     )
 
-    duplicate_callback = not_implemented_callback 
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(scenario),
+      edit_project_configuration_scenario_path(project, '**ID**'),
+      :deep => true
+    )
 
     shallow_dup_callback = js_callback_duplicate(
       Dbweb.object_duplicate_url(scenario),
