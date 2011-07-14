@@ -8,10 +8,10 @@
 	<thead>
 	  <tr>
 		  <th class='checkbox index-menu-multiple'><%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, "form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
-       </th>
-    
-		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-		<%= sort_header_tag('created_at', :caption => "Created",:default_order => 'desc') %>
+      </th> 
+			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
+			<%= sort_header_tag('user_id_creator', :caption => l(:field_created_by),:default_order => 'desc') %>
 			<th title="Actions">Actions</th>
 	  </tr>
 	</thead>
@@ -26,6 +26,7 @@
 	  <td class='index-menu-multiple'><%= check_box_tag("ids[]", sim.id, false, :id => nil) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
+	 	<td  ><%= sim.user_id_creator %></td>
 	 	<td  >
 			<%= link_to '','' , :class => 'icon icon-del' %> | 
 			<%= link_to '', '', :class => 'icon icon-edit' %> | 
