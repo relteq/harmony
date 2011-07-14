@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil && @items.size() != 0) %>
-				<%= sort_header_tag_relteq('link.type_link', {:url =>ptable_project_configuration_demand_profile_set_path(@project, @dpset) ,:caption => l(:field_origin),:default_order => 'desc'}) %>
+				<%= sort_header_tag_relteq('link.type_link', {:url => { :controller => 'demand_profile_sets',  :action => 'populate_demands_table', :project_id =>@project,:demand_profile_set_id =>@dpset },:caption => l(:field_origin),:default_order => 'desc'}) %>
 			<% else%>
 				<th title=<%= l(:field_origin) %>><%= l(:field_origin) %></th>
 			<% end %>

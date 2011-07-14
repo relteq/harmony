@@ -178,7 +178,7 @@ ActionController::Routing::Routes.draw do |map|
                        :collection => {:delete_all => :post}
       config.resources :split_ratio_profile_sets, :member => [:flash_edit, :ptable],
                        :collection => {:delete_all => :post}
-      config.resources :event_sets, :member => [:flash_edit, :ptable],
+      config.resources :event_sets, :member => [:flash_edit, :populate_events_table,:delete_event],
                        :collection => {:delete_all => :post}
     end
 

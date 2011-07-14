@@ -16,4 +16,15 @@ class EventSet < ActiveRecord::Base
         @scen.save
     end  
   end
+  
+  def delete_event(event)
+    begin
+      e = Event.find_by_id(event)
+      e.destroy
+      return true
+    rescue 
+      return false  
+    end
+  end
+  
 end

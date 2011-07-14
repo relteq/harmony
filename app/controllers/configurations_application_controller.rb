@@ -67,7 +67,7 @@ protected
   def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
     sort_init sort_attribute, 'asc'
     sort_update [sort_attribute]
-     
+    
     case params[:format]
     when 'xml', 'json'
       @offset, @limit = api_offset_and_limit      
@@ -83,6 +83,7 @@ protected
     }
     sort = sort_clause.split(/,* /)
     subs = sort[0].split('.')
+
     if(subs.length == 2)
       @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
     else

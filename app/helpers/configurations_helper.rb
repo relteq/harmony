@@ -359,8 +359,7 @@ module ConfigurationsHelper
 
    
     link_to_remote(caption,
-#                  { :url => url.merge(url_options), :method => :get},
-                  { :url => url.concat(url_options.to_s), :method => :get},
+                  { :url => url.merge(url_options), :method => :get},
                   { :href => url_for(url_options),
                    :class => css})               
   end

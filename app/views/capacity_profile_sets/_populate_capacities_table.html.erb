@@ -3,7 +3,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil && @items.size() != 0) %>
-				<%= sort_header_tag_relteq('link.name', {:url => ptable_project_configuration_capacity_profile_set_path(@project, @cpset) ,:caption => l(:field_destination),:default_order => 'desc'}) %>
+				<%= sort_header_tag_relteq('link.name', {:url => { :controller => 'capacity_profile_sets',  :action => 'populate_capacities_table', :project_id =>@project,:capacity_profile_set_id =>@cpset } ,:caption => l(:field_destination),:default_order => 'desc'}) %>
 			<% else%>
 				<th title=<%= l(:field_destination) %>><%= l(:field_destination) %></th>
 			<% end %>

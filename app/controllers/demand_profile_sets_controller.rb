@@ -89,6 +89,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     end
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@sid)   
   end
+  
 private
   def not_found_redirect_to_index
     redirect_to :action => :index, :project_id => @project

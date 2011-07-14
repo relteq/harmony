@@ -7,6 +7,11 @@ class Event < ActiveRecord::Base
   def description
     index_start = parameters.index("<description>")
     index_end = parameters.index("</description>")
-    self.parameters[index_start,index_start+ index_end].sub("<description>","").sub("</description>","")
+    begin
+      self.parameters[index_start,index_start+ index_end].sub("<description>","").sub("</description>","")
+    rescue 
+      return '' 
+    end
+    
   end
 end

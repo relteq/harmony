@@ -1,5 +1,5 @@
 class EventSetsController <  ConfigurationsApplicationController
-  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_event]
 
   def index
     get_index_view(@eventsets)
@@ -60,6 +60,20 @@ class EventSetsController <  ConfigurationsApplicationController
     end
   end
   
+  def delete_event
+    if(@eset.delete_event(params[:event]))
+      flash[:notice] = "Event successfully deleted."    
+    else
+      flash[:error] =  "Event NOT successfully deleted."          
+    end
+    
+    respond_to do |format|
+       format.js
+       format.html { redirect_to  edit_project_configuration_event_set_path(params[:project_id], params[:id])   }
+       format.xml  { head :ok }
+     end
+  end
+  
   def delete_all
     @eventsets.each do | e |
       e.remove_from_scenario
@@ -78,7 +92,7 @@ class EventSetsController <  ConfigurationsApplicationController
   end
   
   def populate_events_table
-    #I populate srpset so we can make sure to set checkboxes selected -- if there is no event set id then 
+    #I populate eset so we can make sure to set checkboxes selected -- if there is no event set id then 
     #you are creating a new split ratio profile set 
     @eset = params[:event_set_id].to_s == '' ? EventSet.new : get_set(@eventsets,params[:event_set_id].to_i)
     if(params[:event_set] != nil)
