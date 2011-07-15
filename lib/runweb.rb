@@ -29,14 +29,11 @@ module Runweb
 
       if simulation_spec == :simple
         options[:n_runs] = 1
-        options[:param][:control] = true
-        options[:param][:qcontrol] = true
-        options[:param][:events] = true
-        options[:param]['inputs'] << '<time_range begin_time="0.0" duration="86400.0" />'
+        options[:param]['inputs'] << time_range_tag
       else
         begin_time = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:b_time))
         duration = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:duration))
-        options[:param]['inputs'] << %Q{<time_range begin_time="#{begin_time}" duration="#{duration}" />}
+        options[:param]['inputs'] << time_range_tag(options[:param]) 
         simulation_spec[:param].merge!(options[:param])
         options.merge!(simulation_spec)
       end
@@ -76,6 +73,24 @@ module Runweb
       end
     end
   private
+    def time_range_tag(user_opts = {})
+      opts = {
+        :begin_time => 0.0,
+        :duration => 86400.0,
+        :qcontrol => false,
+        :control => false,
+        :events => false
+      }
+      opts.merge!(user_opts)
+
+      %Q{<time_range begin_time=#{opts[:begin_time]} 
+                     duration=#{opts[:duration]}
+                     qcontrol=#{opts[:qcontrol]}
+                     control=#{opts[:control]}
+                     events=#{opts[:events]}
+      }
+    end
+
     def batch_options(plus)
       # TODO once workers are instantiated dynamically, these should be
       # the correct user and group IDs
