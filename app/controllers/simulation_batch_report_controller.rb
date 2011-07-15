@@ -44,7 +44,7 @@ class SimulationBatchReportController < ApplicationController
      
        Runweb.report @simulation_report
        
-       flash[:notice] = 'Simulation Report was successfully sent. You should see updates as they become available.'  
+       flash[:notice] = 'Job started successfully.'  
        format.html { redirect_to  :my_page}
        format.xml  { head :ok }
      else
