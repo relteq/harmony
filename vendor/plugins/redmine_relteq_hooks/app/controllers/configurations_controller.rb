@@ -25,4 +25,5 @@ class ConfigurationsController < ConfigurationsApplicationController
   
   def delete_event
   end
+  
 end

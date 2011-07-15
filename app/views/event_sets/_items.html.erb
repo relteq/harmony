@@ -1,0 +1,6 @@
+<tr id ='event_<%= item.id %>' class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	<td><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.event_type %></td>
+	<td><%=h item.description %></td>
+	<td><%=h item.display_time_from_string(item.time) %></td>
+	<td><%= link_to_remote '',{:url => delete_event_project_configuration_event_set_path(@project,@eset,:event=> item.id) },:confirm => 'Are you sure?',  :class => 'icon icon-del'%></td>		
+</tr>

@@ -78,16 +78,22 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
     redirect_to Dbweb.object_editor_url(@dpset)
   end
 
-  def populate_demands_table
+  def populate_table
     #I populate dpset so we can make sure to set checkboxes selected -- if there is no demand profile set id then 
     #you are creating a new demand profile set 
     @dpset = params[:demand_profile_set_id].to_s == '' ? DemandProfileSet.new : get_set(@dprofilesets,params[:demand_profile_set_id].to_i)
     if(params[:demand_profile_set] != nil)
         @sid = params[:demand_profile_set][:network_id].to_s == '' ? "-1" : params[:demand_profile_set][:network_id].to_s 
+    elsif(params[:network_id] != nil) #coming from sort header
+        @sid = params[:network_id]  ###I am right here -- doesn't wwork check to see if gettng to this 
     else
         @sid = @dpset.network_id.to_s
     end
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@sid)   
+  
+    respond_to do |format|
+      format.js
+    end
   end
   
 private

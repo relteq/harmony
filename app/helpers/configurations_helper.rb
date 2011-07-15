@@ -357,9 +357,8 @@ module ConfigurationsHelper
    # don't reuse params if filters are present
    url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
 
-   
-    link_to_remote(caption,
-                  { :url => url.merge(url_options), :method => :get},
+   link_to_remote(caption,
+                  { :url => url.merge(sort_options), :method => :get},
                   { :href => url_for(url_options),
                    :class => css})               
   end
