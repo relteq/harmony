@@ -24,7 +24,7 @@
 		 			<td><%= h item.link.name %></td>
 					<td><%= text_area_tag item.id,item.profile,:size=> "40x5" %></td>
 		 			<td><%= text_field_tag item.id,item.knob  %></td>
-		 			<td><%= item.dt %></td>	
+		 			<td><%= text_field_tag item.id,item.dt, :size => 8 %></td>	
 					<td><%= link_to '','' , :class => 'icon icon-del' %></td>		
 		  	</tr>
 			<% end %>
