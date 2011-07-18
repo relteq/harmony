@@ -34,6 +34,6 @@
 </table>
 <p class="pagination">
 <% if(@items != nil) %>
-  <%= pagination_links_full @items_pages, @item_count %>
+  <%= relteq_pagination_links_full @items_pages, @item_count %>
 <% end %>
 </p>

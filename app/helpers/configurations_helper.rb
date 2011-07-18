@@ -367,6 +367,57 @@ module ConfigurationsHelper
     s.length < 16 ? s : s[0,15] + "..." if s
   end
   
+  #The pagination methods below were 99% identical to the corresponding methods in application_helper minus, it was necessary to take
+  #out :update => 'content' from the link_to_remote calls in order to populate the sub-tables on the sets pages. The orginal pagination helper
+  #methods assumed a full page replacement of the div element id='content' on ajax calls.   
+  def relteq_pagination_links_full(paginator, count=nil, options={})
+    page_param = options.delete(:page_param) || :page
+    per_page_links = options.delete(:per_page_links)
+    url_param = params.dup
+    # don't reuse query params if filters are present
+    url_param.merge!(:fields => nil, :values => nil, :operators => nil) if url_param.delete(:set_filter)
 
+    html = ''
+    if paginator.current.previous
+      html << relteq_link_to_remote_content_update('&#171; ' + l(:label_previous), url_param.merge(page_param => paginator.current.previous)) + ' '
+    end
+
+    html << (pagination_links_each(paginator, options) do |n|
+      relteq_link_to_remote_content_update(n.to_s, url_param.merge(page_param => n))
+    end || '')
+    
+    if paginator.current.next
+      html << ' ' + relteq_link_to_remote_content_update((l(:label_next) + ' &#187;'), url_param.merge(page_param => paginator.current.next))
+    end
+
+    unless count.nil?
+      html << " (#{paginator.current.first_item}-#{paginator.current.last_item}/#{count})"
+      if per_page_links != false && links = relteq_per_page_links(paginator.items_per_page)
+	      html << " | #{links}"
+      end
+    end
+
+    html
+  end
+  
+  def relteq_per_page_links(selected=nil)
+    url_param = params.dup
+    url_param.clear if url_param.has_key?(:set_filter)
+
+    links = Setting.per_page_options_array.collect do |n|
+      n == selected ? n : link_to_remote(n, {  :url => params.dup.merge(:per_page => n),
+                                             :method => :get},
+                                            {:href => url_for(url_param.merge(:per_page => n))})
+    end
+    links.size > 1 ? l(:label_display_per_page, links.join(', ')) : nil
+  end
+  
+  def relteq_link_to_remote_content_update(text, url_params)
+    link_to_remote(text,
+      {:url => url_params, :method => :get, :complete => 'window.scrollTo(0,0)'},
+      {:href => url_for(:params => url_params)}
+    )
+  end
+  ##### end pagination replacement 
   
 end
