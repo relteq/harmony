@@ -1,5 +1,7 @@
 class NetworksController <  ConfigurationsApplicationController
-  before_filter :require_network, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :require_network, :only => [
+    :edit, :update, :destroy, :flash_edit, :copy_to, :copy_form
+  ]
 
   # GET /networks
   # GET /networks.xml
@@ -101,6 +103,25 @@ class NetworksController <  ConfigurationsApplicationController
   
   def flash_edit
     redirect_to Dbweb.object_editor_url(@network)
+  end
+
+  def copy_form
+    @projects = Project.all.select { |p|
+      (p.id != @project.id) && User.current.allowed_to?(:edit_simulation_models, p)
+    }
+  end
+
+  def copy_to
+    @target_project = Project.find(params[:to_project])
+    if User.current.allowed_to?(:edit_simulation_models, @target_project)
+      redirect_to(
+        Dbweb.object_duplicate_url(@network, 
+                                   :to_project => @target_project.id,
+                                   :deep => true)
+      )
+    else
+      redirect_to :index
+    end
   end
 
 private
