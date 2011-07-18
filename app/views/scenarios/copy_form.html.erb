@@ -1,0 +1,14 @@
+<% content_for :config_sidebar do %>
+  <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @scenario} %>
+<% end %>
+
+<h2>Copy Scenario: <%= @scenario.name %></h2>
+
+<% form_tag(:controller => 'scenarios', :project_id => @project, :scenario_id => @scenario.id, :action => :copy_to) do %>
+  <p>
+    <%= label_tag :to_project %>
+    <%= select_tag :to_project, options_for_select(@projects) %>
+
+    <%= submit_tag 'Copy' %>
+  </p>
+<% end %>

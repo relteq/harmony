@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 module Dbweb
   class << self
     TYPE_TRANSLATOR = {
@@ -23,16 +26,19 @@ module Dbweb
                        auth.escaped_token
     end
 
-    def object_duplicate_url(object)
+    def object_duplicate_url(object, options = {})
       # Needs longer expiration because it is created
       # on an unrelated page load
       auth = DbwebAuthorization.create_for(
         object,
         :expiration => Time.now.utc + 8.hours
       )
+      http_options = options.map do |k,v|
+        "&#{k}=#{v}"
+      end.join
       ENV['DBWEB_URL_BASE'] +
         "/duplicate/#{TYPE_TRANSLATOR[object.class]}/#{object.id}" +
-        "?access_token=#{auth.escaped_token}"
+        "?access_token=#{auth.escaped_token}#{http_options}"
     end
 
     def scenario_export_url(scenario)

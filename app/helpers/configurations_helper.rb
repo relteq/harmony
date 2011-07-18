@@ -125,7 +125,12 @@ module ConfigurationsHelper
       edit_project_configuration_scenario_path(project, '**ID**')
     )
 
-    copy_to_callback = not_implemented_callback
+    copy_to_callback = js_callback_redirect(
+      :controller => 'scenarios',
+      :action => 'copy_form',
+      :project_id => project,
+      :id => scenario.id
+    )
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:relteq_edit, edit_callback)}

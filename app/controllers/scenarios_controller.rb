@@ -1,6 +1,6 @@
 class ScenariosController <  ConfigurationsApplicationController
   before_filter :require_scenario, :only => [
-    :edit, :update, :destroy, :show, :flash_edit
+    :edit, :update, :destroy, :show, :flash_edit, :copy_to, :copy_form
   ]
 
   def import
@@ -102,7 +102,29 @@ class ScenariosController <  ConfigurationsApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+  def copy_form
+    @projects = Project.all.select { |p|
+      (p.id != @project.id) && User.current.allowed_to?(:edit_simulation_models, p)
+    }
+  end
+
+  def copy_to
+    @target_project = Project.find(params[:to_project])
+    if User.current.allowed_to?(:edit_simulation_models, @target_project)
+      Rails.logger.info "sending user to #{Dbweb.object_duplicate_url(@scenario, 
+                                   :to_project => @target_project.id,
+                                   :deep => true)}" 
+      redirect_to(
+        Dbweb.object_duplicate_url(@scenario, 
+                                   :to_project => @target_project.id,
+                                   :deep => true)
+      )
+    else
+      redirect_to :index
+    end
+  end
+
 private
   def require_scenario 
     begin

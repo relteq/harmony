@@ -163,7 +163,7 @@ ActionController::Routing::Routes.draw do |map|
 
     project.resource :configuration, :only => [:show] do |config|
       config.resources :scenarios, 
-                       :member => {:flash_edit => :get},
+                       :member => {:flash_edit => :get, :copy_form => :get, :copy_to => :post},
                        :collection => {:delete_all => :post, 
                                        :import => :get} do |scenario|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
