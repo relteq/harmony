@@ -163,7 +163,12 @@ module ConfigurationsHelper
       edit_project_configuration_network_path(project, '**ID**')
     )
 
-    copy_to_callback = not_implemented_callback
+    copy_to_callback = js_callback_redirect(
+      :controller => 'networks',
+      :action => 'copy_form',
+      :project_id => project,
+      :id => network.id
+    )
     export_callback = not_implemented_callback
 
   
