@@ -8,6 +8,8 @@ class DemandProfileSet < ActiveRecord::Base
   
   has_many :demand_profiles
   has_many :scenarios
+  
+  after_update :save_demands
 
   def remove_from_scenario
     #remove this demand profile set from anything it is attached to
@@ -17,4 +19,18 @@ class DemandProfileSet < ActiveRecord::Base
         @scen.save
     end
   end
+  
+  def demand_profiles=(demands)
+    demands.each do |attributes|
+      dp = demand_profiles.detect { |d| d.id == attributes[:id].to_i }
+      dp.attributes = attributes
+    end
+  end
+  
+  def save_demands
+    demand_profiles.each do |d|
+      d.save(false)
+    end
+  end
+  
 end
