@@ -112,9 +112,6 @@ class ScenariosController <  ConfigurationsApplicationController
   def copy_to
     @target_project = Project.find(params[:to_project])
     if User.current.allowed_to?(:edit_simulation_models, @target_project)
-      Rails.logger.info "sending user to #{Dbweb.object_duplicate_url(@scenario, 
-                                   :to_project => @target_project.id,
-                                   :deep => true)}" 
       redirect_to(
         Dbweb.object_duplicate_url(@scenario, 
                                    :to_project => @target_project.id,
