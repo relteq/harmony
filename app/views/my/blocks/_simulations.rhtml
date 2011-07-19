@@ -1,11 +1,12 @@
 <h3>Jobs (<%= @jobs.count %>)</h3>
-<table class="list">
+<table class="list" id="jobs_list">
   <thead>
     <tr>
       <th><%= l(:field_name) %></th>
       <th><%= l(:field_type) %></th>
       <th><%= l(:label_started_at) %></th>
       <th><%= l(:label_progress) %></th>
+      <th><%= l(:label_project) %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
         <td><%= h s.mode %></td>
         <td><%= h (format_time(s.start_time) or "Queued") %></td>
         <%= progress_bar_display(s) %>
+        <td><%= link_to(s.project.name, project_configuration_path(s.project)) %></td>
       </tr>
     <% end %>
   <tbody>

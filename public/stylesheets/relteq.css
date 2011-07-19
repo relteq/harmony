@@ -135,6 +135,15 @@ button.scenario-overlay-cancel {
 	display:none;
 }
 
+
 .hide{
 	display:none;
 }
+
+table#jobs_list td { 
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eeeeee;
+  text-align: center;
+}
+

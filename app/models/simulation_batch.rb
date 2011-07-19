@@ -26,4 +26,7 @@ class SimulationBatch < ActiveRecord::Base
     s.save  
   end
   
+  def project
+    scenario.project
+  end
 end

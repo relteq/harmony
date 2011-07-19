@@ -114,14 +114,23 @@ module ConfigurationsHelper
        :id => scenario.id
     )
 
-    duplicate_callback = not_implemented_callback 
+    duplicate_callback = js_callback_duplicate(
+      Dbweb.object_duplicate_url(scenario),
+      edit_project_configuration_scenario_path(project, '**ID**'),
+      :deep => true
+    )
 
     shallow_dup_callback = js_callback_duplicate(
       Dbweb.object_duplicate_url(scenario),
       edit_project_configuration_scenario_path(project, '**ID**')
     )
 
-    copy_to_callback = not_implemented_callback
+    copy_to_callback = js_callback_redirect(
+      :controller => 'scenarios',
+      :action => 'copy_form',
+      :project_id => project,
+      :id => scenario.id
+    )
 
     %Q{'#config-#{where}-scenario-#{scenario.id}': 
           [#{sct(:relteq_edit, edit_callback)}
@@ -154,9 +163,20 @@ module ConfigurationsHelper
       edit_project_configuration_network_path(project, '**ID**')
     )
 
-    copy_to_callback = not_implemented_callback
-    export_callback = not_implemented_callback
+    copy_to_callback = js_callback_redirect(
+      :controller => 'networks',
+      :action => 'copy_form',
+      :project_id => project,
+      :id => network.id
+    )
 
+    export_callback = js_callback_redirect(
+      :controller => 'networks',
+      :action => 'show',
+      :format => 'xml',
+      :project_id => project.id,
+      :id => network.id
+    )
   
     %Q{'#config-#{where}-network-#{network.id}':
         [#{sct(:relteq_edit, edit_callback)}
