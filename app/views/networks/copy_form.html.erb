@@ -7,8 +7,33 @@
 <% form_tag(:controller => 'networks', :project_id => @project, :network_id => @network.id, :action => :copy_to) do %>
   <p>
     <%= label_tag :to_project %>
-    <%= select_tag :to_project, options_for_select(@projects) %>
+    <%= select_tag :to_project, options_for_select(@projects_select) %>
 
-    <%= submit_tag 'Copy' %>
+    <%= submit_tag 'Copy', :id => 'copy_network_submit' %>
   </p>
 <% end %>
+
+<script language="javascript">
+var $j = jQuery;
+$j(function() {
+  $j('#copy_network_submit').click(function(the_event) {
+    var redirect_url =
+      '<%= edit_project_configuration_network_path('**P_ID**', '**ID**') %>';
+    $('ajax-indicator').show();
+    $j.getJSON("<%= @dbweb_db_url %>&jsoncallback=?",
+               {deep: true,
+                to_project: $j('#to_project option:selected').val() },
+               function(data) {
+                  if(data.success) {
+                    var edit_url = redirect_url.replace('**ID**',data.success)
+                                               .replace('**P_ID**', 
+                                                        $j('#to_project option:selected').
+                                                        text());
+                    window.location = edit_url;
+                  }
+                  $('ajax-indicator').hide();
+               });
+    the_event.preventDefault();
+  });
+});
+</script>

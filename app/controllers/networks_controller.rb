@@ -109,6 +109,8 @@ class NetworksController <  ConfigurationsApplicationController
     @projects = Project.all.select { |p|
       (p.id != @project.id) && User.current.allowed_to?(:edit_simulation_models, p)
     }
+    @projects_select = @projects.map { |p| [p.name, p.id] }
+    @dbweb_db_url = Dbweb.object_duplicate_url(@network)
   end
 
   def copy_to
