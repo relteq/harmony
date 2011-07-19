@@ -1,2 +1,0 @@
-
-page[:demand_profiles_table].replace_html :partial => 'populate_demands_table'

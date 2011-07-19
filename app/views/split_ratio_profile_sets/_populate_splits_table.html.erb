@@ -1,13 +1,15 @@
-<p><%= label :split_ratio_profile_set, :split_ratio_profile %></p>
+<p><label><%= l(:label_split_ratio_profile) %>s</label></p>
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<% if(@items != nil) %>
-			<%= sort_header_tag_relteq('node.name', {:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset },:caption => l(:field_node),:default_order => 'desc'}) %>
+			<% if(@items != nil && @items.size() != 0) %>
+			<%= sort_header_tag_relteq('node.name', {:url => { :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset } ,:caption => l(:field_node),:default_order => 'desc'}) %>
 			<% else%>
-				<th title="Node"><%= l(:field_node) %></th>
+				<th title=<%= l(:field_node) %>><%= l(:field_node) %></th>
 			<% end %>
-	    <th title="Profile"><%= l(:label_profile) %></th>
+	    <th title=<%= l(:label_profile) %>><%= l(:label_profile) %></th>
+			<th title=<%= l(:label_time_period) %>><%= l(:label_time_period) %></th>
+			<th title=<%= l(:label_actions) %>>&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody id="profiles_table_body">
@@ -18,8 +20,10 @@
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
 		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "split_ratio_profile_set[split_ratio_profile_ids][]", item.id,@srpset.split_ratio_profiles.include?(item) %>&nbsp;&nbsp;<%=h item.node.name %></td>
-		 			<td  ><%= text_area_tag item.id,item.profile,:size=>"40x5" %></td>
+					<td><%=h item.node.name %></td>
+		 			<td><%= text_area_tag item.id,item.profile,:size=>"40x5" %></td>
+					<td><%= item.dt %></td>
+					<td><%= link_to '','' , :class => 'icon icon-del' %></td>		
 		  	</tr>
 			<% end %>
 		<% end %>

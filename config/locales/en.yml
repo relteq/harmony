@@ -949,7 +949,10 @@ en:
   controller_sets_delete_all: Delete All Controller Sets
 
   demand_profiles_new: New Demand Profile Set
+  demand_profiles_edit: Edit Demand Profile Set
   demand_profiles_delete_all: Delete All Demand Profile Sets
+  label_success_all_delete: All demand profile sets have been successfully deleted.
+  demand_profile_set_not_found: Demand Profile Set not found
 
   capacity_profiles_new: New Capacity Profile Set
   capacity_profiles_delete_all: Delete All Capacity Profile Sets
@@ -957,6 +960,9 @@ en:
   split_ratio_profiles_new: New Split Ratio Profile Set
   split_ratio_profiles_delete_all: Delete All Split Ratio Profile Sets
 
+  label_profile_deleted: Profile Deleted
+  label_profile_not_deleted: Profile Not Deleted
+  
   event_lists_new: New Event Set
   event_lists_delete_all: Delete All Event Sets 
 
@@ -995,6 +1001,8 @@ en:
   field_event: Event
   field_weight: Weight
   field_created_by: Created By
+  label_success_delete: successfully deleted
+  label_no_network_id: No Network Id was found in the response.
   label_new: New
   label_scenario: Scenario
   label_controller_set: Controller Set
@@ -1002,14 +1010,20 @@ en:
   label_demand_profile_set: Demand Profile Set
   label_capacity_profile_set: Capacity Profile Set
   label_split_ratio_profile_set: Split Ratio Profile Set
+  label_split_ratio_profile: Split Ratio Profile
+  label_capacity_profile: Capacity Profile
+  label_demand_profile: Demand Profile
   label_event_set: Event Set
+  label_event: Event
   label_profile: Profile
   label_demand_coefficient: Demand Coefficient
+  label_time_period: Time Period
   label_network: Network
   label_name: Name
   label_reporting_period: Reporting Period
   button_create_and_configure: Create and Configure
   label_delete_all: 'You are about to delete all your items, are you sure you want to do this?'
+  label_delete_item: 'You are about to  delete this item, are you sure?'
   label_delete_all_header: Delete All
   label_import_header: Import
   label_owner_index: Owner

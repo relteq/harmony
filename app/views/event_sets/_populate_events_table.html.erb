@@ -1,14 +1,15 @@
-<p><%= label :event_set, :event %></p>
+<p><label><%= l(:label_event) %>s	</label></p>
 <table class="form_table list"> 
 	<thead>
 	  <tr>
-			<% if(@items != nil) %>
-				<%= sort_header_tag_relteq('event_type', {:url =>{ :controller => 'event_sets',  :action => 'populate_events_table', :project_id =>@project,:event_set_id =>@eset },:caption => l(:field_event),:default_order => 'desc'}) %>
+			<% if(@items != nil && @items.size() != 0) %>
+				<%= sort_header_tag_relteq('event_type', {:url =>{ :controller => 'events_sets',  :action => 'populate_events_table', :project_id =>@project,:event_set_id =>@eset } ,:caption => l(:field_event),:default_order => 'desc'}) %>
 			<% else%>
-				<th title="Event"><%= l(:field_event) %></th>
+				<th title=<%= l(:field_event) %><%= l(:field_event) %></th>
 			<% end %>
-	    <th title="Description"><%= l(:label_description) %></th>
-	    <th title="Time"><%= l(:label_time) %></th>
+	    <th title=<%= l(:label_description) %>><%= l(:label_description) %></th>
+	    <th title=<%= l(:label_time) %>><%= l(:label_time) %></th>
+			<th title=<%= l(:label_actions) %>>&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody id="events_table_body">
@@ -18,11 +19,7 @@
 			</tr>
 		<% else %>
 			<% @items.each_with_index do |item,i| %>
-		  	<tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-					<td  ><%= check_box_tag "event_set[event_ids][]", item.id,@eset.events.include?(item) %>&nbsp;&nbsp;<%=h item.event_type %></td>
-		 			<td  ><%=h item.description %></td>
-		 			<td  ><%=h item.display_time_from_string(item.time) %></td>
-		  	</tr>
+				<%= render :partial => 'items', :locals => { :item => item, :i => i }  %>
 			<% end %>
 		<% end %>
   
