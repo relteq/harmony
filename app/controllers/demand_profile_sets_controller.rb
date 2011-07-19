@@ -83,7 +83,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_profile_not_deleted)
       status = 403
     end
-    @nid = get_network_id
+    @nid = require_network_id
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@nid)
     
     respond_to do |format|  
@@ -96,7 +96,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    @nid = get_network_id
+    @nid = require_network_id
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@nid)   
   
     respond_to do |format|
@@ -105,9 +105,9 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
 private
-  def not_found_redirect_to_index
+  def not_found_redirect_to_index(error)
     redirect_to :action => :index, :project_id => @project
-    flash[:error] = l(:demand_profile_set_not_found)
+    flash[:error] = error
     return false
   end
 
@@ -115,19 +115,24 @@ private
     begin
       @dpset = get_set(@dprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      return not_found_redirect_to_index
+      return not_found_redirect_to_index(l(:demand_profile_set_not_found))
     end
     if !@dpset
-      return not_found_redirect_to_index
+      return not_found_redirect_to_index(l(:demand_profile_set_not_found))
     end
   end
   
 private
-  def get_network_id
+  def require_network_id
+    network_id = nil
     if(params[:demand_profile_set] != nil) #coming from edit/new page onchange for network select
-        params[:demand_profile_set][:network_id]
+      network_id = params[:demand_profile_set][:network_id]
     elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-        params[:network_id]
+      network_id = params[:network_id]
+    end
+    
+    if(network_id == nil)
+      return not_found_redirect_to_index(l(:label_no_network_id))
     end
   end
 
