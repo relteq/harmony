@@ -30,8 +30,8 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def create
-    @dpset = DemandProfileSet.new
-    if(@dpset.update_attributes(params[:demand_profile_set]))
+    @dpset = DemandProfileSet.new(params[:demand_profile_set])
+    if(@dpset.save)
       redirect_save_success(:demand_profile_set,
         edit_project_configuration_demand_profile_set_path(@project,@dpset))
     else
@@ -79,15 +79,10 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    #I populate dpset so we can make sure to set checkboxes selected -- if there is no demand profile set id then 
-    #you are creating a new demand profile set 
-    @dpset = params[:demand_profile_set_id].to_s == '' ? DemandProfileSet.new : get_set(@dprofilesets,params[:demand_profile_set_id].to_i)
-    if(params[:demand_profile_set] != nil)
-        @nid = params[:demand_profile_set][:network_id].to_s == '' ? "-1" : params[:demand_profile_set][:network_id].to_s 
-    elsif(params[:network_id] != nil) #coming from sort header
+    if(params[:demand_profile_set] != nil) #coming from edit/new page onchange for network select
+        @nid = params[:demand_profile_set][:network_id]
+    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
         @nid = params[:network_id]
-    else
-        @nid = @dpset.network_id.to_s
     end
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@nid)   
   

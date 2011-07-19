@@ -356,16 +356,26 @@ module ConfigurationsHelper
    sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
    # don't reuse params if filters are present
    url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
-
+   url = create_url(url) + sort_options.to_query
+   
    link_to_remote(caption,
-                  { :url => url.merge(sort_options), :method => :get},
+                  { :url => url, :method => :get},
                   { :href => url_for(url_options),
                    :class => css})               
   end
 
+  def create_url(url)
+    if url.include? "?"
+      url + "&"  
+    else
+      url + "?"  
+    end
+  end
+  
   def display_menu_item(s)
     s.length < 16 ? s : s[0,15] + "..." if s
   end
+  
   
   #The pagination methods below were 99% identical to the corresponding methods in application_helper minus, it was necessary to take
   #out :update => 'content' from the link_to_remote calls in order to populate the sub-tables on the sets pages. The orginal pagination helper

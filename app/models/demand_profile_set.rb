@@ -21,9 +21,16 @@ class DemandProfileSet < ActiveRecord::Base
   end
   
   def demand_profiles=(demands)
-    demands.each do |attributes|
-      dp = demand_profiles.detect { |d| d.id == attributes[:id].to_i }
-      dp.attributes = attributes
+    if(demand_profiles.empty?)
+      demands.each do |attributes|
+        dp = DemandProfile.find(attributes[:id].to_i)
+        dp.attributes = attributes
+      end
+    else
+      demands.each do |attributes|
+        dp = demand_profiles.detect { |d| d.id == attributes[:id].to_i }
+        dp.attributes = attributes
+      end
     end
   end
   
