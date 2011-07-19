@@ -83,11 +83,11 @@ module Runweb
       }
       opts.merge!(user_opts)
 
-      %Q{<time_range begin_time=#{opts[:begin_time]} 
-                     duration=#{opts[:duration]}
-                     qcontrol=#{opts[:qcontrol]}
-                     control=#{opts[:control]}
-                     events=#{opts[:events]}
+      %Q{<time_range begin_time="#{opts[:begin_time]}"
+                     duration="#{opts[:duration]}"
+                     qcontrol="#{opts[:qcontrol]}"
+                     control="#{opts[:control]}"
+                     events="#{opts[:events]}" />
       }
     end
 
