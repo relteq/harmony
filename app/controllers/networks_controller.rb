@@ -1,6 +1,6 @@
 class NetworksController <  ConfigurationsApplicationController
   before_filter :require_network, :only => [
-    :edit, :update, :destroy, :flash_edit, :copy_to, :copy_form
+    :edit, :update, :destroy, :show, :flash_edit, :copy_to, :copy_form
   ]
 
   # GET /networks
@@ -52,6 +52,10 @@ class NetworksController <  ConfigurationsApplicationController
       format.html # edit.html.erb
       format.xml  { render :xml => @network }
     end   
+  end
+
+  def show
+    redirect_to Dbweb.object_export_url(@network)
   end
   
   # PUT /networks/1

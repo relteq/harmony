@@ -26,7 +26,7 @@ class ScenariosController <  ConfigurationsApplicationController
 
   # GET /scenarios/1.xml
   def show
-    redirect_to Dbweb.scenario_export_url(@scenario)
+    redirect_to Dbweb.object_export_url(@scenario)
   end
 
   # GET /scenarios/1/edit

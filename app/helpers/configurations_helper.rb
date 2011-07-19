@@ -169,8 +169,14 @@ module ConfigurationsHelper
       :project_id => project,
       :id => network.id
     )
-    export_callback = not_implemented_callback
 
+    export_callback = js_callback_redirect(
+      :controller => 'networks',
+      :action => 'show',
+      :format => 'xml',
+      :project_id => project.id,
+      :id => network.id
+    )
   
     %Q{'#config-#{where}-network-#{network.id}':
         [#{sct(:relteq_edit, edit_callback)}

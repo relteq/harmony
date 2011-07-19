@@ -41,10 +41,10 @@ module Dbweb
         "?access_token=#{auth.escaped_token}#{http_options}"
     end
 
-    def scenario_export_url(scenario)
-      auth = DbwebAuthorization.create_for(scenario)
-      ENV['DBWEB_URL_BASE'] + 
-        "/model/scenario/#{scenario.id}.xml" +
+    def object_export_url(object)
+      auth = DbwebAuthorization.create_for(object)
+      ENV['DBWEB_URL_BASE'] +
+        "/model/#{TYPE_TRANSLATOR[object.class]}/#{object.id}.xml" +
         "?access_token=#{auth.escaped_token}"
     end
   end
