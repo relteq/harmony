@@ -28,7 +28,7 @@ $j(function() {
                     var edit_url = redirect_url.replace('**ID**',data.success)
                                                .replace('**P_ID**', 
                                                         $j('#to_project option:selected').
-                                                        text());
+                                                        val());
                     window.location = edit_url;
                   }
                   $('ajax-indicator').hide();
