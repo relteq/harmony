@@ -134,3 +134,7 @@ button.scenario-overlay-cancel {
 	font-weight: bold;
 	display:none;
 }
+
+.hide{
+	display:none;
+}

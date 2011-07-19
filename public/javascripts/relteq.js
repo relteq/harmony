@@ -79,3 +79,14 @@ function hide_box(div) {
   $(div).hide();
   ol.hide();
 }
+
+function onItemDeleteComplete(request){
+  var flash_notice = request.getHeader('x-flash-notice');
+  var flash_error = request.getHeader('x-flash-error');
+
+	if (flash_notice) jQuery('#content').prepend("<div class='flash notice'>" + flash_notice + "</div>");
+	if (flash_error) jQuery('#content').prepend("<div class='flash error'>" + flash_error + "</div>");
+
+}
+
+

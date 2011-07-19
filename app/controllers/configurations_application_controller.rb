@@ -1,5 +1,6 @@
 class ConfigurationsApplicationController < ApplicationController
   before_filter :populate_menu
+  after_filter :flash_headers
   menu_item :configurations  
   before_filter do |controller|
     controller.authorize(:configurations)
@@ -132,5 +133,19 @@ protected
   
   def get_set(sets,id)
     sets.select{|e| e.id == id}.first
+  end
+  
+  
+  def flash_headers
+    # This will discontinue execution if Rails detects that the request is not
+    # from an AJAX request, i.e. the header wont be added for normal requests
+    return unless request.xhr?
+
+    response.headers['x-flash-error'] = flash[:error]  unless flash[:error].blank?
+    response.headers['x-flash-notice'] = flash[:notice]  unless flash[:notice].blank?
+    response.headers['x-flash-warning'] = flash[:warning]  unless flash[:warning].blank?
+
+    # Stops the flash appearing when you next refresh the page
+    flash.discard
   end
 end

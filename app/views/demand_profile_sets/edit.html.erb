@@ -2,7 +2,8 @@
   <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @dpset} %>
 <% end %>
 
-<h2><%= link_to "Demand Profile Sets", :controller => 'demand_profile_sets', :action => 'index' %> &#187; <%= "Edit Demand Profile Set"%></h2>
+<h2><%= link_to l(:field_demand_profile_set) + "s", project_configuration_demand_profile_sets_path(@project) %> &#187; <%= l(:demand_profiles_edit) %></h2>
+
 
 <% labelled_tabular_form_for :demand_profile_set, @dpset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

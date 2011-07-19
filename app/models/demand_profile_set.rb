@@ -39,5 +39,9 @@ class DemandProfileSet < ActiveRecord::Base
       d.save(false)
     end
   end
-  
+ 
+  def self.delete_profile(demand)
+    dp = DemandProfile.find_by_id(demand)
+    dp.destroy
+  end 
 end
