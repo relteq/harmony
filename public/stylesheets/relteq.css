@@ -134,3 +134,10 @@ button.scenario-overlay-cancel {
 	font-weight: bold;
 	display:none;
 }
+
+table#jobs_list td { 
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eeeeee;
+  text-align: center;
+}

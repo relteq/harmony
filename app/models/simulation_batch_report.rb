@@ -11,6 +11,10 @@ class SimulationBatchReport < ActiveRecord::Base
   
   belongs_to :scatter_plot
   belongs_to :color_pallette
+
+  def project
+    simulation_batch_list.simulation_batches.first.project
+  end
   
   def mode
     'Create Report'
