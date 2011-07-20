@@ -10,7 +10,6 @@ var configSidebarContextMenus = {
   networksNode : [ 
     { name: "<%= l(:networks_new) %>",
       callback: <%= js_callback_redirect :controller => 'networks', :action => 'new'%>},
-    { name: "<%= l(:networks_import) %>" },
     { name: "<%= l(:networks_delete_all) %>", className: 'delete' }
   ],
   controllerSetsNode : [

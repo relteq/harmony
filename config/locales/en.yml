@@ -942,7 +942,6 @@ en:
   scenarios_delete_all: Delete All Scenarios
 
   networks_new: New Network
-  networks_import: Import Network
   networks_delete_all: Delete All Networks
 
   controller_sets_new: New Controller Set 
