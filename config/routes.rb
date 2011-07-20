@@ -170,16 +170,16 @@ ActionController::Routing::Routes.draw do |map|
       end
       config.resources :networks, :member => [:flash_edit],
                        :collection => {:delete_all => :post, :import => :get}
-      config.resources :controller_sets, :member => [:flash_edit, :ptable],
-                       :collection => {:delete_all => :post}
-      config.resources :capacity_profile_sets, :member => [:flash_edit, :ptable],
-                       :collection => {:delete_all => :post}
+      config.resources :controller_sets, :member => [:flash_edit],
+                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+      config.resources :capacity_profile_sets, :member => [:flash_edit],
+                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
       config.resources :demand_profile_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post}
+                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
       config.resources :split_ratio_profile_sets, :member => [:flash_edit],
                        :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
-      config.resources :event_sets, :member => [:flash_edit, :populate_events_table,:delete_event],
-                       :collection => {:delete_all => :post}
+      config.resources :event_sets, :member => [:flash_edit],
+                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
     end
 
     project.wiki_start_page 'wiki', :controller => 'wiki', :action => 'show', :conditions => {:method => :get}
