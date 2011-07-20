@@ -1,0 +1,41 @@
+<p><label><%= l(:label_split_ratio_profile) %>s</label></p>
+<table class="form_table list"> 
+	<thead>
+	  <tr>
+			<% if(@items != nil && @items.size() != 0) %>
+			<%= sort_header_tag_relteq('node.name', {:url =>  populate_table_project_configuration_split_ratio_profile_sets_path(@project, :split_ratio_profile_set_id=>@srpset, :network_id=>@nid || @srpset.network_id) ,:caption => l(:field_node),:default_order => 'desc'}) %>
+			<% else%>
+				<th title=<%= l(:field_node) %>><%= l(:field_node) %></th>
+			<% end %>
+	    <th title=<%= l(:label_profile) %>><%= l(:label_profile) %></th>
+			<th title=<%= l(:label_time_period) %>><%= l(:label_time_period) %></th>
+			<th title=<%= l(:label_actions) %>>&nbsp;</th>
+	  </tr>
+	</thead>
+	<tbody id="profiles_table_body">
+		<% if @items == nil ||  @items.count == 0 %>
+		  <tr>
+		    <td colspan='4' ><%= l(:label_no_records_index)%></td>
+			</tr>
+		<% else %>
+		<% @items.each_with_index do |item,i| %>
+			<% fields_for "split_ratio_profile_set[split_ratio_profiles][]", item do |item_form|%>
+	  	<tr id=<%= item_form.id.to_s + '-row'%>  class="user active <%= i%2==0 ? 'odd' : 'even' %>">
+	 			<td>
+					<%= item_form.hidden_field :id, :index => nil %>
+					<%= h item.node.name %>	
+				</td>
+				<td><%= item_form.text_area :profile,:size=> "38x5", :index => nil %></td>
+	 			<td><%= item_form.text_field :dt, :size => 8, :index => nil %></td>	
+				<td><%= link_to_remote '',:url => delete_item_project_configuration_split_ratio_profile_sets_path(@project, :split_ratio_profile_id=>item.id,:network_id=>@nid || @srpset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item_form.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>	
+	  	</tr>
+		  <% end %>
+		<% end %>
+	 <% end %>	  
+   </tbody>
+</table>
+<p class="pagination">
+	<% if(@items != nil && @items.count != 0 ) %>
+		<%= relteq_pagination_links_full @items_pages, @item_count %></p>
+	<% end %>
+</p>

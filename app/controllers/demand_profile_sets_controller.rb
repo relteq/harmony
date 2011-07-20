@@ -134,6 +134,7 @@ private
     if(network_id == nil)
       return not_found_redirect_to_index(l(:label_no_network_id))
     end
+    return network_id
   end
 
 end
