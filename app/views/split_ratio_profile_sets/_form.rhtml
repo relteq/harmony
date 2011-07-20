@@ -3,12 +3,12 @@
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :split_ratio_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @srpset.network_id} ,{:onchange => remote_function(:url =>{ :controller => 'split_ratio_profile_sets',  :action => 'populate_splits_table', :project_id =>@project,:split_ratio_profile_set_id =>@srpset }, :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :split_ratio_profile_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @srpset.network_id} ,{:onchange => remote_function(:url =>populate_table_project_configuration_split_ratio_profile_sets_path(@project, :split_ratio_profile_set_id=>@srpset, :network_id=>@nid), :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
 
 
 <br/>
 <div id="split_ratio_profiles_table" class="autoscroll">
-	<%= render :partial => 'populate_splits_table' %>
+	<%= render :partial => 'populate_table' %>
 </div>
 
 

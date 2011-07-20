@@ -54,7 +54,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     @srpset.destroy
 
     respond_to do |format|
-      flash[:notice] = @srpset.name + " successfully deleted."    
+      flash[:notice] = @srpset.name + l(:label_success_delete) 
       format.html { redirect_to  project_configuration_split_ratio_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
@@ -67,31 +67,48 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = 'All split ratio profile sets have been successfully deleted.'  
+      flash[:notice] = l(:label_success_all_delete) 
       format.html { redirect_to project_configuration_split_ratio_profile_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
+  
+  def delete_item
+    status = 200
+    begin
+      SplitRatioProfileSet.delete_profile(params[:split_ratio_profile_id].to_i)
+      flash[:notice] = l(:label_profile_deleted)  
+    rescue
+      flash[:error] = l(:label_profile_not_deleted)
+      status = 403
+    end
+    @nid = require_network_id
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@nid)
+    
+    respond_to do |format|  
+      format.js {render :status => status}    
+    end
+  end
+  
  
   def flash_edit
     redirect_to Dbweb.object_editor_url(@srpset)
   end
  
-  def populate_splits_table
-    #I populate srpset so we can make sure to set checkboxes selected -- if there is no split ratio profile set id then 
-    #you are creating a new split ratio profile set 
-    @srpset = params[:split_ratio_profile_set_id].to_s == '' ? SplitRatioProfileSet.new : get_set(@sprofilesets,params[:split_ratio_profile_set_id].to_i)
-    if(params[:split_ratio_profile_set] != nil)
-      @sid = params[:split_ratio_profile_set][:network_id].to_s == '' ? "-1" : params[:split_ratio_profile_set][:network_id].to_s
-    else
-      @sid = @srpset.network_id.to_s
+  def populate_table
+
+    @nid = require_network_id
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@nid)    
+  
+    respond_to do |format|
+      format.js
     end
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@sid)
+    
   end
 private
-  def not_found_redirect_to_index
+  def not_found_redirect_to_index(error)
     redirect_to :action => :index, :project_id => @project
-    flash[:error] = 'Split Ratio Profile Set not found.'
+    flash[:error] = error
     return false
   end
 
@@ -99,10 +116,25 @@ private
     begin
       @srpset = get_set(@sprofilesets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      return not_found_redirect_to_index
+      return not_found_redirect_to_index(l(:split_ratio_profile_set_not_found))
     end
     if !@srpset
-      return not_found_redirect_to_index
+      return not_found_redirect_to_index(l(:split_ratio_profile_set_not_found))
     end
   end
+  
+  private
+    def require_network_id
+      network_id = nil
+      if(params[:split_ratio_profile_set] != nil) #coming from edit/new page onchange for network select
+        network_id = params[:split_ratio_profile_set][:network_id]
+      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+        network_id = params[:network_id]
+      end
+
+      if(network_id == nil)
+        return not_found_redirect_to_index(l(:label_no_network_id))
+      end
+      return network_id
+    end
 end
