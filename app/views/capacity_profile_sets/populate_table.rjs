@@ -1,0 +1,2 @@
+
+page[:capacity_profiles_table].replace_html :partial => 'populate_table'

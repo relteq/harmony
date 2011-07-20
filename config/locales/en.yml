@@ -950,11 +950,12 @@ en:
   demand_profiles_new: New Demand Profile Set
   demand_profiles_edit: Edit Demand Profile Set
   demand_profiles_delete_all: Delete All Demand Profile Sets
-  label_success_all_delete: All profile sets have been successfully deleted.
   demand_profile_set_not_found: Demand Profile Set not found
 
   capacity_profiles_new: New Capacity Profile Set
   capacity_profiles_delete_all: Delete All Capacity Profile Sets
+  capacity_profiles_edit: Edit Capacity Profile Set
+  capacity_profile_set_not_found: Capacity Profile Set not found
 
   split_ratio_profiles_new: New Split Ratio Profile Set
   split_ratio_profiles_edit: Edit Split Ratio Profile Set
@@ -1002,6 +1003,7 @@ en:
   field_event: Event
   field_weight: Weight
   field_created_by: Created By
+  label_success_all_delete: All profile sets have been successfully deleted.
   label_success_delete: successfully deleted
   label_no_network_id: No Network Id was found in the response.
   label_new: New
