@@ -3,8 +3,7 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function( 'New ' +  l(:label_network), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to(l(:label_delete_all_header), {:controller => 'networks', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
-	<span><a href=""><%= l(:label_import_header) + ' ' + l(:label_network)%>s</a></span>
+	<span><%= link_to(l(:label_delete_all_header), {:controller => 'networks', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> 
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">

@@ -3,8 +3,7 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_split_ratio_profile_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to(l(:label_delete_all_header), delete_all_project_configuration_split_ratio_profile_sets_path(@project),:confirm => l(:label_delete_all)) %></span> |
-	<span><a href=""><%= l(:label_import_header) + " " + l(:label_split_ratio_profile_set) %></a></span>
+	<span><%= link_to(l(:label_delete_all_header), delete_all_project_configuration_split_ratio_profile_sets_path(@project),:confirm => l(:label_delete_all)) %></span>
 </div>
 <div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
 	<div class="newscenario">
