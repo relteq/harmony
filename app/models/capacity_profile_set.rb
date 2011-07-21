@@ -43,4 +43,12 @@ class CapacityProfileSet < ActiveRecord::Base
      cp = CapacityProfile.find_by_id(capacity)
      cp.destroy
    end
+   
+   
+   def self.delete_all(collection)
+     collection.each do | item |
+       item.remove_from_scenario
+       item.destroy
+     end
+   end
 end

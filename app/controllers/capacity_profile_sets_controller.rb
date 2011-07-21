@@ -60,13 +60,14 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @cprofilesets.each do | cp |
-      cp.remove_from_scenario
-      cp.destroy
+    begin
+      CapacityProfileSet.delete_all(@cprofilesets)
+      flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
     end
-
+    
     respond_to do |format|
-      flash[:notice] = l(:label_success_all_delete)   
       format.html { redirect_to project_configuration_capacity_profile_sets_path(@project) }
       format.xml  { head :ok }
     end

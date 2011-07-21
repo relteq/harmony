@@ -59,13 +59,15 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @csets.each do | c |
-      c.remove_from_scenario
-      c.destroy
+
+    begin
+      ControllerSet.delete_all(@csets)
+      flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
     end
 
-    respond_to do |format|
-      flash[:notice] = l(:label_success_all_delete)   
+    respond_to do |format|  
       format.html { redirect_to  redirect_to project_configuration_controller_sets_path(@project) }
       format.xml  { head :ok }
     end

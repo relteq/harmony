@@ -1013,7 +1013,8 @@ en:
   field_event: Event
   field_weight: Weight
   field_created_by: Created By
-  label_success_all_delete: All profile sets have been successfully deleted.
+  label_success_all_delete: All items have been successfully deleted.
+  label_not_success_all_delete: &#039;Delete All&#039;  not successful.
   label_success_delete: successfully deleted
   label_no_network_id: No Network Id was found in the response.
   label_new: New
