@@ -5,7 +5,8 @@
 <p>
 	<label><%=l(:label_type_of_report)%>: </label>
 	  
-  <%= f.select :report_type, options_for_select(simulation_report_type_of_select_options()),{} ,{:onchange => "doReportTypeAction();"} %>
+  <%= f.select :report_type, options_for_select(simulation_report_type_of_select_options()),{} ,{:onchange => "doReportTypeAction();"} %><br/>
+	<span id="sim-two-not-checked" class='select-error'>Error: Two simulations must be selected in order to generate a Scatter Plot report.</span>
 </p>    	
 <p>
 	<label><%=l(:label_reference_simulations)%>: </label>
@@ -18,12 +19,20 @@
 	function doReportTypeAction(){
 		var sel = jQuery('#simulation_batch_report_type');
 		var tabs = new Control.Tabs('tabs',{});	
+		jQuery('#sim-two-not-checked').css('display','none');
 		switch(sel.val()){
 			case 'Scatter plot': 
-				tabs.enableTab('scatter-groups');
-				tabs.enableTab('scatter-plots');
-				jQuery('#group-color').css('color','#666666');
-				jQuery('#plot-color').css('color','#666666');
+				if(validateAtLeastTwoSimChecked()){
+					tabs.enableTab('scatter-groups');
+					tabs.enableTab('scatter-plots');
+					jQuery('#group-color').css('color','#666666');
+					jQuery('#plot-color').css('color','#666666');
+				}
+				else{
+						jQuery('#sim-two-not-checked').css('display','inline');
+						return;
+				}
+				
 				break;
 			default:
 				tabs.disableTab('scatter-groups');
@@ -32,6 +41,13 @@
 				jQuery('#plot-color').css('color','#CCCCCC');
 				break;				
 		}
+	}
+	
+	function validateAtLeastTwoSimChecked(){
+		var nbChecked = jQuery("input:checked[id*=checkbox]").size(); //find all checked checkboxes + radio buttons  
+		if(nbChecked > 1)
+			return true;
+		return false;
 	}
 </script>
 

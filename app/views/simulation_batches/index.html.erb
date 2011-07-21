@@ -53,7 +53,7 @@
 <% end %>
 
 	<div id="report-generator" style="display: none;" class="box tabular">
-		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="hide_box('report-generator')"></button>
+		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="resetPage()"></button>
   	<%= render :partial => 'simulation_batches/report_generator/form'%>
 	</div>
 
@@ -118,6 +118,12 @@
 			return true;
 		return false;
 	}
+	
+	function resetPage(){
+		hide_box('report-generator'); 
+		jQuery('#simulation_batch_action').val('');
+	}
+
 
 	var ol = new Overlay();
 
