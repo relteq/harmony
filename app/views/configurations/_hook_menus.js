@@ -33,9 +33,9 @@ var configSidebarContextMenus = {
     { name: "<%= l(:split_ratio_profiles_delete_all) %>", className: 'delete' }
   ],
   eventSetsNode: [
-    { name: "<%= l(:event_lists_new) %>",
+    { name: "<%= l(:event_sets_new) %>",
       callback: <%= js_callback_redirect :controller => 'event_sets', :action => 'new' %> },
-    { name: "<%= l(:event_lists_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:event_sets_delete_all) %>", className: 'delete' }
   ],
 
   hook: function(sel, ind) {
