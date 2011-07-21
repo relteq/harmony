@@ -1,5 +1,7 @@
 class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_srpset, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
  
   def index
     get_index_view(@sprofilesets)
@@ -97,15 +99,14 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
  
   def populate_table
-
     @nid = require_network_id
     get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@nid)    
   
     respond_to do |format|
       format.js
     end
-    
   end
+
 private
   def not_found_redirect_to_index(error)
     redirect_to :action => :index, :project_id => @project
@@ -124,18 +125,22 @@ private
     end
   end
   
-  private
-    def require_network_id
-      network_id = nil
-      if(params[:split_ratio_profile_set] != nil) #coming from edit/new page onchange for network select
-        network_id = params[:split_ratio_profile_set][:network_id]
-      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-        network_id = params[:network_id]
-      end
-
-      if(network_id == nil)
-        return not_found_redirect_to_index(l(:label_no_network_id))
-      end
-      return network_id
+  def require_network_id
+    network_id = nil
+    if(params[:split_ratio_profile_set] != nil) #coming from edit/new page onchange for network select
+      network_id = params[:split_ratio_profile_set][:network_id]
+    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+      network_id = params[:network_id]
     end
+
+    if(network_id == nil)
+      return not_found_redirect_to_index(l(:label_no_network_id))
+    end
+    return network_id
+  end
+
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :split_ratio_profile_set
+  end
 end

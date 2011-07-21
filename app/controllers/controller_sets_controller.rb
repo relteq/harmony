@@ -1,5 +1,7 @@
 class ControllerSetsController <  ConfigurationsApplicationController
   before_filter :require_controller_set, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
 
   def index
     get_index_view(@csets)
@@ -59,7 +61,6 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-
     begin
       ControllerSet.delete_all(@csets)
       flash[:notice] = l(:label_success_all_delete) 
@@ -122,19 +123,22 @@ private
     end
   end
   
-  private
-    def require_network_id
-      network_id = nil
-      if(params[:controller_set] != nil) #coming from edit/new page onchange for network select
-        network_id = params[:controller_set][:network_id]
-      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-        network_id = params[:network_id]
-      end
-
-      if(network_id == nil)
-        return not_found_redirect_to_index(l(:label_no_network_id))
-      end
-      return network_id
+  def require_network_id
+    network_id = nil
+    if(params[:controller_set] != nil) #coming from edit/new page onchange for network select
+      network_id = params[:controller_set][:network_id]
+    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+      network_id = params[:network_id]
     end
-  
+
+    if(network_id == nil)
+      return not_found_redirect_to_index(l(:label_no_network_id))
+    end
+    return network_id
+  end
+
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :controller_set
+  end
 end

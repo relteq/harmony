@@ -1,4 +1,5 @@
 class ControllerSet < ActiveRecord::Base
+  include RelteqUserStamps
   validates_presence_of :network
   
   belongs_to :network

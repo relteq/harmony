@@ -36,7 +36,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to es.name, edit_project_configuration_event_set_path(@project, es) %></td>
  	<td  ><%=h format_date_time(es.updated_at)  %></td>
- 	<td  >Not Implemented</td>
+ 	<td  ><%= link_to es.modifier, es.modifier %></td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-event-set-<%= es.id %>"></span></td>
 
   </tr>

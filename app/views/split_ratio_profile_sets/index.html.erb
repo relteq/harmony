@@ -36,7 +36,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to srps.name, edit_project_configuration_split_ratio_profile_set_path(@project, srps) %></td>
  	<td  ><%=h format_date_time(srps.updated_at) %></td>
- 	<td  ><%= srps.user_id_modifier %></td>
+ 	<td  ><%= link_to srps.modifier, srps.modifier %></td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-split-ratio-profile-set-<%= srps.id %>"></span></td>
 
   </tr>
