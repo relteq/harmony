@@ -37,7 +37,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to network.name, edit_project_configuration_network_path(@project, network) %></td>
  	<td  ><%=h network.updated_at.strftime("%m/%d/%Y") %></td>
- 	<td  >Not Implemented</td>
+ 	<td  ><%= link_to network.modifier, network.modifier %></td>
  	<td  class="index-menu-td"><span class="index-menu" id="config-index-network-<%= network.id %>"></span></td>
 
   </tr>

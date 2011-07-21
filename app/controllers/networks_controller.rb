@@ -61,6 +61,7 @@ class NetworksController <  ConfigurationsApplicationController
   # PUT /networks/1
   # PUT /networks/1.xml
   def update
+    params[:network].merge!(:modifier => User.current)
     if(@network.update_attributes(params[:network]))
       flash[:notice] = l(:notice_successful_update)
     end
@@ -74,6 +75,10 @@ class NetworksController <  ConfigurationsApplicationController
   # POST /networks
   # POST /networks.xml
   def create
+    params[:network].merge!(
+      :creator => User.current,
+      :modifier => User.current
+    )
     @network = Network.new(params[:network])
     respond_to do |format|
       if(@network.save)

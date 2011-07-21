@@ -1,5 +1,6 @@
 class Network < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include RelteqUserStamps
   before_destroy :destroy_dependents_ordered
 
   validates_presence_of :name
