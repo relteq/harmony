@@ -47,4 +47,12 @@ class Network < ActiveRecord::Base
       @scen.save
     end
   end
+  
+  
+  def self.delete_all(collection)
+    collection.each do | item |
+      item.remove_from_scenario
+      item.destroy
+    end
+  end
 end

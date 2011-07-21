@@ -92,14 +92,14 @@ class ScenariosController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @scenarios = @project.scenarios.all
-    
-    @scenarios.each do | s |
-      s.destroy
+    begin
+      Scenario.delete_all(@scenarios)
+      flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
     end
 
     respond_to do |format|
-      flash[:notice] = 'All scenarios have been successfully deleted.'  
       format.html { redirect_to  :controller => 'scenarios', :action => 'index',:project_id =>@project  }
       format.xml  { head :ok }
     end

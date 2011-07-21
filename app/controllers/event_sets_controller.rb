@@ -54,21 +54,22 @@ class EventSetsController <  ConfigurationsApplicationController
     @eset.destroy
 
     respond_to do |format|
-      flash[:notice] = @eset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project   }
+      flash[:notice] = @eset.name + l(:label_success_delete)    
+      format.html { redirect_to project_configuration_event_sets_path(@project)  }
       format.xml  { head :ok }
     end
   end
   
   def delete_all
-     @eventsets.each do | e |
-       e.remove_from_scenario
-       e.destroy
+     begin
+       EventSet.delete_all(@eventsets)
+       flash[:notice] = l(:label_success_all_delete) 
+     rescue
+       flash[:error] = l(:label_not_success_all_delete)    
      end
-
+     
      respond_to do |format|
-       flash[:notice] = 'All event sets have been successfully deleted.'  
-       format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project  }
+       format.html { redirect_to project_configuration_event_sets_path(@project)  }
        format.xml  { head :ok }
      end
   end

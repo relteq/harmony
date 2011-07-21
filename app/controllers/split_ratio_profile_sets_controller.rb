@@ -61,13 +61,14 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @sprofilesets.each do | s |
-      s.remove_from_scenario 
-      s.destroy
-    end
-
-    respond_to do |format|
+    begin
+      SplitRatioProfileSet.delete_all(@sprofilesets)
       flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
+    end
+    
+    respond_to do |format|    
       format.html { redirect_to project_configuration_split_ratio_profile_sets_path(@project) }
       format.xml  { head :ok }
     end

@@ -40,5 +40,11 @@ class Scenario < ActiveRecord::Base
     default_batch_setting != nil ? default_batch_setting : DefaultBatchSetting.new
   end
   
+  def self.delete_all(collection)
+    collection.each do | item |
+      item.destroy
+    end
+  end
+  
   
 end
