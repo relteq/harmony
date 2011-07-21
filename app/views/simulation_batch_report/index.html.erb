@@ -41,9 +41,10 @@
 
 </table>
 </div>
-<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
+<% if @item_count != 0 %>
+	<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
+<% end %>
 
 <script language="javascript">
   var ol = new Overlay();
-
 </script>

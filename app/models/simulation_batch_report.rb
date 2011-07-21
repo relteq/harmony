@@ -61,6 +61,17 @@ class SimulationBatchReport < ActiveRecord::Base
 
   end
   
+  def self.get_simuation_batch_lists(project)
+    sim_lists = Array.new
+    project.scenarios.each do |s|
+      s.simulation_batches.each do |sb|
+        sb.simulation_batch_lists.each do |sl|
+          sim_lists.push(sl)
+        end
+      end
+    end
+  end
+  
   #once the report is made we need to tie the
   #reports to the simulation batches used to create the report
   #This done via the Simulation Batch List and reported_batches table
