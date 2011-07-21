@@ -1,4 +1,4 @@
-class SimulationBatchController < ApplicationController
+class SimulationBatchesController < ApplicationController
   helper :sort
   include SortHelper
   
@@ -71,7 +71,21 @@ class SimulationBatchController < ApplicationController
     
   end
   
+  def delete_report
+    begin
+      sim_batch =  SimulationBatch.find(params[:id])
+      sim_batch.destroy
+      flash[:notice] = l(:similation_batch) + ", '" + sim_batch.name + "' " + l(:label_success_delete)  
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = l(:similation_batch_not_found)
+    rescue
+      flash[:error] = l(:similation_batch_delete_not_success)
+    end
 
+    respond_to do |format|
+      format.html { redirect_to project_simulation_batches_path(params[:project_id]) }
+    end 
+  end
 
   private 
     def get_simulation_batch_action(str,sims)

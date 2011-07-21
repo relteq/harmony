@@ -25,23 +25,23 @@
 	    <li class="tab"><a href="#scatter-plots" ><span id='plot-color'>Scatter Plots</span></a></li>  
 	  </ul>  
 	  <div id="basics" class="tab-content">
-		 <%= render :partial => 'simulation_batch/report_generator/basics', 
+		 <%= render :partial => 'simulation_batches/report_generator/basics', 
 	              :locals => {:f => f} %>	
 	  </div>  
 	  <div id="sections" class="tab-content">
-		 <%= render :partial => 'simulation_batch/report_generator/sections', 
+		 <%= render :partial => 'simulation_batches/report_generator/sections', 
 	              :locals => {:f => f} %>
 	  </div>  
 	  <div id="options" class="tab-content">
-		 <%= render :partial => 'simulation_batch/report_generator/options', 
+		 <%= render :partial => 'simulation_batches/report_generator/options', 
 	              :locals => {:f => f} %>
 	  </div>  
 	  <div id="scatter-groups" class="tab-content">
-		 <%= render :partial => 'simulation_batch/report_generator/scatter_groups', 
+		 <%= render :partial => 'simulation_batches/report_generator/scatter_groups', 
 	          :locals => {:f => f} %>
 	  </div>  
 	  <div id="scatter-plots" class="tab-content" >
-		 <%= render :partial => 'simulation_batch/report_generator/scatter_plots', 
+		 <%= render :partial => 'simulation_batches/report_generator/scatter_plots', 
 	              :locals => {:f => f} %>
 	  </div>  
   </div>

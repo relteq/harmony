@@ -1,4 +1,4 @@
-module SimulationBatchHelper
+module SimulationBatchesHelper
    
   def simulation_batch_select_options()
     return [
