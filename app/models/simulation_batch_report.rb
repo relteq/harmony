@@ -32,6 +32,7 @@ class SimulationBatchReport < ActiveRecord::Base
      creation_time.strftime("%m/%d/%Y at %I:%M%p") if !(creation_time.nil?)
   end
   
+  
   #this is used to populate the Report Generator form
   #with default values
   def default_report_settings!
@@ -65,11 +66,12 @@ class SimulationBatchReport < ActiveRecord::Base
     sim_lists = Array.new
     project.scenarios.each do |s|
       s.simulation_batches.each do |sb|
-        sb.simulation_batch_lists.each do |sl|
-          sim_lists.push(sl)
+        sb.reported_batches.each do |rb|
+          sim_lists.push(rb.simulation_batch_list)
         end
       end
     end
+    sim_lists
   end
   
   #once the report is made we need to tie the

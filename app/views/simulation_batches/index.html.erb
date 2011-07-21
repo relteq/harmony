@@ -1,6 +1,6 @@
-<% form_tag(process_choices_simulation_batch_path(@project)) do %>
+<% form_tag(process_choices_project_simulation_batches_path(@project)) do %>
 <div>
-	 <%= render :partial => 'simulation_batch/menu', 
+	 <%= render :partial => 'menu', 
                :locals => {:project => :project_id} %>
 </div>
 <div class="autoscroll">
@@ -15,7 +15,7 @@
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
 			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
 			<%= sort_header_tag('user_id_creator', :caption => l(:field_created_by),:default_order => 'desc') %>
-			<th title=<%= l(:label_actions) %>>&nbsp;</th>
+			<th title=<%= l(:label_actions) %>><%= l(:label_actions) %></th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -31,8 +31,8 @@
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
 	 	<td  ><%= sim.user_id_creator %></td>
 	 	<td  >
-			<%= link_to l(:relteq_delete),'' , :class => 'icon icon-del' %> | 
-			<%= link_to l(:relteq_rename), '', :class => 'icon icon-edit' %> 
+			<%= link_to '',delete_report_project_simulation_batch_path(@project,sim.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
+			<%= link_to '', '', :class => 'icon icon-edit' %> 
 		</td>
 	  </tr>
 
@@ -47,14 +47,14 @@
 	<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
 		<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>
 		  <h2>Simulation Data Information</h2>
-	  <%= render :partial => 'simulation_batch/show', 
+	  <%= render :partial => 'show', 
 	             :locals => {:item_show => sim} %>
 	</div>
 <% end %>
 
 	<div id="report-generator" style="display: none;" class="box tabular">
 		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="hide_box('report-generator')"></button>
-  	<%= render :partial => 'simulation_batch/report_generator/form'%>
+  	<%= render :partial => 'simulation_batches/report_generator/form'%>
 	</div>
 
 

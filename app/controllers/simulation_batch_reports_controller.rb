@@ -1,6 +1,7 @@
-class SimulationBatchReportController < ApplicationController
+class SimulationBatchReportsController < ApplicationController
   helper :sort
   include SortHelper
+  
   
   def index
       sort_init 'name', 'asc'
@@ -19,16 +20,17 @@ class SimulationBatchReportController < ApplicationController
       rescue ActiveRecord::RecordNotFound
         render :file => "#{Rails.root}/public/404.html", :status => 404
         return false
-      end      
-                    
-      @item_count = SimulationBatchReport.count( :conditions => {:simulation_batch_list_id => SimulationBatchReport.get_simuation_batch_lists(@project),
+      end
+      
+      sim_batch_lists = SimulationBatchReport.get_simuation_batch_lists(@project)
+      @item_count = SimulationBatchReport.count( :conditions => {:simulation_batch_list_id => sim_batch_lists,
                                                                  :percent_complete => 1,
                                                                  :succeeded => true});
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatchReport.find  :all,
                                 :conditions => {
-                                   :simulation_batch_list_id => SimulationBatchReport.get_simuation_batch_lists(@project),
+                                   :simulation_batch_list_id => sim_batch_lists,
                                    :percent_complete => 1, 
                                    :succeeded => true},
                                 :order => sort_clause,
@@ -41,6 +43,22 @@ class SimulationBatchReportController < ApplicationController
       end
  end
  
+ def delete_report
+   begin
+     sim_batch_report =  SimulationBatchReport.find(params[:id])
+     sim_batch_report.destroy
+     flash[:notice] = l(:label_report) + ", '" + sim_batch_report.name + "' " + l(:label_success_delete)  
+   rescue ActiveRecord::RecordNotFound
+     flash[:error] = l(:similation_batch_report_not_found)
+   rescue
+     flash[:error] = l(:similation_batch_report_delete_not_success)
+   end
+   
+   respond_to do |format|
+     format.html { redirect_to project_simulation_batch_reports_path(params[:project_id]) }
+   end 
+ end
+ 
  def update
    respond_to do |format|
      @simulation_report = SimulationBatchReport.new
@@ -49,7 +67,7 @@ class SimulationBatchReportController < ApplicationController
      
        Runweb.report @simulation_report
        
-       flash[:notice] = 'Job started successfully.'  
+       flash[:notice] = l(:similation_batch_report_job_start_success)  
        format.html { redirect_to  :my_page}
        format.xml  { head :ok }
      else

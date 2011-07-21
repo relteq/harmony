@@ -4,9 +4,6 @@ ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
  
-  map.resources :simulation_batch, :path_prefix => '/project/:project_id', :collection => {:process_choices => :post},:only => [:index,:process_choices]
-  map.resources :simulation_batch_report, :path_prefix => '/project/:project_id', :collection => [:report_gen],:only => [:index, :report_gen]
-
   map.with_options :controller => 'simulations' do |simulation_routes|
     simulation_routes.with_options do |simulation_actions|
       simulation_actions.connect 'projects/:project_id/simulations', :action => 'index'
@@ -161,6 +158,15 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :news, :shallow => true
     project.resources :time_entries, :controller => 'timelog'
 
+    project.resources :simulation_batch_reports,
+                      :collection => [:report_gen],
+                      :member => [:delete_report], 
+                      :only => [:index,:delete_report,:report_gen] 
+    
+    project.resources :simulation_batches,
+                      :member => [:delete_report], 
+                      :collection => {:process_choices => :post}
+    
     project.resource :configuration, :only => [:show] do |config|
       config.resources :scenarios, 
                        :member => {:flash_edit => :get, 
