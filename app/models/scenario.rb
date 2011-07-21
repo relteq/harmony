@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class Scenario < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include RelteqUserStamps
 
   US_UNITS = "US"
   METRIC_UNITS = "Metric"
@@ -27,13 +28,9 @@ class Scenario < ActiveRecord::Base
   has_many :simulation_batches
   has_one :default_batch_setting
 
-  belongs_to :creator, :class_name => 'User', :foreign_key => :user_id_creator
-  belongs_to :modifier, :class_name => 'User', :foreign_key => :user_id_modifier
-
   has_many :vehicle_types
 
   after_create :add_default_vehicle_type
- 
   
   def add_default_vehicle_type
     self.vehicle_types.create(:name => 'General', :weight => 1.0)
@@ -48,6 +45,4 @@ class Scenario < ActiveRecord::Base
       item.destroy
     end
   end
-  
-  
 end
