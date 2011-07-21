@@ -52,8 +52,8 @@ class ControllerSetsController <  ConfigurationsApplicationController
     @cset.destroy
 
     respond_to do |format|
-      flash[:notice] = @cset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'controller_sets', :action => 'index',:project_id =>@project   }
+      flash[:notice] = @cset.name + l(:label_success_delete)     
+      format.html { redirect_to  redirect_to project_configuration_controller_sets_path(@project)  }
       format.xml  { head :ok }
     end
   end
@@ -65,34 +65,47 @@ class ControllerSetsController <  ConfigurationsApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = 'All controller sets have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'controller_sets', :action => 'index',:project_id =>@project  }
+      flash[:notice] = l(:label_success_all_delete)   
+      format.html { redirect_to  redirect_to project_configuration_controller_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
   
-  def populate_controls_table
-    #I populate cset so we can make sure to set checkboxes selected -- if there is no controller set id then 
-    #you are creating a new controller_set
-    @cset = params[:controller_set_id].to_s == '' ? ControllerSet.new : get_set(@csets,params[:controller_set_id].to_i)
-    if(params[:controller_set] != nil)
-      @sid = params[:controller_set][:network_id].to_s == '' ? "-1" : params[:controller_set][:network_id].to_s
-    else
-      @sid = @cset.network_id.to_s
+
+  def delete_item
+    status = 200
+    begin
+      ControllerSet.delete_set(params[:controller_id].to_i)
+      flash[:notice] = l(:label_controller_deleted)  
+    rescue
+      flash[:error] = l(:label_controller_not_deleted)
+      status = 403
     end
-
-    get_network_dependent_table_items('controller_sets','controllers','controller_type',@sid)
-
+    @nid = require_network_id
+    get_network_dependent_table_items('controller_sets','controllers','controller_type',@nid)
+    
+    respond_to do |format|  
+      format.js {render :status => status}    
+    end
   end
-
+  
   def flash_edit
     redirect_to Dbweb.object_editor_url(@cset)
   end
 
+  def populate_table
+    @nid = require_network_id
+    get_network_dependent_table_items('controller_sets','controllers','controller_type',@nid)   
+  
+    respond_to do |format|
+      format.js
+    end
+  end
+
 private
-  def not_found_redirect_to_index
+  def not_found_redirect_to_index(error)
     redirect_to :action => :index, :project_id => @project
-    flash[:error] = 'Controller Set not found.'
+    flash[:error] = error
     return false
   end
 
@@ -100,10 +113,26 @@ private
     begin
       @cset = get_set(@csets,params[:id].to_i)
     rescue ActiveRecord::RecordNotFound
-      return not_found_redirect_to_index 
+      return not_found_redirect_to_index(l(:controller_set_not_found)) 
     end
     if !@cset
-      return not_found_redirect_to_index 
+      return not_found_redirect_to_index(l(:controller_set_not_found))
     end
   end
+  
+  private
+    def require_network_id
+      network_id = nil
+      if(params[:controller_set] != nil) #coming from edit/new page onchange for network select
+        network_id = params[:controller_set][:network_id]
+      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+        network_id = params[:network_id]
+      end
+
+      if(network_id == nil)
+        return not_found_redirect_to_index(l(:label_no_network_id))
+      end
+      return network_id
+    end
+  
 end

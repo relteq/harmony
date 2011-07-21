@@ -946,6 +946,8 @@ en:
 
   controller_sets_new: New Controller Set 
   controller_sets_delete_all: Delete All Controller Sets
+  controller_sets_edit: Edit Controller Set
+  controller_set_not_found: Controller Set not found
 
   demand_profiles_new: New Demand Profile Set
   demand_profiles_edit: Edit Demand Profile Set
@@ -964,6 +966,11 @@ en:
 
   label_profile_deleted: Profile Deleted
   label_profile_not_deleted: Profile Not Deleted
+  
+  label_controller_deleted: Controller Deleted
+  label_controller_not_deleted: Controller Not Deleted
+  label_event_deleted: Event Deleted
+  label_event_not_deleted: Event Not Deleted
   
   event_lists_new: New Event Set
   event_lists_delete_all: Delete All Event Sets 
