@@ -973,8 +973,10 @@ en:
   label_event_deleted: Event Deleted
   label_event_not_deleted: Event Not Deleted
   
-  event_lists_new: New Event Set
-  event_lists_delete_all: Delete All Event Sets 
+  event_sets_new: New Event Set
+  event_sets_delete_all: Delete All Event Sets 
+  event_sets_edit: Edit Event Set
+  event_set_not_found: Event Set not found
 
   scenario_edit_simulation: Edit Simulation 
   scenario_run_simulation: Run Simulation 
@@ -996,6 +998,7 @@ en:
   field_e_time: End Time
   field_units: Length Units
   field_vehicle_types: Vehicle Types
+  field_event_set: Event Set
   field_controller_set: Controller Set
   field_number_of_runs: Number of Runs
   field_demand_profile_set: Demand Profile Set
