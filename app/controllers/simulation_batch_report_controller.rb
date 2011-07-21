@@ -20,12 +20,17 @@ class SimulationBatchReportController < ApplicationController
         render :file => "#{Rails.root}/public/404.html", :status => 404
         return false
       end      
-        
-      @item_count = SimulationBatchReport.count(:all)
+                    
+      @item_count = SimulationBatchReport.count( :conditions => {:simulation_batch_list_id => SimulationBatchReport.get_simuation_batch_lists(@project),
+                                                                 :percent_complete => 1,
+                                                                 :succeeded => true});
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatchReport.find  :all,
-                                :conditions => {:percent_complete => 1, :succeeded => true},
+                                :conditions => {
+                                   :simulation_batch_list_id => SimulationBatchReport.get_simuation_batch_lists(@project),
+                                   :percent_complete => 1, 
+                                   :succeeded => true},
                                 :order => sort_clause,
                                 :limit  =>  @limit,
                                 :offset =>  @offset

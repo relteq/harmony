@@ -15,7 +15,7 @@
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
 			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
 			<%= sort_header_tag('user_id_creator', :caption => l(:field_created_by),:default_order => 'desc') %>
-			<th title="Actions">Actions</th>
+			<th title=<%= l(:label_actions) %>>&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -59,8 +59,9 @@
 
 
 </div>
-<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
-
+<% if @item_count != 0 %>
+	<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
+<% end %>
 <script language="javascript">
 	function processSimId(val,name){
 		

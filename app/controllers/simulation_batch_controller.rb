@@ -1,6 +1,4 @@
 class SimulationBatchController < ApplicationController
-
-  
   helper :sort
   include SortHelper
   
@@ -23,7 +21,9 @@ class SimulationBatchController < ApplicationController
         return false
       end
  
-      @item_count = SimulationBatch.count( :conditions => {:scenario_id => @project.scenarios});
+      @item_count = SimulationBatch.count( :conditions => {:scenario_id => @project.scenarios,
+                                                           :percent_complete => 1,
+                                                           :succeeded => true});
       @item_pages = Paginator.new self, @item_count, @limit, params['page']
       @offset ||= @item_pages.current.offset
       @items_show = SimulationBatch.find  :all,
