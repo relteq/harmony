@@ -48,8 +48,8 @@ class ScenariosController <  ConfigurationsApplicationController
   # POST /scenarios.xml
   def create
     params[:scenario].merge!(
-      :user_id_creator => User.current.id,
-      :user_id_modifier => User.current.id
+      :creator => User.current,
+      :modifier => User.current
     )
     @scenario = Scenario.new(params[:scenario])
     @scenario.project_id = @project.id
@@ -70,7 +70,7 @@ class ScenariosController <  ConfigurationsApplicationController
   # PUT /scenarios/1
   # PUT /scenarios/1.xml
   def update
-    params[:scenario].merge!(:user_id_modifier => User.current.id)
+    params[:scenario].merge!(:modifier => User.current)
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'  
