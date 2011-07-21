@@ -36,7 +36,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to cps.name, edit_project_configuration_capacity_profile_set_path(@project, cps) %></td>
  	<td  ><%=h format_date_time(cps.updated_at) %></td>
- 	<td  >Not Implemented</td>
+ 	<td  ><%= link_to cps.modifier, cps.modifier %></td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-capacity-profile-set-<%= cps.id %>"></span></td>
 
   </tr>

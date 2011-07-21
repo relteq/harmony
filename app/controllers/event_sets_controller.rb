@@ -1,5 +1,7 @@
 class EventSetsController <  ConfigurationsApplicationController
   before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_event]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
 
   def index
     get_index_view(@eventsets)
@@ -124,18 +126,22 @@ private
     end
   end
   
-  private
-    def require_network_id
-      network_id = nil
-      if(params[:event_set] != nil) #coming from edit/new page onchange for network select
-        network_id = params[:event_set][:network_id]
-      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-        network_id = params[:network_id]
-      end
-
-      if(network_id == nil)
-        return not_found_redirect_to_index(l(:label_no_network_id))
-      end
-      return network_id
+  def require_network_id
+    network_id = nil
+    if(params[:event_set] != nil) #coming from edit/new page onchange for network select
+      network_id = params[:event_set][:network_id]
+    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+      network_id = params[:network_id]
     end
+
+    if(network_id == nil)
+      return not_found_redirect_to_index(l(:label_no_network_id))
+    end
+    return network_id
+  end
+
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :event_set
+  end
 end

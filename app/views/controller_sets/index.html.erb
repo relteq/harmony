@@ -3,7 +3,6 @@
 <% end %>
 <div>	
 	<span><%= link_to_function(l(:label_new) + " " + l(:label_controller_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to((l(:label_delete_all_header),delete_all_project_configuration_controller_sets_path(@project),:confirm => l(:label_delete_all)) %></span>
 </div>
 <div id="newscenario" style="display:none">
 	<div class="newscenario">
@@ -38,7 +37,7 @@
           <%= link_to controller_set.name, edit_project_configuration_controller_set_path(@project, controller_set) %>
         </td>
         <td><%=h format_date_time(controller_set.updated_at) %></td>
-        <td>Not Implemented</td>
+        <td><%= link_to controller_set.modifier, controller_set.modifier %></td>
         <td class="index-menu-td"> <span class="index-menu" id="config-index-controller-set-<%= controller_set.id %>"></span></td>
       </tr>
     <% end %>

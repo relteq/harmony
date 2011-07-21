@@ -1,5 +1,7 @@
 class DemandProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
 
   def index
     get_index_view(@dprofilesets)
@@ -138,4 +140,8 @@ private
     return network_id
   end
 
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :demand_profile_set
+  end
 end
