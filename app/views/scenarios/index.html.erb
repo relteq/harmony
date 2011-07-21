@@ -40,7 +40,7 @@
   <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 	<td  ><%= link_to scenario.name, edit_project_configuration_scenario_path(@project, scenario) %></td>
  	<td  ><%=h format_date_time(scenario.updated_at) %></td>
- 	<td  >Not Implemented</td>
+ 	<td  ><%= link_to scenario.modifier, scenario.modifier %></td>
 	<td  class="index-menu-td"> <span class="index-menu" id="config-index-scenario-<%= scenario.id %>"></span></td>
 
   </tr>

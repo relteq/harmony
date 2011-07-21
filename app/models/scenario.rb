@@ -27,6 +27,9 @@ class Scenario < ActiveRecord::Base
   has_many :simulation_batches
   has_one :default_batch_setting
 
+  belongs_to :creator, :class_name => 'User', :foreign_key => :user_id_creator
+  belongs_to :modifier, :class_name => 'User', :foreign_key => :user_id_modifier
+
   has_many :vehicle_types
 
   after_create :add_default_vehicle_type
