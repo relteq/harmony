@@ -2,6 +2,8 @@ class NetworksController <  ConfigurationsApplicationController
   before_filter :require_network, :only => [
     :edit, :update, :destroy, :show, :flash_edit, :copy_to, :copy_form
   ]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
 
   # GET /networks
   # GET /networks.xml
@@ -144,5 +146,10 @@ private
       flash[:error] = 'Network not found.'
       return false
     end
+  end
+
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :network
   end
 end

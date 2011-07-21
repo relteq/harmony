@@ -2,6 +2,8 @@ class ScenariosController <  ConfigurationsApplicationController
   before_filter :require_scenario, :only => [
     :edit, :update, :destroy, :show, :flash_edit, :copy_to, :copy_form
   ]
+  before_filter :set_creator_params, :only => [:create]
+  before_filter :set_modifier_params, :only => [:create, :update]
 
   def import
     auth = DbwebAuthorization.create_for(@project)
@@ -47,10 +49,6 @@ class ScenariosController <  ConfigurationsApplicationController
   # POST /scenarios
   # POST /scenarios.xml
   def create
-    params[:scenario].merge!(
-      :creator => User.current,
-      :modifier => User.current
-    )
     @scenario = Scenario.new(params[:scenario])
     @scenario.project_id = @project.id
 
@@ -70,7 +68,6 @@ class ScenariosController <  ConfigurationsApplicationController
   # PUT /scenarios/1
   # PUT /scenarios/1.xml
   def update
-    params[:scenario].merge!(:modifier => User.current)
     respond_to do |format|
       if(@scenario.update_attributes(params[:scenario]))
         flash[:notice] = 'Scenario was successfully updated.'  
@@ -159,5 +156,10 @@ private
     if params[:scenario][:dt] == ""
       @scenario.dt  = nil 
     end
+  end
+
+  # Used by ConfigAppController to populate creator/modifier ID 
+  def object_sym
+    :scenario
   end
 end

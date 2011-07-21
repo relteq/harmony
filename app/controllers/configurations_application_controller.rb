@@ -10,6 +10,14 @@ class ConfigurationsApplicationController < ApplicationController
   include SortHelper
   
 protected
+  def set_creator_params
+    params[object_sym].merge!(:creator => User.current)
+  end
+
+  def set_modifier_params
+    params[object_sym].merge!(:modifier => User.current)
+  end
+
   # Populates the Models Tabs menu
   def populate_menu
     begin
