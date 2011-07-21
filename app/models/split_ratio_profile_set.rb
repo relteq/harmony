@@ -45,4 +45,11 @@ class SplitRatioProfileSet < ActiveRecord::Base
     srp.destroy
   end
   
+  
+  def self.delete_all(collection)
+    collection.each do | item |
+      item.remove_from_scenario
+      item.destroy
+    end
+  end
 end

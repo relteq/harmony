@@ -1,2 +1,0 @@
-
-page[:events_table].replace_html :partial => 'populate_events_table'

@@ -3,12 +3,11 @@
 <% end %>
 <div>	
 	<span>	<%= link_to_function(l(:label_new) + " " + l(:label_event_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
-	<span><%= link_to("Delete All", {:controller => 'event_sets', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
-	<span><a href="">Import Event Set</a></span>
+	<span><%= link_to(l(:label_delete_all_header), delete_all_project_configuration_event_sets_path(@project),:confirm => l(:label_delete_all)) %></span>
 </div>
-<div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
+<div id="newscenario" style="display:none">
 	<div class="newscenario">
-	<% form_tag({:controller => 'event_sets', :action => 'new', :project_id => @project},:method => :get) do %>
+	<% form_tag(new_project_configuration_event_set_path(@project),:method => :get) do %>
 	<label><%= l(:label_name) %>:</label>
 	<%= text_field_tag 'event_set[name]', params[:name], :size => 30 %>
 	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>
@@ -22,15 +21,15 @@
 	<thead>
 	  <tr>
 		<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
-		<%= sort_header_tag('updated_at', :caption => "Last Modified",:default_order => 'desc') %>
-	    <th title="Sort by 'Modified By'">Modified By</th>
-			<th title="Actions">&nbsp;</th>
+		<%= sort_header_tag('updated_at', :caption => l(:label_last_modified_index),:default_order => 'desc') %>
+    <th title=<%= l(:label_sort_by) + " " + l(:label_modified_by_index) %>><%= l(:label_modified_by_index) %></th>
+		<th title=<%= l(:label_actions) %>>&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody>
  <% if @item_count == 0 %>
 	<tr>
-	<td colspan='4' >No records to display</td>
+	<td colspan='4' ><%= l(:label_no_records_index) %></td>
 	</tr>
 <% end %>
 <% @items_show.each_with_index do |es,i| %>

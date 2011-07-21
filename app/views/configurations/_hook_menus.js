@@ -10,32 +10,38 @@ var configSidebarContextMenus = {
   networksNode : [ 
     { name: "<%= l(:networks_new) %>",
       callback: <%= js_callback_redirect :controller => 'networks', :action => 'new'%>},
-    { name: "<%= l(:networks_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:networks_delete_all) %>", className: 'delete',
+			callback: <%= js_callback_redirect :controller => 'networks', :action => 'delete_all', :project_id => @project.id %> }
   ],
   controllerSetsNode : [
     { name: "<%= l(:controller_sets_new) %>",
       callback: <%= js_callback_redirect :controller => 'controller_sets', :action => 'new' %> },
-    { name: "<%= l(:controller_sets_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:controller_sets_delete_all) %>", className: 'delete',
+			callback: <%= js_callback_redirect :controller => 'controller_sets', :action => 'delete_all', :project_id => @project.id %> }
   ],
   demandProfileSetsNode: [
     { name: "<%= l(:demand_profiles_new) %>",
       callback: <%= js_callback_redirect :controller => 'demand_profile_sets', :action => 'new' %> },
-    { name: "<%= l(:demand_profiles_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:demand_profiles_delete_all) %>", className: 'delete',
+ 			callback: <%= js_callback_redirect :controller => 'demand_profile_sets', :action => 'delete_all', :project_id => @project.id %> }
   ],
   capacityProfileSetsNode: [
     { name: "<%= l(:capacity_profiles_new) %>",
       callback: <%= js_callback_redirect :controller => 'capacity_profile_sets', :action => 'new' %> },
-    { name: "<%= l(:capacity_profiles_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:capacity_profiles_delete_all) %>", className: 'delete',
+			callback: <%= js_callback_redirect :controller => 'capacity_profile_sets', :action => 'delete_all', :project_id => @project.id %> }
   ],
   splitRatioProfileSetsNode: [
     { name: "<%= l(:split_ratio_profiles_new) %>",
       callback: <%= js_callback_redirect :controller => 'split_ratio_profile_sets', :action => 'new' %> },
-    { name: "<%= l(:split_ratio_profiles_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:split_ratio_profiles_delete_all) %>", className: 'delete',
+			callback: <%= js_callback_redirect :controller => 'split_ratio_profile_sets', :action => 'delete_all', :project_id => @project.id %> }
   ],
   eventSetsNode: [
-    { name: "<%= l(:event_lists_new) %>",
+    { name: "<%= l(:event_sets_new) %>",
       callback: <%= js_callback_redirect :controller => 'event_sets', :action => 'new' %> },
-    { name: "<%= l(:event_lists_delete_all) %>", className: 'delete' }
+    { name: "<%= l(:event_sets_delete_all) %>", className: 'delete',
+			callback: <%= js_callback_redirect :controller => 'event_sets', :action => 'delete_all', :project_id => @project.id %> }
   ],
 
   hook: function(sel, ind) {

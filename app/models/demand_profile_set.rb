@@ -44,4 +44,12 @@ class DemandProfileSet < ActiveRecord::Base
     dp = DemandProfile.find_by_id(demand)
     dp.destroy
   end 
+  
+  def self.delete_all(collection)
+    collection.each do | item |
+      item.remove_from_scenario
+      item.destroy
+    end
+  end
+  
 end

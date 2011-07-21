@@ -8,9 +8,9 @@
 	<span><%= link_to("Delete All", {:controller => 'scenarios', :action => 'delete_all', :project_id => @project},:confirm => l(:label_delete_all)) %></span> |
 	<span><%= link_to "Import Scenario",import_project_configuration_scenarios_path(@project) %></span>
 </div>
-<div id="newscenario" style=<%= (flash[:error] == nil) ? "display:none" : "display:block" %>>
+<div id="newscenario" style="display:none">
 	<div class="newscenario">
-	<% form_tag({:controller => 'scenarios', :action => 'create', :project_id => @project},:method => :put) do %>
+	<% form_tag(new_project_configuration_scenario_path(@project),:method => :get) do %>
 	<label><%= l(:label_name) %>:</label>
 	<%= text_field_tag 'scenario[name]', params[:name], :size => 30 %>
 	<%= submit_tag l(:button_create_and_configure) , :class => "small", :name => nil %>

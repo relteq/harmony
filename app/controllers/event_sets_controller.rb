@@ -54,58 +54,62 @@ class EventSetsController <  ConfigurationsApplicationController
     @eset.destroy
 
     respond_to do |format|
-      flash[:notice] = @eset.name + " successfully deleted."    
-      format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project   }
+      flash[:notice] = @eset.name + l(:label_success_delete)    
+      format.html { redirect_to project_configuration_event_sets_path(@project)  }
       format.xml  { head :ok }
     end
-  end
-  
-  def delete_event
-    if(@eset.delete_event(params[:event]))
-      flash[:notice] = "Event successfully deleted."    
-    else
-      flash[:error] =  "Event NOT successfully deleted."          
-    end
-    
-    respond_to do |format|
-       format.js
-       format.html { redirect_to  edit_project_configuration_event_set_path(params[:project_id], params[:id])   }
-       format.xml  { head :ok }
-     end
   end
   
   def delete_all
-    @eventsets.each do | e |
-      e.remove_from_scenario
-      e.destroy
+     begin
+       EventSet.delete_all(@eventsets)
+       flash[:notice] = l(:label_success_all_delete) 
+     rescue
+       flash[:error] = l(:label_not_success_all_delete)    
+     end
+     
+     respond_to do |format|
+       format.html { redirect_to project_configuration_event_sets_path(@project)  }
+       format.xml  { head :ok }
+     end
+  end
+   
+  def delete_item
+    status = 200
+    begin
+      EventSet.delete_set(params[:event_id].to_i)
+      flash[:notice] = l(:label_event_deleted)  
+    rescue
+      flash[:error] = l(:label_event_not_deleted)
+      status = 403
     end
-
-    respond_to do |format|
-      flash[:notice] = 'All event sets have been successfully deleted.'  
-      format.html { redirect_to  :controller => 'event_sets', :action => 'index',:project_id =>@project  }
-      format.xml  { head :ok }
+    @nid = require_network_id
+    get_network_dependent_table_items('event_sets','events','event_type',@nid)
+    
+    respond_to do |format|  
+      format.js {render :status => status}    
     end
   end
-
+  
   def flash_edit
     redirect_to Dbweb.object_editor_url(@eset)
   end
+
+  def populate_table
+    @nid = require_network_id
+    get_network_dependent_table_items('event_sets','events','event_type',@nid)   
   
-  def populate_events_table
-    #I populate eset so we can make sure to set checkboxes selected -- if there is no event set id then 
-    #you are creating a new split ratio profile set 
-    @eset = params[:event_set_id].to_s == '' ? EventSet.new : get_set(@eventsets,params[:event_set_id].to_i)
-    if(params[:event_set] != nil)
-      @sid = params[:event_set][:network_id].to_s == '' ? "-1" : params[:event_set][:network_id].to_s
-    else
-      @sid = @eset.network_id.to_s
+    respond_to do |format|
+      format.js
     end
-     get_network_dependent_table_items('event_sets','events','event_type',@sid)   
   end
+    
+ 
+
 private
-  def not_found_redirect_to_index
+  def not_found_redirect_to_index(error)
     redirect_to :action => :index, :project_id => @project
-    flash[:error] = 'Event Set not found.'
+    flash[:error] = error
     return false
   end
 
@@ -119,4 +123,19 @@ private
       return not_found_redirect_to_index
     end
   end
+  
+  private
+    def require_network_id
+      network_id = nil
+      if(params[:event_set] != nil) #coming from edit/new page onchange for network select
+        network_id = params[:event_set][:network_id]
+      elsif(params[:network_id] != nil) #coming from sort header for either new/edit
+        network_id = params[:network_id]
+      end
+
+      if(network_id == nil)
+        return not_found_redirect_to_index(l(:label_no_network_id))
+      end
+      return network_id
+    end
 end

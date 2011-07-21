@@ -23,15 +23,14 @@ class NetworksController <  ConfigurationsApplicationController
   end
     
   def delete_all
-    @items = @project.networks.all
-
-    @items.each do | i |
-      i.remove_from_scenario
-      i.destroy
+    begin
+      Network.delete_all(@networks)
+      flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
     end
 
     respond_to do |format|
-      flash[:notice] = 'All networks have been successfully deleted.'  
       format.html { redirect_to project_configuration_networks_path(@project) }
       format.xml  { head :ok }
     end
@@ -41,6 +40,7 @@ class NetworksController <  ConfigurationsApplicationController
   # GET /networks/new.xml
   def new
     @network = Network.new
+    @network.name = params[:network] != nil ? params[:network][:name] ||= '' : '' 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @network }
