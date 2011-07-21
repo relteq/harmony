@@ -62,13 +62,14 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
   
   def delete_all
-    @dprofilesets.each do | d |
-      d.remove_from_scenario
-      d.destroy
-    end
-
-    respond_to do |format|
+    begin
+      DemandProfileSet.delete_all(@dprofilesets)
       flash[:notice] = l(:label_success_all_delete) 
+    rescue
+      flash[:error] = l(:label_not_success_all_delete)    
+    end
+    
+    respond_to do |format|
       format.html { redirect_to project_configuration_demand_profile_sets_path(@project) }
       format.xml  { head :ok }
     end

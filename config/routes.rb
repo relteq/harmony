@@ -166,7 +166,7 @@ ActionController::Routing::Routes.draw do |map|
                        :member => {:flash_edit => :get, 
                                    :copy_form => :get, 
                                    :copy_to => :post},
-                       :collection => {:delete_all => :post, 
+                       :collection => {:delete_all => :get, 
                                        :import => :get} do |scenario|
         scenario.resources :vehicle_types, :only => [:new, :create, :destroy]
       end
@@ -174,17 +174,17 @@ ActionController::Routing::Routes.draw do |map|
                        :member => {:flash_edit => :get, 
                                    :copy_form => :get, 
                                    :copy_to => :post},
-                       :collection => {:delete_all => :post, :import => :get}
+                       :collection => {:delete_all => :get, :import => :get}
       config.resources :controller_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+                       :collection => {:delete_all => :get, :delete_item => :post, :populate_table => :get}
       config.resources :capacity_profile_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+                       :collection => {:delete_all => :get, :delete_item => :post, :populate_table => :get}
       config.resources :demand_profile_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+                       :collection => {:delete_all => :get, :delete_item => :post, :populate_table => :get}
       config.resources :split_ratio_profile_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+                       :collection => {:delete_all => :get, :delete_item => :post, :populate_table => :get}
       config.resources :event_sets, :member => [:flash_edit],
-                       :collection => {:delete_all => :post, :delete_item => :post, :populate_table => :get}
+                       :collection => {:delete_all => :get, :delete_item => :post, :populate_table => :get}
     end
 
     project.wiki_start_page 'wiki', :controller => 'wiki', :action => 'show', :conditions => {:method => :get}
