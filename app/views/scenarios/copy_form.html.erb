@@ -13,10 +13,24 @@
   </p>
 <% end %>
 
+<%= render :partial => 'common/no_project_selected' %>
+
 <script language="javascript">
 var $j = jQuery;
 $j(function() {
   $j('#copy_scenario_submit').click(function(the_event) {
+    if($j('#to_project option:selected').length == 0) {
+        $('no-project-selected').show();
+        ol.show($('no-project-selected'), {
+                          position: 'center', 
+                          modal: true,
+                          bckg_opacity: 0.9,
+                          afterhide: function() { 
+                            $('no-project-selected').hide(); 
+                          }});
+        the_event.preventDefault();
+        return; 
+    }
     var redirect_url =
       '<%= edit_project_configuration_scenario_path('**P_ID**', '**ID**') %>';
     $('ajax-indicator').show();

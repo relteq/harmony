@@ -121,7 +121,7 @@ button.scenario-overlay-cancel {
   overflow: hidden;
   margin-left: 95%;
 }
-.scenario-launch, .simulation-info {
+.scenario-launch, .simulation-info, #no-project-selected {
   background-color: #ffffff;
   padding: 0em 2em 2em 2em;
 }
