@@ -1,2 +1,0 @@
-
-page[:controllers_table].replace_html :partial => 'populate_controls_table'
