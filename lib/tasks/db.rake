@@ -6,8 +6,7 @@ namespace :db do
                          InitialCondition, InitialConditionSet, Scenario,
                          DemandProfile, DemandProfileSet, CapacityProfile,
                          CapacityProfileSet, Controller, ControllerSet,
-                         SplitRatioProfile, SplitRatioProfileSet,
-                         RouteLink, Link, Node, Route, Sensor, Network]
+                         SplitRatioProfile, SplitRatioProfileSet, Network]
     ActiveRecord::Base.transaction do
       if options['all']
         road_config_types.each do |model|
