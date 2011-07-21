@@ -41,6 +41,7 @@ class NetworksController <  ConfigurationsApplicationController
   # GET /networks/new.xml
   def new
     @network = Network.new
+    @network.name = params[:network] != nil ? params[:network][:name] ||= '' : '' 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @network }
