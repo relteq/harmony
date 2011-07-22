@@ -1,5 +1,6 @@
 class SimulationBatch < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include RelteqUserStamps
   
   belongs_to :scenario
   
@@ -23,7 +24,9 @@ class SimulationBatch < ActiveRecord::Base
     s.scenario_id = params[:scenario_id]
     s.mode = params[:mode]
     s.number_of_runs = params[:n_runs].to_i
-    s.save  
+    s.creator = params[:creator]
+    s.save
+    return s
   end
   
   def project

@@ -1,6 +1,7 @@
 class Scenario::SimulationsController < ConfigurationsApplicationController
   include RelteqTime
   before_filter :load_scenario
+  before_filter :set_creator_param, :only => [:create]
 
   def new
     @simulation_modes = Runweb.simulation_modes 
@@ -29,9 +30,9 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
     end
 
     name = params[:name] || @scenario.name
-    if !flash[:error] && Runweb.simulate(@scenario, name, options)
+    batch = SimulationBatch.save_batch(params)
+    if !flash[:error] && Runweb.simulate(batch, name, options)
       flash[:notice] = "Job started successfully."
-      SimulationBatch.save_batch(params)
     elsif flash[:error]
       flash[:error] += "Error launching simulation.<br/>"
     else
@@ -48,5 +49,9 @@ private
       flash[:error] = 'Error: scenario does not exist.'
       redirect_to :root
     end
+  end
+
+  def set_creator_param
+    params[:creator] = User.current
   end
 end
