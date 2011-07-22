@@ -13,4 +13,4 @@
 <%= s3_swf_upload_tag :initial_message => 'Select a scenario XML file', 
                       :width => 500, 
                       :height => 40,
-                      :success => redirect_to_dbweb_import_url(@project.id) %>
+                      :success => redirect_to_dbweb_import_url(@project.id, @user.id) %>

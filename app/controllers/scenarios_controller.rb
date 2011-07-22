@@ -7,6 +7,7 @@ class ScenariosController <  ConfigurationsApplicationController
 
   def import
     auth = DbwebAuthorization.create_for(@project)
+    @user = User.current
     @token = auth.access_token
   end
   

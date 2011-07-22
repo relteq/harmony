@@ -1,5 +1,5 @@
 module ScenariosHelper
-  def redirect_to_dbweb_import_url(project_id)
+  def redirect_to_dbweb_import_url(project_id, user_id)
     # Don't try to interpolate filename into string here, it's a JS
     # variable not known until upload is complete
     %Q{
@@ -9,6 +9,7 @@ module ScenariosHelper
           { 
               access_token: "#{@token}", 
               to_project:  "#{project_id}",
+              from_user: "#{user_id}",
               bucket: "#{S3SwfUpload::S3Config.bucket}"
           }, 
           function(data) {
