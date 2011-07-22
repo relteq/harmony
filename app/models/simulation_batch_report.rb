@@ -1,5 +1,6 @@
 class SimulationBatchReport < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
+  include RelteqUserStamps
  
   named_scope :incomplete, :conditions => ['percent_complete < 1 OR (NOT succeeded)']
   named_scope :complete, :conditions => ['percent_complete = 1 AND succeeded']
