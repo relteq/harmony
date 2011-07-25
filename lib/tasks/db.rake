@@ -23,4 +23,9 @@ namespace :db do
     ReportedBatch.all.each(&:destroy)
     SimulationBatchReport.all.each(&:destroy)
   end
+
+  task :drop_auths => :environment do
+    puts "Destroying #{DbwebAuthorization.count} dbweb authorizations"
+    DbwebAuthorization.all.each(&:destroy)
+  end
 end
