@@ -47,17 +47,17 @@ class MyController < ApplicationController
   def page
     @user = User.current
     @blocks = @user.pref[:my_page_layout] || DEFAULT_LAYOUT
-    simulations = Project.visible.find(:all).
+    @simulations = Project.visible.find(:all).
                            select {|p| @user.allowed_to?(:view_simulation_batch,p)}.
                            map(&:scenarios).flatten.
                            map {|s| s.simulation_batches.incomplete}.flatten
-    reports = Project.visible.find(:all).
+    @reports = Project.visible.find(:all).
                            select {|p| @user.allowed_to?(:view_reports, p)}.
                            map(&:scenarios).flatten.
                            map {|s| s.simulation_batches.complete}.flatten.
                            map(&:simulation_batch_lists).flatten.
                            map {|s| s.simulation_batch_reports.incomplete}.flatten
-    @jobs = simulations + reports
+    @jobs = @simulations + @reports
   end
 
   # Edit user's account
