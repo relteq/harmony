@@ -16,6 +16,30 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 module MyHelper
+  def delete_batch_link(batch)
+    link_to( '',
+            delete_report_project_simulation_batch_path(
+              batch.project,
+              batch.id,
+              :redirect => my_page_path
+            ), 
+            :confirm=> l(:label_delete_item), 
+            :class => 'icon icon-del'
+    )
+  end
+
+  def delete_batch_report_link(report)
+    link_to( '',
+            delete_report_project_simulation_batch_report_path(
+               report.project,
+               report.id,
+               :redirect => my_page_path
+            ), 
+            :confirm=> l(:label_delete_item), 
+            :class => 'icon icon-del' 
+    )
+  end
+
   def progress_bar_display(sim)
     return nil if !sim.percent_complete
     percent = sim.percent_complete * 100
