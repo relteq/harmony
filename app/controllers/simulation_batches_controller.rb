@@ -83,7 +83,7 @@ class SimulationBatchesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to project_simulation_batches_path(params[:project_id]) }
+      format.html { redirect_to (params[:redirect] || project_simulation_batches_path(params[:project_id])) }
     end 
   end
 

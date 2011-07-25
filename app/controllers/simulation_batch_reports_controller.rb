@@ -58,7 +58,7 @@ class SimulationBatchReportsController < ApplicationController
    
     respond_to do |format|
       format.html { 
-        redirect_to project_simulation_batch_reports_path(params[:project_id])
+        redirect_to (params[:redirect] || project_simulation_batch_reports_path(params[:project_id]))
       }
     end 
   end
