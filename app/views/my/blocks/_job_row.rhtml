@@ -1,0 +1,10 @@
+<td><%= h job.name %></td>
+<td><%= h job.mode %></td>
+<td><%= h (format_time(job.start_time) or "Queued") %></td>
+<%= progress_bar_display(job) %>
+<td>
+  <%= link_to(job.project.name, project_configuration_path(job.project)) %>
+</td>
+<td>
+<%= delete_link  %>
+</td>

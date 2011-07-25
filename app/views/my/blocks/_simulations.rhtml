@@ -7,16 +7,27 @@
       <th><%= l(:label_started_at) %></th>
       <th><%= l(:label_progress) %></th>
       <th><%= l(:label_project) %></th>
+      <th><%= l(:label_actions) %></th>
     </tr>
   </thead>
   <tbody>
-    <% @jobs.each_with_index do |s,i| %>
+    <% @simulations.each_with_index do |s,i| %>
       <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
-        <td><%= h s.name %></td>
-        <td><%= h s.mode %></td>
-        <td><%= h (format_time(s.start_time) or "Queued") %></td>
-        <%= progress_bar_display(s) %>
-        <td><%= link_to(s.project.name, project_configuration_path(s.project)) %></td>
+        <%= render :partial => 'my/blocks/job_row', 
+                   :locals => { 
+                     :job => s, 
+                     :delete_link => delete_batch_link(s) 
+            }  %>
+      </tr>
+    <% end %>
+
+    <% @reports.each_with_index do |s,i| %>
+      <tr class="user active <%= i%2 == 0 ? 'odd' : 'even' %>">
+        <%= render :partial => 'my/blocks/job_row', 
+                   :locals => { 
+                     :job => s, 
+                     :delete_link => delete_batch_report_link(s) 
+            }  %>
       </tr>
     <% end %>
   <tbody>
