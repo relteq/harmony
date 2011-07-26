@@ -1,6 +1,6 @@
 class SimulationBatchReportsController < ApplicationController
   helper :sort
-  before_filter :set_creator_param, :only => [:update]
+  before_filter :set_creator_param, :only => [:create]
   include SortHelper
   
   def index
@@ -63,18 +63,18 @@ class SimulationBatchReportsController < ApplicationController
     end 
   end
  
-  def update
-    respond_to do |format|
-      @simulation_report = SimulationBatchReport.new
-      if(@simulation_report.update_attributes(params[:simulation_batch]))
-       @simulation_report.link_to_simulation_batches(params[:sim_ids])
-
-       Runweb.report @simulation_report
-       
-       flash[:notice] = l(:simulation_batch_report_job_start_success)  
-       format.html { redirect_to  :my_page}
-       format.xml  { head :ok }
-      else
+  def create 
+    @simulation_report = SimulationBatchReport.new
+    if @simulation_report.update_attributes(params[:simulation_batch])
+      @simulation_report.link_to_simulation_batches(params[:sim_ids])
+      Runweb.report @simulation_report
+      respond_to do |format|
+        flash[:notice] = l(:simulation_batch_report_job_start_success)  
+        format.html { redirect_to :my_page }
+        format.xml  { head :ok }
+      end
+    else
+      respond_to do |format|
        format.html { render simulation_batch_index_path(params[:project_id])}
        format.api  { render_validation_errors(@simulation_report) }
       end
