@@ -80,6 +80,21 @@ class SimulationBatchReportsController < ApplicationController
       end
     end
   end
+  
+  def rename
+    begin
+      SimulationBatchReport.save_rename(params[:simulation_batch_report][:id],params[:simulation_batch_report][:name])
+      flash[:notice] = l(:notice_successful_update) 
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = l(:simulation_batch_report_not_found)  
+    rescue
+      flash[:error] = l(:notice_update_not_successful)
+    end
+    
+    respond_to do |format|
+     format.html { redirect_to  project_simulation_batch_reports_path(params[:project_id]) } # index.html.erb     
+    end
+  end
 
   def set_creator_param
     params[:simulation_batch][:creator] = User.current

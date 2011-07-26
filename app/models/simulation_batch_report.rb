@@ -80,6 +80,12 @@ class SimulationBatchReport < ActiveRecord::Base
 
   end
   
+  def self.save_rename(id,name) 
+    sim_batch_report =  SimulationBatchReport.find(id)
+    sim_batch_report.name = name
+    sim_batch_report.save!
+  end
+  
   def self.get_simuation_batch_lists(project)
     sim_lists = Array.new
     project.scenarios.each do |s|

@@ -1,0 +1,8 @@
+<% form_for :simulation_batch_report, item_show, :url => rename_project_simulation_batch_reports_path(@project,item_show.id), :html => {:method => :put} do |f| %>
+	<p>
+		<%= label_tag :name %>:
+		<%= f.text_field :name %>
+		<%= f.hidden_field :id %>
+	</p>
+	<p><%= f.submit 'Rename Simulation Report' %> </p>
+<% end %>
