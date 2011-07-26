@@ -21,7 +21,7 @@
 	 	<td  ><%= link_to sim.creator, sim.creator %></td>
 	 	<td  >
 			<%= link_to '',delete_report_project_simulation_batch_report_path(@project,sim.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
-			<%= link_to '', '', :class => 'icon icon-edit' %> | 
+			<%= link_to_function '', "show_box('rename-#{sim.id}');", :class => 'icon icon-edit' %> | 
 			<%= link_to '',sim.export_xls_url, {:target => '_blank', :class => 'icon icon-file application-xls' }%> | 
 			<%= link_to '',sim.export_pdf_url, {:target => '_blank' , :class => 'icon icon-file application-pdf' }%> | 
 			<%= link_to '',sim.export_xml_url , {:target => '_blank',:class => 'icon icon-file text-xml' }%> | 
@@ -34,7 +34,12 @@
 	    <%= render :partial => 'show', 
 	               :locals => {:item_show => sim} %>
 	  </div>
-
+		<div class="simulation-info" id="rename-<%= sim.id %>" style="display: none;">
+			<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('rename-<%= sim.id %>')"></button>
+			  <h2>Rename: <%= sim.name %></h2>
+		  	<%= render :partial => 'rename', 
+		             	 :locals => {:item_show => sim} %>
+		</div>
 	<% end %>
 <% end %>
    </tbody>
