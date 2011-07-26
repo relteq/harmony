@@ -29,6 +29,12 @@ class SimulationBatch < ActiveRecord::Base
     return s
   end
   
+  def self.save_rename(id,name) 
+    sim_batch =  SimulationBatch.find(id)
+    sim_batch.name = name
+    sim_batch.save!
+  end
+  
   def project
     scenario.project
   end
