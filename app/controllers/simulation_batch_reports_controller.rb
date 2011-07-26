@@ -2,6 +2,8 @@ class SimulationBatchReportsController < ApplicationController
   helper :sort
   before_filter :set_creator_param, :only => [:create]
   include SortHelper
+  accept_key_auth :create
+  skip_before_filter :verify_authenticity_token, :only => [:create]
   
   def index
     sort_init 'name', 'asc'
@@ -65,13 +67,13 @@ class SimulationBatchReportsController < ApplicationController
  
   def create 
     @simulation_report = SimulationBatchReport.new
-    if @simulation_report.update_attributes(params[:simulation_batch])
+    if @simulation_report.update_attributes(params[:simulation_batch_report])
       @simulation_report.link_to_simulation_batches(params[:sim_ids])
       Runweb.report @simulation_report
       respond_to do |format|
         flash[:notice] = l(:simulation_batch_report_job_start_success)  
         format.html { redirect_to :my_page }
-        format.xml  { head :ok }
+        format.api { render :action => 'show' }
       end
     else
       respond_to do |format|
@@ -97,6 +99,6 @@ class SimulationBatchReportsController < ApplicationController
   end
 
   def set_creator_param
-    params[:simulation_batch][:creator] = User.current
+    params[:simulation_batch_report][:creator] = User.current
   end
 end

@@ -17,7 +17,7 @@
 
 <script language="javascript">
 	function doReportTypeAction(){
-		var sel = jQuery('#simulation_batch_report_type');
+		var sel = jQuery('#simulation_batch_report_report_type');
 		var tabs = new Control.Tabs('tabs',{});	
 		jQuery('#sim-two-not-checked').css('display','none');
 		switch(sel.val()){
@@ -44,7 +44,8 @@
 	}
 	
 	function validateAtLeastTwoSimChecked(){
-		var nbChecked = jQuery("input:checked[id*=checkbox]").size(); //find all checked checkboxes + radio buttons  
+    //find all checked checkboxes + radio buttons
+		var nbChecked = jQuery("input:checked[id*=checkbox]").size();  
 		if(nbChecked > 1)
 			return true;
 		return false;
