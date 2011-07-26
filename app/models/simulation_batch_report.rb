@@ -32,7 +32,22 @@ class SimulationBatchReport < ActiveRecord::Base
   def format_creation_time
      creation_time.strftime("%m/%d/%Y at %I:%M%p") if !(creation_time.nil?)
   end
-  
+
+  def export_xls_url
+    AWS::S3::S3Object.url_for(xls_key, s3_bucket)
+  end
+
+  def export_pdf_url
+    AWS::S3::S3Object.url_for(pdf_key, s3_bucket)
+  end
+
+  def url
+    AWS::S3::S3Object.url_for(xml_key, s3_bucket)
+  end
+
+  def export_ppt_url
+    AWS::S3::S3Object.url_for(ppt_key, s3_bucket)
+  end
   
   #this is used to populate the Report Generator form
   #with default values
