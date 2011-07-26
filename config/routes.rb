@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'scenario/simulations' do |simulation_launch_routes|
     simulation_launch_routes.with_options do |simulation_actions|
       simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/new', :action => 'new'
-      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/create', :action => 'create'
+      simulation_actions.connect 'project/:project_id/scenarios/:scenario_id/simulations/create.:format', :action => 'create'
     end
   end
   

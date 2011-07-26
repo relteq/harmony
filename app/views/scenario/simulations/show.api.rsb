@@ -1,0 +1,5 @@
+api.simulation_batch_launch do
+  api.id @batch.id
+  api.scenario_id @batch.scenario_id
+  api.success true
+end

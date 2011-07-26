@@ -10,16 +10,16 @@ module Runweb
       END_TIME_TYPES
     end
 
-    def simulate(batch, name, simulation_spec = :simple)
+    def simulate(batch, simulation_spec = :simple)
       options = batch_options({ 
-        :name => name,
+        :name => batch.name,
         :engine => 'simulator',
         :param => {:update_period => 1}
       })
 
       # Beware that for the sake of runweb/runq arrays must be specified by strings -
       # a colon prefix will be reflected in the output YAML and make the simulation fail.
-      options[:param]['inputs'] = ["@scenario(#{batch.scenario_id})"] 
+      options[:param]['inputs'] = ["@scenario(#{batch.scenario_id})"]
       options[:param]['output_types'] = ['text/plain']
       options[:param][:redmine_simulation_batch_id] = batch.id
 
@@ -27,9 +27,13 @@ module Runweb
         options[:n_runs] = 1
         options[:param]['inputs'] << time_range_tag
       else
-        begin_time = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:b_time))
-        duration = RelteqTime.parse_time_to_seconds(simulation_spec[:param].delete(:duration))
-        options[:param]['inputs'] << time_range_tag(options[:param]) 
+        begin_time = RelteqTime.parse_time_to_seconds(
+          simulation_spec[:param].delete(:b_time)
+        )
+        duration = RelteqTime.parse_time_to_seconds(
+          simulation_spec[:param].delete(:duration)
+        )
+        options[:param]['inputs'] << time_range_tag(options[:param])
         simulation_spec[:param].merge!(options[:param])
         options.merge!(simulation_spec)
       end
