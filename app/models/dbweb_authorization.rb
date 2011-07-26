@@ -18,7 +18,7 @@ class DbwebAuthorization < ActiveRecord::Base
         :object_id => obj.id
       }
     )
-    if existing_auth
+    if existing_auth && !existing_auth.expired?
       auth = existing_auth
       auth.update_attributes(user_options)
     else
@@ -30,5 +30,9 @@ class DbwebAuthorization < ActiveRecord::Base
 
   def escaped_token
     CGI.escape(access_token)
+  end
+
+  def expired?
+    expiration < Time.now.utc
   end
 end
