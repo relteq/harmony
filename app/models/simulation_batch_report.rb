@@ -41,7 +41,7 @@ class SimulationBatchReport < ActiveRecord::Base
     AWS::S3::S3Object.url_for(pdf_key, s3_bucket)
   end
 
-  def url
+  def export_xml_url
     AWS::S3::S3Object.url_for(xml_key, s3_bucket)
   end
 
