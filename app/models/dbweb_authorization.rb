@@ -1,4 +1,6 @@
 class DbwebAuthorization < ActiveRecord::Base
+  named_scope :expired, :conditions => ['expiration < ?', Time.now.utc]
+
   def self.create_for(obj, user_options = {})
     options = {
       :object_type => obj.class.to_s,
@@ -7,6 +9,23 @@ class DbwebAuthorization < ActiveRecord::Base
       :access_token => ActiveSupport::SecureRandom.base64(50)
     }.merge!(user_options)
     DbwebAuthorization.create!(options)
+  end
+
+  def self.get_for(obj, user_options = {})
+    existing_auth = DbwebAuthorization.find(:first,
+      :conditions => { 
+        :object_type => obj.class.to_s, 
+        :object_id => obj.id
+      }
+    )
+    if existing_auth
+      auth = existing_auth
+      auth.update_attributes(user_options)
+    else
+      auth = create_for(obj, user_options)
+    end
+
+    return auth
   end
 
   def escaped_token

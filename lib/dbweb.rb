@@ -20,7 +20,7 @@ module Dbweb
     end
 
     def object_editor_url(object)
-      auth = DbwebAuthorization.create_for(object)
+      auth = DbwebAuthorization.get_for(object)
       flash_editor_url TYPE_TRANSLATOR[object.class], 
                        object.id, 
                        auth.escaped_token
@@ -29,7 +29,7 @@ module Dbweb
     def object_duplicate_url(object, options = {})
       # Needs longer expiration because it is created
       # on an unrelated page load
-      auth = DbwebAuthorization.create_for(
+      auth = DbwebAuthorization.get_for(
         object,
         :expiration => Time.now.utc + 8.hours
       )
@@ -42,7 +42,7 @@ module Dbweb
     end
 
     def object_export_url(object)
-      auth = DbwebAuthorization.create_for(object)
+      auth = DbwebAuthorization.get_for(object)
       ENV['DBWEB_URL_BASE'] +
         "/model/#{TYPE_TRANSLATOR[object.class]}/#{object.id}.xml" +
         "?access_token=#{auth.escaped_token}"

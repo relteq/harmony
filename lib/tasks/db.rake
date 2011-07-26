@@ -25,7 +25,12 @@ namespace :db do
   end
 
   task :drop_auths => :environment do
-    puts "Destroying #{DbwebAuthorization.count} dbweb authorizations"
-    DbwebAuthorization.all.each(&:destroy)
+    if ENV['all']
+      puts "Destroying #{DbwebAuthorization.count} dbweb authorizations"
+      DbwebAuthorization.all.each(&:destroy)
+    else
+      puts "Destroying #{DbwebAuthorization.expired.count} expired dbweb authorizations"
+      DbwebAuthorization.expired.each(&:destroy)
+    end
   end
 end
