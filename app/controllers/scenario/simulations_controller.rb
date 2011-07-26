@@ -14,6 +14,9 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
     # :simple being set means this was called from 'Run Simulation'
     # rather than 'Run Simulation Batch'
     unless params[:simple]
+      if(params[:save_defaults])
+         DefaultBatchSetting.save_default_batch_settings(params)
+       end
       options[:n_runs] = params[:n_runs].to_i
       options[:param][:b_time] = params[:begin_time]
       options[:param][:duration] = params[:duration]
@@ -21,9 +24,7 @@ class Scenario::SimulationsController < ConfigurationsApplicationController
       options[:param]['qcontrol'] = !!params[:qcontrol]
       options[:param]['events'] = !!params[:events]
       
-      if(params[:save_defaults])
-        DefaultBatchSetting.save_default_batch_settings(params)
-      end
+ 
       
     else
       options = :simple

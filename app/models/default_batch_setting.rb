@@ -14,9 +14,9 @@ class DefaultBatchSetting < ActiveRecord::Base
     dbs.name = params[:name]
     dbs.mode = params[:mode]
     dbs.duration = RelteqTime.parse_time_to_seconds(params[:duration])
-    dbs.control = params[:control]
-    dbs.qcontrol = params[:qcontrol]
-    dbs.events = params[:events]
+    dbs.control = params[:control] || false
+    dbs.qcontrol = params[:qcontrol] || false
+    dbs.events = params[:events] || false
     dbs.scenario_id = params[:scenario_id]
     dbs.save!
   end

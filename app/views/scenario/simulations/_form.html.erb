@@ -21,15 +21,15 @@
     </p>
     <p>
       <%= label_tag :control %>
-      <%= check_box_tag :control, default_simulation_batch.control, default_simulation_batch.control, :id => "control_#{scenario.id}" %>
+      <%= check_box_tag :control, true, default_simulation_batch.control, :id => "control_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :qcontrol,  l(:field_q_control) %>
-      <%= check_box_tag :qcontrol, default_simulation_batch.qcontrol, default_simulation_batch.qcontrol, :id => "qcontrol_#{scenario.id}" %>
+      <%= check_box_tag :qcontrol, true, default_simulation_batch.qcontrol, :id => "qcontrol_#{scenario.id}" %>
     </p>
     <p>
       <%= label_tag :events %>
-      <%= check_box_tag :events, default_simulation_batch.events, default_simulation_batch.events, :id => "events_#{scenario.id}" %>
+      <%= check_box_tag :events, true, default_simulation_batch.events, :id => "events_#{scenario.id}" %>
     </p>
 		<hr>
     <p>
