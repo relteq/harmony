@@ -2,6 +2,9 @@ class Event < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
     
   belongs_to :event_set
+  belongs_to :node
+  belongs_to :network
+  belongs_to :link
   
 
   def description

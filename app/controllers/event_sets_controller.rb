@@ -1,5 +1,5 @@
 class EventSetsController <  ConfigurationsApplicationController
-  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_event]
+  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_event,:populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
 
@@ -22,7 +22,10 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@eset,Event)
-    get_network_dependent_table_items('event_sets','events','event_type',@eset.network_id) 
+    @items = get_events(@eset.network_id)
+    set_up_sort('event_type')
+    set_up_pagination
+    
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
       format.xml  { render :xml => @eset }
@@ -99,8 +102,10 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def populate_table
     @nid = require_network_id
-    get_network_dependent_table_items('event_sets','events','event_type',@nid)   
-  
+    @items = get_events(@nid)   
+    set_up_sort('event_type')
+    set_up_pagination
+    
     respond_to do |format|
       format.js
     end
@@ -117,12 +122,18 @@ private
 
   def require_event_set
     begin
-      @eset = get_set(@eventsets,params[:id].to_i)
+      if(params[:event_set_id] == nil)
+        eid = params[:id].to_i
+      else
+        eid = params[:event_set_id].to_i
+      end
+      
+      @eset = get_set(@eventsets,eid )
     rescue ActiveRecord::RecordNotFound
-      return not_found_redirect_to_index 
+      return not_found_redirect_to_index(l(:event_set_not_found))
     end
     if !@eset
-      return not_found_redirect_to_index
+      return not_found_redirect_to_index(l(:event_set_not_found))
     end
   end
   
@@ -140,6 +151,29 @@ private
     return network_id
   end
 
+  #The subitems table is determined differently than other sets because you are about to have network, node and link events, as well as change 
+  #what event is assigned to what event set
+  def get_events(nid)
+    items = Array.new
+    Network.find(nid).events.each do |e| 
+      items.push(e) 
+    end
+    
+    Network.find(nid).nodes.each do |n| 
+      n.events.each do |e| 
+        items.push(e) 
+      end
+    end
+    
+    Network.find(nid).links.each do |l| 
+      l.events.each do |e| 
+        items.push(e) 
+      end
+    end
+    
+    items
+  end
+  
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
     :event_set
