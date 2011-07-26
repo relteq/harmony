@@ -65,7 +65,7 @@ class SimulationBatchesController < ApplicationController
           else 
             flash[:error] = "Please check a simulation batch below before requesting an action."
           end
-          format.html { redirect_to  simulation_batch_index_path(@project) } # index.html.erb         
+          format.html { redirect_to  project_simulation_batches_path(@project) } # index.html.erb         
         end
       end
     
@@ -75,11 +75,11 @@ class SimulationBatchesController < ApplicationController
     begin
       sim_batch =  SimulationBatch.find(params[:id])
       sim_batch.destroy
-      flash[:notice] = l(:similation_batch) + ", '" + sim_batch.name + "' " + l(:label_success_delete)  
+      flash[:notice] = l(:simulation_batch) + ", '" + sim_batch.name + "' " + l(:label_success_delete)  
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = l(:similation_batch_not_found)
+      flash[:error] = l(:simulation_batch_not_found)
     rescue
-      flash[:error] = l(:similation_batch_delete_not_success)
+      flash[:error] = l(:simulation_batch_delete_not_success)
     end
 
     respond_to do |format|
@@ -87,6 +87,21 @@ class SimulationBatchesController < ApplicationController
     end 
   end
 
+  def rename
+    begin
+      SimulationBatch.save_rename(params[:simulation_batch][:id],params[:simulation_batch][:name])
+      flash[:notice] = l(:notice_successful_update) 
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = l(:simulation_batch_not_found)  
+    rescue
+      flash[:error] = l(:notice_update_not_successful)
+    end
+    
+    respond_to do |format|
+     format.html { redirect_to  project_simulation_batches_path(params[:project_id]) } # index.html.erb     
+    end
+  end
+  
   private 
     def get_simulation_batch_action(str,sims)
       if(str == 'generate') 

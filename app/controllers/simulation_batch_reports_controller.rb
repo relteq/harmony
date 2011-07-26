@@ -51,9 +51,9 @@ class SimulationBatchReportsController < ApplicationController
       flash[:notice] = l(:label_report) + ", '" + 
                       sim_batch_report.name + "' " + l(:label_success_delete)
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = l(:similation_batch_report_not_found)
+      flash[:error] = l(:simulation_batch_report_not_found)
     rescue
-      flash[:error] = l(:similation_batch_report_delete_not_success)
+      flash[:error] = l(:simulation_batch_report_delete_not_success)
     end
    
     respond_to do |format|
@@ -71,7 +71,7 @@ class SimulationBatchReportsController < ApplicationController
 
        Runweb.report @simulation_report
        
-       flash[:notice] = l(:similation_batch_report_job_start_success)  
+       flash[:notice] = l(:simulation_batch_report_job_start_success)  
        format.html { redirect_to  :my_page}
        format.xml  { head :ok }
       else

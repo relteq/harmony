@@ -981,15 +981,16 @@ en:
   scenario_run_simulation: Run Simulation 
   scenario_run_simulation_batch: Run Simulation Batch
 
-  similation_batch_report_not_found: Simulation Batch Report not found. Delete not successful.
-  similation_batch_report_delete_not_success: Simulation Batch Report delete not successful
-  similation_batch_report_job_start_success: Job started successfully
+  simulation_batch_report_not_found: Simulation Batch Report not found. Delete not successful.
+  simulation_batch_report_delete_not_success: Simulation Batch Report delete not successful
+  simulation_batch_report_job_start_success: Job started successfully
   
-  similation_batch: Simulation Batch
-  similation_batch_not_found: Simulation Batch not found. Delete not successful.
-  similation_batch_delete_not_success: Simulation Batch delete not successful
+  simulation_batch: Simulation Batch
+  simulation_batch_not_found: Simulation Batch not found. Action not successful.
+  simulation_batch_delete_not_success: Simulation Batch delete not successful
   
-
+  notice_update_not_successful: Update not successful.
+  
   relteq_edit: Edit
   relteq_duplicate: Duplicate
   relteq_shallow_duplicate: Shallow Duplicate
