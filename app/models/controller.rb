@@ -3,6 +3,9 @@ class Controller < ActiveRecord::Base
 
   relteq_time_attr :dt
   belongs_to :controller_set
+  belongs_to :node
+  belongs_to :network
+  belongs_to :link
   
   def controller_name
     if(type.to_s.index("Link") > -1)

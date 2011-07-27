@@ -9,7 +9,10 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@cset,Controller)
-    get_network_dependent_table_items('controller_sets','controllers','controller_type',@cset.network_id)   
+    @items = get_controllers(@cset.network_id)
+    set_up_sort('controller_type')
+    set_up_pagination
+
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
       format.xml  { render :xml => @cset }
@@ -78,14 +81,17 @@ class ControllerSetsController <  ConfigurationsApplicationController
   def delete_item
     status = 200
     begin
-      ControllerSet.delete_set(params[:controller_id].to_i)
+      ControllerSet.delete_controller(params[:controller_id].to_i)
       flash[:notice] = l(:label_controller_deleted)  
     rescue
       flash[:error] = l(:label_controller_not_deleted)
       status = 403
     end
     @nid = require_network_id
-    get_network_dependent_table_items('controller_sets','controllers','controller_type',@nid)
+    @items = get_controllers(@nid)
+    set_up_sort('controller_type')
+    set_up_pagination
+  
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -98,7 +104,10 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def populate_table
     @nid = require_network_id
-    get_network_dependent_table_items('controller_sets','controllers','controller_type',@nid)   
+    @items = get_controllers(@nid)
+    set_up_sort('controller_type')
+    set_up_pagination
+    
   
     respond_to do |format|
       format.js
@@ -137,6 +146,29 @@ private
     return network_id
   end
 
+  #The subitems table is determined differently than other sets because you are about to have network, node and link events, as well as change 
+  #what event is assigned to what event set
+  def get_controllers(nid)
+    items = Array.new
+    Network.find(nid).controllers.each do |e| 
+      items.push(e) 
+    end
+    
+    Network.find(nid).nodes.each do |n| 
+      n.controllers.each do |e| 
+        items.push(e) 
+      end
+    end
+    
+    Network.find(nid).links.each do |l| 
+      l.controllers.each do |e| 
+        items.push(e) 
+      end
+    end
+    
+    items
+  end
+  
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
     :controller_set
