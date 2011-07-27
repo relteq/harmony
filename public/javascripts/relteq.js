@@ -84,9 +84,15 @@ function onItemDeleteComplete(request){
   var flash_notice = request.getHeader('x-flash-notice');
   var flash_error = request.getHeader('x-flash-error');
 
-	if (flash_notice) jQuery('#content').prepend("<div class='flash notice'>" + flash_notice + "</div>");
-	if (flash_error) jQuery('#content').prepend("<div class='flash error'>" + flash_error + "</div>");
+	if (flash_notice) {
+		jQuery('#content').prepend("<div id='profile-notice' class='flash notice'>" + flash_notice + "</div>");
+		jQuery('#profile-notice').delay(2000).slideUp(500,function() { jQuery(this).remove(); });	
+	}
 
+	if (flash_error){
+		jQuery('#content').prepend("<div  id='profile-error' class='flash error'>" + flash_error + "</div>");
+		jQuery('#profile-error').delay(2000).slideUp(500,function() { jQuery(this).remove(); });	
+	} 
 }
 
 

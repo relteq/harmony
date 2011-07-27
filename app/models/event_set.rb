@@ -21,16 +21,11 @@ class EventSet < ActiveRecord::Base
   end
   
   def events=(items)
-    if(events.empty?)
-      items.each do |attributes|
-        #e = Event.find(attributes[:id].to_i)
-        #e.attributes = attributes
-      end
-    else
-      items.each do |attributes|
-        e = events.detect { |ev| ev.id == attributes[:id].to_i }
-        e.attributes = attributes
-      end
+    remove_event_set_id_from_events
+    items.each do |attributes|
+      e = Event.find(attributes[:id].to_i)
+      e.event_set_id = id
+      events.push(e)
     end
   end
   
@@ -40,7 +35,7 @@ class EventSet < ActiveRecord::Base
     end
   end
  
-  def self.delete_set(event)
+  def self.delete_event(event)
     e = Event.find_by_id(event)
     e.destroy
   end 
@@ -52,4 +47,11 @@ class EventSet < ActiveRecord::Base
     end
   end
   
+  private
+    def remove_event_set_id_from_events
+      events.each do |e|
+        e.event_set_id = nil
+        e.save(false)
+      end
+    end 
 end

@@ -86,7 +86,7 @@ table.index{
 table.index td.index-menu-td {
 	width:1%;
 }
-table.index td.index-menu-multiple {
+table.index td.index-menu-multiple th.index-menu-multiple{
 	padding-top:4px;
 	width:0.25%;
 }

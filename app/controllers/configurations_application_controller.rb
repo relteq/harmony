@@ -73,40 +73,45 @@ protected
     #get_network_dependent_table_items(record,model,@network == nil ? "-1" : @network.id.to_s)
   end
   
+  
+  
   def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
-    sort_init sort_attribute, 'asc'
-    sort_update [sort_attribute]
+    # sort_init sort_attribute, 'asc'
+    # sort_update [sort_attribute]
     
-    case params[:format]
-    when 'xml', 'json'
-      @offset, @limit = api_offset_and_limit      
-    else
-      @limit = per_page_option
-    end
+    # case params[:format]
+    # when 'xml', 'json'
+    #   @offset, @limit = api_offset_and_limit      
+    # else
+    #   @limit = per_page_option
+    # end
 
-    @items = Array.new
-    Network.find(sid).send(sets).each { |cs|
-       cs.send(subitems).each { |c|
-         @items.push(c) 
-       }   
-    }
-    sort = sort_clause.split(/,* /)
-    subs = sort[0].split('.')
-
-    if(subs.length == 2)
-      @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
-    else
-      @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
-    end
-      
-    if(sort[1] == 'DESC')
-      @items.reverse!
-    end
+    # @items = Array.new
+    # Network.find(sid).send(sets).each { |cs|
+    #    cs.send(subitems).each { |c|
+    #      @items.push(c) 
+    #    }   
+    # }
+    get_items(sid,sets,subitems)
+    set_up_sort(sort_attribute)
+    set_up_pagination
+    # sort = sort_clause.split(/,* /)
+    # subs = sort[0].split('.')
+    # 
+    # if(subs.length == 2)
+    #   @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
+    # else
+    #   @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
+    # end
+    #   
+    # if(sort[1] == 'DESC')
+    #   @items.reverse!
+    # end
     
-    @item_count = @items.length
-    @items_pages = Paginator.new self, @item_count, @limit, params['page']
-    @offset ||= @items_pages.current.offset
-    @items =  @items[@offset,@offset + @limit ]
+    # @item_count = @items.length
+    # @items_pages = Paginator.new self, @item_count, @limit, params['page']
+    # @offset ||= @items_pages.current.offset
+    # @items =  @items[@offset,@offset + @limit ]
   end
 
   def get_index_view(records)
@@ -155,5 +160,48 @@ protected
 
     # Stops the flash appearing when you next refresh the page
     flash.discard
+  end
+  
+  private
+    def set_up_pagination
+      case params[:format]
+      when 'xml', 'json'
+        @offset, @limit = api_offset_and_limit      
+      else
+        @limit = per_page_option
+      end
+      
+      @item_count = @items.length
+      @items_pages = Paginator.new self, @item_count, @limit, params['page']
+      @offset ||= @items_pages.current.offset
+      @items =  @items[@offset,@offset + @limit ]
+      
+    end
+  
+  def set_up_sort(sort_attribute)
+    sort_init sort_attribute, 'asc'
+    sort_update [sort_attribute]
+    sort = sort_clause.split(/,* /)
+    subs = sort[0].split('.')
+
+    if(subs.length == 2)
+      @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
+    else
+      @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
+    end
+      
+    if(sort[1] == 'DESC')
+      @items.reverse!
+    end
+  
+  end
+  
+  def get_items(sid,sets,subitems)
+    @items = Array.new
+    Network.find(sid).send(sets).each { |cs|
+       cs.send(subitems).each { |c|
+         @items.push(c) 
+       }   
+    }
   end
 end
