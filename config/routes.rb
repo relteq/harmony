@@ -161,7 +161,7 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :simulation_batch_reports,
                       :collection => [:report_gen],
                       :member => [:delete_report, :rename], 
-                      :only => [:index,:delete_report,:report_gen] 
+                      :only => [:index,:delete_report,:report_gen,:create] 
     
     project.resources :simulation_batches,
                       :member => [:delete_report, :rename], 

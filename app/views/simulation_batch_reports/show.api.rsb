@@ -1,0 +1,4 @@
+api.report_generator_launch do
+  api.id @simulation_report.id
+  api.success true
+end

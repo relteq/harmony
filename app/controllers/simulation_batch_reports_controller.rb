@@ -15,7 +15,6 @@ class SimulationBatchReportsController < ApplicationController
     else
       @limit = per_page_option
     end
-   
 
     begin
       @project = Project.find(params[:project_id])
@@ -33,7 +32,7 @@ class SimulationBatchReportsController < ApplicationController
     @items_show = SimulationBatchReport.find :all,
                               :conditions => {
                                 :simulation_batch_list_id => sim_batch_lists,
-                                :percent_complete => 1, 
+                                :percent_complete => 1,
                                 :succeeded => true
                               },
                               :order => sort_clause,
@@ -54,8 +53,6 @@ class SimulationBatchReportsController < ApplicationController
                       sim_batch_report.name + "' " + l(:label_success_delete)
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:simulation_batch_report_not_found)
-    rescue
-      flash[:error] = l(:simulation_batch_report_delete_not_success)
     end
    
     respond_to do |format|
@@ -65,13 +62,16 @@ class SimulationBatchReportsController < ApplicationController
     end 
   end
  
-  def create 
-    @simulation_report = SimulationBatchReport.new
-    if @simulation_report.update_attributes(params[:simulation_batch_report])
+  def create
+    @simulation_report = SimulationBatchReport.create!(
+      params[:simulation_batch_report]
+    )
+
+    if @simulation_report
       @simulation_report.link_to_simulation_batches(params[:sim_ids])
       Runweb.report @simulation_report
+      flash[:notice] = l(:simulation_batch_report_job_start_success)  
       respond_to do |format|
-        flash[:notice] = l(:simulation_batch_report_job_start_success)  
         format.html { redirect_to :my_page }
         format.api { render :action => 'show' }
       end
@@ -94,7 +94,9 @@ class SimulationBatchReportsController < ApplicationController
     end
     
     respond_to do |format|
-     format.html { redirect_to  project_simulation_batch_reports_path(params[:project_id]) } # index.html.erb     
+      format.html { 
+        redirect_to project_simulation_batch_reports_path(params[:project_id])
+      } # index.html.erb     
     end
   end
 
