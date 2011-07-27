@@ -65,53 +65,17 @@ protected
   end
   
   def set_up_network_select(record,model)
-    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}
-    
+    @prompt_network = {:prompt => @networks.empty? ?  l(:label_no_networks_configured) : l(:label_please_select)}  
     @network = record.network == nil ? nil : record.network
   
-    #set up events table with split_ratio profile set network
-    #get_network_dependent_table_items(record,model,@network == nil ? "-1" : @network.id.to_s)
   end
   
   
   
   def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
-    # sort_init sort_attribute, 'asc'
-    # sort_update [sort_attribute]
-    
-    # case params[:format]
-    # when 'xml', 'json'
-    #   @offset, @limit = api_offset_and_limit      
-    # else
-    #   @limit = per_page_option
-    # end
-
-    # @items = Array.new
-    # Network.find(sid).send(sets).each { |cs|
-    #    cs.send(subitems).each { |c|
-    #      @items.push(c) 
-    #    }   
-    # }
     get_items(sid,sets,subitems)
     set_up_sort(sort_attribute)
     set_up_pagination
-    # sort = sort_clause.split(/,* /)
-    # subs = sort[0].split('.')
-    # 
-    # if(subs.length == 2)
-    #   @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
-    # else
-    #   @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
-    # end
-    #   
-    # if(sort[1] == 'DESC')
-    #   @items.reverse!
-    # end
-    
-    # @item_count = @items.length
-    # @items_pages = Paginator.new self, @item_count, @limit, params['page']
-    # @offset ||= @items_pages.current.offset
-    # @items =  @items[@offset,@offset + @limit ]
   end
 
   def get_index_view(records)

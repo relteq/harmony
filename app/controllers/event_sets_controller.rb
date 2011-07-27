@@ -1,5 +1,6 @@
 class EventSetsController <  ConfigurationsApplicationController
   before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :populate_event_set_if_exists, :only => [:delete_item, :populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
 
@@ -90,8 +91,6 @@ class EventSetsController <  ConfigurationsApplicationController
       status = 403
     end
     
-    populate_event_set_if_exists
-    
     @nid = require_network_id
     @items = get_events(@nid)   
     set_up_sort('event_type')
@@ -107,7 +106,6 @@ class EventSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    populate_event_set_if_exists
     
     @nid = require_network_id
     @items = get_events(@nid)   
