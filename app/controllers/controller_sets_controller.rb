@@ -15,6 +15,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
+      format.js   
       format.xml  { render :xml => @cset }
     end
   end

@@ -25,6 +25,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
     get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','link.type_link',@cpset.network_id) 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
+      format.js
       format.xml  { render :xml => @cpset }
     end
   end
