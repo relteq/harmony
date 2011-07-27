@@ -38,7 +38,7 @@ class ControllerSet < ActiveRecord::Base
     end
   end
  
-  def self.delete_set(control)
+  def self.delete_controller(control)
     con = Controller.find_by_id(control)
     con.destroy
   end 

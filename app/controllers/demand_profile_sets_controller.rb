@@ -27,6 +27,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
+      format.js
       format.xml  { render :xml => @dpset }
     end
   end

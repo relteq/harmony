@@ -433,7 +433,10 @@ module ConfigurationsHelper
   def relteq_per_page_links(selected=nil)
     url_param = params.dup
     url_param.clear if url_param.has_key?(:set_filter)
-
+    url_param.merge!(:acton =>'populate_table') if url_param.delete(:action)
+    params[:action] = 'populate_table' if params[:action] == 'delete_item'  #in order to avoid the pagination link going to delete_item I siwtch it to populate table
+  
+    
     links = Setting.per_page_options_array.collect do |n|
       n == selected ? n : link_to_remote(n, {  :url => params.dup.merge(:per_page => n),
                                              :method => :get},
