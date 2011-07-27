@@ -976,6 +976,7 @@ en:
   event_sets_delete_all: Delete All Event Sets 
   event_sets_edit: Edit Event Set
   event_set_not_found: Event Set not found
+  event_set_not_found_no_events_selected: Event Set not found; As a consequence we can not select which events are associated with this Event Set.
 
   scenario_edit_simulation: Edit Simulation 
   scenario_run_simulation: Run Simulation 
