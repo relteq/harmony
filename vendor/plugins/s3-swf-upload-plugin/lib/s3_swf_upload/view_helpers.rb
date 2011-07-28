@@ -1,6 +1,9 @@
 module S3SwfUpload
   module ViewHelpers
     def s3_swf_upload_tag(options = {})
+      @include_s3_upload ||= false 
+      @count ||= 1
+      
       height     = options[:height] || 35
       width      = options[:width]  || 300
       success    = options[:success]  || ''
@@ -9,6 +12,7 @@ module S3SwfUpload
       canceled   = options[:canceled] || ''
       prefix     = options[:prefix] || ''
       upload     = options[:upload] || 'Upload' 
+      upload_link = options[:upload_link] || 'true'
       initial_message    = options[:initial_message] || 'Select file to upload...'
       do_checks = options[:do_checks] || "0"
 
@@ -18,8 +22,7 @@ module S3SwfUpload
 
       prefix = prefix + "/" unless prefix == ""
 
-      @include_s3_upload ||= false 
-      @count ||= 1
+
       
       out = ""
 
@@ -50,11 +53,13 @@ module S3SwfUpload
         <div id="s3_swf#{@count}">
           Please <a href="http://www.adobe.com/go/getflashplayer">Update</a> your Flash Player to Flash v9.0.1 or higher...
         </div>
-
-        <div class="s3-swf-upload-link">
-        <a href="#uploadform#{@count}" onclick="s3_swf#{@count}.upload('#{prefix}')">#{upload}</a>
-        </div>
-      )
+      )  
+      if(upload_link == "true")
+         out << %( <div class="s3-swf-upload-link">
+          <a href="#uploadform#{@count}" onclick="s3_swf#{@count}.upload('#{prefix}')">#{upload}</a>
+          </div>)
+      end
+      
       
       @count += 1
       out

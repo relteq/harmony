@@ -994,7 +994,9 @@ en:
   
   field_file_type: File Type
   field_file_format: File Format
-  
+  field_file_upload: File Upload
+  measurement_data_default_file_format: pems
+
   relteq_edit: Edit
   relteq_duplicate: Duplicate
   relteq_shallow_duplicate: Shallow Duplicate

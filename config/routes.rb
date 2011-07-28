@@ -169,6 +169,7 @@ ActionController::Routing::Routes.draw do |map|
     
     project.resources :measurement_data,
                       :member => [:delete_file, :rename], 
+                      :collection => {:import => :post},
                       :only => [:index,:create] 
     
     project.resource :configuration, :only => [:show] do |config|
