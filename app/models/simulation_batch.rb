@@ -4,7 +4,7 @@ class SimulationBatch < ActiveRecord::Base
   
   belongs_to :scenario
   
-  has_many :output_files
+  has_many :output_files, :dependent => :destroy
   
   has_many :reported_batches
   has_many :simulation_batch_lists, :through => :reported_batches
