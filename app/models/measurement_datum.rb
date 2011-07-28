@@ -5,7 +5,7 @@ class MeasurementDatum < ActiveRecord::Base
   validates_presence_of :url
   
   belongs_to :project
-  #before_destroy :delete_associated_s3_data
+  before_destroy :delete_associated_s3_data
   
   def creator
     begin
