@@ -147,3 +147,11 @@ table#jobs_list td {
   text-align: center;
 }
 
+#s3_swf1 {
+	margin-left:100px;
+}
+
+.s3-swf-upload-link
+{
+	margin-left:100px;
+}

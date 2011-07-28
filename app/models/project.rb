@@ -27,6 +27,7 @@ class Project < ActiveRecord::Base
   
   has_many :scenarios
   has_many :networks
+  has_many :measurement_data
 
   # Specific overidden Activities
   has_many :time_entry_activities

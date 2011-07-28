@@ -6,7 +6,7 @@ module SimulationBatchesHelper
       ['Generate Report' , 'generate']
     ]
   end
-  
+    
   def simulation_report_type_of_select_options
     return  [
      ['Compare vehicle types, single run' ],
