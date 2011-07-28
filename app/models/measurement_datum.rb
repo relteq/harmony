@@ -24,10 +24,6 @@ class MeasurementDatum < ActiveRecord::Base
   
   private
     def delete_associated_s3_data
-      begin
-        AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).delete
-      rescue
-        return false
-      end
+        msg = AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).delete
     end
 end

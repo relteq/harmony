@@ -17,7 +17,8 @@
 		<%= s3_swf_upload_tag :initial_message => 'Select a Measurement Data file to upload', 
 	                      :width => 500, 
 	                      :height => 40, 
-												:success => redirect_to_dbweb_import_url(@project.id, @user.id)
+												:success => redirect_to_dbweb_import_url(@project.id, @user.id),
+												:selected => "jQuery('#measurement_data_url').val(filename);"
 	 %>
 	</p>
 	<p><%= f.submit 'Upload Data File' %> </p>
