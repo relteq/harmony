@@ -38,7 +38,6 @@ class SimulationBatchesController < ApplicationController
 
     #sets up objects for report_generator
     @simulation_report = SimulationBatchReport.new
-    @simulation_report.default_report_settings!
     
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
