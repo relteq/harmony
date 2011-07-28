@@ -7,7 +7,7 @@ class MeasurementDataController < ApplicationController
   def index
    
     sort_init 'name', 'asc'
-    sort_update %w(name file_type file_format created_at user_id_creator)
+    sort_update %w(name data_type data_format created_at user_id_creator)
 
     case params[:format]
     when 'xml', 'json'
@@ -27,9 +27,9 @@ class MeasurementDataController < ApplicationController
                               :limit  =>  @limit,
                               :offset =>  @offset
 
-#    auth = DbwebAuthorization.create_for(@project)
+    auth = DbwebAuthorization.create_for(@project)
     @user = User.current
-#    @token = auth.access_token
+    @token = auth.access_token
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } # index.html.erb
@@ -39,18 +39,18 @@ class MeasurementDataController < ApplicationController
   
   def create
     begin
-      @mdat = MeasurementDatum.new(params[:measurement_data])
-      @mdat.url = 'sadf'
-      @mdat.project_id = @project.id
-      @mdat.user_id_creator = User.current.id
+      mdat = MeasurementDatum.new(params[:measurement_data])
+      mdat.url = 'sadf'
+      mdat.project_id = @project.id
+      mdat.user_id_creator = User.current.id
     rescue
       flash[:error] = l(:measurement_data_not_successful_upload)    
     end 
     
-    if(@mdat.save)
+    if(mdat.save)
         flash[:notice] = l(:measurement_data_successful_upload)
     else
-        flash[:error] = l(:measurement_data_not_successful_upload)        
+        flash[:error] = mdat.errors.empty? ? l(:measurement_data_not_successful_upload) : mdat.errors.full_messages.to_sentence 
     end
     
     respond_to do |format|
