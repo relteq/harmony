@@ -19,7 +19,7 @@ module MeasurementDataHelper
     # variable not known until upload is complete
     %Q{
         $('ajax-indicator').show();
-        $j.getJSON("#{ENV['DBWEB_URL_BASE']}/import/measurement_data/" + filename + "?jsoncallback=?",
+        $j.getJSON("http://relteq-db.dyndns.org:9098/import/measurement_data/" + filename + "?jsoncallback=?",
           { 
               access_token: "#{@token}", 
               to_project:  "#{project_id}",
@@ -27,6 +27,7 @@ module MeasurementDataHelper
               bucket: "#{S3SwfUpload::S3Config.bucket}"
           }, 
           function(data) {
+            jQuery('#measurement_data_url').val(filename);
             $('ajax-indicator').hide();
           }
         );

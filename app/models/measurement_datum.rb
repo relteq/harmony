@@ -5,7 +5,7 @@ class MeasurementDatum < ActiveRecord::Base
   validates_presence_of :url
   
   belongs_to :project
-  
+  before_destroy :delete_associated_s3_data
   
   def creator
     begin
@@ -21,4 +21,13 @@ class MeasurementDatum < ActiveRecord::Base
     sim_batch.name = name
     sim_batch.save!
   end
+  
+  private
+    def delete_associated_s3_data
+      begin
+        AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).delete
+      rescue
+        return false
+      end
+    end
 end

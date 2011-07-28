@@ -40,7 +40,6 @@ class MeasurementDataController < ApplicationController
   def create
     begin
       mdat = MeasurementDatum.new(params[:measurement_data])
-      mdat.url = 'sadf'
       mdat.project_id = @project.id
       mdat.user_id_creator = User.current.id
     rescue
