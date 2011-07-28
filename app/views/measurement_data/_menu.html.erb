@@ -1,0 +1,17 @@
+<div class="add-filter">
+	<p>
+		<label><%=l(:label_actions)%>: </label>
+		<%= select_tag 'measurement_data_action', options_for_select(measurement_data_select_options()), 	:onchange=> "doAction(this.options[this.selectedIndex].value);"  
+		%>
+
+	</p>
+</div>
+
+<script>
+function doAction(val)
+{
+	if(val == 'import'){
+			show_box("import");
+	}
+}
+</script>

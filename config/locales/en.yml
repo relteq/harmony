@@ -992,6 +992,9 @@ en:
   
   notice_update_not_successful: Update not successful.
   
+  field_file_type: File Type
+  field_file_format: File Format
+  
   relteq_edit: Edit
   relteq_duplicate: Duplicate
   relteq_shallow_duplicate: Shallow Duplicate
