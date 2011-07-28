@@ -22,13 +22,13 @@
 <% else %>
 	<% @items_show.each_with_index do |mdat,i| %>
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-		<td  ><%h mdat.name %></td>
-		<td  ><%h mdat.file_type %></td>
-		<td  ><%h mdat.file_format %></td>
-	 	<td  ><%=h format_date_time(sim.created_at) %></td>
-	 	<td  ><%= link_to sim.creator, sim.creator %></td>
+		<td  ><%=h mdat.name %></td>
+		<td  ><%=h mdat.data_type %></td>
+		<td  ><%=h mdat.data_format %></td>
+	 	<td  ><%=h format_date_time(mdat.created_at) %></td>
+	 	<td  ><%= link_to mdat.creator, mdat.creator %></td>
 	 	<td  >
-			<%= link_to '',delete_file_project_measurement_data_path(@project,mdat.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
+			<%= link_to '',delete_file_project_measurement_datum_path(@project,mdat.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{mdat.id}');", :class => 'icon icon-edit' %> 
 		</td>
 	  </tr>
