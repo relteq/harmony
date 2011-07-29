@@ -1,0 +1,7 @@
+api.simulation_batch do
+  api.id @simulation_batch.id
+  api.progress @simulation_batch.percent_complete
+  if !@simulation_batch.succeeded
+    api.failed true
+  end
+end

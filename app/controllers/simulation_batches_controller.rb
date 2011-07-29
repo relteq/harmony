@@ -45,6 +45,14 @@ class SimulationBatchesController < ApplicationController
       format.xml  { render :xml =>  @items_show}
     end
   end
+
+  def show
+    @simulation_batch = SimulationBatch.find(params[:id])
+
+    respond_to do |format|
+      format.api { render :show }
+    end
+  end
   
   def process_choices
     begin
