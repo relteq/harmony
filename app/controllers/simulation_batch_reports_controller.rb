@@ -45,6 +45,14 @@ class SimulationBatchReportsController < ApplicationController
     end
   end
  
+  def show
+    @report = SimulationBatchReport.find(params[:id])
+
+    respond_to do |format|
+      format.api { render :show }
+    end
+  end
+
   def delete_report
     begin
       sim_batch_report =  SimulationBatchReport.find(params[:id])
@@ -73,7 +81,7 @@ class SimulationBatchReportsController < ApplicationController
       flash[:notice] = l(:simulation_batch_report_job_start_success)
       respond_to do |format|
         format.html { redirect_to :my_page }
-        format.api { render :action => 'show' }
+        format.api { render :action => 'launch' }
       end
     else
       respond_to do |format|

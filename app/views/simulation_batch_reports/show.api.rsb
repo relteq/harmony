@@ -1,4 +1,7 @@
-api.report_generator_launch do
-  api.id @simulation_report.id
-  api.success true
+api.simulation_batch_report do
+  api.id @report.id
+  api.progress @report.percent_complete
+  if !@report.succeeded
+    api.failed true
+  end
 end
