@@ -38,4 +38,12 @@ class SimulationBatch < ActiveRecord::Base
   def project
     scenario.project
   end
+  
+  def creator
+    begin
+      User.find(user_id_creator).name
+    rescue ActiveRecord::RecordNotFound
+      ''
+    end
+  end
 end

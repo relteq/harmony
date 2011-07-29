@@ -936,7 +936,7 @@ en:
   enumeration_activities: Activities (time tracking)
   enumeration_system_activity: System Activity
 
-  ##### relteq additions 
+  ##### relteq additions
   scenarios_new: New Scenario
   scenarios_import: Import Scenario
   scenarios_delete_all: Delete All Scenarios
@@ -1098,6 +1098,7 @@ en:
   label_subnetwork: Sub-Network
   label_quantity: Quantity
   label_groups: Groups  
+  label_group: Group
   label_or_perf_t: On-ramp Performance over Time
   label_or_perf_s: On-ramp Performance over Space
   label_or_perf_c: On-ramp Performance over Contour Plot

@@ -12,9 +12,10 @@ function doAction(val)
 {
 	jQuery('#sim-not-checked').css('display','none');
 	if(val == 'generate'){
-		if(validateAtLeastOneSimChecked())
-			show_box("report-generator");
-		else{
+		if(validateAtLeastOneSimChecked()){
+			processSimIds()
+//			show_box("report-generator");
+		}else{
 			jQuery('#sim-not-checked').css('display','inline');
 			return;
 		}

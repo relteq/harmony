@@ -168,7 +168,15 @@ class SimulationBatchReport < ActiveRecord::Base
     end
     builder.to_xml
   end
-
+  
+  def creator
+    begin
+      User.find(user_id_creator).name
+    rescue ActiveRecord::RecordNotFound
+      ''
+    end
+  end
+  
 private
   def delete_associated_s3_data
     [xls_key, pdf_key, ppt_key, xml_key].each do |key|

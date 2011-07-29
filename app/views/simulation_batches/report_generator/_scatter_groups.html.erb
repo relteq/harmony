@@ -1,18 +1,13 @@
-<table class="list"> 
+<table class="list" id="simulation-group-list-table"> 
 	<thead>
 	  <tr>
-			<th>Scenario</th>
-			<th>Group</th>
+			<th><%= l(:label_scenario) %></th>
+			<th><%= l(:label_group) %></th>
 	  </tr>
 	</thead>
-	<tbody>
-	  <tr>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-	  </tr>
-	  <tr>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
+	<tbody >
+	  <tr id="simulation-group-list-no-records">
+			<td colspan='2'><%= l(:label_no_records_index) %></td>
 	  </tr>
 	</tbody>
 </table>

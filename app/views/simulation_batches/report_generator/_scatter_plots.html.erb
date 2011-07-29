@@ -32,7 +32,7 @@
 <br/>
 <div id="groups">
 	<label><%=l(:label_groups)%>: </label><br/>
-	<table class="index list"> 
+	<table class="index list" id='simulation-plots-list-table'> 
 		<thead>
 		  <tr>
 				<th>Name</th>
@@ -40,13 +40,8 @@
 		  </tr>
 		</thead>
 		<tbody>	
-			<tr class="user active odd">
-		 	  <td  >&nbsp;</td>
-		 	  <td  >&nbsp;</td>
-		  </tr>
-			<tr class="user active even">
-		 	  <td  >&nbsp;</td>
-		 	  <td  >&nbsp;</td>
+		  <tr id="simulation-plots-list-no-records">
+				<td colspan='2'><%= l(:label_no_records_index) %></td>
 		  </tr>
 		</tbody>
 	</table>

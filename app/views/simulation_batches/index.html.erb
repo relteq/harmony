@@ -58,7 +58,7 @@
 	</div>
 <% end %>
 
-	<div id="report-generator" style="display: none;" class="box tabular">
+	<div id="report-generator" style="display: ;" class="box tabular">
 		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="resetPage()"></button>
   	<%= render :partial => 'simulation_batches/report_generator/form'%>
 	</div>
@@ -69,42 +69,65 @@
 	<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
 <% end %>
 <script language="javascript">
-	function processSimId(val,name){
+	function processSimIds(){
+		//this maintains the list of batches on the Basics and Scatter Groups tab of report generator
 		
 		var sp = jQuery('#simulation-batch-list');
-		var spBegin = jQuery('#begin-msg');
-		var spName = jQuery('#simulation_batch_report_name');
-		strSimIds = 	document.getElementById('sim_ids').value;
-		if(document.getElementById(val + '-checkbox').checked){
-				  //this maintains the hidden tag of sim_ids
-				  if(strSimIds.length > 0)
-							strSimIds  += "," + val;
-					else
-						  strSimIds  = val;
+		var spGroupTable = jQuery('#simulation-group-list-table > tbody:last');
+		var strSimIds = '';
 
- 					//this maintains the list of batches on the Basics tab of report generator
-					if(spBegin.length > 0)
-						spBegin.remove();
-						
-					sp.append("<li id='" + replaceAllSpaces(name) + "'>" + name + "</li>");
-					if(spName.val().length <= 0)
-						spName.val(name);
-		}
-		else
-		{
-			   //this maintains the hidden tag of sim_ids
-				strSimIds  = strSimIds.replace(val + ",","");
-				if(strSimIds.search(val) != -1)
-				 					strSimIds  = strSimIds.replace(val,"");
-				 
-				//this maintains the list of batches on the Basics tab of report generator
-			  jQuery('#' + replaceAllSpaces(name)).remove();
-				if(sp.children().length == 0){
-					sp.append("<span id='begin-msg'>Please close this window and select a batch(es) for the report generator to 					reference.</span>")
-				}
+		var spBegin = jQuery('#begin-msg');
+		if(spBegin.length > 0)
+			spBegin.remove();
+		
+		var spNoRecords = jQuery('#simulation-group-list-no-records');
+		spNoRecords.remove();
+
+		var sims = jQuery("input[name='sim_ids[]']:checked");
+		//first remove all previous records
+		sims.each(function(){
+		  //split the checkbox id from id:name
+				var split = jQuery(this).val().split(':');
+				var sim_id = split[0];
+				var sim_name =  split[1];
+
+				jQuery('#sim_li_' + replaceAllSpaces(sim_name)).remove();
+				jQuery('#sim_group_' + replaceAllSpaces(sim_name)).remove();
 			
+			
+		});
+
+		//now add in everything that is checked
+		sims.each(function(){
+		  //split the checkbox id from id:name
+			var split = jQuery(this).val().split(':');
+			var sim_id = split[0];
+			var sim_name =  split[1]
+			sp.append("<li id='sim_li_" + replaceAllSpaces(sim_name) + "'>" + sim_name + "</li>");
+			
+		  //this maintains the hidden tag of sim_ids
+		  if(strSimIds.length > 0)
+					strSimIds  += "," + sim_id;
+			else
+				  strSimIds  = sim_id;
+
+
+			spGroupTable.append("<tr id='sim_group_" + replaceAllSpaces(sim_name) + "'><td>" + sim_name + "</td><td><input type='text' size='30' name='simulation_batch[" +sim_id+"][group]' onchange='insertScatterPlotGroups(this)'></td></tr>");
+
+		});
+		
+		jQuery('#sim_ids').value = strSimIds;
+		
+		//in case a mistake is made append begin message
+		if(sp.children().length == 0){
+			sp.append("<span id='begin-msg'>Please close this window and select a batch(es) for the report generator to 					reference.</span>")
 		}
-		document.getElementById('sim_ids').value = strSimIds;
+		
+		spGroupRows = jQuery('#simulation-group-list-table tr').length;
+		if(spGroupRows == 1)
+		{
+			spGroupTable.append("<td colspan='2'>No records to display.</td>");
+		}
 	}
 	
 
@@ -129,7 +152,17 @@
 		jQuery('#simulation_batch_action').val('');
 	}
 
-
+	var groups_array = new Array();
+	function insertScatterPlotGroups(el)
+	{
+		jQuery('#simulation-plots-list-no-records').remove();
+		var spPlotsTable = jQuery('#simulation-plots-list-table > tbody:last');
+		if(groups_array.indexOf(el.value) == -1){
+			groups_array[groups_array.length] = el.value;
+			spPlotsTable.append("<tr id='sim_plot_" + el.value + "'><td>" + el.value + "</td><td><input type='text' size='30' name='simulation_batch[" + el.value + "][plot]' ></td></tr>");
+		}
+	}
+	
 	var ol = new Overlay();
 
 </script>
