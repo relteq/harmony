@@ -155,3 +155,7 @@ table#jobs_list td {
 {
 	margin-left:100px;
 }
+
+#simulation-batch-list li{
+	margin-left:15px;
+}

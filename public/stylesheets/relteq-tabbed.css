@@ -8,7 +8,7 @@
 	padding:0px;
 }
 #report-main  {
-  width:628px;
+  width:635px;
 }
 #report-main .content {
   border:1px solid #ccc;
@@ -75,7 +75,7 @@
 #x-y-config{
 	border:1px solid #ccc;
 	padding:5px;
-	width:80%;
+	width:90%;
 	height:65px;
 }
 
@@ -137,7 +137,7 @@
     padding:6px 6px 0 6px;
     background-color:#fff;
     color:#666;
-    width:100px;
+    width:101px;
 }
 
 #report-main ul.subsection_tabs li.tab a:hover {

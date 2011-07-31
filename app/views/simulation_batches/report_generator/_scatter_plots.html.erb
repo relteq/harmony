@@ -19,7 +19,9 @@
 		<label><%=l(:label_subnetwork)%>: </label>
 		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
 		<label><%=l(:label_quantity)%>: </label>
-		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%><br/>
+		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_x_axis_quantity_select_options()), 
+				:onChange => 'checkAndInsertCustom(this);setTableHeadingIfCustomQuantity();'
+				%><br/>
 	</span>
 	<span class='right'>
 		<label class="underline"><%=l(:label_y_axis)%></label><br/>
@@ -32,22 +34,42 @@
 <br/>
 <div id="groups">
 	<label><%=l(:label_groups)%>: </label><br/>
-	<table class="index list"> 
+	<table class="index list" id='simulation-plots-list-table'> 
 		<thead>
 		  <tr>
 				<th>Name</th>
-				<th>&nbsp;</th>
+				<th id='groups-th'>&nbsp;</th>
 		  </tr>
 		</thead>
 		<tbody>	
-			<tr class="user active odd">
-		 	  <td  >&nbsp;</td>
-		 	  <td  >&nbsp;</td>
-		  </tr>
-			<tr class="user active even">
-		 	  <td  >&nbsp;</td>
-		 	  <td  >&nbsp;</td>
+		  <tr id="simulation-plots-list-no-records">
+				<td colspan='2'><%= l(:label_no_records_index) %></td>
 		  </tr>
 		</tbody>
 	</table>
 	</div>
+
+<script>	
+
+var custom_quantity = new Array();
+function checkAndInsertCustom(item){
+	if(item.value == 'custom'){
+		var quantity_name = prompt('Custom Quantity Name:', '');
+		custom_quantity.push(quantity_name);
+		var last_item = item.options.length - 1
+		var quantity_value = quantity_name.toLowerCase().gsub(' ','-');
+		jQuery("#x-axis-quantity  option:eq(" + last_item + ")").before(new Option(quantity_name,quantity_value, true, true));
+		jQuery("#x-axis-quantity").val(quantity_value);
+	}
+}
+
+
+function setTableHeadingIfCustomQuantity(){
+	var selected = jQuery("#x-axis-quantity option:selected").text();
+	if(custom_quantity.indexOf(selected) > -1)	
+		jQuery("#groups-th").html(selected);
+	else
+		jQuery("#groups-th").html('');
+
+}
+</script>
