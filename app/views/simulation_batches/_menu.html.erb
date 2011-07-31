@@ -14,7 +14,7 @@ function doAction(val)
 	if(val == 'generate'){
 		if(validateAtLeastOneSimChecked()){
 			processSimIds()
-//			show_box("report-generator");
+			show_box("report-generator");
 		}else{
 			jQuery('#sim-not-checked').css('display','inline');
 			return;

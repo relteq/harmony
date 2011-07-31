@@ -58,7 +58,7 @@
 	</div>
 <% end %>
 
-	<div id="report-generator" style="display: ;" class="box tabular">
+	<div id="report-generator" style="display:none;" class="box tabular">
 		<button class="simulation-overlay-cancel config" id="report-generator-overlay-cancel" onClick="resetPage()"></button>
   	<%= render :partial => 'simulation_batches/report_generator/form'%>
 	</div>
@@ -112,7 +112,7 @@
 				  strSimIds  = sim_id;
 
 
-			spGroupTable.append("<tr id='sim_group_" + replaceAllSpaces(sim_name) + "'><td>" + sim_name + "</td><td><input type='text' size='30' name='simulation_batch[" +sim_id+"][group]' onchange='insertScatterPlotGroups(this)'></td></tr>");
+			spGroupTable.append("<tr id='sim_group_" + replaceAllSpaces(sim_name) + "' class='user'><td>" + sim_name + "</td><td><input type='text' size='30' name='simulation_batch[" +sim_id+"][group]'></td></tr>");
 
 		});
 		
@@ -152,15 +152,23 @@
 		jQuery('#simulation_batch_action').val('');
 	}
 
-	var groups_array = new Array();
-	function insertScatterPlotGroups(el)
+	
+	function insertScatterPlotGroups()
 	{
+		var groups_array = new Array();
 		jQuery('#simulation-plots-list-no-records').remove();
-		var spPlotsTable = jQuery('#simulation-plots-list-table > tbody:last');
-		if(groups_array.indexOf(el.value) == -1){
-			groups_array[groups_array.length] = el.value;
-			spPlotsTable.append("<tr id='sim_plot_" + el.value + "'><td>" + el.value + "</td><td><input type='text' size='30' name='simulation_batch[" + el.value + "][plot]' ></td></tr>");
-		}
+		var group_texts = jQuery("#simulation-group-list-table tr").find("input:text");
+		var spPlotsTableBody = jQuery('#simulation-plots-list-table > tbody').children('tr').remove();
+		var spPlotsTableRow = jQuery('#simulation-plots-list-table > tbody:last');
+		var el = '';
+		
+		group_texts.each(function(){
+			el = jQuery(this);
+			if(groups_array.indexOf(el.val()) == -1){
+				groups_array[groups_array.length] = el.val();
+				spPlotsTableRow.append("<tr id='sim_plot_" + el.val() + "' class='user'><td>" + el.val() + "</td><td><input type='text' size='30' name='simulation_batch[" + el.val() + "][plot]' ></td></tr>");
+			}
+		});
 	}
 	
 	var ol = new Overlay();

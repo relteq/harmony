@@ -19,21 +19,26 @@ module SimulationBatchesHelper
   def simulation_report_axis_network_select_options()
     return  [
      ['Network' , 'network'],
-     ['Type2' , 'type2']
+     ['Mainline' , 'mainline'],
+     ['On-ramps' , 'on-ramps']
     ]
   end
 
   def simulation_report_axis_quantity_select_options()
     return  [
      ['Vehicle hours' , 'vehicle-hours'],
-     ['Type2' , 'type2']
+     ['Vehicle miles' , 'vehicle-miles'],
+     ['Delay' , 'delay']
     ]
+  end
+  
+  def simulation_report_x_axis_quantity_select_options()
+    return simulation_report_axis_quantity_select_options() << ['Add Custom Quantity' , 'custom']    
   end
 
   def check_box_for_sim(sim)
     check_box_tag("sim_ids[]", sim.id.to_s + ":" + sim.name, false, { 
       :id => sim.id.to_s + '-checkbox'
-     # :onclick => "processSimId('" + sim.id.to_s + "','" + sim.name.gsub(/'/,'') + "');"
     })
   end
   
