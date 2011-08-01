@@ -9,8 +9,7 @@ class MeasurementDatum < ActiveRecord::Base
   
   def creator
     begin
-      u = User.find(user_id_creator)
-      u.name
+      User.find(user_id_creator)
     rescue ActiveRecord::RecordNotFound
       nil
     end

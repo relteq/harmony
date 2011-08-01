@@ -1,11 +1,11 @@
 <div id = "reports_table" class="autoscroll">
-<table class="index list"> 
+<table id="simuaiton-reports-index-table" class="list"> 
 	<thead>
 	  <tr>
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
 			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
 			<%= sort_header_tag('user_id_creator', :caption => l(:field_created_by),:default_order => 'desc') %>
-			<th title=<%= l(:label_actions) %>><%= l(:label_actions) %></th>
+			<th title=<%= l(:label_actions) %> class="actions"><%= l(:label_actions) %></th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -18,12 +18,8 @@
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
-<<<<<<< HEAD
-	 	<td  ><%= link_to sim.creator, sim.creator %></td>
-=======
 	 	<td  ><%= link_to(sim.creator.name, user_path(sim.creator)) if !(sim.creator.nil?) %></td>
->>>>>>> 08ef85b... Css Changes to layout and links
-	 	<td  >
+	 	<td  class="actions">
 			<%= link_to '',delete_report_project_simulation_batch_report_path(@project,sim.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{sim.id}');", :class => 'icon icon-edit' %> | 
 			<%= link_to '',sim.export_xls_url, {:target => '_blank', :class => 'icon icon-file application-xls' }%> | 

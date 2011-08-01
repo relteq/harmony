@@ -55,8 +55,23 @@ a.config-header:active, a.config-header:hover{
 
 }
 
-.relteq_sub_table th.actions, .relteq_sub_table td.actions{
+.relteq_sub_table th.actions, 
+.relteq_sub_table td.actions,
+#simuaiton-index-table th.actions, 
+#simuaiton-index-table td.actions,
+#simuaiton-reports-index-table th.actions, 
+#simuaiton-reports-index-table td.actions,
+#measurement-index-table th.actions, 
+#measurement-index-table td.actions
+{
 	width:1%;
+}
+
+#simuaiton-index-table,
+#simuaiton-reports-index-table,
+#measurement-index-table
+{
+	width:60%;	
 }
 
 .grey{ color:gray;}

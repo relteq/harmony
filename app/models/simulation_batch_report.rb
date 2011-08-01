@@ -36,19 +36,19 @@ class SimulationBatchReport < ActiveRecord::Base
   end
 
   def export_xls_url
-    AWS::S3::S3Object.url_for(xls_key, s3_bucket)
+    AWS::S3::S3Object.url_for(xls_key, s3_bucket) if !(s3_bucket.nil?)
   end
 
   def export_pdf_url
-    AWS::S3::S3Object.url_for(pdf_key, s3_bucket)
+    AWS::S3::S3Object.url_for(pdf_key, s3_bucket) if !(s3_bucket.nil?)
   end
 
   def export_xml_url
-    AWS::S3::S3Object.url_for(xml_key, s3_bucket)
+    AWS::S3::S3Object.url_for(xml_key, s3_bucket) if !(s3_bucket.nil?)
   end
 
   def export_ppt_url
-    AWS::S3::S3Object.url_for(ppt_key, s3_bucket)
+    AWS::S3::S3Object.url_for(ppt_key, s3_bucket) if !(s3_bucket.nil?)
   end
   
   #this is used to populate the Report Generator form
@@ -171,7 +171,7 @@ class SimulationBatchReport < ActiveRecord::Base
   
   def creator
     begin
-      User.find(user_id_creator).name
+      User.find(user_id_creator)
     rescue ActiveRecord::RecordNotFound
       nil
     end
