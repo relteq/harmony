@@ -1,7 +1,12 @@
 api.simulation_batch_report do
   api.id @report.id
   api.progress @report.percent_complete
-  if !@report.succeeded
+  if @report.succeeded == false
     api.failed true
+  elsif @report.succeeded == true
+    api.xml_url @report.export_xml_url
+    api.pdf_url @report.export_pdf_url
+    api.xls_url @report.export_xls_url
+    api.ppt_url @report.export_ppt_url
   end
 end
