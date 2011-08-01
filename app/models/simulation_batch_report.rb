@@ -166,7 +166,7 @@ class SimulationBatchReport < ActiveRecord::Base
   
   def creator
     begin
-      User.find(user_id_creator).name
+      User.find(user_id_creator)
     rescue ActiveRecord::RecordNotFound
       ''
     end
