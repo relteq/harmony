@@ -18,16 +18,16 @@ class MeasurementDatum < ActiveRecord::Base
     end
   end
   
-
+  
   def s3_url
     begin
-      valid_url = true
+      self.valid_url = true
       AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).url
     rescue AWS::S3::NoSuchKey => exc
-      valid_url = false
+      self.valid_url = false
       l(:relteq_s3_no_file_found)
     rescue Exception => exc
-      valid_url = false
+      self.valid_url = false
       l(:relteq_s3_no_file_found)       
     end
   end
