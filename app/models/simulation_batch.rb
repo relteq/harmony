@@ -43,7 +43,7 @@ class SimulationBatch < ActiveRecord::Base
     begin
       User.find(user_id_creator).name
     rescue ActiveRecord::RecordNotFound
-      ''
+      nil
     end
   end
 end

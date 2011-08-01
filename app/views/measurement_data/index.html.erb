@@ -26,7 +26,11 @@
 		<td  ><%=h mdat.data_type %></td>
 		<td  ><%=h mdat.data_format %></td>
 	 	<td  ><%=h format_date_time(mdat.created_at) %></td>
+<<<<<<< HEAD
 	 	<td  ><%= link_to mdat.creator, mdat.creator %></td>
+=======
+	 	<td  ><%= link_to(mdat.creator.name, user_path(mdat.creator)) if !(mdat.creator.nil?) %></td>
+>>>>>>> 08ef85b... Css Changes to layout and links
 	 	<td  >
 			<%= link_to '',delete_file_project_measurement_datum_path(@project,mdat.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{mdat.id}');", :class => 'icon icon-edit' %> 

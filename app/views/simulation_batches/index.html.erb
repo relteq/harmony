@@ -29,7 +29,11 @@
 	  <td class='index-menu-multiple'><%= check_box_for_sim(sim) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
+<<<<<<< HEAD
 	 	<td  ><%= link_to sim.creator, sim.creator %></td>
+=======
+	 	<td  ><%= link_to(sim.creator.name, user_path(sim.creator)) if !(sim.creator.nil?) %></td>
+>>>>>>> 08ef85b... Css Changes to layout and links
 	 	<td  >
 			<%= link_to '',delete_report_project_simulation_batch_path(@project,sim.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{sim.id}');", :class => 'icon icon-edit' %> 

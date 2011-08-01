@@ -5,10 +5,20 @@
 * html #config-sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }
 #config-sidebar .contextual { margin-right: 1em; }
 
+/**
 #main.config_sidebar {width:1240px;}
-#main.config_sidebar #content{ float: right; width:965px;display:inline;margin-right:14px; }
+*/
+#main.config_sidebar #content{ float: left; width:965px;display:inline;margin-right:14px; }
 #main.noconfig_sidebar #config-sidebar{ display: none; }
 #main.noconfig_sidebar #content{ width: 940px; border-right: 0;float:left; }
+
+a.config-header:link, a.config-header:visited {
+	text-decoration: none;
+	color: #444444;
+}
+a.config-header:active, a.config-header:hover{
+	font-style: italic;
+}
 
 #newscenario {
 	margin-top:5px;

@@ -449,9 +449,11 @@ div.flash.notice {
 }
 
 /* line 25, ../sass/_general_classes.sass */
+/** Sean Morris -- removed July 2011
 .pagination {
   text-align: center;
 }
+*/
 
 /* line 28, ../sass/_general_classes.sass */
 p.subtitle {
