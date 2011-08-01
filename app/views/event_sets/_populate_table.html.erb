@@ -1,8 +1,8 @@
 <p><label><%= l(:label_event) %>s	</label></p>
-<table class="form_table list"> 
+<table class="relteq_sub_table list"> 
 	<thead>
 	  <tr>
-		  <th class='checkbox index-menu-multiple'>
+		  <th class='checkbox index-menu-multiple actions'>
 				<%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, 	
 							"form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
        </th>
@@ -13,7 +13,7 @@
 			<% end %>
 	    <th title=<%= l(:label_description) %>><%= l(:label_description) %></th>
 	    <th title=<%= l(:label_time) %>><%= l(:label_time) %></th>
-			<th title=<%= l(:label_actions) %>>&nbsp;</th>
+			<th title=<%= l(:label_actions) %> class="actions">&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody id="events_table_body">
@@ -25,11 +25,11 @@
 			<% @items.each_with_index do |item,i| %>
 				<% fields_for "event_set[events][]", item do |item_form|%>
 				<tr id=<%= item.id.to_s + '-row'%>  class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	 				<td><%= check_box_tag "event_set[event_ids][]", item.id, @eset.nil? ? false : @eset.events.include?(item)  %></td>
+	 				<td class="actions"><%= check_box_tag "event_set[event_ids][]", item.id, @eset.nil? ? false : @eset.events.include?(item)  %></td>
 					<td><%=h item.event_type %></td>
 					<td><%=h item.description %></td>
 					<td><%=h item.display_time_from_string(item.time) %></td>
-					<td><%= link_to_remote '',:url => delete_item_project_configuration_event_sets_path(@project, :event_set_id => @eset, :event_id=>item.id,:network_id=>@nid || @eset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_event_sets_path(@project, :event_set_id => @eset, :event_id=>item.id,:network_id=>@nid || @eset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				</tr>
 				<% end %>
 			<% end %>

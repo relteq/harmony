@@ -1,5 +1,5 @@
 <p><label><%= l(:label_demand_profile) %>s</label></p>
-<table class="form_table list"> 
+<table class="relteq_sub_table list"> 
 	<thead>
 	  <tr>
 			<% if(@items != nil && @items.size() != 0) %>
@@ -11,7 +11,7 @@
 	    <th title=<%= l(:label_profile) %>><%= l(:label_profile) %></th>
 	    <th title=<%= l(:label_demand_coefficient) %>><%= l(:label_demand_coefficient) %></th>
 			<th title=<%= l(:label_time_period) %>><%= l(:label_time_period) %></th>
-			<th title=<%= l(:label_actions) %>>&nbsp;</th>
+			<th title=<%= l(:label_actions) %> class="actions">&nbsp;</th>
 	  </tr>
 	</thead>
 	<tbody id="profiles_table_body">
@@ -27,10 +27,10 @@
 						<%= item_form.hidden_field :id, :index => nil %>
 						<%= h item.link.name %>	
 					</td>
-					<td><%= item_form.text_area :profile,:size=> "38x5", :index => nil %></td>
+					<td><%= item_form.text_area :profile,:size=> "35x5", :index => nil %></td>
 		 			<td><%= item_form.text_field :knob,:size => 22, :index => nil  %></td>
 		 			<td><%= item_form.text_field :dt, :size => 8, :index => nil %></td>	
-					<td><%= link_to_remote '',:url => delete_item_project_configuration_demand_profile_sets_path(@project, :demand_profile_id=>item.id,:network_id=>@nid || @dpset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_demand_profile_sets_path(@project, :demand_profile_id=>item.id,:network_id=>@nid || @dpset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				
 		  	</tr>
 			  <% end %>

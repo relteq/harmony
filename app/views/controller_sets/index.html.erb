@@ -2,7 +2,8 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 <div>	
-	<span><%= link_to_function(l(:label_new) + " " + l(:label_controller_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> |
+	<span><%= link_to_function(l(:label_new) + " " + l(:label_controller_set), visual_effect(:toggle_slide, :newscenario), :class => "icon icon-add" )%></span> | 
+		<span><%= link_to(l(:label_delete_all_header), delete_all_project_configuration_controller_sets_path(@project),:confirm => l(:label_delete_all)) %></span> 
 </div>
 <div id="newscenario" style="display:none">
 	<div class="newscenario">

@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
-<h2><%= link_to l(:field_demand_profile_set) + "s", project_configuration_demand_profile_sets_path(@project) %> &#187; <%= l(:demand_profiles_new) %></h2>
+<h2><%= link_to l(:field_demand_profile_set) + "s", project_configuration_demand_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:demand_profiles_new) %></h2>
 
 <% labelled_tabular_form_for :demand_profile_set, @dpset, :url => { :action => "create" } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

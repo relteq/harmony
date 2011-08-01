@@ -6,7 +6,7 @@
   var project_id = '<%= @project.identifier %>';
   var scenario_id = '<%= @scenario.id %>';
 </script>
-<h2><%= link_to "Scenarios", project_configuration_scenarios_path(@project), :class => 'config-header' %> &#187; <%= "Edit Scenario"%></h2>
+<h2><%= link_to "Scenarios", project_configuration_scenarios_path(@project), :class => 'config-header' %> &#187; <%= l(:scenarios_edit)%></h2>
 
 <% labelled_tabular_form_for :scenario, @scenario, :url => { :action => "update" }, :html => {:method => :put} do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

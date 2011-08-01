@@ -938,10 +938,12 @@ en:
 
   ##### relteq additions
   scenarios_new: New Scenario
+  scenarios_edit: Edit Scenario
   scenarios_import: Import Scenario
   scenarios_delete_all: Delete All Scenarios
 
   networks_new: New Network
+  networks_edit: Edit Network
   networks_delete_all: Delete All Networks
 
   controller_sets_new: New Controller Set 

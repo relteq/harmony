@@ -43,11 +43,22 @@ a.config-header:active, a.config-header:hover{
 	font-size:14px;
 }
 
-table.form_table{
-	width:50%;
+#controllers_table .relteq_sub_table, 
+#demand_profiles_table .relteq_sub_table, 
+#split_ratio_profiles_table .relteq_sub_table,
+#capacity_profiles_table .relteq_sub_table,
+#events_table .relteq_sub_table
+{
 	margin-left:180px;
 	margin-top:-30px;
+	width:auto;
+
 }
+
+.relteq_sub_table th.actions, .relteq_sub_table td.actions{
+	width:1%;
+}
+
 .grey{ color:gray;}
 .italic { font-style:italic;}
 .inline {display:inline;}
