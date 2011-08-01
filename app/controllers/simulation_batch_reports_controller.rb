@@ -69,10 +69,9 @@ class SimulationBatchReportsController < ApplicationController
     @simulation_report = SimulationBatchReport.create!
     @simulation_report.default_report_settings!
     @simulation_report.update_attributes params[:simulation_batch_report]
+    @simulation_report.link_to_simulation_batches(params[:sim_ids])
 
-    if @simulation_report
-      @simulation_report.link_to_simulation_batches(params[:sim_ids])
-      Runweb.report @simulation_report
+    if @simulation_report && Runweb.report(@simulation_report)
       flash[:notice] = l(:simulation_batch_report_job_start_success)
       respond_to do |format|
         format.html { redirect_to :my_page }
