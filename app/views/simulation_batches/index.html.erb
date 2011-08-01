@@ -30,7 +30,7 @@
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
 	 	<td  ><%= link_to sim.creator, sim.creator %></td>
 	 	<td  >
-			<%= link_to '',delete_report_project_simulation_batch_path(@project,sim.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
+			<%= link_to '',project_simulation_batch_path(@project,sim.id),:method => :delete, :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{sim.id}');", :class => 'icon icon-edit' %> 
 		</td>
 	  </tr>

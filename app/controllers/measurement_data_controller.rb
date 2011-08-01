@@ -57,7 +57,7 @@ class MeasurementDataController < ApplicationController
     end
   end
   
-  def delete_file
+  def destroy
     begin
       mdat =  MeasurementDatum.find(params[:id])
       mdat.destroy

@@ -160,16 +160,13 @@ ActionController::Routing::Routes.draw do |map|
 
     project.resources :simulation_batch_reports,
                       :collection => [:report_gen],
-                      :member => [:delete_report], 
-                      :only => [:index,:report_gen,:create,:update,:show] 
+                      :only => [:index,:create,:update,:show,:destroy] 
     
     project.resources :simulation_batches,
-                      :member => [:delete_report], 
-                      :collection => {:process_choices => :post}
+                      :only => [:index,:create,:update,:show,:destroy] 
     
     project.resources :measurement_data,
-                      :member => [:delete_file], 
-                      :only => [:index,:create,:update] 
+                      :only => [:index,:create,:update,:destroy] 
     
     project.resource :configuration, :only => [:show] do |config|
       config.resources :scenarios, 
