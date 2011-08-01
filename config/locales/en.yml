@@ -1002,6 +1002,8 @@ en:
   measurement_datum_not_found: Measurement Datum not found. Action not successful.
   measurement_datum_delete_not_success: Measurement Datum delete not successful.
   
+  relteq_s3_no_file_found: Error locating url for file.
+  relteq_s3_link_to_file: Link to file
   relteq_edit: Edit
   relteq_duplicate: Duplicate
   relteq_shallow_duplicate: Shallow Duplicate

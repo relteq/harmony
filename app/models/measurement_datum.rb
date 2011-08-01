@@ -6,6 +6,8 @@ class MeasurementDatum < ActiveRecord::Base
   
   belongs_to :project
   before_destroy :delete_associated_s3_data
+
+  attr_accessor :valid_url
   
   def creator
     begin
@@ -16,11 +18,17 @@ class MeasurementDatum < ActiveRecord::Base
     end
   end
   
+
   def s3_url
     begin
+      valid_url = true
       AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).url
-    rescue
-      ''
+    rescue AWS::S3::NoSuchKey => exc
+      valid_url = false
+      l(:relteq_s3_no_file_found)
+    rescue Exception => exc
+      valid_url = false
+      l(:relteq_s3_no_file_found)       
     end
   end
 
