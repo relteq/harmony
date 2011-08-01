@@ -48,7 +48,7 @@ class SimulationBatchReportsController < ApplicationController
     end
   end
 
-  def delete_report
+  def destroy
     begin
       sim_batch_report =  SimulationBatchReport.find(params[:id])
       sim_batch_report.destroy

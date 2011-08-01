@@ -49,7 +49,7 @@ class SimulationBatchesController < ApplicationController
     end
   end
     
-  def delete_report
+  def destroy
     begin
       sim_batch =  SimulationBatch.find(params[:id])
       sim_batch.destroy
