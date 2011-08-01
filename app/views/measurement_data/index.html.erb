@@ -26,7 +26,7 @@
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 		<td  ><%=h mdat.name %></td>
 		<td  ><%=h mdat.description %></td>
-		<td  ><%= mdat.valid_url ? link_to(l(:relteq_s3_link_to_file), mdat.s3_url) : mdat.s3_url %></td>
+		<td  ><%= get_url_for_file(mdat) %></td>
 		<td  ><%=h mdat.data_type %></td>
 		<td  ><%=h mdat.data_format %></td>
 	 	<td  ><%=h format_date_time(mdat.created_at) %></td>
