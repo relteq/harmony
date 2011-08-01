@@ -2,7 +2,7 @@ class MeasurementDataController < ApplicationController
   helper :sort
   include SortHelper
   
-  before_filter :require_project, :only => [:index,:create]
+  before_filter :require_project, :only => [:index,:create,:update]
     
   def index
    
@@ -74,9 +74,10 @@ class MeasurementDataController < ApplicationController
     end 
   end
 
-  def rename
+  def update
     begin
-       MeasurementDatum.save_rename(params[:measurement_data][:id],params[:measurement_data][:name])
+       @project.find(params[:id]).update_attributes(params[:measurement_data])
+       #MeasurementDatum.save_rename(params[:measurement_data][:id],params[:measurement_data][:name])
       flash[:notice] = l(:notice_successful_update) 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:measurement_datum_not_found)
