@@ -1,6 +1,8 @@
 class SimulationBatchReportsController < ApplicationController
   helper :sort
   before_filter :set_creator_param, :only => [:create]
+  before_filter :require_project, :only => [:index,:update]
+  
   include SortHelper
   accept_key_auth :create
   skip_before_filter :verify_authenticity_token, :only => [:create]
@@ -14,13 +16,6 @@ class SimulationBatchReportsController < ApplicationController
       @offset, @limit = api_offset_and_limit      
     else
       @limit = per_page_option
-    end
-
-    begin
-      @project = Project.find(params[:project_id])
-    rescue ActiveRecord::RecordNotFound
-      render :file => "#{Rails.root}/public/404.html", :status => 404
-      return false
     end
     
     sim_batch_lists = SimulationBatchReport.get_simuation_batch_lists(@project)
@@ -91,9 +86,9 @@ class SimulationBatchReportsController < ApplicationController
     end
   end
   
-  def rename
+  def update
     begin
-      SimulationBatchReport.save_rename(params[:simulation_batch_report][:id],params[:simulation_batch_report][:name])
+      SimulationBatchReport.find(params[:id]).update_attributes(params[:simulation_batch_report])
       flash[:notice] = l(:notice_successful_update) 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:simulation_batch_report_not_found)  
@@ -111,4 +106,14 @@ class SimulationBatchReportsController < ApplicationController
   def set_creator_param
     params[:simulation_batch_report][:creator] = User.current
   end
+  
+  private
+    def require_project
+      begin
+        @project = Project.find(params[:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+        return false
+      end
+    end
 end
