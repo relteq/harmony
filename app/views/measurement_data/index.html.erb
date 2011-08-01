@@ -7,6 +7,8 @@
 	<thead>
 	  <tr>    
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
+			<th title=<%= l(:field_description) %>><%= l(:field_description) %></th>
+			<th title=<%= l(:field_url) %>><%= l(:field_url) %></th>
 			<%= sort_header_tag('data_type', :caption => l(:field_data_type),:default_order => 'desc') %>
 			<%= sort_header_tag('data_format', :caption => l(:field_data_format),:default_order => 'desc') %>
 			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
@@ -23,6 +25,8 @@
 	<% @items_show.each_with_index do |mdat,i| %>
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 		<td  ><%=h mdat.name %></td>
+		<td  ><%=h mdat.description %></td>
+		<td  ><%=h mdat.s3_url %></td>
 		<td  ><%=h mdat.data_type %></td>
 		<td  ><%=h mdat.data_format %></td>
 	 	<td  ><%=h format_date_time(mdat.created_at) %></td>

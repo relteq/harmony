@@ -5,6 +5,10 @@
 		<%= f.hidden_field :url %>
 	</p>
 	<p>
+		<label><%= l(:field_description) %>:</label>
+		<%= f.text_field :description %>
+	</p>
+	<p>
 		<label><%= l(:field_data_type) %>:<span class='required'>&nbsp;</span></label>
 		<%= f.select :data_type, options_for_select(measurement_data_file_type_of_select_options()) %>
 	</p>
