@@ -7,11 +7,12 @@
 <meta name="keywords" content="issue,bug,tracker" />
 <%= favicon %>
 <%= stylesheet_link_tag 'relteq-menu', :media => 'all' %>
+<%= stylesheet_link_tag 'relteq', :media => 'all' %>
+<%= stylesheet_link_tag 'relteq-tabbed'%>
 <%= stylesheet_link_tag 'application', :media => 'all' %>
 <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
 <%= stylesheet_link_tag 'proto.menu' %>
-<%= stylesheet_link_tag 'relteq', :media => 'all' %>
-<%= stylesheet_link_tag 'relteq-tabbed'%>
+
 
 <%= javascript_include_tag 'relteq' %>
 <%= javascript_include_tag 'jquery' %>
@@ -82,11 +83,12 @@
      <%= yield :config_sidebar %>
      <%= call_hook :view_layouts_base_config_sidebar %>
  </div>
- 
+ <% if (has_content?(:sidebar)) %>
    <div id="sidebar">        
         <%= yield :sidebar %>
         <%= call_hook :view_layouts_base_sidebar %>
     </div>
+<% end %>
 
     
     <div id="content">

@@ -108,6 +108,7 @@ div.config-sidebar-menu a {
 	font-size:13px;
 	font-weight:bold;
 	color: #555;
+	text-decoration: none;
 }
 
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
