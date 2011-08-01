@@ -1,8 +1,7 @@
-<% form_for :simulation_batch, item_show, :url => rename_project_simulation_batch_path(@project,item_show.id), :html => {:method => :put} do |f| %>
+<% form_for :simulation_batch, item_show, :url => project_simulation_batch_path(@project,item_show.id), :html => {:method => :put} do |f| %>
 	<p>
 		<%= label_tag :name %>:
 		<%= f.text_field :name %>
-		<%= f.hidden_field :id %>
 	</p>
 	<p><%= f.submit 'Rename Simulation' %> </p>
 <% end %>

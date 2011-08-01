@@ -1,4 +1,3 @@
-<% form_tag(process_choices_project_simulation_batches_path(@project)) do %>
 <div>
 	 <%= render :partial => 'menu', 
                :locals => {:project => :project_id} %>
@@ -42,7 +41,7 @@
    </tbody>
 
 </table>
-<% end %>
+
 <% @items_show.each_with_index do |sim,i| %>
 	<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
 		<button class="simulation-overlay-cancel config" id="<%= sim.id %>-overlay-cancel" onClick="hide_box('simulation-info-<%= sim.id %>')"></button>

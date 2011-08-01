@@ -2,6 +2,8 @@ class SimulationBatchesController < ApplicationController
   helper :sort
   include SortHelper
   
+  before_filter :require_project, :only => [:index,:create,:update]
+  
   def index
     sort_init 'name', 'asc'
     sort_update %w(name created_at user_id_creator)
@@ -11,13 +13,6 @@ class SimulationBatchesController < ApplicationController
       @offset, @limit = api_offset_and_limit      
     else
       @limit = per_page_option
-    end
-   
-    begin
-      @project = Project.find(params[:project_id])
-    rescue ActiveRecord::RecordNotFound
-      render :file => "#{Rails.root}/public/404.html", :status => 404
-      return false
     end
 
     @item_count = SimulationBatch.count(:conditions => {
@@ -53,32 +48,7 @@ class SimulationBatchesController < ApplicationController
       format.api { render :show }
     end
   end
-  
-  def process_choices
-    begin
-      @project = Project.find(params[:project_id])
-    rescue ActiveRecord::RecordNotFound
-      render :file => "#{Rails.root}/public/404.html", :status => 404
-      return false
-    end
-
-    redir_path =  get_simulation_batch_action(params[:simulation_batch_action],params[:sim_ids])
-
-    respond_to do |format|
-      if(redir_path != '' && (params[:sim_ids] != nil))
-        #render redir_path
-        format.html { redirect_to redir_path }
-      else
-        if(redir_path == '')
-          flash[:error] = "There was a problem processing your action, please try again."
-        else 
-          flash[:error] = "Please check a simulation batch below before requesting an action."
-        end
-        format.html { redirect_to project_simulation_batches_path(@project) } # index.html.erb         
-      end
-    end
-  end
-  
+    
   def delete_report
     begin
       sim_batch =  SimulationBatch.find(params[:id])
@@ -95,9 +65,9 @@ class SimulationBatchesController < ApplicationController
     end 
   end
 
-  def rename
+  def update
     begin
-      SimulationBatch.save_rename(params[:simulation_batch][:id],params[:simulation_batch][:name])
+      SimulationBatch.find(params[:id]).update_attributes(params[:simulation_batch])
       flash[:notice] = l(:notice_successful_update) 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:simulation_batch_not_found)  
@@ -110,14 +80,14 @@ class SimulationBatchesController < ApplicationController
     end
   end
   
-  private 
-    def get_simulation_batch_action(str,sims)
-      if(str == 'generate') 
-        return report_gen_simulation_batch_report_path(@project,{:sim_ids => sims})
-      else
-        return ''
+    
+  private
+    def require_project
+      begin
+        @project = Project.find(params[:project_id])
+      rescue ActiveRecord::RecordNotFound
+        render :file => "#{Rails.root}/public/404.html", :status => 404
+        return false
       end
     end
-    
-  
 end
