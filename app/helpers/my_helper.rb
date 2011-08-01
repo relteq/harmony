@@ -18,11 +18,12 @@
 module MyHelper
   def delete_batch_link(batch)
     link_to( '',
-            delete_report_project_simulation_batch_path(
+            project_simulation_batch_path(
               batch.project,
               batch.id,
               :redirect => my_page_path
             ), 
+            :method => 'delete',
             :confirm=> l(:label_delete_item), 
             :class => 'icon icon-del'
     )
@@ -30,11 +31,12 @@ module MyHelper
 
   def delete_batch_report_link(report)
     link_to( '',
-            delete_report_project_simulation_batch_report_path(
+            project_simulation_batch_report_path(
                report.project,
                report.id,
                :redirect => my_page_path
             ), 
+            :method => 'delete',
             :confirm=> l(:label_delete_item), 
             :class => 'icon icon-del' 
     )
