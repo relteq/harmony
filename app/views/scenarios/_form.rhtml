@@ -17,10 +17,11 @@
     <div id="new_vehicle_type_formlet">
       <h4>Add Vehicle Type</h4>
       <p> 
-        <%= label_tag 'Name' %>
-        <%= text_field_tag 'vehicle_type[name]', 'General', :required => true %> 
-        <br/>
-        <%= label_tag 'Weight' %>
+        <%= label_tag l(:field_name) %>
+        <%= text_field_tag 'vehicle_type[name]', l(:label_general), :required => true %> 
+      </p>
+			<p>
+        <%= label_tag l(:field_weight) %>
         <%= text_field_tag 'vehicle_type[weight]', '1.0', :required => true %> 
       </p>
       <p><button id="create_vehicle_type" onclick="vehicle_create();">Add Vehicle Type</button></p>

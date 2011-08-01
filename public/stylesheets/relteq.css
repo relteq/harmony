@@ -43,11 +43,37 @@ a.config-header:active, a.config-header:hover{
 	font-size:14px;
 }
 
-table.form_table{
-	width:50%;
+#controllers_table .relteq_sub_table, 
+#demand_profiles_table .relteq_sub_table, 
+#split_ratio_profiles_table .relteq_sub_table,
+#capacity_profiles_table .relteq_sub_table,
+#events_table .relteq_sub_table
+{
 	margin-left:180px;
 	margin-top:-30px;
+	width:auto;
+
 }
+
+.relteq_sub_table th.actions, 
+.relteq_sub_table td.actions,
+#simuaiton-index-table th.actions, 
+#simuaiton-index-table td.actions,
+#simuaiton-reports-index-table th.actions, 
+#simuaiton-reports-index-table td.actions,
+#measurement-index-table th.actions, 
+#measurement-index-table td.actions
+{
+	width:1%;
+}
+
+#simuaiton-index-table,
+#simuaiton-reports-index-table,
+#measurement-index-table
+{
+	width:60%;	
+}
+
 .grey{ color:gray;}
 .italic { font-style:italic;}
 .inline {display:inline;}

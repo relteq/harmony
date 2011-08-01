@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @network} %>
 <% end %>
 
-<h2><%= link_to "Networks", project_configuration_networks_path(@project), :class => 'config-header'  %> &#187; <%= "Edit Network"%></h2>
+<h2><%= link_to "Networks", project_configuration_networks_path(@project), :class => 'config-header'  %> &#187; <%= l(:networks_edit) %></h2>
 
 <% labelled_tabular_form_for :network, @network, :url => {:controller => "networks", :action => "update" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

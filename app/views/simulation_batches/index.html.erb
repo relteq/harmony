@@ -3,10 +3,10 @@
                :locals => {:project => :project_id} %>
 </div>
 <div class="autoscroll">
-<table class="index list"> 
+<table id="simuaiton-index-table" class="list"> 
 	<thead>
 	  <tr>
-		  <th class='checkbox index-menu-multiple'>
+		  <th class='checkbox index-menu-multiple actions'>
 				<%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, 	
 							"form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
        </th>
@@ -25,7 +25,7 @@
 <% else %>
 	<% @items_show.each_with_index do |sim,i| %>
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
-	  <td class='index-menu-multiple'><%= check_box_for_sim(sim) %></td>
+	  <td class='actions'><%= check_box_for_sim(sim) %></td>
 		<td  ><%= link_to_function sim.name, "show_box('simulation-info-#{sim.id}');" %></td>
 	 	<td  ><%=h format_date_time(sim.created_at) %></td>
 	 	<td  ><%= link_to(sim.creator.name, user_path(sim.creator)) if !(sim.creator.nil?) %></td>
