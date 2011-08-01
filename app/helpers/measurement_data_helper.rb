@@ -20,7 +20,7 @@ module MeasurementDataHelper
     %Q{
         
         $('ajax-indicator').show();
-        $j.getJSON("http://relteq-db.dyndns.org:9098/import/measurement_data/" + filename + "?jsoncallback=?",
+        $j.getJSON("#{ENV['DBWEB_URL_BASE']}/import/measurement_data/" + filename + "?jsoncallback=?",
           { 
               access_token: "#{@token}", 
               to_project:  "#{project_id}",
