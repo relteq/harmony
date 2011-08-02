@@ -111,7 +111,7 @@ class SimulationBatchReportsController < ApplicationController
       begin
         @project = Project.find(params[:project_id])
       rescue ActiveRecord::RecordNotFound
-        render :file => "#{Rails.root}/public/404.html", :status => 404
+        render_404
         return false
       end
     end
