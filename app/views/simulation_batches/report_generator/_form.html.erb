@@ -2,8 +2,8 @@
 
 	document.observe('dom:loaded',function(){
 		var tabs = new Control.Tabs('tabs',{});
-		tabs.disableTab('scatter-groups');
-		tabs.disableTab('scatter-plots');
+	//	tabs.disableTab('scatter-groups');
+	//	tabs.disableTab('scatter-plots');
 		tabs.setActiveTab('basics');
 		jQuery('#group-color').css('color','#CCCCCC');
 		jQuery('#plot-color').css('color','#CCCCCC');
@@ -45,10 +45,8 @@
 	              :locals => {:f => f} %>
 	  </div>  
   </div>
-	<div id="button-bar">
-		<div class="buttons">
-		  <span><%= submit_tag "Start" %></span>
-		</div>
+	<div class="buttons">
+			<span><%= submit_tag "Start" %></span>
 	</div>
 </div>
 <% end %>

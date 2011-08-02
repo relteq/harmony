@@ -71,7 +71,7 @@
 </div>
 
 <div id = "main" class =
-<% if (has_content?(:sidebar)) %>
+	<% if (has_content?(:sidebar)) %>
      'sidebar noconfig_sidebar'
 	<% elsif(has_content?(:config_sidebar)) %>
 	   'config_sidebar nosidebar' 
@@ -79,10 +79,12 @@
 	  'no_sidebar_no_config_sidebar'
 	<% end %>
     >
-<div id="config-sidebar">        
+	
+	<div id="config-sidebar">        
      <%= yield :config_sidebar %>
      <%= call_hook :view_layouts_base_config_sidebar %>
  </div>
+
  <% if (has_content?(:sidebar)) %>
    <div id="sidebar">        
         <%= yield :sidebar %>

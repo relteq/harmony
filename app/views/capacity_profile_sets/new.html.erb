@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
-<h2><%= link_to  l(:field_capacity_profile_set) + "s", project_configuration_capacity_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:capacity_profiles_new) %></h2>
+<h2><%= link_to  l(:label_capacity_profile_sets), project_configuration_capacity_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:capacity_profiles_new) %></h2>
 
 <% labelled_tabular_form_for :capacity_profile_set, @cpset, :url => { :action => "create" } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

@@ -90,6 +90,7 @@ div.config-sidebar-menu a {
 	padding: 0;
 	list-style: none;
 }
+
 .config-sidebar-menu li {
 	list-style-position: outside;
 	padding-bottom:5px;
@@ -103,16 +104,27 @@ div.config-sidebar-menu a {
 	padding-left:15px;
 }
 
-.config-sidebar-menu ul a, .config-sidebar-menu li a  {
+.config-sidebar-header{
+	font-weight: bold;
+}
+
+.config-sidebar-menu li a {
 	cursor: context-menu;
 	font-size:13px;
-	font-weight:bold;
 	color: #555;
+	font-weight:none;	
 	text-decoration: none;
 }
 
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
-	background-color: #ffffdd;
+	background-color: #CCC;
+}
+
+#config-sidebar-root .highlight{
+	font-weight: bold;
+	font-style:italic;
+	background-color: #FFF;
+	
 }
 
 

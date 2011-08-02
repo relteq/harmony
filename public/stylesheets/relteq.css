@@ -1,23 +1,33 @@
 #config-sidebar{ float: left; clear:left; display:inline;width: 230px; position: relative; z-index: 9; padding: 0; margin: 0;}
 * html #config-sidebar{ width: 230px; }
+
+/** Configurations side bar but no right sidebar */
+#main.config_sidebar #content{ float: left; width:75%;display:inline;margin-right:14px; }
+
+/** No configurations side bar but there is a right sidebar */
+#main.noconfig_sidebar #content{ width:75%; margin:15px; float:left}
+
+/** No configurations side bar and no right sidebar */
+#main.no_sidebar_no_config_sidebar #content { width: 1210px; border-right: 0;float:left; }
+
+/**
+#main.config_sidebar {width:1240px;}
+*/
+
+
 #config-sidebar h3{ font-size: 14px; margin-top:14px; color: #666;  }
 #config-sidebar hr{ width: 100%; margin: 0 auto; height: 1px; background: #ccc; border: 0; }
 * html #config-sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }
 #config-sidebar .contextual { margin-right: 1em; }
 
-/**
-#main.config_sidebar {width:1240px;}
-*/
-#main.config_sidebar #content{ float: left; width:965px;display:inline;margin-right:14px; }
 #main.noconfig_sidebar #config-sidebar{ display: none; }
-#main.noconfig_sidebar #content{ width: 940px; border-right: 0;float:left; }
 
 a.config-header:link, a.config-header:visited {
 	text-decoration: none;
 	color: #444444;
 }
 a.config-header:active, a.config-header:hover{
-	font-style: italic;
+	color: #666;	
 }
 
 #newscenario {

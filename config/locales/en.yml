@@ -1022,12 +1022,7 @@ en:
   field_e_time: End Time
   field_units: Length Units
   field_vehicle_types: Vehicle Types
-  field_event_set: Event Set
-  field_controller_set: Controller Set
   field_number_of_runs: Number of Runs
-  field_demand_profile_set: Demand Profile Set
-  field_split_ratio_profile_set: Split Ratio Profile Set
-  field_capacity_profile_set: Capacity Profile Set
   field_event: Event List
   field_network: Network
   field_q_control: Queue Control
@@ -1043,21 +1038,28 @@ en:
   label_success_delete: successfully deleted
   label_no_network_id: No Network Id was found in the response.
   label_new: New
-  label_scenario: Scenario
-  label_controller_set: Controller Set
   label_simulation_list: Simulations
+  label_scenario: Scenario
+  label_scenarios: Scenarios
+  label_network: Network
+  label_networks: Networks
+  label_controller_set: Controller Set
+  label_controller_sets: Controller Sets
   label_demand_profile_set: Demand Profile Set
+  label_demand_profile_sets: Demand Profile Sets
   label_capacity_profile_set: Capacity Profile Set
+  label_capacity_profile_sets: Capacity Profile Sets
   label_split_ratio_profile_set: Split Ratio Profile Set
+  label_split_ratio_profile_sets: Split Ratio Profile Sets
+  label_event_set: Event Set
+  label_event_sets: Event Sets
   label_split_ratio_profile: Split Ratio Profile
   label_capacity_profile: Capacity Profile
   label_demand_profile: Demand Profile
-  label_event_set: Event Set
   label_event: Event
   label_profile: Profile
   label_demand_coefficient: Demand Coefficient
   label_time_period: Time Period
-  label_network: Network
   label_name: Name
   label_reporting_period: Reporting Period
   button_create_and_configure: Create and Configure
