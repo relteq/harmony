@@ -13,6 +13,7 @@ Redmine::Plugin.register :redmine_relteq_hooks do
   menu :project_menu, :configurations,{:controller => 'configurations', :action => 'show'}, :caption => 'Models', :param => :project_id, :after => :overview
 
   permission :view_simulation_batch, :simulation_batches => [:index, :show]
+  permission :edit_simulation_batch, :simulation_batches => [:update]
   permission :delete_simulation_batch, :simulation_batches => [:destroy]
   menu :project_menu, :simulation_batches, {:controller => 'simulation_batches', :action => 'index'}, :caption => 'Simulation Data', :param => :project_id, :after => :configurations
 

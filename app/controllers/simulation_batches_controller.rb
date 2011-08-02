@@ -2,7 +2,9 @@ class SimulationBatchesController < ApplicationController
   helper :sort
   include SortHelper
   
-  before_filter :require_project, :only => [:index,:create,:update]
+  before_filter :require_project
+  before_filter :authorize
+  accept_key_auth :create, :show
   
   def index
     sort_init 'name', 'asc'

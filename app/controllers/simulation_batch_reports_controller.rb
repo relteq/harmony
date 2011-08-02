@@ -1,10 +1,11 @@
 class SimulationBatchReportsController < ApplicationController
   helper :sort
   before_filter :set_creator_param, :only => [:create]
-  before_filter :require_project, :only => [:index,:update]
+  before_filter :require_project
+  before_filter :authorize
   
   include SortHelper
-  accept_key_auth :create
+  accept_key_auth :create, :show
   skip_before_filter :verify_authenticity_token, :only => [:create]
   
   def index
