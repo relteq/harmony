@@ -1096,7 +1096,6 @@ en:
   label_color: Color
   label_fill_plots: Fill plots
   label_legend: Include Legend
-  label_performance_measures: Performance Measures
   label_custom_x_axis: Custom X-axis
   label_box_plot: Box Plot
   label_x_axis: X-axis

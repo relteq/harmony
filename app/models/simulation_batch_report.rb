@@ -63,21 +63,6 @@ class SimulationBatchReport < ActiveRecord::Base
     self.route_perf_c = true
     self.route_tt_c  = true
     self.duration  = 86400
-
-    #These are used for ScaterPlots and ScatterGroups in 
-    #report generator. Will add when we get there.
-    #@simulation_batches = Array.new
-    #@scenarios = Array.new
-    # begin
-    #    params[:sim_ids].each do |s|
-    #      sb = SimulationBatch.find_by_id(s)
-    #      @simulation_batches.push(sb)
-    #      @scenarios.push(Scenario.find_by_id(sb.scenario_id))
-    #    end
-    #  rescue NoMethodError
-    # 
-    #  end
-
   end
   
   
