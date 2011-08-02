@@ -3,12 +3,14 @@ class InitializeAuroraWorkerUserGroupCustomFields < ActiveRecord::Migration
     UserCustomField.create!(
       :name => 'aurora_worker_user', 
       :field_format => 'string',
-      :default_value => ENV['AURORA_WORKER_USER']
+      :default_value => ENV['AURORA_WORKER_USER'],
+      :editable => false,
     )
     UserCustomField.create!(
       :name => 'aurora_worker_group', 
       :field_format => 'string',
-      :default_value => ENV['AURORA_WORKER_GROUP']
+      :default_value => ENV['AURORA_WORKER_GROUP'],
+      :editable => false
     )
   end
 
