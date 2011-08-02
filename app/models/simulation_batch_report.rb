@@ -117,7 +117,7 @@ class SimulationBatchReport < ActiveRecord::Base
         xml.txt_timefrom self.b_time
         xml.txt_timeto self.duration
         xml.txt_customxaxis ""
-        xml.cbx_boxplot false
+        xml.cbx_boxplot self.scatter_plot.box_plot
         xml.colors self.colors
         xml.tbl_groups ""
         scen_names = ""
@@ -129,10 +129,10 @@ class SimulationBatchReport < ActiveRecord::Base
 
         }
         
-        xml.cmb_xaxis_subnetwork(:selected => "0") {"Network,Onramps,Mainline"}
-        xml.cmb_xaxis_quantity(:selected => "0") {"Vehicle hours,Vehicle miles,Delay"}
-        xml.cmb_yaxis_subnetwork(:selected => "0") {"Network,Onramps,Mainline"}
-        xml.cmb_yaxis_quantity(:selected => "0") {"Vehicle hours,Vehicle miles,Delay"}
+        xml.cmb_xaxis_subnetwork self.scatter_plot.x_axis_type
+        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_quantity
+        xml.cmb_yaxis_subnetwork self.scatter_plot.y_axis_type
+        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_quantity
         xml.scenarios_old scen_names[0,scen_names.length-1]
         xml.datafiles_old ""
         xml.BatchList {

@@ -2,9 +2,9 @@
 
 	document.observe('dom:loaded',function(){
 		var tabs = new Control.Tabs('tabs',{});
-	//	tabs.disableTab('scatter-groups');
-	//	tabs.disableTab('scatter-plots');
-		tabs.setActiveTab('scatter-plots');
+		tabs.disableTab('scatter-groups');
+		tabs.disableTab('scatter-plots');
+		tabs.setActiveTab('basics');
 		jQuery('#group-color').css('color','#CCCCCC');
 		jQuery('#plot-color').css('color','#CCCCCC');
 		
