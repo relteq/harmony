@@ -83,18 +83,20 @@
 	border:1px solid #ccc;
 	padding:5px;
 	width:90%;
-	height:65px;
+	height:100px;
 }
 
 #x-y-config label{
+	float:none;
 	width:100px;
+	padding:0px;
 }
 #x-y-config .left{
 	float:left;
 	border-right:2px solid #ccc;
 	display:inline;
 	padding-right:5px;
-	margin-left:-170px;
+
 }
 #x-y-config .right{
 	float:left;
@@ -108,10 +110,15 @@
 #groups label{
 	margin-left:0px;
 	text-align:left;
+	width:100%;
 }
 
+#groups p{
+	padding:0px;
+}
 #groups table{
 	width:69%;
+	margin:0px;
 }
 
 

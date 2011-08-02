@@ -1,20 +1,17 @@
 
-<label><%=l(:label_performance_measures)%>: </label><br/>
 <div id="x-y-config">
 	<div class='left'>
 		<label class="underline"><%=l(:label_x_axis)%></label><br/>
 		<label><%=l(:label_subnetwork)%>: </label>
-		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
+		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%>
 		<button type="load_routes">Load Routes</button><br/>
 	
 		<label><%=l(:label_quantity)%>: </label>
 		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_x_axis_quantity_select_options()), 
 				:onChange => 'checkAndInsertCustom(this);setTableHeadingIfCustomQuantity();'
 				%><br/>
-		<span>
-			<%= check_box_tag 'box_plot' %>
-			<label><%=l(:label_box_plot)%>: </label>
-		</span>
+		<label><%=l(:label_box_plot)%>:&nbsp;&nbsp;</label>
+		<%= check_box_tag 'box_plot' %>
 	</div>
 	
 	<div class='right'>
@@ -28,7 +25,7 @@
 </div>
 <br/>
 <div id="groups">
-	<label><%=l(:label_groups)%>: </label><br/>
+	<p><label><%=l(:label_groups)%> Quantity Definition: <span class='required'>*</span> Only needed to define custom quantities.</label></p>
 	<table class="index list" id='simulation-plots-list-table'> 
 		<thead>
 		  <tr>
