@@ -302,6 +302,16 @@ class User < Principal
   def to_s
     name
   end
+
+  def aurora_user
+    @@worker_user_field_id ||= UserCustomField.find_by_name('aurora_worker_user').id
+    self.custom_field_values.find {|v| v.custom_field_id == @@worker_user_field_id}.value
+  end
+
+  def aurora_group
+    @@worker_group_field_id ||= UserCustomField.find_by_name('aurora_worker_group').id
+    self.custom_field_values.find {|v| v.custom_field_id == @@worker_group_field_id}.value
+  end
   
   # Returns the current day according to user's time zone
   def today
