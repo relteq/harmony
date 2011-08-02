@@ -116,6 +116,10 @@ div.config-sidebar-menu a {
 	text-decoration: none;
 }
 
+#config-sidebar a.category:hover, #config-sidebar a.config-item:hover {
+	background-color: #FFF;
+}
+
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
 	background-color: #CCC;
 }

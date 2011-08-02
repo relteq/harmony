@@ -1,6 +1,6 @@
   <ul id="config-sidebar-root" class="config-sidebar-menu">
 		<li>
-			<a href='javascript:void(0);' childid='list_scenarios' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+			<a href='javascript:void(0);' id='s_tree_button' childid='list_scenarios' class='cat_open category'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
       <%= link_to(l(:label_scenarios), project_configuration_scenarios_path(@project), :id => 'config-sidebar-scenarios', :class=> 'config-sidebar-header') %>
 			<ul id='list_scenarios'>
  				  <% @scenarios.each do |s|  %>

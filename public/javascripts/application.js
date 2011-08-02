@@ -293,6 +293,7 @@ jQuery(document).ready(function() {
       Cookie.setData(jQuery(this).attr('id'), 'open');
     }
 		else {
+			alert(jQuery(this).attr('id'));
       jQuery(this).removeClass("cat_open").addClass("cat_close");
       Cookie.setData(jQuery(this).attr('id'), 'closed');
     }
@@ -302,7 +303,7 @@ jQuery(document).ready(function() {
     var tree_handler = jQuery(this);
     var tree_status = Cookie.getData(tree_handler.attr('id'));
     var tree = jQuery('#' + tree_handler.attr('childid'));
-
+		
     if(tree_status == 'open') {
       tree_handler.removeClass('cat_close').addClass('cat_open');
       tree.css("display","block");

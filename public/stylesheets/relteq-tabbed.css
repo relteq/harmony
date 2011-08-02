@@ -94,6 +94,7 @@
 	border-right:2px solid #ccc;
 	display:inline;
 	padding-right:5px;
+	margin-left:-170px;
 }
 #x-y-config .right{
 	float:left;

@@ -1,35 +1,30 @@
 
 <label><%=l(:label_performance_measures)%>: </label><br/>
-
-<div id="load-routes">
-	<button type="load_routes">Load Routes</button><br/>
-	<span>
-		<label class><%=l(:label_custom_x_axis)%>: </label>
-		<%= text_field_tag 'custom_x' %>
-	</span>
-	<span>
-		<%= check_box_tag 'box_plot' %>
-		<label><%=l(:label_box_plot)%>: </label>
-	</span>
-</div>
-<br/>
 <div id="x-y-config">
-	<span class='left'>
+	<div class='left'>
 		<label class="underline"><%=l(:label_x_axis)%></label><br/>
 		<label><%=l(:label_subnetwork)%>: </label>
 		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
+		<button type="load_routes">Load Routes</button><br/>
+	
 		<label><%=l(:label_quantity)%>: </label>
 		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_x_axis_quantity_select_options()), 
 				:onChange => 'checkAndInsertCustom(this);setTableHeadingIfCustomQuantity();'
 				%><br/>
-	</span>
-	<span class='right'>
+		<span>
+			<%= check_box_tag 'box_plot' %>
+			<label><%=l(:label_box_plot)%>: </label>
+		</span>
+	</div>
+	
+	<div class='right'>
 		<label class="underline"><%=l(:label_y_axis)%></label><br/>
 		<label><%=l(:label_subnetwork)%>: </label>
 		<%= select_tag 'y-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
 		<label><%=l(:label_quantity)%>: </label>
 		<%= select_tag 'y-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%>
-	</span>
+
+	</div>
 </div>
 <br/>
 <div id="groups">
