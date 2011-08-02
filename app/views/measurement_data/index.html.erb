@@ -32,7 +32,7 @@
 	 	<td  ><%=h format_date_time(mdat.created_at) %></td>
 	 	<td  ><%= link_to(mdat.creator.name, user_path(mdat.creator)) if !(mdat.creator.nil?) %></td>
 	 	<td  class="actions">
-			<%= link_to '',delete_file_project_measurement_datum_path(@project,mdat.id), :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
+			<%= link_to '',project_measurement_datum_path(@project,mdat.id),:method => :delete, :confirm=>  l(:label_delete_item), :class => 'icon icon-del' %> | 
 			<%= link_to_function '', "show_box('rename-#{mdat.id}');", :class => 'icon icon-edit' %> 
 		</td>
 	  </tr>

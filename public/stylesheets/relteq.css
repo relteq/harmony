@@ -71,7 +71,11 @@ a.config-header:active, a.config-header:hover{
 #simuaiton-reports-index-table,
 #measurement-index-table
 {
-	width:60%;	
+	width:70%;	
+}
+
+#measurement-index-table td, #measurement-index-table th{
+	padding: 0px 10px;	
 }
 
 .grey{ color:gray;}
