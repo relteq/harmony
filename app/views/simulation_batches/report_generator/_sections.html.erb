@@ -1,15 +1,23 @@
 <div id="sections-time">
-		<label class="underline"><%=l(:label_time_range)%> </label><br/>
-		<label class="sub-label"><%=l(:label_from)%>: </label><%= f.text_field :b_time,:value => @simulation_report.display_time(:b_time) %><br/>
-	 	<label class="sub-label"><%=l(:label_to)%>: </label> <%= f.text_field :duration,:value => @simulation_report.display_time(:duration) %><br/>
+	<p>
+		<label class="underline"><%=l(:label_time_range)%> </label>
+	</p>
+	<p>
+		<label class="sub-label"><%=l(:label_from)%>: </label><%= f.text_field :b_time,:value => @simulation_report.display_time(:b_time) %>
+	</p>
+	<p>
+	 	<label class="sub-label"><%=l(:label_to)%>: </label> <%= f.text_field :duration,:value => @simulation_report.display_time(:duration) %>
+	</p>
 </div>
 <div id="sections-content">
-	<label><%=l(:label_contents)%>: </label>
+	<p>
+		<label><%=l(:label_contents)%>: </label>
+	</p>
 	<table class="index list"> 
 		<thead>
 		  <tr>
 				<th>&nbsp;</th>
-				<th>over time</th>
+				<th class="">over time</th>
 				<th>over space</th>
 				<th>contour</th>
 		  </tr>

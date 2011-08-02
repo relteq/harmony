@@ -21,6 +21,7 @@
 }
 #report-main .buttons{
 	margin-top:5px;
+	margin-left:15px;
 }
 #report-main a {
     text-decoration:none;
@@ -41,6 +42,10 @@
  	margin-left:140px;
 }
 
+#sections p{
+	padding: 0 0;
+}
+
 #sections label{
 	margin-left:15px;
 	text-align:left;
@@ -52,7 +57,9 @@
 }
 
 #sections-content table{
-	margin-left:30px;
+	margin-left:15px;
+	margin-top:-5px;
+	width:80%;
 }
 
 #scatter-plots label{
@@ -150,6 +157,10 @@
 
 #report-main ul.subsection_tabs li.source_code {
     float:right;
+}
+
+#simulation-group-list-table{
+	margin: 5px 0px;
 }
 
 
