@@ -12,6 +12,8 @@ module Runweb
 
     def simulate(batch, simulation_spec = :simple)
       options = batch_options({ 
+        :user => batch.creator.aurora_user,
+        :group => batch.creator.aurora_group,
         :name => batch.name,
         :engine => 'simulator',
         :param => {:update_period => 1}
@@ -50,6 +52,8 @@ module Runweb
 
     def report(sim_report)
       options = batch_options({
+        :user => sim_report.creator.aurora_user,
+        :group => sim_report.creator.aurora_group,
         :name => sim_report.name, 
         :engine => 'report generator', 
         :n_runs => 1,
@@ -92,8 +96,6 @@ module Runweb
     end
 
     def batch_options(plus)
-      # TODO once workers are instantiated dynamically, these should be
-      # the correct user and group IDs
       options = { 
         :user => ENV['AURORA_WORKER_USER'], 
         :group => ENV['AURORA_WORKER_GROUP']
