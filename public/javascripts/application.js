@@ -293,7 +293,6 @@ jQuery(document).ready(function() {
       Cookie.setData(jQuery(this).attr('id'), 'open');
     }
 		else {
-			alert(jQuery(this).attr('id'));
       jQuery(this).removeClass("cat_open").addClass("cat_close");
       Cookie.setData(jQuery(this).attr('id'), 'closed');
     }
