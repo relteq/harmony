@@ -17,7 +17,7 @@ a.config-header:link, a.config-header:visited {
 	color: #444444;
 }
 a.config-header:active, a.config-header:hover{
-	font-style: italic;
+	color: #666;	
 }
 
 #newscenario {

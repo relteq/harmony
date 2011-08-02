@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @cset} %>
 <% end %>
 
-<h2><%= link_to l(:field_controller_set) + "s", project_configuration_controller_sets_path(@project),:class => 'config-header' %> &#187; <%= l(:controller_sets_edit) %></h2>
+<h2><%= link_to l(:label_controller_sets), project_configuration_controller_sets_path(@project),:class => 'config-header' %> &#187; <%= l(:controller_sets_edit) %></h2>
 
 <% labelled_tabular_form_for :controller_set, @cset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>

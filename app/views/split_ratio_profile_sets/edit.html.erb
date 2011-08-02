@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar', :locals => {:highlighted_item => @srpset} %>
 <% end %>
 
-<h2><%= link_to l(:field_split_ratio_profile_set) + "s", project_configuration_split_ratio_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:split_ratio_profiles_edit) %></h2>
+<h2><%= link_to l(:label_split_ratio_profile_sets), project_configuration_split_ratio_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:split_ratio_profiles_edit) %></h2>
 
 <% labelled_tabular_form_for :split_ratio_profile_set, @srpset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
