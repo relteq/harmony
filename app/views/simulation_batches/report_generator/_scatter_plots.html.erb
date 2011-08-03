@@ -1,67 +1,23 @@
-
+<% fields_for 'simulation_batch_report[scatter_plot_attributes]',  @simulation_report.scatter_plot do |s|%>
 <div id="x-y-config">
 	<div class='left'>
 		<label class="underline"><%=l(:label_x_axis)%></label><br/>
 		<label><%=l(:label_subnetwork)%>: </label>
-		<%= select_tag 'x-axis-sub', options_for_select(simulation_report_axis_network_select_options())%>
-		<button type="load_routes">Load Routes</button><br/>
+		<%= s.select :x_axis_type, options_for_select(simulation_report_axis_network_select_options())%><br/>
 	
 		<label><%=l(:label_quantity)%>: </label>
-		<%= select_tag 'x-axis-quantity', options_for_select(simulation_report_x_axis_quantity_select_options()), 
-				:onChange => 'checkAndInsertCustom(this);setTableHeadingIfCustomQuantity();'
-				%><br/>
+		<%= s.select :x_axis_scope, options_for_select(simulation_report_axis_quantity_select_options()) %><br/>
 		<label><%=l(:label_box_plot)%>:&nbsp;&nbsp;</label>
-		<%= check_box_tag 'box_plot' %>
+		<%= s.check_box :box_plot %>
 	</div>
 	
 	<div class='right'>
 		<label class="underline"><%=l(:label_y_axis)%></label><br/>
 		<label><%=l(:label_subnetwork)%>: </label>
-		<%= select_tag 'y-axis-sub', options_for_select(simulation_report_axis_network_select_options())%><br/>
+		<%= s.select  :y_axis_type, options_for_select(simulation_report_axis_network_select_options())%><br/>
 		<label><%=l(:label_quantity)%>: </label>
-		<%= select_tag 'y-axis-quantity', options_for_select(simulation_report_axis_quantity_select_options())%>
-
+		<%= s.select  :y_axis_scope, options_for_select(simulation_report_axis_quantity_select_options())%>
 	</div>
 </div>
-<br/>
-<div id="groups">
-	<p><label><%=l(:label_groups)%> Quantity Definition: <span class='required'>*</span> Only needed to define custom quantities.</label></p>
-	<table class="index list" id='simulation-plots-list-table'> 
-		<thead>
-		  <tr>
-				<th>Name</th>
-				<th id='groups-th'>&nbsp;</th>
-		  </tr>
-		</thead>
-		<tbody>	
-		  <tr id="simulation-plots-list-no-records">
-				<td colspan='2'><%= l(:label_no_records_index) %></td>
-		  </tr>
-		</tbody>
-	</table>
-	</div>
+<% end %>
 
-<script>	
-
-var custom_quantity = new Array();
-function checkAndInsertCustom(item){
-	if(item.value == 'custom'){
-		var quantity_name = prompt('Custom Quantity Name:', '');
-		custom_quantity.push(quantity_name);
-		var last_item = item.options.length - 1
-		var quantity_value = quantity_name.toLowerCase().gsub(' ','-');
-		jQuery("#x-axis-quantity  option:eq(" + last_item + ")").before(new Option(quantity_name,quantity_value, true, true));
-		jQuery("#x-axis-quantity").val(quantity_value);
-	}
-}
-
-
-function setTableHeadingIfCustomQuantity(){
-	var selected = jQuery("#x-axis-quantity option:selected").text();
-	if(custom_quantity.indexOf(selected) > -1)	
-		jQuery("#groups-th").html(selected);
-	else
-		jQuery("#groups-th").html('');
-
-}
-</script>

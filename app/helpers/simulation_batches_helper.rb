@@ -32,10 +32,6 @@ module SimulationBatchesHelper
     ]
   end
   
-  def simulation_report_x_axis_quantity_select_options()
-    return simulation_report_axis_quantity_select_options() << ['Add Custom Quantity' , 'custom']    
-  end
-
   def check_box_for_sim(sim)
     check_box_tag("sim_ids[]", sim.id.to_s + ":" + sim.name, false, { 
       :id => sim.id.to_s + '-checkbox'

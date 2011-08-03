@@ -1,4 +1,3 @@
 class ScatterPlot < ActiveRecord::Base
-  has_one :simulation_batch_report
-
+  belongs_to :simulation_batch_report
 end

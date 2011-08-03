@@ -10,10 +10,25 @@ class SimulationBatchReport < ActiveRecord::Base
   
   belongs_to :simulation_batch_list
   
-  belongs_to :scatter_plot
-  belongs_to :color_pallette
+  has_many :scatter_groups
+  has_one :scatter_plot
+  has_many :color_pallettes
 
   before_destroy :delete_associated_s3_data
+  
+  def scatter_plot_attributes=(fields)
+    scatter_plot = build_scatter_plot(fields)
+  end
+
+  def scatter_group_attributes=(group_fields)
+    group_fields.each do |batch,name|
+      field = {
+                :simulation_batch_id=>batch.to_i,
+                :name => name
+              }
+      scatter_groups.build(field)
+    end
+  end
 
   def project
     simulation_batch_list.simulation_batches.first.project
