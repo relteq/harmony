@@ -45,12 +45,15 @@
 <div id="wrapper2">
 <div id="top-menu">
     <div id="account">
+		<% if(params[:action] != 'login' && params[:action] != 'lost_password') %>
         <%= render_menu :account_menu -%>
+		<% end %>
     </div>
     <%= content_tag('div', "#{l(:label_logged_as)} #{link_to_user(User.current, :format => :username)}", :id => 'loggedas') if User.current.logged? %>
     <%= render_menu :top_menu -%>
 </div>
-      
+
+<% if(User.current.logged?)%>      
 <div id="header">
     <div id="quick-search">
         <% form_tag({:controller => 'search', :action => 'index', :id => @project}, :method => :get ) do %>
@@ -69,6 +72,8 @@
     </div>
     <% end %>
 </div>
+<% end %>
+
 
 <div id = "main" class =
 	<% if (has_content?(:sidebar)) %>

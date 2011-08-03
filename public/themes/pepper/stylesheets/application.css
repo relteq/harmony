@@ -276,7 +276,8 @@ a:link {
 }
 /* line 17, ../sass/_general_elements.sass */
 a:visited {
-  color: #222299;
+  /* color: #222299; */
+	color: #4183c4
 }
 /* line 19, ../sass/_general_elements.sass */
 a:hover, a:active {
@@ -1095,7 +1096,8 @@ p.subtitle {
   float: right;
   padding: 18px;
   padding-bottom: 72px;
-  width: 200px;
+  /** width: 200px; smm - 8/2011**/
+	width:15%;
 }
 /* line 213, ../sass/_layout.sass */
 #main #sidebar h3:first-child {
@@ -1567,8 +1569,9 @@ form fieldset table {
 }
 /* line 10, ../sass/page_specific/_account.sass */
 .action-login #top-menu, .action-lost_password #top-menu {
-  float: right;
+  float: left;
   margin-right: 18px;
+	margin-bottom:10px;
   padding: 0;
 }
 /* line 14, ../sass/page_specific/_account.sass */
