@@ -8,7 +8,7 @@
 	  <tr>
 		  <th class='checkbox index-menu-multiple actions'>
 				<%= link_to_function image_tag('toggle_check.png'), {}, :onclick => 'toggleIssuesSelection(Element.up(this, 	
-							"form")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
+							"table")); return false;', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
        </th>
     
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
