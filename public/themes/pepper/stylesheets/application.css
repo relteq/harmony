@@ -1095,7 +1095,8 @@ p.subtitle {
   float: right;
   padding: 18px;
   padding-bottom: 72px;
-  width: 200px;
+  /** width: 200px; smm - 8/2011**/
+	width:15%;
 }
 /* line 213, ../sass/_layout.sass */
 #main #sidebar h3:first-child {

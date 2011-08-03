@@ -84,7 +84,8 @@ h4, .wiki h3 {font-size: 13px;padding: 2px 10px 1px 0px;margin-bottom: 5px; bord
 html body #content { min-height: 1000px; } 
 * html body #content { height: 1000px; } /* IE */
 
-#main.sidebar {width:1250px;}
+/**#main.sidebar {width:1250px;}**/
+#main.sidebar {width:100%;}
 
 
 #main.nosidebar #sidebar{ display: none; }
