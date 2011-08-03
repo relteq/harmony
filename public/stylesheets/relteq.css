@@ -1,17 +1,49 @@
-#config-sidebar{ float: left; clear:left; display:inline;width: 230px; position: relative; z-index: 9; padding: 0; margin: 0;}
+#config-sidebar{ float: left; clear:left; display:inline; position: relative; z-index: 9; padding: 0; margin: 0;}
 * html #config-sidebar{ width: 230px; }
 
 
 /** Configurations side bar but no right sidebar */
-#main.config_sidebar #content{ float: left; width:75%;display:inline;margin-right:14px; }
+#main.config_sidebar{
+	width:1200px;
+}
+#main.config_sidebar #content{ 
+	float: left; 
+	width:auto;
+	min-width:600px;
+	display:inline;
+	margin-right:14px; 
+}
 
 /** No configurations side bar but there is a right sidebar */
 #main #sidebar { width:15%; }
 #main.noconfig_sidebar #content{ width:75%; margin:15px; float:left}
 
 /** No configurations side bar and no right sidebar */
-#main.no_sidebar_no_config_sidebar {overflow: visible;}
-#main.no_sidebar_no_config_sidebar #content { width: auto; border-right: 0;float:left;  margin:0px; padding: 18px 18px 18px 18px;}
+#main.no_sidebar_no_config_sidebar {
+	overflow: visible;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px;
+  border: 0px solid #e4e4ef;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+}
+#main.no_sidebar_no_config_sidebar #content { 
+	width: auto;
+	min-width:700px; 
+	border-right: 0;
+	float:left;  
+	margin:0px; 
+	padding: 18px 18px 18px 18px;
+	border: 1px solid #E4E4EF;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
 
 #config-sidebar h3{ font-size: 14px; margin-top:14px; color: #666;  }
 #config-sidebar hr{ width: 100%; margin: 0 auto; height: 1px; background: #ccc; border: 0; }
@@ -210,7 +242,9 @@ table#jobs_list td {
 #login_logo{
 	margin-bottom:15px;	
 }
-
+.action-login #main #content, .action-lost_password #main #content {
+	min-width:60%;
+}
 #login-form table.relteq-table {
 	margin: 36px 30px 18px 60px;
 	width:auto;

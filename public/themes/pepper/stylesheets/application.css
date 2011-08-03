@@ -276,7 +276,8 @@ a:link {
 }
 /* line 17, ../sass/_general_elements.sass */
 a:visited {
-  color: #222299;
+  /* color: #222299; */
+	color: #4183c4
 }
 /* line 19, ../sass/_general_elements.sass */
 a:hover, a:active {
