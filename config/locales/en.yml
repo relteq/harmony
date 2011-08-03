@@ -987,6 +987,7 @@ en:
   simulation_batch_report_not_found: Simulation Batch Report not found. Action not successful.
   simulation_batch_report_delete_not_success: Simulation Batch Report delete not successful
   simulation_batch_report_job_start_success: Job started successfully
+  simulation_batch_report_job_start_fail: Job failed to start
   
   simulation_batch: Simulation Batch
   simulation_batch_not_found: Simulation Batch not found. Action not successful.

@@ -79,8 +79,9 @@ class SimulationBatchReportsController < ApplicationController
         format.api { render :action => 'launch' }
       end
     else
+      flash[:error] = l(:simulation_batch_report_job_start_fail)
       respond_to do |format|
-       format.html { render simulation_batch_index_path(params[:project_id])}
+       format.html { redirect_to project_simulation_batches_path(params[:project_id])}
        format.api  { render_validation_errors(@simulation_report) }
       end
     end

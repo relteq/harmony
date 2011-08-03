@@ -137,17 +137,17 @@ class SimulationBatchReport < ActiveRecord::Base
         xml.tbl_groups ""
         scen_names = ""
         xml.tbl_scenariogroups{
-          self.simulation_batch_list.simulation_batches.each do |sb|
-            xml.entry(:scenario => sb.scenario.name, :group => "")
-            scen_names += sb.scenario.name + ","      
+          self.scatter_groups.each do |sg|
+            xml.entry(:scenario => sg.simulation_batch.scenario.name, :group => sg.name)
+            scen_names += sg.simulation_batch.scenario.name + ","      
           end
 
         }
         
         xml.cmb_xaxis_subnetwork self.scatter_plot.x_axis_type
-        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_quantity
+        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_scope
         xml.cmb_yaxis_subnetwork self.scatter_plot.y_axis_type
-        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_quantity
+        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_scope
         xml.scenarios_old scen_names[0,scen_names.length-1]
         xml.datafiles_old ""
         xml.BatchList {
