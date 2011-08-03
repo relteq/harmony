@@ -1567,8 +1567,9 @@ form fieldset table {
 }
 /* line 10, ../sass/page_specific/_account.sass */
 .action-login #top-menu, .action-lost_password #top-menu {
-  float: right;
+  float: left;
   margin-right: 18px;
+	margin-bottom:10px;
   padding: 0;
 }
 /* line 14, ../sass/page_specific/_account.sass */

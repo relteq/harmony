@@ -208,3 +208,14 @@ table#jobs_list td {
 #simulation-batch-list li{
 	margin-left:15px;
 }
+
+#login_logo{
+	margin-left:50px;
+}
+
+#login-form table.relteq-table {
+	margin: 36px 30px 18px 90px;
+	width:auto;
+}
+
+
