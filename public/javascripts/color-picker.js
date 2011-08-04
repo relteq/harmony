@@ -46,6 +46,7 @@ Color.Picker = function (mainDiv,props) {
 	hexClose.textContent = "X";
 	hexClose.onclick = function () { // close colorpicker
 		jQuery("#colorjack_square").css('display', 'none');
+		jQuery("#colorjack_square").remove();
 	};
 	plugin.appendChild(hexClose);
 	plugin.appendChild(document.createElement("br"));
@@ -295,8 +296,8 @@ var dragElement = function(props) {
 	var eX = coord.x;
 	var eY = coord.y;
 	// events
-	//window.addEventListener("mousemove", mouseMove, false);
-	//window.addEventListener("mouseup", mouseUp, false);
+	window.addEventListener("mousemove", mouseMove, false);
+	window.addEventListener("mouseup", mouseUp, false);
 	//mouseMove(e, "down"); // run mouse-down
 };
 

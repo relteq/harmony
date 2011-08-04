@@ -279,3 +279,8 @@ table#jobs_list td {
 	text-decoration:underline;
 	font-size:14px;
 }
+
+.color-border{
+	border: 1px solid black;
+	cursor: pointer;
+} 
