@@ -30,7 +30,6 @@
 
 <%= javascript_include_tag "color-picker" %>
 <script>
-//var arr_colors = jQuery('#simulation_batch_report_color_palletes').val().split(",");
 function pickColor(id,index) {
 	var swatch = document.getElementById(id);
 	var mainDiv = document.getElementById('report-generator');
@@ -39,10 +38,7 @@ function pickColor(id,index) {
 	var picker = new Color.Picker(mainDiv,{
 		callback: function(hex) {
 			swatch.style.backgroundColor = "#" + hex;
-		//	arr_colors[index] = "#" + hex;
 			jQuery('#hidden_color_' + index).val("#" + hex);
-
-//			jQuery('#simulation_batch_report_color_palletes').val(arr_colors.join(","));
 		}
 	});
 
