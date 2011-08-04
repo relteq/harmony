@@ -1,6 +1,6 @@
 <p>
-	<label ><%=l(:label_name)%>: </label>
-  <%= f.text_field :name %>
+	<label ><%=l(:label_name)%>: </label><span class='required'>*</span>
+  <%= f.text_field :name, :onblur => 'checkEmpty(this);' %>
 </p>
 <p>
 	<label><%=l(:label_type_of_report)%>: </label>
@@ -49,6 +49,12 @@
 		if(nbChecked > 1)
 			return true;
 		return false;
+	}
+	
+	function checkEmpty(el){
+		if(jQuery(el).val().length <= 0){
+				jQuery(el).val(jQuery(sims[0]).val().split(':')[1]);
+		}
 	}
 </script>
 

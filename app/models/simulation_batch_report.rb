@@ -74,10 +74,8 @@ class SimulationBatchReport < ActiveRecord::Base
   end
   
   #this is used to populate the Report Generator form
-  #with default values
-  def default_report_settings!
-
-    #set up default values
+  #with default values as well as set up the report with default values before updating and saving
+  def default_report_settings!    #set up default values
     self.network_perf = true
     self.network_perf = true
     self.route_perf_t = true
