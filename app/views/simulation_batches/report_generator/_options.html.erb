@@ -11,17 +11,18 @@
 </p>
 <p>
 	<label><%=l(:label_color)%>: </label>
-	<span id = "color1" style="background-color:#69A7D6" onclick="pickColor('color1');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color2" style="background-color:#980D92" onclick="pickColor('color2');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color3" style="background-color:#D32A64" onclick="pickColor('color3');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color4" style="background-color:#707826" onclick="pickColor('color4');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color5" style="background-color:#DFD555" onclick="pickColor('color5');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color6" style="background-color:#E17A8F" onclick="pickColor('color6');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color7" style="background-color:#2B478E" onclick="pickColor('color7');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color8" style="background-color:#4CDA1D" onclick="pickColor('color8');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color9" style="background-color:#F432C6" onclick="pickColor('color9');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color10" style="background-color:#07CAFF" onclick="pickColor('color10');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	<span id = "color11" style="background-color:#1C9F22" onclick="pickColor('color11');">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<%= f.hidden_field :color_palletes, :value=> "#69A7D6,#980D92,#D32A64,#707826,#DFD555,#E17A8F,#2B478E,#4CDA1D,#F432C6,#07CAFF,#1C9F22" %>
+	<span id = "color1" class = 'color-border' style="background-color:#69A7D6" onclick="pickColor('color1',0);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color2" class = 'color-border' style="background-color:#980D92" onclick="pickColor('color2',1);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color3" class = 'color-border' style="background-color:#D32A64" onclick="pickColor('color3',2);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color4" class = 'color-border' style="background-color:#707826" onclick="pickColor('color4',3);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color5" class = 'color-border' style="background-color:#DFD555" onclick="pickColor('color5',4);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color6" class = 'color-border' style="background-color:#E17A8F" onclick="pickColor('color6',5);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color7" class = 'color-border' style="background-color:#2B478E" onclick="pickColor('color7',6);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color8" class = 'color-border' style="background-color:#4CDA1D" onclick="pickColor('color8',7);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color9" class = 'color-border' style="background-color:#F432C6" onclick="pickColor('color9',8);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color10" class = 'color-border' style="background-color:#07CAFF" onclick="pickColor('color10',9);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span id = "color11" class = 'color-border' style="background-color:#1C9F22" onclick="pickColor('color11',10);">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 </p>
 
 <p>
@@ -35,7 +36,8 @@
 
 <%= javascript_include_tag "color-picker" %>
 <script>
-function pickColor(id) {
+var arr_colors = jQuery('#simulation_batch_report_color_palletes').val().split(",");
+function pickColor(id,index) {
 	var swatch = document.getElementById(id);
 	var mainDiv = document.getElementById('report-generator');
 
@@ -43,6 +45,8 @@ function pickColor(id) {
 	var picker = new Color.Picker(mainDiv,{
 		callback: function(hex) {
 			swatch.style.backgroundColor = "#" + hex;
+			arr_colors[index] = "#" + hex;
+			jQuery('#simulation_batch_report_color_palletes').val(arr_colors.join(","));
 		}
 	});
 
