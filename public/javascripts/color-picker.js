@@ -28,6 +28,7 @@ Color.Picker = function (mainDiv,props) {
 	var plugin = document.createElement("div");
 	plugin.id = "colorjack_square";
 	plugin.style.cssText = "height: " + (this.size + this.margin * 2) + "px";
+	plugin.style.display = 'block';
 
 	// shows current selected color as the background of this box
 	var hexBox = document.createElement("div");
@@ -44,7 +45,7 @@ Color.Picker = function (mainDiv,props) {
 	hexClose.className = "hexClose";
 	hexClose.textContent = "X";
 	hexClose.onclick = function () { // close colorpicker
-		plugin.style.display = (plugin.style.display == "none") ? "block" : "none";
+		jQuery("#colorjack_square").css('display', 'none');
 	};
 	plugin.appendChild(hexClose);
 	plugin.appendChild(document.createElement("br"));
@@ -294,9 +295,9 @@ var dragElement = function(props) {
 	var eX = coord.x;
 	var eY = coord.y;
 	// events
-	window.addEventListener("mousemove", mouseMove, false);
-	window.addEventListener("mouseup", mouseUp, false);
-	mouseMove(e, "down"); // run mouse-down
+	//window.addEventListener("mousemove", mouseMove, false);
+	//window.addEventListener("mouseup", mouseUp, false);
+	//mouseMove(e, "down"); // run mouse-down
 };
 
 var clamp = function(n, min, max) {
