@@ -245,8 +245,6 @@ table#jobs_list td {
 
 #login_logo{
 	margin-bottom:15px;
-	width:60%;
-	height:60%;	
 }
 .action-login #main #content, .action-lost_password #main #content {
 	min-width:60%;
