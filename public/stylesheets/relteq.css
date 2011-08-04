@@ -1,7 +1,7 @@
 #config-sidebar{ float: left; clear:left; display:inline; position: relative; z-index: 9; padding: 0; margin: 0;}
 * html #config-sidebar{ width: 230px; }
 
-
+#wrapper { width:1200px;}
 /** Configurations side bar but no right sidebar */
 #main.config_sidebar{
 	width:1200px;
