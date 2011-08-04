@@ -56,6 +56,7 @@ a.config-header:link, a.config-header:visited {
 	text-decoration: none;
 	color: #444444;
 }
+
 a.config-header:active, a.config-header:hover{
 	color: #666;	
 }
@@ -151,6 +152,9 @@ img.context_menu_icon {
 	padding-left: 5px; 
 	width:10px;
 	height:12px;
+	margin-top:3px;
+	float:right;
+	padding-right:5px;
 }
 
 .index-menu img.context_menu_icon{
@@ -240,7 +244,9 @@ table#jobs_list td {
 }
 
 #login_logo{
-	margin-bottom:15px;	
+	margin-bottom:15px;
+	width:60%;
+	height:60%;	
 }
 .action-login #main #content, .action-lost_password #main #content {
 	min-width:60%;

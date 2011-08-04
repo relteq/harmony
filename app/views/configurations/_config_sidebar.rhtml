@@ -4,7 +4,7 @@
       <%= link_to(l(:label_scenarios), project_configuration_scenarios_path(@project), :id => 'config-sidebar-scenarios', :class=> 'config-sidebar-header') %>
 			<ul id='list_scenarios'>
  				  <% @scenarios.each do |s|  %>
-		     	  <li class="config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"
+		     	  <li class="hoverable config-sidebar-scenario <%= highlight_if(s==highlighted_item) %>"
                 id="config-sidebar-scenario-<%= s.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 			        	<%= link_to display_menu_item(s.name), edit_project_configuration_scenario_path(@project, s)%>
@@ -24,7 +24,7 @@
 			<ul id='list_networks'>
 
 				<% @networks.each do |n|  %>
-				 	  <li class="config-sidebar-network <%= highlight_if(n==highlighted_item)%>" 
+				 	  <li class="hoverable config-sidebar-network <%= highlight_if(n==highlighted_item)%>" 
                 id="config-sidebar-network-<%= n.id %>"> 
 			        <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 							<%= link_to display_menu_item(n.name), edit_project_configuration_network_path(@project, n) %>
@@ -38,7 +38,7 @@
       <%= link_to(l(:label_controller_sets), project_configuration_controller_sets_path(@project), :id => 'config-sidebar-controller-sets', :class=> 'config-sidebar-header') %>
  	   	<ul id='list_controller_sets'>
  			  <% @csets.each do |c|  %>
-		     	  <li class="<%= highlight_if(c==highlighted_item)%>"
+		     	  <li class="hoverable <%= highlight_if(c==highlighted_item)%>"
                 id="config-sidebar-controller-set-<%= c.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to display_menu_item(c.name), edit_project_configuration_controller_set_path(@project, c) %>
@@ -52,7 +52,7 @@
 
 			<ul id='list_demand_profile_sets'>
 			  <% @dprofilesets.each do |d|  %>
-		     	  <li class="<%= highlight_if(d==highlighted_item)%>"
+		     	  <li class="hoverable <%= highlight_if(d==highlighted_item)%>"
                 id="config-sidebar-demand-profile-set-<%= d.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to display_menu_item(d.name), edit_project_configuration_demand_profile_set_path(@project, d) %>
@@ -66,7 +66,7 @@
 
 			<ul id='list_split_ratio_profile_sets'>
 			  <% @sprofilesets.each do |s|  %>
-		     	  <li class="<%= highlight_if(s==highlighted_item)%>"
+		     	  <li class="hoverable <%= highlight_if(s==highlighted_item)%>"
                 id="config-sidebar-split-ratio-profile-set-<%= s.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to display_menu_item(s.name), edit_project_configuration_split_ratio_profile_set_path(@project, s) %>
@@ -79,7 +79,7 @@
       <%= link_to(l(:label_capacity_profile_sets), project_configuration_capacity_profile_sets_path(@project), :id => 'config-sidebar-capacity-profile-sets', :class=> 'config-sidebar-header') %>
 			<ul id='list_capacity_profile_sets'>
 			  <% @cprofilesets.each do |c|  %>
-		     	  <li class="<%= highlight_if(c==highlighted_item)%>"
+		     	  <li class="hoverable <%= highlight_if(c==highlighted_item)%>"
                 id="config-sidebar-capacity-profile-set-<%= c.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to display_menu_item(c.name), edit_project_configuration_capacity_profile_set_path(@project, c) %>
@@ -92,7 +92,7 @@
       <%= link_to(l(:label_event_sets), project_configuration_event_sets_path(@project), :id => 'config-sidebar-event-sets', :class=> 'config-sidebar-header') %>
 			<ul id='list_event_sets'>
  			  <% @eventsets.each do |e|  %>
-		     	  <li class="<%= highlight_if(e==highlighted_item)%>"
+		     	  <li class="hoverable <%= highlight_if(e==highlighted_item)%>"
                 id="config-sidebar-event-set-<%= e.id %>"> 
 		            <a href='javascript:void(0);' class='item config-item'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 								<%= link_to display_menu_item(e.name), edit_project_configuration_event_set_path(@project, e) %>
@@ -113,4 +113,16 @@
 
     var ol = new Overlay();
 		<%= render :partial => 'configurations/hook_menus.js' %>
+		
+
+		jQuery(".hoverable").hover(
+		  function () {
+		 		jQuery(this).addClass('active');
+		  }, 
+		  function () {
+				jQuery(this).removeClass('active');
+		  }
+		);
+
+		
 	</script>

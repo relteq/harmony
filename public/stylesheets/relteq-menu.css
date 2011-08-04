@@ -93,7 +93,7 @@ div.config-sidebar-menu a {
 
 .config-sidebar-menu li {
 	list-style-position: outside;
-	padding-bottom:5px;
+	padding:1px 0px;
 }
 
 .config-item {
@@ -116,19 +116,31 @@ div.config-sidebar-menu a {
 	text-decoration: none;
 }
 
+.config-sidebar-menu li.active{
+	background: #EEE;
+}
+
 #config-sidebar a.category:hover, #config-sidebar a.config-item:hover {
 	background-color: #FFF;
 }
 
+/**
 .config-sidebar-menu ul a:hover, .config-sidebar-menu li a:hover {
-	background-color: #CCC;
+	background-color: #111;
 }
+*/
 
 #config-sidebar-root .highlight{
 	font-weight: bold;
 	font-style:italic;
-	background-color: #FFF;
+	background-color: #CCC	;
 	
 }
+
+#config-sidebar-root a{
+	font-size:100%;
+}
+
+
 
 
