@@ -86,12 +86,12 @@
 		//first remove all previous records
 		sims.each(function(){
 		  //split the checkbox id from id:name
-				var split = jQuery(this).val().split(':');
-				var sim_id = split[0];
-				var sim_name =  split[1];
+			var split = jQuery(this).val().split(':');
+			var sim_id = split[0];
+			var sim_name =  split[1];
 
-				jQuery('#sim_li_' + replaceAllSpaces(sim_name)).remove();
-				jQuery('#sim_group_' + replaceAllSpaces(sim_name)).remove();
+			jQuery('#sim_li_' + replaceAllSpaces(sim_name)).remove();
+			jQuery('#sim_group_' + replaceAllSpaces(sim_name)).remove();
 			
 			
 		});
@@ -114,7 +114,8 @@
 			spGroupTable.append("<tr id='sim_group_" + replaceAllSpaces(sim_name) + "' class='user'><td>" + sim_name + "</td><td><input type='text' size='30' name='simulation_batch_report[scatter_group_attributes][" + sim_id + "]'></td></tr>");
 
 		});
-		
+
+		jQuery('#simulation_batch_report_name').val(jQuery(sims[0]).val().split(':')[1]);
 		jQuery('#sim_ids').val(strSimIds);
 		
 		//in case a mistake is made append begin message

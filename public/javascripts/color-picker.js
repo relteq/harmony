@@ -120,8 +120,8 @@ Color.Picker = function (mainDiv,props) {
 				event: e,
 				element: plugin,
 				callback: function (coords, state) {
-					plugin.style.left = coords.x + "px";
-					plugin.style.top = coords.y + "px";
+				//	plugin.style.left = coords.x + "px";
+				//	plugin.style.top = coords.y + "px";
 				}
 			});
 		} else if (x <= that.size) { // saturation-value selection
@@ -260,25 +260,25 @@ var dragElement = function(props) {
 		if (typeof(state) == "undefined") state = "move";
 		var coord = XY(e);
 		switch (props.type) {
-			case "difference": 
-				props.callback({
-					x: coord.x + oX - eX,
-					y: coord.y + oY - eY
-				}, state);
-				break;
-			case "relative":
-				props.callback({
-					x: coord.x - oX,
-					y: coord.y - oY
-				}, state);
-				break;
-			default: // "absolute"
-				props.callback({
-					x: coord.x,
-					y: coord.y
-				}, state);
-				break;
-		}
+				case "difference": 
+					props.callback({
+						x: coord.x + oX - eX,
+						y: coord.y + oY - eY
+					}, state);
+					break;
+				case "relative":
+					props.callback({
+						x: coord.x - oX,
+						y: coord.y - oY
+					}, state);
+					break;
+				default: // "absolute"
+					props.callback({
+						x: coord.x,
+						y: coord.y
+					}, state);
+					break;
+			}
 	};
 	function mouseUp(e) {
 		window.removeEventListener("mousemove", mouseMove, false);

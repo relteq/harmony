@@ -2,6 +2,7 @@ class SimulationBatchReport < ActiveRecord::Base
   include RelteqTime::ActiveRecordMethods
   include RelteqUserStamps
  
+  DEFAULT_COLORS = [ "#69A7D6","#980D92","#D32A64","#707826","#DFD555","#E17A8F","#2B478E","#4CDA1D","#F432C6","#07CAFF","#1C9F22" ]
   named_scope :incomplete, :conditions => ['percent_complete < 1 OR (NOT succeeded)']
   named_scope :complete, :conditions => ['percent_complete = 1 AND succeeded']
  
@@ -12,7 +13,7 @@ class SimulationBatchReport < ActiveRecord::Base
   
   has_many :scatter_groups
   has_one :scatter_plot
-  has_many :color_pallettes
+  has_many :color_palettes
 
   before_destroy :delete_associated_s3_data
   
@@ -27,6 +28,12 @@ class SimulationBatchReport < ActiveRecord::Base
                 :name => name
               }
       scatter_groups.build(field)
+    end
+  end
+  
+  def color_palettes_attributes=(colors)
+    colors.each_with_index do |c,index|
+      color_palettes[index].update_attributes(c)
     end
   end
 
@@ -78,6 +85,9 @@ class SimulationBatchReport < ActiveRecord::Base
     self.route_perf_c = true
     self.route_tt_c  = true
     self.duration  = 86400
+    11.times { |i|
+      self.color_palettes.build({:color => DEFAULT_COLORS[i]})
+    }
   end
   
   
