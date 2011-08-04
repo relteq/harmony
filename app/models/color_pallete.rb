@@ -1,4 +1,4 @@
 class ColorPallete < ActiveRecord::Base
-  has_many :simulation_batch_report
+  belongs_to :simulation_batch_report
 
 end

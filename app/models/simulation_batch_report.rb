@@ -10,10 +10,25 @@ class SimulationBatchReport < ActiveRecord::Base
   
   belongs_to :simulation_batch_list
   
-  belongs_to :scatter_plot
-  belongs_to :color_pallette
+  has_many :scatter_groups
+  has_one :scatter_plot
+  has_many :color_pallettes
 
   before_destroy :delete_associated_s3_data
+  
+  def scatter_plot_attributes=(fields)
+    scatter_plot = build_scatter_plot(fields)
+  end
+
+  def scatter_group_attributes=(group_fields)
+    group_fields.each do |batch,name|
+      field = {
+                :simulation_batch_id=>batch.to_i,
+                :name => name
+              }
+      scatter_groups.build(field)
+    end
+  end
 
   def project
     simulation_batch_list.simulation_batches.first.project
@@ -122,17 +137,17 @@ class SimulationBatchReport < ActiveRecord::Base
         xml.tbl_groups ""
         scen_names = ""
         xml.tbl_scenariogroups{
-          self.simulation_batch_list.simulation_batches.each do |sb|
-            xml.entry(:scenario => sb.scenario.name, :group => "")
-            scen_names += sb.scenario.name + ","      
+          self.scatter_groups.each do |sg|
+            xml.entry(:scenario => sg.simulation_batch.scenario.name, :group => sg.name)
+            scen_names += sg.simulation_batch.scenario.name + ","      
           end
 
         }
         
         xml.cmb_xaxis_subnetwork self.scatter_plot.x_axis_type
-        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_quantity
+        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_scope
         xml.cmb_yaxis_subnetwork self.scatter_plot.y_axis_type
-        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_quantity
+        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_scope
         xml.scenarios_old scen_names[0,scen_names.length-1]
         xml.datafiles_old ""
         xml.BatchList {

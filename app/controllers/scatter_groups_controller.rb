@@ -1,0 +1,2 @@
+class ScatterGroupsController < ApplicationController
+end
