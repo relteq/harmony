@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-class ColorPalleteTest < ActiveSupport::TestCase
+class ColorPaletteTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
