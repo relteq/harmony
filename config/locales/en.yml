@@ -995,12 +995,19 @@ en:
   
   notice_update_not_successful: Update not successful.
   
+  field_url_user_specified: User-Specified URL
+  field_url_uploaded: File Uploaded URL
   field_data_type: File Type
   field_data_format: File Format
   field_file_upload: File Upload
+  field_file_url: Copy Data URL
+  field_file_reference: Data File Reference
+  label_A: A.
+  label_B: B.
+  measurement_data_one_or_other_url_specified: You must enter a data file url, upload a data file, or do both.
   measurement_data_default_file_format: pems
-  measurement_data_successful_upload: Your file was successfully uploaded.
-  measurement_data_not_successful_upload: Your file was not successfully uploaded.
+  measurement_data_successful_upload: Your measurement data record was successfully uploaded and created.
+  measurement_data_not_successful_upload: Your measurement data record was not successfully created.
   measurement_datum: Measurement Datum
   measurement_datum_not_found: Measurement Datum not found. Action not successful.
   measurement_datum_delete_not_success: Measurement Datum delete not successful.

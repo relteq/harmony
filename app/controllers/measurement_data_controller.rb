@@ -38,20 +38,21 @@ class MeasurementDataController < ApplicationController
   end
   
   def create
-    begin
+    begin      
+      #create the object and set project
       mdat = MeasurementDatum.new(params[:measurement_data])
       mdat.project_id = @project.id
       mdat.user_id_creator = User.current.id
+      
+      if(mdat.save)
+          flash[:notice] = l(:measurement_data_successful_upload)
+      else
+          flash[:error] = mdat.errors.empty? ? l(:measurement_data_not_successful_upload) : mdat.errors.full_messages.to_sentence 
+      end
     rescue
       flash[:error] = l(:measurement_data_not_successful_upload)    
     end 
-    
-    if(mdat.save)
-        flash[:notice] = l(:measurement_data_successful_upload)
-    else
-        flash[:error] = mdat.errors.empty? ? l(:measurement_data_not_successful_upload) : mdat.errors.full_messages.to_sentence 
-    end
-    
+  
     respond_to do |format|
       format.html { redirect_to project_measurement_data_path(@project) }
     end

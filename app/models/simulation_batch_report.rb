@@ -17,6 +17,7 @@ class SimulationBatchReport < ActiveRecord::Base
 
   before_destroy :delete_associated_s3_data
   
+    
   def scatter_plot_attributes=(fields)
     scatter_plot = build_scatter_plot(fields)
   end

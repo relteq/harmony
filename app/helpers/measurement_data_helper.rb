@@ -37,7 +37,7 @@ module MeasurementDataHelper
   def get_url_for_file(mdat)
     link = mdat.s3_url #s3_url will also set valid url to make sure you were able to locate file in s3
     if(mdat.valid_url)
-       return link_to(l(:relteq_s3_link_to_file), link)
+       return link_to(l(:relteq_s3_link_to_file), link, :target => :blank)
     end
     return link
   end
