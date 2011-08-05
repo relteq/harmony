@@ -84,9 +84,10 @@
 		spNoRecords.remove();
 
 		sims = jQuery("input[name='sim_ids[]']:checked");
+		sims_remove = jQuery("input[name='sim_ids[]']");
 		
 		//first remove all previous records
-		sims.each(function(){
+		sims_remove.each(function(){
 		  //split the checkbox id from id:name
 			var split = jQuery(this).val().split(':');
 			var sim_id = split[0];
