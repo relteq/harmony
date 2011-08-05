@@ -17,13 +17,23 @@
 		<%= f.text_field :data_format, :value => l(:measurement_data_default_file_format) %>
 	</p>
 	<p>
-		<label><%= l(:field_file_upload) %>:<span class='required'>*</span></label>
-		<%= s3_swf_upload_tag :initial_message => 'Select a Measurement Data file to upload', 
+		<label><%= l(:field_file_reference) %>:<span class='required'>*</span></label>
+	</p>
+	<p>
+		<label><%= l(:label_A) %> <%=l(:field_file_url) %>:</label>
+		<%= f.text_field :url_user_specified %>
+	</p>
+	<p><label>OR</label></p>
+	<p>
+		<label><%= l(:label_B) %> <%= l(:field_file_upload) %>:</label>
+		<%= s3_swf_upload_tag :initial_message => "Select a data file AND click the Upload link below.", 
 	                      :width => 500, 
 	                      :height => 40, 
 												:success => redirect_to_dbweb_import_url(@project.id, @user.id),
 												:selected => "jQuery('#measurement_data_url').val(filename);"
-	 %>
+	 	%>
 	</p>
+
 	<p><%= f.submit 'Save Data File Information' %> </p>
 <% end %>
+

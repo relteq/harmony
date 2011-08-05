@@ -2,12 +2,16 @@ class MeasurementDatum < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :data_type
   validates_presence_of :data_format
-  validates_presence_of :url
+  
   
   belongs_to :project
   before_destroy :delete_associated_s3_data
 
   attr_accessor :valid_url
+  
+  def validate
+    errors.add(:url, l(:measurement_data_one_or_other_url_specified)) if url_user_specified.blank? && url.blank?
+  end
   
   def creator
     begin

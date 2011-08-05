@@ -8,7 +8,8 @@
 	  <tr>    
 			<%= sort_header_tag('name', :caption => l(:field_name),:default_order => 'desc') %>
 			<th title=<%= l(:field_description) %>><%= l(:field_description) %></th>
-			<th title=<%= l(:field_url) %>><%= l(:field_url) %></th>
+			<th title=<%= l(:field_url_uploaded) %>><%= l(:field_url_uploaded) %></th>
+			<th title=<%= l(:field_url_user_specified) %>><%= l(:field_url_user_specified) %></th>
 			<%= sort_header_tag('data_type', :caption => l(:field_data_type),:default_order => 'desc') %>
 			<%= sort_header_tag('data_format', :caption => l(:field_data_format),:default_order => 'desc') %>
 			<%= sort_header_tag('created_at', :caption => l(:field_created_on),:default_order => 'desc') %>
@@ -19,14 +20,15 @@
 	<tbody>
  <% if @item_count == 0 %>
 	<tr>
-	<td colspan='6' >No records to display</td>
+	<td colspan='7' >No records to display</td>
 	</tr>
 <% else %>
 	<% @items_show.each_with_index do |mdat,i| %>
 	  <tr class="user active <%= i%2==0 ? 'odd' : 'even' %>">
 		<td  ><%=h mdat.name %></td>
 		<td  ><%=h mdat.description %></td>
-		<td  ><%= get_url_for_file(mdat) %></td>
+		<td  ><%= get_url_for_file(mdat) if !(mdat.url.blank?) %></td>
+		<td  ><%= link_to(l(:relteq_s3_link_to_file), mdat.url_user_specified, :target => :blank) if !(mdat.url_user_specified.blank?) %></td>
 		<td  ><%=h mdat.data_type %></td>
 		<td  ><%=h mdat.data_format %></td>
 	 	<td  ><%=h format_date_time(mdat.created_at) %></td>
