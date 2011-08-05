@@ -93,8 +93,8 @@
 			var sim_id = split[0];
 			var sim_name =  split[1];
 
-			jQuery('#sim_li_' + replaceAllSpaces(sim_name)).remove();
-			jQuery('#sim_group_' + replaceAllSpaces(sim_name)).remove();
+			jQuery('#sim_li_' + escapeAllPeriods(replaceAllSpaces(sim_name))).remove();
+			jQuery('#sim_group_' + escapeAllPeriods(replaceAllSpaces(sim_name))).remove();
 			
 			
 		});
@@ -136,11 +136,12 @@
 
   function replaceAllSpaces(str)
 	{
-		while(str.search(" ") != -1)
-		{
-				str = str.replace(" ", "-");
-		}
-		return str;
+		return str.replace(/ /g, "-");
+	}
+	
+	function escapeAllPeriods(str)
+	{
+		return str.replace(/\./g,'\\.')
 	}
   
   function validateAtLeastOneSimChecked(){
