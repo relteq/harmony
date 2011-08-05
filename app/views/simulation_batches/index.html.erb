@@ -68,7 +68,7 @@
 	<p class="pagination"><%= pagination_links_full @item_pages, @item_count %></p>
 <% end %>
 <script language="javascript">
-	var sims = jQuery("input[name='sim_ids[]']:checked");
+	var sims = new Array();
 	function processSimIds(){
 		//this maintains the list of batches on the Basics and Scatter Groups tab of report generator
 		
@@ -83,7 +83,8 @@
 		var spNoRecords = jQuery('#simulation-group-list-no-records');
 		spNoRecords.remove();
 
-	
+		sims = jQuery("input[name='sim_ids[]']:checked");
+		
 		//first remove all previous records
 		sims.each(function(){
 		  //split the checkbox id from id:name
