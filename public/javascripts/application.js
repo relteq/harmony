@@ -271,12 +271,16 @@ function hideOnLoad() {
 }
 
 Event.observe(window, 'load', hideOnLoad);
+var uri =  jQuery(location).attr('pathname');
+var uri_path = uri.substr(uri.indexOf('project'),uri.indexOf('configuration') + 12);
+var uri_config = "menu_" + uri_path.replace(/\//g,"_");	
+
 //  ******************* tree menu
 <!--//--><![CDATA[//><!--
 jQuery(document).ready(function() {
-  if(!Cookie.retrieve()) { 
-    Cookie.init({name: 'folders', expires: 90}); 
-  }
+    Cookie.init({name: uri_config, expires: 90, path: uri_path}); 
+ 
+
 
 	jQuery("#config-sidebar-root .category").click(function() {
 		var childid = "#" + jQuery(this).attr("childid");
@@ -302,9 +306,9 @@ jQuery(document).ready(function() {
     var tree_handler = jQuery(this);
     var tree_status = Cookie.getData(tree_handler.attr('id'));
     var tree = jQuery('#' + tree_handler.attr('childid'));
-		
+	
     if(tree_status == 'open') {
-      tree_handler.removeClass('cat_close').addClass('cat_open');
+  		tree_handler.removeClass('cat_close').addClass('cat_open');
       tree.css("display","block");
     } else if(tree_status == 'closed') {
       tree_handler.removeClass('cat_open').addClass('cat_close');
