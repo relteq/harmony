@@ -9,7 +9,6 @@ class SplitRatioProfileSet < ActiveRecord::Base
   
   has_many :split_ratio_profiles
   has_many :scenarios
-  
   after_update :save_splits
   
   def remove_from_scenario
@@ -37,6 +36,7 @@ class SplitRatioProfileSet < ActiveRecord::Base
   
   def save_splits
     split_ratio_profiles.each do |sr|
+      sr.profile = to_xml(sr.profile)
       sr.save(false)
     end
   end
@@ -52,5 +52,13 @@ class SplitRatioProfileSet < ActiveRecord::Base
       item.remove_from_scenario
       item.destroy
     end
+  end
+  
+  def to_xml(profile)
+    profile.split("\r\n").each do |entry|
+      #entry.gsub("[0-9]+)","<srm>")
+      entry.insert(-1,"<\/srm>")
+    end
+    return profile.to_s
   end
 end
