@@ -18,7 +18,7 @@ module MeasurementDataHelper
     # Don't try to interpolate filename into string here, it's a JS
     # variable not known until upload is complete
     %Q{
-        
+        upload_success = true;
         $('ajax-indicator').show();
         $j.getJSON("#{ENV['DBWEB_URL_BASE']}/import/measurement_data/" + filename + "?jsoncallback=?",
           { 

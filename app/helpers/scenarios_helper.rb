@@ -3,7 +3,6 @@ module ScenariosHelper
     # Don't try to interpolate filename into string here, it's a JS
     # variable not known until upload is complete
     %Q{
-        upload_success = true;
         var redirect_url = '#{edit_project_configuration_scenario_path(@project, {:id => '**S_ID**'})}';
         $('ajax-indicator').show();
         $j.getJSON("#{ENV['DBWEB_URL_BASE']}/import/scenario/" + filename + "?jsoncallback=?",
