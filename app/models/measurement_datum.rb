@@ -35,6 +35,14 @@ class MeasurementDatum < ActiveRecord::Base
     end
   end
 
+  def get_appropriate_url
+      link = s3_url #s3_url will also set valid url to make sure you were able to locate file in s3
+      if(valid_url && url_user_specified.blank?)
+         return link
+      end
+      return url_user_specified
+  end
+
   private
     def delete_associated_s3_data
         msg = AWS::S3::S3Object.find(url, S3SwfUpload::S3Config.bucket).delete

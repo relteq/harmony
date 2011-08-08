@@ -995,8 +995,9 @@ en:
   
   notice_update_not_successful: Update not successful.
   
-  field_url_user_specified: User-Specified URL
-  field_url_uploaded: File Uploaded URL
+  label_file_url_msg: If the file url exists and is valid, you may click on the name of the record to copy the file  url.
+  label_copy_box_header: Copy Link to Network Editor
+  label_upload_header:  Upload Measurement Data
   field_data_type: File Type
   field_data_format: File Format
   field_file_upload: File Upload
