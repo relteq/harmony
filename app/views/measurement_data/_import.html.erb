@@ -1,7 +1,7 @@
-<% form_for :measurement_data, :url => project_measurement_data_path(@project), :html => {:method => :post} do |f| %>
+<% form_for :measurement_data_form, :url => project_measurement_data_path(@project), :html => {:method => :post, :onsubmit => 'return check_form();'} do |f| %>
 	<p>
 		<label><%= l(:field_name) %>:<span class='required'>*</span></label>
-		<%= f.text_field :name %>
+		<%= f.text_field :name %> <span id='name_required' class='required_msg'></span>
 		<%= f.hidden_field :url %>
 	</p>
 	<p>
@@ -14,10 +14,10 @@
 	</p>
 	<p>
 		<label><%= l(:field_data_format) %>:<span class='required'>*</span></label>
-		<%= f.text_field :data_format, :value => l(:measurement_data_default_file_format) %>
+		<%= f.text_field :data_format, :value => l(:measurement_data_default_file_format) %> <span id='format_required' class='required_msg'></span>
 	</p>
 	<p>
-		<label><%= l(:field_file_reference) %>:<span class='required'>*</span></label>
+		<label><%= l(:field_file_reference) %>:<span class='required'>*</span></label> <span id='url_required' class='required_msg'></span>
 	</p>
 	<p>
 		<label><%= l(:label_A) %> <%=l(:field_file_url) %>:</label>
@@ -25,15 +25,44 @@
 	</p>
 	<p><label>OR</label></p>
 	<p>
-		<label><%= l(:label_B) %> <%= l(:field_file_upload) %>:</label>
+		<label><%= l(:label_B) %> <%= l(:field_file_upload) %>:</label> <span id='upload_not_pressed' class='required_msg'></span>
 		<%= s3_swf_upload_tag :initial_message => "Select a data file AND click the Upload link below.", 
 	                      :width => 500, 
 	                      :height => 40, 
 												:success => redirect_to_dbweb_import_url(@project.id, @user.id),
-												:selected => "jQuery('#measurement_data_url').val(filename);"
+												:selected => "jQuery('#measurement_data_form_url').val(filename);"
 	 	%>
 	</p>
 
 	<p><%= f.submit 'Save Data File Information' %> </p>
 <% end %>
+<script>
+	var upload_success = false;
+	function check_form()
+	{
+		jQuery('#name_required').text('');
+		jQuery('#format_required').text('');
+		jQuery('#url_required').text('');
 
+		var isValid = true;
+		if(jQuery('#measurement_data_form_name').val() == ''){
+			jQuery('#name_required').text('Name Required');
+			isValid = false;
+		}
+		if(jQuery('#measurement_data_form_data_format').val() == ''){
+			jQuery('#format_required').text('File Format Required');
+			isValid = false;
+		}
+		if(jQuery('#measurement_data_form_url_user_specified').val() == '' && jQuery('#measurement_data_form_url').val() == ''){
+			jQuery('#url_required').text('File URL Required');
+			isValid = false;
+		}
+		if(jQuery('#measurement_data_form_url_user_specified').val() == '' && jQuery('#measurement_data_form_url').val() != '' && upload_success == false){
+			jQuery('#upload_not_pressed').text('You must press the upload link below to Upload the file to the server BEFORE saving this record.');
+			isValid = false;
+		}
+			
+
+		return isValid;
+	}
+</script>
