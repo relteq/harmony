@@ -76,7 +76,7 @@ class MeasurementDataController < ApplicationController
 
   def update
     begin
-      MeasurementDatum.find(params[:id]).update_attributes(params[:measurement_data])
+      MeasurementDatum.find(params[:id]).update_attributes(params[:measurement_data_form])
       flash[:notice] = l(:notice_successful_update) 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:measurement_datum_not_found)
