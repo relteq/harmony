@@ -4,11 +4,11 @@ class CreateSignalPhases < ActiveRecord::Migration
       CREATE TABLE signal_phases (
         node_id INTEGER NOT NULL,
         phase INTEGER NOT NULL,
-        protected_flag BOOLEAN,
-        permissive_flag BOOLEAN,
+        protected BOOLEAN,
+        permissive BOOLEAN,
         yellow_time DECIMAL,
         red_clear_time DECIMAL,
-        mingreen_time DECIMAL,
+        min_green_time DECIMAL,
         lag BOOLEAN,
         recall BOOLEAN,
         FOREIGN KEY(node_id) 
