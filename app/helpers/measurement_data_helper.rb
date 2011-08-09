@@ -18,7 +18,7 @@ module MeasurementDataHelper
     # Don't try to interpolate filename into string here, it's a JS
     # variable not known until upload is complete
     %Q{
-        
+        upload_success = true;
         $('ajax-indicator').show();
         $j.getJSON("#{ENV['DBWEB_URL_BASE']}/import/measurement_data/" + filename + "?jsoncallback=?",
           { 
@@ -34,11 +34,12 @@ module MeasurementDataHelper
     }
   end
   
-  def get_url_for_file(mdat)
-    link = mdat.s3_url #s3_url will also set valid url to make sure you were able to locate file in s3
-    if(mdat.valid_url)
-       return link_to(l(:relteq_s3_link_to_file), link, :target => :blank)
+  def link_name_to_file_url_or_not(mdat)
+    if (mdat.get_appropriate_url.blank?)
+      return mdat.name
+    else
+      return link_to_function(mdat.name,"show_box('#{mdat.id}-url-copy');")
     end
-    return link
   end
+
 end

@@ -40,7 +40,7 @@ class MeasurementDataController < ApplicationController
   def create
     begin      
       #create the object and set project
-      mdat = MeasurementDatum.new(params[:measurement_data])
+      mdat = MeasurementDatum.new(params[:measurement_data_form])
       mdat.project_id = @project.id
       mdat.user_id_creator = User.current.id
       
@@ -76,7 +76,7 @@ class MeasurementDataController < ApplicationController
 
   def update
     begin
-      MeasurementDatum.find(params[:id]).update_attributes(params[:measurement_data])
+      MeasurementDatum.find(params[:id]).update_attributes(params[:measurement_data_form])
       flash[:notice] = l(:notice_successful_update) 
     rescue ActiveRecord::RecordNotFound
       flash[:error] = l(:measurement_datum_not_found)
