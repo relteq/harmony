@@ -8,6 +8,9 @@ class CreateSignalPhases < ActiveRecord::Migration
         permissive_flag BOOLEAN,
         yellow_time DECIMAL,
         red_clear_time DECIMAL,
+        mingreen_time DECIMAL,
+        lag BOOLEAN,
+        recall BOOLEAN,
         FOREIGN KEY(node_id) 
           REFERENCES node_families(id) 
           ON DELETE CASCADE,
