@@ -40,7 +40,7 @@ class MeasurementDataController < ApplicationController
   def create
     begin      
       #create the object and set project
-      mdat = MeasurementDatum.new(params[:measurement_data])
+      mdat = MeasurementDatum.new(params[:measurement_data_form])
       mdat.project_id = @project.id
       mdat.user_id_creator = User.current.id
       
