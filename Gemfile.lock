@@ -17,6 +17,7 @@ GEM
       xml-simple
     builder (3.0.0)
     edavis10-object_daddy (0.4.3)
+    haml (3.1.2)
     i18n (0.4.2)
     mime-types (1.16)
     mocha (0.9.12)
@@ -39,6 +40,7 @@ PLATFORMS
 DEPENDENCIES
   aws-s3
   edavis10-object_daddy
+  haml
   i18n (~> 0.4.2)
   mocha
   nokogiri (~> 1.4.3)
