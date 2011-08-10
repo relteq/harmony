@@ -21,22 +21,19 @@ class SplitRatioProfileSet < ActiveRecord::Base
   end
   
   def split_ratio_profiles=(splits)
-    if(split_ratio_profiles.empty?)
-      splits.each do |attributes|
+    split_ratio_profiles.drop(split_ratio_profiles.count) # you need to drop them all in case network changed on update
+    splits.each do |attributes|
         srp = SplitRatioProfile.find(attributes[:id].to_i)
+        attributes.delete :id  #won't do mass assignment with id present
         srp.attributes = attributes
-      end
-    else
-      splits.each do |attributes|
-        srp = split_ratio_profiles.detect { |s| s.id == attributes[:id].to_i }
-        srp.attributes = attributes
-      end
+        srp.profile =  to_xml(srp.profile)
+        srp.split_ratio_profile_set_id = id
+        split_ratio_profiles.push(srp)
     end
   end
   
   def save_splits
     split_ratio_profiles.each do |sr|
-      sr.profile = to_xml(sr.profile)
       sr.save(false)
     end
   end
@@ -55,10 +52,12 @@ class SplitRatioProfileSet < ActiveRecord::Base
   end
   
   def to_xml(profile)
-    profile.split("\r\n").each do |entry|
-      #entry.gsub("[0-9]+)","<srm>")
-      entry.insert(-1,"<\/srm>")
+    items = Array.new
+    profile.split("\n").each do |entry|
+      entry.insert(0,"<srm>")
+      entry = entry + "</srm>"
+      items.push(entry)
     end
-    return profile.to_s
+    return items.to_s
   end
 end

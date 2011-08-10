@@ -21,9 +21,11 @@ class EventSet < ActiveRecord::Base
   end
   
   def events=(items)
-    remove_event_set_id_from_events
+    events.drop(events.count)
     items.each do |attributes|
       e = Event.find(attributes[:id].to_i)
+      attributes.delete :id  #won't do mass assignment with id present
+      e.attributes = attributes
       e.event_set_id = id
       events.push(e)
     end
@@ -46,12 +48,5 @@ class EventSet < ActiveRecord::Base
       item.destroy
     end
   end
-  
-  private
-    def remove_event_set_id_from_events
-      events.each do |e|
-        e.event_set_id = nil
-        e.save(false)
-      end
-    end 
+   
 end
