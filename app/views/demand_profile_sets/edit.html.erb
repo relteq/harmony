@@ -5,7 +5,7 @@
 <h2><%= link_to l(:label_demand_profile_sets), project_configuration_demand_profile_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:demand_profiles_edit) %></h2>
 
 
-<% labelled_tabular_form_for :demand_profile_set, @dpset, :url => {:action => "update" }, :html => { :method => :put } do |f| %>
+<% labelled_tabular_form_for :demand_profile_set, @dpset, :url => {:action => "update" }, :html => { :method => :put  } do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
 		<%= submit_tag l(:button_update) %>

@@ -71,9 +71,8 @@ protected
   end
   
   
-  
-  def get_network_dependent_table_items(sets,subitems,sort_attribute,sid)
-    get_items(sid,sets,subitems)
+  def get_network_dependent_table_items(sets,subitems,profiles,sort_attribute,sid)
+    get_items(sid,profiles,subitems)
     set_up_sort(sort_attribute)
     set_up_pagination
   end
@@ -149,20 +148,20 @@ protected
     subs = sort[0].split('.')
 
     if(subs.length == 2)
-      @items.sort! { |a,b|  a.send(subs[0]).send(subs[1]) <=> b.send(subs[0]).send(subs[1]) } 
+      @items.sort! { |a,b|  a.send(subs[0]).send("name") <=> b.send(subs[0]).send("name") } 
     else
       @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
     end
-      
-    if(sort[1] == 'DESC')
+    
+    if(sort[1] == 'DESC' || (params[:sort_update] != nil && params[:sort_update] == 'desc'))
       @items.reverse!
     end
   
   end
   
-  def get_items(sid,sets,subitems)
+  def get_items(sid,profiles,subitems)
     @items = Array.new
-    Network.find(sid).send(sets).each { |cs|
+    Network.find(sid).send(profiles).each { |cs|
        cs.send(subitems).each { |c|
          @items.push(c) 
        }   

@@ -22,7 +22,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@dpset,DemandProfile)
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@dpset.network_id)   
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@dpset.network_id)   
 
 
     respond_to do |format|
@@ -88,7 +88,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       status = 403
     end
     @nid = require_network_id
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@nid)
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -101,7 +101,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def populate_table
     @nid = require_network_id
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','link.type_link',@nid)   
+    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)   
   
     respond_to do |format|
       format.js
@@ -134,7 +134,7 @@ private
     elsif(params[:network_id] != nil) #coming from sort header for either new/edit
       network_id = params[:network_id]
     end
-    
+
     if(network_id == nil)
       return not_found_redirect_to_index(l(:label_no_network_id))
     end

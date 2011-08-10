@@ -365,7 +365,7 @@ module ConfigurationsHelper
      if @sort_criteria.first_asc?
        css = 'sort asc'
        order = 'desc'
-     else
+     else    
        css = 'sort desc'
        order = 'asc'
      end
@@ -374,6 +374,8 @@ module ConfigurationsHelper
    caption = column.to_s.humanize unless caption
 
    sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
+   @preserve_sort_on_update_delete = (sort_options[:sort].split(":")[1] == nil ? 'desc' : 'asc')
+
    # don't reuse params if filters are present
    url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
    url = create_url(url) + sort_options.to_query
@@ -383,6 +385,7 @@ module ConfigurationsHelper
                   { :href => url_for(url_options),
                    :class => css})               
   end
+
 
   def create_url(url)
     if url.include? "?"

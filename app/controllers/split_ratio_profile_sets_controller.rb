@@ -22,7 +22,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@srpset,SplitRatioProfile)
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@srpset.network_id)   
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','nodes','node.name',@srpset.network_id)   
 
     respond_to do |format|
      format.html { render :layout => !request.xhr? } 
@@ -88,7 +88,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
       status = 403
     end
     @nid = require_network_id
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@nid)
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','nades','node.name',@nid)
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -102,7 +102,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
  
   def populate_table
     @nid = require_network_id
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','node.name',@nid)    
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','nodes','node.name',@nid)    
   
     respond_to do |format|
       format.js
