@@ -4,6 +4,6 @@ module SplitRatioProfileSetsHelper
   end
 
   def strip_xml_entry(r,index)
-    r.gsub("<srm>", (index+1).to_s + ") ").strip.insert(-1,"\n")
+    r.gsub("<srm>","").strip.insert(-1,"\n")
   end
 end

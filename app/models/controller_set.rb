@@ -19,16 +19,13 @@ class ControllerSet < ActiveRecord::Base
   end
   
   def controllers=(controls)
-    if(controllers.empty?)
-      controls.each do |attributes|
-        con = Controller.find(attributes[:id].to_i)
-        con.attributes = attributes
-      end
-    else
-      controls.each do |attributes|
-        con = controllers.detect { |c| c.id == attributes[:id].to_i }
-        con.attributes = attributes
-      end
+    controllers.drop(controllers.count)
+    controls.each do |attributes|
+      con = Controller.find(attributes[:id].to_i)
+      attributes.delete :id  #won't do mass assignment with id present
+      con.attributes = attributes
+      con.controller_set_id = id
+      controllers.push(con)
     end
   end
   

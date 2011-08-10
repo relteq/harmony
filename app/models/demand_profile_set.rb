@@ -22,16 +22,13 @@ class DemandProfileSet < ActiveRecord::Base
   end
   
   def demand_profiles=(demands)
-    if(demand_profiles.empty?)
-      demands.each do |attributes|
+    demand_profiles.drop(demand_profiles.count)
+    demands.each do |attributes|
         dp = DemandProfile.find(attributes[:id].to_i)
+        attributes.delete :id  #won't do mass assignment with id present
         dp.attributes = attributes
-      end
-    else
-      demands.each do |attributes|
-        dp = demand_profiles.detect { |d| d.id == attributes[:id].to_i }
-        dp.attributes = attributes
-      end
+        dp.demand_profile_set_id = id
+        demand_profiles.push(dp)
     end
   end
   

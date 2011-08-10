@@ -29,7 +29,7 @@
 					<td><%=h item.event_type %></td>
 					<td><%=h item.description %></td>
 					<td><%=h item.display_time_from_string(item.time) %></td>
-					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_event_sets_path(@project, :event_set_id => @eset, :event_id=>item.id,:network_id=>@nid || @eset.network_id), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_event_sets_path(@project, :event_set_id => @eset, :event_id=>item.id,:network_id=>@nid || @eset.network_id,:sort_update=>@preserve_sort_on_update_delete ), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				</tr>
 				<% end %>
 			<% end %>

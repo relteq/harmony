@@ -21,18 +21,15 @@ class CapacityProfileSet < ActiveRecord::Base
   end
   
   def capacity_profiles=(capacities)
-     if(capacity_profiles.empty?)
-       capacities.each do |attributes|
-         cp = CapacityProfile.find(attributes[:id].to_i)
-         cp.attributes = attributes
-       end
-     else
-       capacities.each do |attributes|
-         cp = capacity_profiles.detect { |c| c.id == attributes[:id].to_i }
-         cp.attributes = attributes
-       end
-     end
-   end
+    capacity_profiles.drop(capacity_profiles.count)
+    capacities.each do |attributes|
+      cp = CapacityProfile.find(attributes[:id].to_i)
+      attributes.delete :id  #won't do mass assignment with id present
+      cp.attributes = attributes
+      cp.capacity_profile_set_id = id
+      capacity_profiles.push(cp)
+    end
+  end
 
    def save_capacities
      capacity_profiles.each do |c|
