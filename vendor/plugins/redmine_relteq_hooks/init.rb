@@ -30,7 +30,7 @@ Redmine::Plugin.register :redmine_relteq_hooks do
   
   project_module :measurement_data do
     permission :create_measurement_data, :measurement_data => [:new, :create]
-    permission :view_measurement_data, :measurement_data => [:show, :index]
+    permission :view_measurement_data, :measurement_data => [:show, :index, :interactive_viewer]
     permission :edit_measurement_data, :measurement_data => [:update, :destroy]
     menu :project_menu, :measurement_data, {:controller => 'measurement_data', :action => 'index'}, :caption => 'Measurement Data', :param => :project_id, :after => :simulation_batch_reports
   end
