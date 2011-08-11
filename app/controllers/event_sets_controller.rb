@@ -47,7 +47,7 @@ class EventSetsController <  ConfigurationsApplicationController
   def update
     if(@eset.update_attributes(params[:event_set]))
       redirect_save_success(:event_set,
-        edit_project_configuration_event_set_path(@project, @eset))
+        edit_project_configuration_event_set_path(@project, @eset,:sort_update=> params[:sort_update])))
     else
       redirect_save_error(:event_set,:edit,@eset,Event)
     end
