@@ -2,6 +2,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
+  before_filter :set_no_sort, :only => [:update,:delete_item]
 
   def index
     get_index_view(@dprofilesets)
@@ -21,6 +22,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def edit
+    logger.debug("3. EDIT:: " +  params[:no_sort].to_s)
     set_up_network_select(@dpset,DemandProfile)
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@dpset.network_id)   
 
@@ -45,7 +47,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def update
     if(@dpset.update_attributes(params[:demand_profile_set]))
       redirect_save_success(:demand_profile_set,
-        edit_project_configuration_demand_profile_set_path(@project,@dpset,:sort_update=> params[:sort_update]))
+        edit_project_configuration_demand_profile_set_path(@project,@dpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
     else
       redirect_save_error(:demand_profile_set,:edit,@dpset,DemandProfile)
     end
@@ -88,6 +90,9 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       status = 403
     end
     @nid = require_network_id
+    logger.debug "params[no sort]:: " + params[:no_sort]
+    logger.debug "params[order sort]:: " + params[:order_sort]
+    
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)
     
     respond_to do |format|  
@@ -145,4 +150,9 @@ private
   def object_sym
     :demand_profile_set
   end
+  
+  private
+    def set_no_sort
+      params[:no_sort] = 'true'
+    end
 end

@@ -40,7 +40,7 @@ class DemandProfileSet < ActiveRecord::Base
  
   def self.delete_profile(demand)
     dp = DemandProfile.find_by_id(demand)
-    dp.destroy
+    #dp.destroy
   end 
   
   def self.delete_all(collection)

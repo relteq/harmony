@@ -142,18 +142,21 @@ protected
     end
   
   def set_up_sort(sort_attribute)
+     
     sort_init sort_attribute, 'asc'
     sort_update [sort_attribute]
     sort = sort_clause.split(/,* /)
     subs = sort[0].split('.')
 
+
+    
     if(subs.length == 2)
       @items.sort! { |a,b|  a.send(subs[0]).send("name") <=> b.send(subs[0]).send("name") } 
     else
       @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
     end
     
-    if(sort[1] == 'DESC' || (params[:sort_update] != nil && params[:sort_update] == 'desc'))
+    if(sort[1] == 'DESC' || (params[:no_sort] == 'true' && params[:order_sort] == 'desc'))
       @items.reverse!
     end
   
