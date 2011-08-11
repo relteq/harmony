@@ -74,13 +74,13 @@ h2 {
 }
 
 #y-axis-slider {
-  height: 400px;
+  height: 450px;
 }
 
 #x-axis-slider-container {
   padding-left: 30px;
   font-size: 0.8em;
-  width: 50%;
+  width: 600px;
 }
 
 #debug-log {

@@ -73,6 +73,10 @@ class SimulationBatchReport < ActiveRecord::Base
   def export_ppt_url
     AWS::S3::S3Object.url_for(ppt_key, s3_bucket) if !(s3_bucket.nil?)
   end
+
+  def load_xml_url
+    Dbweb.report_xml_url(self)
+  end
   
   #this is used to populate the Report Generator form
   #with default values as well as set up the report with default values before updating and saving

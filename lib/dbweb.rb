@@ -26,6 +26,16 @@ module Dbweb
                        auth.escaped_token
     end
 
+    def report_xml_url(report)
+      auth = DbwebAuthorization.get_for(
+        report, 
+        :expiration => Time.now.utc + 3.days
+      )
+      ENV['DBWEB_URL_BASE'] +
+        "/reports/#{report.id}/report_xml" +
+        "?access_token=#{auth.escaped_token}&jsoncallback=?"
+    end
+
     def object_duplicate_url(object, options = {})
       # Needs longer expiration because it is created
       # on an unrelated page load

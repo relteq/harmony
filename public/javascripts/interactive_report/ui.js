@@ -1,4 +1,5 @@
 $(function() {
+  ReportViewerData.xmlLoad(report_url);
   $("#x-axis-slider").slider();
   $("#y-axis-slider").slider({ 
     orientation: 'vertical' 
@@ -38,7 +39,7 @@ $(function() {
   for(var row = 0; row < 150; row++) {
     for(var col = 0; col < 150; col++) {
       var i = (row * 150) + col;
-      var rect = raphaels['r1'].rect(6*col,3*row,6,3);
+      var rect = raphaels['r1'].rect(4*col,3*row,4,3);
       rect.blockx = col;
       rect.blocky = row;
       rect.intensity = x[i];
@@ -49,6 +50,7 @@ $(function() {
         $("#debug-log").append("(" + this.blockx + ", "
                              + this.blocky + ") = "
                              + Math.floor(this.intensity*100)/100 + "; ");
+
       });
       rect.hover(function(event) {
         this.toFront();
@@ -59,4 +61,5 @@ $(function() {
       rects[i] = rect;
     }
   }
+
 });
