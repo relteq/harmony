@@ -160,7 +160,8 @@ ActionController::Routing::Routes.draw do |map|
 
     project.resources :simulation_batch_reports,
                       :collection => [:report_gen],
-                      :only => [:index,:create,:update,:show,:destroy] 
+                      :member => [:interactive_viewer],
+                      :except => :edit 
     
     project.resources :simulation_batches,
                       :only => [:index,:create,:update,:show,:destroy] 

@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title Interactive Report Viewer: #{@report.name}
+    = stylesheet_link_tag 'jquery-ui-1.8.15.custom'
+    = stylesheet_link_tag 'interactive_report'
+    = javascript_include_tag 'jquery-1.6.2.min'
+    = javascript_include_tag 'jquery-ui-1.8.15.custom.min'
+    = javascript_include_tag 'raphael'
+    = javascript_include_tag 'interactive_report/ui'
+    %script{:type => "text/javascript",
+            :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
+  %body
+    #map-view
+    #three-d-graph-container
+      #y-axis-slider-container
+        #y-axis-slider
+      %span#three-d-graph
+      #x-axis-slider-container
+        #x-axis-slider
+    #debug-log
+      %h2 Log
+      %button#log-sliders Log Slider Values
+      %br

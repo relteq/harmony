@@ -1,0 +1,94 @@
+@import url(http://fonts.googleapis.com/css?family=Actor);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+h2 {
+  padding: .5em;
+  font-weight: bold;
+  font-family: "Actor", "Helvetica", "Verdana", "Arial";
+}
+
+#map-view {
+  width: 84%;
+  height: 400px;
+  margin-left: 8%;
+}
+
+#three-d-graph-container {
+  padding-top: 10px;
+  margin-left: 8%;
+}
+
+#three-d-graph {
+  display: inline;
+}
+
+#y-axis-slider-container {
+  display: inline-block;
+  padding: 10px !important;
+  font-size: 0.8em;
+  width: 10px;
+}
+
+#y-axis-slider {
+  height: 400px;
+}
+
+#x-axis-slider-container {
+  padding-left: 30px;
+  font-size: 0.8em;
+  width: 50%;
+}
+
+#debug-log {
+  margin: 40px;
+  border: 1px black solid;
+  padding-bottom: 10px;
+}
+
+#debug-log {
+  font-family: "Droid Sans Mono", sans-serif;
+}

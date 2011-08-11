@@ -49,6 +49,12 @@ class SimulationBatchReportsController < ApplicationController
     end
   end
 
+  def interactive_viewer
+    @report = SimulationBatchReport.find(params[:id])
+
+    render :layout => false 
+  end
+
   def destroy
     begin
       sim_batch_report =  SimulationBatchReport.find(params[:id])
