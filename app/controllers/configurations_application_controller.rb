@@ -170,4 +170,8 @@ protected
        }   
     }
   end
+  
+  def set_no_sort
+      params[:no_sort] = 'true'
+  end
 end

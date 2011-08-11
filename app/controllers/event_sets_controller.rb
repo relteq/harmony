@@ -3,7 +3,8 @@ class EventSetsController <  ConfigurationsApplicationController
   before_filter :populate_event_set_if_exists, :only => [:delete_item, :populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
-
+  before_filter :set_no_sort, :only => [:update,:delete_item]
+  
   def index
     get_index_view(@eventsets)
   end
@@ -47,7 +48,7 @@ class EventSetsController <  ConfigurationsApplicationController
   def update
     if(@eset.update_attributes(params[:event_set]))
       redirect_save_success(:event_set,
-        edit_project_configuration_event_set_path(@project, @eset,:sort_update=> params[:sort_update])))
+        edit_project_configuration_event_set_path(@project, @eset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
     else
       redirect_save_error(:event_set,:edit,@eset,Event)
     end

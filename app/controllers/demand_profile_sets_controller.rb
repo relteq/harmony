@@ -22,7 +22,6 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def edit
-    logger.debug("3. EDIT:: " +  params[:no_sort].to_s)
     set_up_network_select(@dpset,DemandProfile)
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@dpset.network_id)   
 
@@ -89,10 +88,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_profile_not_deleted)
       status = 403
     end
-    @nid = require_network_id
-    logger.debug "params[no sort]:: " + params[:no_sort]
-    logger.debug "params[order sort]:: " + params[:order_sort]
-    
+    @nid = require_network_id 
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)
     
     respond_to do |format|  
@@ -150,9 +146,4 @@ private
   def object_sym
     :demand_profile_set
   end
-  
-  private
-    def set_no_sort
-      params[:no_sort] = 'true'
-    end
 end

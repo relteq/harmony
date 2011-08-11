@@ -2,6 +2,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_srpset, :only => [:edit, :update, :destroy, :flash_edit]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
+  before_filter :set_no_sort, :only => [:update,:delete_item]
  
   def index
     get_index_view(@sprofilesets)
@@ -45,7 +46,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
     
     if(@srpset.update_attributes(params[:split_ratio_profile_set]))
      redirect_save_success(:split_ratio_profile_set,
-      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset,:sort_update=> params[:sort_update])))
+      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
     else
      redirect_save_error(:split_ratio_profile_set,:edit,@srpset,SplitRatioProfile)
     end
@@ -88,7 +89,7 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
       status = 403
     end
     @nid = require_network_id
-    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','nades','node.name',@nid)
+    get_network_dependent_table_items('split_ratio_profile_sets','split_ratio_profiles','nodes','node.name',@nid)
     
     respond_to do |format|  
       format.js {render :status => status}    
