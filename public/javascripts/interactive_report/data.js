@@ -33,11 +33,6 @@ ReportViewer.Data = {
     var zl = zdata.length;
     var minZ = Math.min.apply(null, zdata);
     var maxZ = Math.max.apply(null, zdata);
-    console.log("minZ = " + minZ);
-    console.log("maxZ = " + maxZ);
-    console.log(xl);
-    console.log(yl);
-    console.log(zl);
     zdata = ReportViewer.Data.normalizeArray(zdata);
     return [xdata,ydata,zdata];
   },
@@ -48,9 +43,7 @@ ReportViewer.Data = {
       dataType: 'jsonp',
       success: function(data) {
         ReportViewer.Data.the_data = $($.parseXML(data.xml));
-        console.log(ReportViewer.Data.the_data);
         var contour = ReportViewer.Data.getOneContour();
-        console.log(contour);
         var axes_data = ReportViewer.Data.loadXYZ(contour);
         ReportViewer.UI.populateGraphs(
           axes_data[0], 
