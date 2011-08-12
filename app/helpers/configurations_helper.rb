@@ -419,6 +419,13 @@ module ConfigurationsHelper
     url_param = params.dup
     # don't reuse query params if filters are present
     url_param.merge!(:fields => nil, :values => nil, :operators => nil) if url_param.delete(:set_filter)
+ 
+    if params[:action] == 'delete_item' #in order to avoid the pagination link going to delete_item I siwtch it to populate table
+      url_param.delete :action 
+      url_param[:action] = 'populate_table'
+      params[:action] = 'populate_table' 
+    end
+    
 
     html = ''
     if paginator.current.previous
