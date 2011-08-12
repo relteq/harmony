@@ -51,6 +51,14 @@ h2 {
   font-family: "Actor", "Helvetica", "Verdana", "Arial";
 }
 
+#x-axis-slider .ui-slider-handle {
+  width: 10px !important;
+}
+
+#y-axis-slider .ui-slider-handle {
+  height: 10px !important;
+}
+
 #map-view {
   width: 84%;
   height: 400px;
@@ -66,15 +74,20 @@ h2 {
   display: inline;
 }
 
-#y-axis-slider-container {
-  display: inline-block;
-  padding: 10px !important;
-  font-size: 0.8em;
-  width: 10px;
+#two-d-graphs {
+  width: 200px;
 }
 
-#y-axis-slider {
-  height: 450px;
+#xz-chart, #yz-chart {
+  width: 200px;
+  height: 200px;
+}
+
+#y-axis-slider-container {
+  display: inline-block;
+  font-size: 0.8em;
+  padding-right: 10px;
+  width: 10px;
 }
 
 #x-axis-slider-container {
@@ -84,11 +97,8 @@ h2 {
 }
 
 #debug-log {
-  margin: 40px;
   border: 1px black solid;
+  margin: 40px;
   padding-bottom: 10px;
-}
-
-#debug-log {
   font-family: "Droid Sans Mono", sans-serif;
 }
