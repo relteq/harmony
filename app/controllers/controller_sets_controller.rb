@@ -23,7 +23,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def update
     if(@cset.update_attributes(params[:controller_set]))
-      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
+      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset,@sort_params))
     else
       redirect_save_error(:controller_set,:new,@cset,ControllerSet)
     end

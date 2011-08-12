@@ -43,10 +43,9 @@ class SplitRatioProfileSetsController <  ConfigurationsApplicationController
   end
 
   def update
-    
     if(@srpset.update_attributes(params[:split_ratio_profile_set]))
      redirect_save_success(:split_ratio_profile_set,
-      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
+      edit_project_configuration_split_ratio_profile_set_path(@project, @srpset,@sort_params))
     else
      redirect_save_error(:split_ratio_profile_set,:edit,@srpset,SplitRatioProfile)
     end

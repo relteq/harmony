@@ -44,7 +44,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   def update
     if(@cpset.update_attributes(params[:capacity_profile_set]))
       redirect_save_success(:capacity_profile_set,
-        edit_project_configuration_capacity_profile_set_path(@project, @cpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
+        edit_project_configuration_capacity_profile_set_path(@project, @cpset,@sort_params))
     else
       redirect_save_error(:capacity_profile_set,:edit,@cpset,CapacityProfile)
     end

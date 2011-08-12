@@ -31,7 +31,7 @@
 					<td><%= item_form.text_area :profile,:size=> "35x5", :index => nil %></td>
 		 			<td><%= item_form.text_field :knob,:size => 22, :index => nil  %></td>
 		 			<td><%= item_form.text_field :dt, :size => 8, :index => nil %></td>	
-					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_demand_profile_sets_path(@project, :demand_profile_id=>item.id,:network_id=>@nid || @dpset.network_id,:order_sort =>  @order_sort), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_demand_profile_sets_path(@project, :demand_profile_id=>item.id,:network_id=>@nid || @dpset.network_id,:order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				
 		  	</tr>
 			  <% end %>

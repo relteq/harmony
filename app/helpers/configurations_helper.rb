@@ -372,7 +372,7 @@ module ConfigurationsHelper
      end
    end
    
-   if(params[:no_sort] == 'true')
+   if(params[:no_sort])
      if params[:order_sort] == 'desc'
         css = 'sort desc'
         order = 'asc'    

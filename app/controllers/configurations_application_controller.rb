@@ -156,7 +156,7 @@ protected
       @items.sort! { |a,b|  a.send(sort[0]) <=> b.send(sort[0]) } 
     end
     
-    if(sort[1] == 'DESC' || (params[:no_sort] == 'true' && params[:order_sort] == 'desc'))
+    if(sort[1] == 'DESC' || (params[:no_sort] && params[:order_sort] == 'desc'))
       @items.reverse!
     end
   
@@ -172,6 +172,7 @@ protected
   end
   
   def set_no_sort
-      params[:no_sort] = 'true'
+      params[:no_sort] = true
+      @sort_params = {:no_sort =>  params[:no_sort],:order_sort => params[:order_sort],:page => params[:page]}
   end
 end

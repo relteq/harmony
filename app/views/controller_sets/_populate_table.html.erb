@@ -30,7 +30,7 @@
 					</td>
 					<td><%=h item.controller_name %></td>
 		 			<td><%=h item.display_time_from_string(item.dt) %></td>	
-					<td class="actions" ><%= link_to_remote '',:url => delete_item_project_configuration_controller_sets_path(@project, :controller_id=>item.id,:network_id=>@nid || @cset.network_id,:order_sort =>  @order_sort), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions" ><%= link_to_remote '',:url => delete_item_project_configuration_controller_sets_path(@project, :controller_id=>item.id,:network_id=>@nid || @cset.network_id,:order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				
 		  	</tr>
 			  <% end %>

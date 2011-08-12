@@ -46,7 +46,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def update
     if(@dpset.update_attributes(params[:demand_profile_set]))
       redirect_save_success(:demand_profile_set,
-        edit_project_configuration_demand_profile_set_path(@project,@dpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
+        edit_project_configuration_demand_profile_set_path(@project,@dpset,@sort_params))
     else
       redirect_save_error(:demand_profile_set,:edit,@dpset,DemandProfile)
     end
