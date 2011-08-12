@@ -2,6 +2,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
+  before_filter :set_no_sort, :only => [:update,:delete_item]
 
   def index
     get_index_view(@dprofilesets)
@@ -45,7 +46,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def update
     if(@dpset.update_attributes(params[:demand_profile_set]))
       redirect_save_success(:demand_profile_set,
-        edit_project_configuration_demand_profile_set_path(@project,@dpset))
+        edit_project_configuration_demand_profile_set_path(@project,@dpset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
     else
       redirect_save_error(:demand_profile_set,:edit,@dpset,DemandProfile)
     end
@@ -87,7 +88,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_profile_not_deleted)
       status = 403
     end
-    @nid = require_network_id
+    @nid = require_network_id 
     get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)
     
     respond_to do |format|  

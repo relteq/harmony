@@ -361,6 +361,7 @@ module ConfigurationsHelper
   def sort_link_relteq(column,caption, default_order,url)
    css, order = nil, default_order
 
+
    if column.to_s == @sort_criteria.first_key
      if @sort_criteria.first_asc?
        css = 'sort asc'
@@ -370,16 +371,25 @@ module ConfigurationsHelper
        order = 'asc'
      end
    end
-
+   
+   if(params[:no_sort] == 'true')
+     if params[:order_sort] == 'desc'
+        css = 'sort desc'
+        order = 'asc'    
+      else    
+        css = 'sort asc'
+        order = 'desc'
+      end
+   end
+   
    caption = column.to_s.humanize unless caption
 
    sort_options = { :sort => @sort_criteria.add(column.to_s, order).to_param }
-   @preserve_sort_on_update_delete = (sort_options[:sort].split(":")[1] == nil ? 'desc' : 'asc')
 
    # don't reuse params if filters are present
    url_options = params.has_key?(:set_filter) ? sort_options : params.merge(sort_options)
-   url = create_url(url) + sort_options.to_query
-   
+   url = create_url(url) + sort_options.to_query 
+   @order_sort = css.split(" ")[1]
    link_to_remote(caption,
                   { :url => url, :method => :get},
                   { :href => url_for(url_options),
@@ -409,6 +419,13 @@ module ConfigurationsHelper
     url_param = params.dup
     # don't reuse query params if filters are present
     url_param.merge!(:fields => nil, :values => nil, :operators => nil) if url_param.delete(:set_filter)
+ 
+    if params[:action] == 'delete_item' #in order to avoid the pagination link going to delete_item I siwtch it to populate table
+      url_param.delete :action 
+      url_param[:action] = 'populate_table'
+      params[:action] = 'populate_table' 
+    end
+    
 
     html = ''
     if paginator.current.previous

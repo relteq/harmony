@@ -2,6 +2,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
   before_filter :require_controller_set, :only => [:edit, :update, :destroy, :flash_edit]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
+  before_filter :set_no_sort, :only => [:update,:delete_item]
 
   def index
     get_index_view(@csets)
@@ -22,7 +23,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def update
     if(@cset.update_attributes(params[:controller_set]))
-      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset))
+      redirect_save_success(:controller_set, edit_project_configuration_controller_set_path(@project, @cset,:no_sort =>  params[:no_sort],:order_sort => params[:order_sort]))
     else
       redirect_save_error(:controller_set,:new,@cset,ControllerSet)
     end

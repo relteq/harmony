@@ -23,11 +23,7 @@ class EventSet < ActiveRecord::Base
   def events=(items)
     events.drop(events.count)
     items.each do |attributes|
-      e = Event.find(attributes[:id].to_i)
-      attributes.delete :id  #won't do mass assignment with id present
-      e.attributes = attributes
-      e.event_set_id = id
-      events.push(e)
+      events.push(attributes)
     end
   end
   
