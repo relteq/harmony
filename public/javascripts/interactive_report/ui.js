@@ -1,43 +1,46 @@
-ReportViewer.UI = {
-  plot_rect_size:  {
+ReportViewer.UI = (function(){
+  var plot_rect_size = {
     width: 6,
-    height: 4
-  },
+    height: 3
+  };
 
-  debug: true,
-  z_data: {},
-  crosshairs: {x: 0, y: 0},
+  var debug = true;
+  var z_data = {};
+  var crosshairs = {
+    x: 0, 
+    y: 0
+  };
 
-  adjustX: function(event, ui) {
-    if(ReportViewer.UI.debug) {
+  function adjustX(event, ui) {
+    if(debug) {
       $("#crosshair_x").text(ui.value || 0);
     }
-  },
+  }
 
-  adjustY: function(event, ui) {
-    if(ReportViewer.UI.debug) {
+  function adjustY(event, ui) {
+    if(debug) {
       $("#crosshair_y").text(ui.value || 0);
     }
-  },
+  }
 
-  populateGraphs: function(xdata,ydata,zdata) {
+  function populateGraphs(dataSource) {
     console.log(this);
-    this.z_data = zdata;
+    z_data = dataSource.nonAxisData();
 
     function floatToColor(f)
     {
       return 'hsb( ' + f.toFixed(4)*100.0/359.0 + ', .78, .93)';
     }
 
-    var xl = xdata.length;
-    var yl = ydata.length;
-    var zl = zdata.length;
+    var xl = dataSource.getVectorLength('x');
+    var yl = dataSource.getVectorLength('y');
+    var zl = dataSource.getVectorLength('z');
 
     $("#x-axis-slider").slider("option", "max", xl - 1);
     $("#y-axis-slider").slider("option", "max", yl - 1);
 
-    var total_width = this.plot_rect_size.width * xl;
-    var total_height = this.plot_rect_size.height * yl;
+    var total_width = plot_rect_size.width * xl;
+    var total_height = plot_rect_size.height * yl;
     
     $("#x-axis-slider").css("width", total_width + "px");
     $("#y-axis-slider").css("height", total_height + "px");
@@ -52,14 +55,14 @@ ReportViewer.UI = {
       for(var col = 0; col < xl; col++) {
         var i = (row * xl) + col;
         var rect = raphaels['r1'].rect(
-          this.plot_rect_size.width*col,
-          this.plot_rect_size.height*row,
-          this.plot_rect_size.width,
-          this.plot_rect_size.height
+          plot_rect_size.width*col,
+          plot_rect_size.height*row,
+          plot_rect_size.width,
+          plot_rect_size.height
         );
         rect.blockx = col;
         rect.blocky = row;
-        rect.intensity = zdata[i];
+        rect.intensity = z_data[i];
         var color = floatToColor(rect.intensity);
         rect.attr('fill', color);
         rect.attr('stroke', color);
@@ -74,9 +77,10 @@ ReportViewer.UI = {
     }
 
     $.plot("#xz-chart", [[[0,0],[1,1],[2,0.5]]]);
-  },
+    $.plot("#yz-chart", [[[0,0],[1,1],[2,0.5]]]);
+  }
 
-  initialize: function() {
+  function initialize() {
     $("#x-axis-slider").slider({
       slide: this.adjustX,
     });
@@ -101,10 +105,20 @@ ReportViewer.UI = {
       document.getElementById("map-view"),
       myOptions
     );
+
+    return this;
   }
-}
+
+  return {
+    initialize: initialize,
+    populateGraphs: populateGraphs
+  }
+})();
 
 $(function() {
-  ReportViewer.Data.xmlLoad(report_url);
   ReportViewer.UI.initialize();
+  ReportViewer.DataLoader.xmlLoad(
+    report_url,
+    ReportViewer.UI.populateGraphs
+  );
 });
