@@ -24,7 +24,6 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   def edit
     set_up_network_select(@dpset,DemandProfile)
     @items = @dpset.demand_profiles
-    #get_network_dependent_table_items('demand_profile_sets','demand_profiles','links',)   
     set_up_sort_pagination('link.name')
 
     respond_to do |format|
@@ -89,7 +88,6 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       status = 403
     end
     @items = @dpset.demand_profiles
-     #get_network_dependent_table_items('demand_profile_sets','demand_profiles','links',)   
     set_up_sort_pagination('link.name')
 
     
@@ -104,8 +102,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def populate_table
     @items = @dpset.demand_profiles
-     #get_network_dependent_table_items('demand_profile_sets','demand_profiles','links',)   
-     set_up_sort_pagination('link.name')
+    set_up_sort_pagination('link.name')
 
     respond_to do |format|
       format.js

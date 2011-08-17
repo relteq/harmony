@@ -51,6 +51,11 @@ class SplitRatioProfileSet < ActiveRecord::Base
     end
   end
   
+  def delete_set
+    remove_from_scenario
+    destroy
+  end
+  
   def to_xml(profile)
     items = Array.new
     profile.split("\n").each do |entry|
