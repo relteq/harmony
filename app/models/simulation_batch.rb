@@ -5,14 +5,15 @@ class SimulationBatch < ActiveRecord::Base
   belongs_to :scenario
   
   has_many :output_files, :dependent => :destroy
-  
   has_many :reported_batches
   has_many :simulation_batch_lists, :through => :reported_batches
-
   has_many :scatter_groups
   
   named_scope :incomplete, :conditions => ['percent_complete < 1 OR (NOT succeeded)']
   named_scope :complete, :conditions => ['percent_complete = 1 AND succeeded']
+  named_scope :project_scenarios, lambda{ |scens| { :conditions => ['scenario_id IN (?)', scens] }  }
+  named_scope :filter, lambda  { |order,limit,offset| {:order => order,:limit => limit,:offset => offset }}
+  
 
     
   def self.save_batch(params)

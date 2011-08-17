@@ -4,7 +4,7 @@
 	<thead>
 	  <tr>
 			<% if(@items != nil && @items.size() != 0) %>
-				<%= sort_header_tag_relteq('controller_type', {:url => populate_table_project_configuration_controller_sets_path(@project, :controller_set_id=>@cset, :network_id=>@nid || @cset.network_id),:caption => l(:field_type),:default_order => 'desc'}) %>
+				<%= sort_header_tag_relteq('controller_type', {:url => populate_table_project_configuration_controller_set_path(@project,@cset),:caption => l(:field_type),:default_order => 'desc'}) %>
 		  	<%= hidden_field_tag :order_sort, @order_sort%>
 			<% else %>
 				<th title=<%= l(:field_type) %>><%= l(:field_type) %></th>
@@ -30,7 +30,7 @@
 					</td>
 					<td><%=h item.controller_name %></td>
 		 			<td><%=h item.display_time_from_string(item.dt) %></td>	
-					<td class="actions" ><%= link_to_remote '',:url => delete_item_project_configuration_controller_sets_path(@project, :controller_id=>item.id,:network_id=>@nid || @cset.network_id,:order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
+					<td class="actions" ><%= link_to_remote '',:url => delete_item_project_configuration_controller_set_path(@project, @cset,:controller_id=>item.id,:order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>
 				
 		  	</tr>
 			  <% end %>

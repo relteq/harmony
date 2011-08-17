@@ -1,5 +1,5 @@
 class ControllerSetsController <  ConfigurationsApplicationController
-  before_filter :require_controller_set, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :require_controller_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_item,:populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
   before_filter :set_no_sort, :only => [:update,:delete_item]
@@ -10,7 +10,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@cset,Controller)
-    @items = get_controllers(@cset.network_id)
+    @items = @cset.controllers
     set_up_sort('controller_type')
     set_up_pagination
 
@@ -54,13 +54,11 @@ class ControllerSetsController <  ConfigurationsApplicationController
   # DELETE /controller_sets/1
   # DELETE /controller_sets/1.xml
   def destroy
-    @project = Project.find(params[:project_id])
-    @cset.remove_from_scenario
-    @cset.destroy
+    @cset.delete_set
 
     respond_to do |format|
       flash[:notice] = @cset.name + l(:label_success_delete)     
-      format.html { redirect_to  redirect_to project_configuration_controller_sets_path(@project)  }
+      format.html { redirect_to project_configuration_controller_sets_path(@project)  }
       format.xml  { head :ok }
     end
   end
@@ -74,7 +72,7 @@ class ControllerSetsController <  ConfigurationsApplicationController
     end
 
     respond_to do |format|  
-      format.html { redirect_to  redirect_to project_configuration_controller_sets_path(@project) }
+      format.html { redirect_to project_configuration_controller_sets_path(@project) }
       format.xml  { head :ok }
     end
   end
@@ -89,12 +87,10 @@ class ControllerSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_controller_not_deleted)
       status = 403
     end
-    @nid = require_network_id
-    @items = get_controllers(@nid)
+    @items = @cset.controllers
     set_up_sort('controller_type')
     set_up_pagination
-  
-    
+     
     respond_to do |format|  
       format.js {render :status => status}    
     end
@@ -105,12 +101,10 @@ class ControllerSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    @nid = require_network_id
-    @items = get_controllers(@nid)
+    @items = @cset.controllers
     set_up_sort('controller_type')
     set_up_pagination
     
-  
     respond_to do |format|
       format.js
     end
@@ -134,42 +128,7 @@ private
     end
   end
   
-  def require_network_id
-    network_id = nil
-    if(params[:controller_set] != nil) #coming from edit/new page onchange for network select
-      network_id = params[:controller_set][:network_id]
-    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-      network_id = params[:network_id]
-    end
-
-    if(network_id == nil)
-      return not_found_redirect_to_index(l(:label_no_network_id))
-    end
-    return network_id
-  end
-
-  #The subitems table is determined differently than other sets because you are about to have network, node and link events, as well as change 
-  #what event is assigned to what event set
-  def get_controllers(nid)
-    items = Array.new
-    Network.find(nid).controllers.each do |e| 
-      items.push(e) 
-    end
-    
-    Network.find(nid).nodes.each do |n| 
-      n.controllers.each do |e| 
-        items.push(e) 
-      end
-    end
-    
-    Network.find(nid).links.each do |l| 
-      l.controllers.each do |e| 
-        items.push(e) 
-      end
-    end
-    
-    items
-  end
+ 
   
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
