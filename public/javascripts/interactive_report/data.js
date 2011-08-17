@@ -53,12 +53,26 @@ ReportViewer.DataLoader = (function(){
     }
 
     function getColumn(x) {
+      /* This should be added to array */
+      var yBounds = this.dataSource.getBounds()['y'],
+          xBounds = this.dataSource.getBounds()['x'],
+          yStart = yBounds['min'],
+          yEnd = yBounds['max'],
+          rowSize = xBounds['universal_max'] - xBounds['universal_min'];
+
+      var rowArr = [];
+      for(var i = (yStart * rowSize) + x; 
+              i < yEnd * rowSize; 
+              i += rowSize) {
+        rowArr.push(this[i]);
+      }
+      return rowArr;
     }
 
     function addPlotFunctions(array) {
       array.dataSource = this;
       array.getRow = getRow;
-      //array.getColumn = getColumn;
+      array.getColumn = getColumn;
     }
 
     function fromArrayOfVector(array_of_vectors) {

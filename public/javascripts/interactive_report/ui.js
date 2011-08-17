@@ -5,8 +5,11 @@ ReportViewer.UI = (function(){
   };
 
   var debug = true;
-  var z_data = [];
+
   var x_data = [];
+  var y_data = [];
+  var z_data = [];
+
   var crosshairs = {
     x: 0, 
     y: 0
@@ -16,6 +19,7 @@ ReportViewer.UI = (function(){
     if(debug) {
       $("#crosshair_x").text(ui.value || 0);
     }
+    $.plot("#yz-chart", [weave(y_data, z_data.getColumn(ui.value))]);
   }
 
   function adjustY(event, ui) {
@@ -36,6 +40,7 @@ ReportViewer.UI = (function(){
   function populateGraphs(dataSource) {
     z_data = dataSource.getVector('z');
     x_data = dataSource.getVector('x');
+    y_data = dataSource.getVector('y');
 
     function floatToColor(f)
     {
@@ -87,7 +92,7 @@ ReportViewer.UI = (function(){
     }
 
     $.plot("#xz-chart", [weave(x_data, z_data.getRow(0))]);
-    $.plot("#yz-chart", [[[0,0],[1,1],[2,0.5]]]);
+    $.plot("#yz-chart", [weave(y_data, z_data.getColumn(0))]);
   }
 
   function initialize() {
