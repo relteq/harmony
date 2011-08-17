@@ -37,7 +37,8 @@ ReportViewer.UI = (function(){
     return outputArr;
   }
 
-  function populateGraphs(dataSource) {
+  function populateGraphs(contourInfo, dataSource) {
+    $("#contour_plot_name").text(contourInfo.title);
     z_data = dataSource.getVector('z');
     x_data = dataSource.getVector('x');
     y_data = dataSource.getVector('y');
@@ -63,7 +64,6 @@ ReportViewer.UI = (function(){
     var raphaels = {
       r1: Raphael("three-d-graph", total_width, total_height)
     };
-    console.log(xl,yl,zl);
     var rects = new Array(zl);
 
     for(var row = 0; row < yl; row++) {
@@ -78,7 +78,7 @@ ReportViewer.UI = (function(){
         rect.blockx = col;
         rect.blocky = row;
         rect.intensity = z_data[i];
-        var color = floatToColor(rect.intensity);
+        var color = floatToColor(rect.intensity / z_data.max());
         rect.attr('fill', color);
         rect.attr('stroke', color);
         rect.click(function(event) {
@@ -91,7 +91,11 @@ ReportViewer.UI = (function(){
       }
     }
 
-    $.plot("#xz-chart", [weave(x_data, z_data.getRow(0))]);
+    $.plot("#xz-chart", [{
+      data: weave(x_data, z_data.getRow(0)),
+      xaxis: { label: "X" },
+      yaxis: { label: "Y" }
+    }]);
     $.plot("#yz-chart", [weave(y_data, z_data.getColumn(0))]);
   }
 

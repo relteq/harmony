@@ -60,19 +60,32 @@ ReportViewer.DataLoader = (function(){
           yEnd = yBounds['max'],
           rowSize = xBounds['universal_max'] - xBounds['universal_min'];
 
-      var rowArr = [];
+      var colArr = [];
       for(var i = (yStart * rowSize) + x; 
               i < yEnd * rowSize; 
               i += rowSize) {
-        rowArr.push(this[i]);
+        colArr.push(this[i]);
       }
-      return rowArr;
+      return colArr;
+    }
+
+    function getMax() {
+      if(!this.cachedMax) {
+        this.cachedMax = Math.max.apply(null, this);
+      }
+      return this.cachedMax;
+    }
+    
+    function getMin() {
+      return Math.min.apply(null, this);
     }
 
     function addPlotFunctions(array) {
       array.dataSource = this;
       array.getRow = getRow;
       array.getColumn = getColumn;
+      array.min = getMin;
+      array.max = getMax;
     }
 
     function fromArrayOfVector(array_of_vectors) {
@@ -100,60 +113,80 @@ ReportViewer.DataLoader = (function(){
     };
   })();
 
+  var Contour = (function() {
+    function numberizeArray(arr) {
+      for(var i = 0; i < arr.length; i++)
+        arr[i] = Number(arr[i]);
+    }
+
+    function loadAsXYZ() {
+      var xdata = this.rawXData.split(/[,;]/),
+          ydata = this.rawYData.split(/[,;]/),
+          zdata = this.rawZData.split(/[,;]/);
+      var xl = xdata.length;
+      var yl = ydata.length;
+      var zl = zdata.length;
+      numberizeArray(zdata);
+      var data_array = {
+        x: {
+          contents: xdata,
+          length: xl,
+          axis: true
+        },
+        y: {
+          contents: ydata,
+          length: yl,
+          axis: true
+        },
+        z: {
+          contents: zdata,
+          length: zl,
+          axis: false
+        }
+      };
+      return new DataSource.fromArrayOfVector(data_array);
+    }
+
+    function Individual(xmlData) {
+      var dataWrapped = $(xmlData).parent();
+      this.loadXYZ = loadAsXYZ;
+      this.title = dataWrapped.attr('title');
+      this.xLabel = dataWrapped.find('plot').attr('xlabel');
+      this.yLabel = dataWrapped.find('plot').attr('ylabel');
+      this.zLabel = dataWrapped.find('plot').attr('zlabel');
+      this.rawXData = dataWrapped.find('plot > element > xdata').text();
+      this.rawYData = dataWrapped.find('plot > element > ydata').text();
+      this.rawZData = dataWrapped.find('plot > element > zdata').text();
+    }
+
+    function List(xmlData) {
+      this.dataList = [];
+      this.first = function() {
+        return this.dataList[0];
+      };
+      for(var i = 0; i < xmlData.length; i++) {
+        this.dataList.push(new Individual(xmlData[i]));
+      }
+    }
+
+    return {
+      List: List
+    };
+  })();
+
 
   function getContours() {
     /* 
        This should probably be more robust - it just finds 
        every 3d graph by looking for data with a z-axis.
      */
-    return the_data.find('plot[zlabel]');
+    return new Contour.List(the_data.find('plot[zlabel]'));
   }
 
   function getOneContour() {
     return getContours().first();
   }
 
-  function normalizeArray(arr) {
-    var maxArr = Math.max.apply(null, arr);
-    for(var i = 0; i < arr.length; i++) {
-      arr[i] /= maxArr;
-      if(arr[i] > 1 || arr[i] < 0) {
-        console.log("Bad condition for arr[i], i = " 
-                    + i + ", arr[i] = " + arr[i]);
-      }
-    }
-    return arr;
-  }
-
-  function loadXYZ(contour) {
-    var xdata = contour.find('xdata').text().split(/[,;]/),
-        ydata = contour.find('ydata').text().split(/[,;]/),
-        zdata = contour.find('zdata').text().split(/[,;]/);
-    var xl = xdata.length;
-    var yl = ydata.length;
-    var zl = zdata.length;
-    var minZ = Math.min.apply(null, zdata);
-    var maxZ = Math.max.apply(null, zdata);
-    zdata = normalizeArray(zdata);
-    var data_array = {
-      x: {
-        contents: xdata,
-        length: xl,
-        axis: true
-      },
-      y: {
-        contents: ydata,
-        length: yl,
-        axis: true
-      },
-      z: {
-        contents: zdata,
-        length: zl,
-        axis: false
-      }
-    };
-    return new DataSource.fromArrayOfVector(data_array);
-  }
 
   function xmlLoad(url, post) {
     $.ajax({
@@ -162,8 +195,8 @@ ReportViewer.DataLoader = (function(){
       success: function(data) {
         the_data = $($.parseXML(data.xml));
         var contour = getOneContour();
-        var axes_data = loadXYZ(contour);
-        post(axes_data);
+        var axes_data = contour.loadXYZ();
+        post(contour, axes_data);
       }
     });
   }
