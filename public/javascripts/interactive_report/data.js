@@ -5,13 +5,15 @@ ReportViewer.DataLoader = (function(){
       z_data = [];
 
   var DataSource = (function() {
-    function nonAxisData() {
-      var vArray = this.vArray;
+    function plotData() {
+      var vArray = this.vArray,
+          coll = [];
       for(var name in vArray) {
         if(!vArray[name].axis) {
-          return vArray[name].contents;
+          coll[name] = vArray[name];
         }
       }
+      return coll;
     }
 
     function getVector(name) {
@@ -22,14 +24,60 @@ ReportViewer.DataLoader = (function(){
       return this.vArray[name].length;
     }
 
+    function newBounds(axis, min, max) {
+      this.bounds[axis] = { 
+        min: min, 
+        max: max,
+        universal_min: min,
+        universal_max: max
+      };
+    }
+
+    function setBounds(axis, min, max) {
+      this.bounds[axis] = { min: min, max: max };
+    }
+    
+    function getBounds() {
+      return this.bounds;
+    }
+
+    function getRow(y) {
+      /* This should be added to array */
+      var xBounds = this.dataSource.getBounds()['x'],
+          xStart = xBounds['min'],
+          xEnd = xBounds['max'],
+          rowSize = xBounds['universal_max'] - xBounds['universal_min'];
+
+      var rowArr = this.slice(rowSize * y + xStart, rowSize * y + xEnd);
+      return rowArr;
+    }
+
+    function getColumn(x) {
+    }
+
+    function addPlotFunctions(array) {
+      array.dataSource = this;
+      array.getRow = getRow;
+      //array.getColumn = getColumn;
+    }
+
     function fromArrayOfVector(array_of_vectors) {
       this.vArray = [];
-      this.nonAxisData = nonAxisData;
+      this.bounds = [];
+      this.plotData = plotData;
       this.getVector = getVector;
       this.getVectorLength = getVectorLength;
-      var name;
-      for(name in array_of_vectors) {
+      this.newBounds = newBounds;
+      this.setBounds = setBounds;
+      this.getBounds = getBounds;
+      this.addPlotFunctions = addPlotFunctions;
+      for(var name in array_of_vectors) {
         this.vArray[name] = array_of_vectors[name];
+        if(array_of_vectors[name].axis) {
+          this.newBounds(name, 0, array_of_vectors[name].length);
+        } else {
+          this.addPlotFunctions(this.vArray[name].contents);
+        }
       }
     }
 
@@ -40,6 +88,10 @@ ReportViewer.DataLoader = (function(){
 
 
   function getContours() {
+    /* 
+       This should probably be more robust - it just finds 
+       every 3d graph by looking for data with a z-axis.
+     */
     return the_data.find('plot[zlabel]');
   }
 

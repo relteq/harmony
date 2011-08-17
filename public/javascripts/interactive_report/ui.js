@@ -5,7 +5,8 @@ ReportViewer.UI = (function(){
   };
 
   var debug = true;
-  var z_data = {};
+  var z_data = [];
+  var x_data = [];
   var crosshairs = {
     x: 0, 
     y: 0
@@ -21,11 +22,20 @@ ReportViewer.UI = (function(){
     if(debug) {
       $("#crosshair_y").text(ui.value || 0);
     }
+    $.plot("#xz-chart", [weave(x_data, z_data.getRow(ui.value))]);
+  }
+
+  function weave(a1, a2) {
+    var outputArr = [];
+    var l = a1.length;
+    for(var i = 0; i < l; i++)
+      outputArr.push([a1[i],a2[i]]);
+    return outputArr;
   }
 
   function populateGraphs(dataSource) {
-    console.log(this);
-    z_data = dataSource.nonAxisData();
+    z_data = dataSource.getVector('z');
+    x_data = dataSource.getVector('x');
 
     function floatToColor(f)
     {
@@ -76,16 +86,16 @@ ReportViewer.UI = (function(){
       }
     }
 
-    $.plot("#xz-chart", [[[0,0],[1,1],[2,0.5]]]);
+    $.plot("#xz-chart", [weave(x_data, z_data.getRow(0))]);
     $.plot("#yz-chart", [[[0,0],[1,1],[2,0.5]]]);
   }
 
   function initialize() {
     $("#x-axis-slider").slider({
-      slide: this.adjustX,
+      slide: adjustX,
     });
     $("#y-axis-slider").slider({
-      slide: this.adjustY,
+      slide: adjustY,
       orientation: 'vertical'
     });
     var latlng = new google.maps.LatLng(37.795467, -122.400341);
