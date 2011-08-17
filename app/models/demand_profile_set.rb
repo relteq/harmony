@@ -50,4 +50,9 @@ class DemandProfileSet < ActiveRecord::Base
     end
   end
   
+  def delete_set
+    remove_from_scenario
+    destroy
+  end
+  
 end

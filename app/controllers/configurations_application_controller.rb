@@ -71,8 +71,7 @@ protected
   end
   
   
-  def get_network_dependent_table_items(sets,subitems,profiles,sort_attribute,sid)
-    get_items(sid,profiles,subitems)
+  def set_up_sort_pagination(sort_attribute)
     set_up_sort(sort_attribute)
     set_up_pagination
   end
@@ -162,14 +161,14 @@ protected
   
   end
   
-  def get_items(sid,profiles,subitems)
-    @items = Array.new
-    Network.find(sid).send(profiles).each { |cs|
-       cs.send(subitems).each { |c|
-         @items.push(c) 
-       }   
-    }
-  end
+  # def get_items(profiles,subitems)
+  #   @items = Array.new
+  #   Network.find(sid).send(profiles).each { |cs|
+  #      cs.send(subitems).each { |c|
+  #        @items.push(c) 
+  #      }   
+  #   }
+  # end
   
   def set_no_sort
       params[:no_sort] = true
