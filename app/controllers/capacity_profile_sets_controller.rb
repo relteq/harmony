@@ -1,5 +1,5 @@
 class CapacityProfileSetsController <  ConfigurationsApplicationController
-  before_filter :require_cp_set, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :require_cp_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_item,:populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
   before_filter :set_no_sort, :only => [:update,:delete_item]
@@ -23,7 +23,9 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@cpset,CapacityProfile)
-    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','links','link.name',@cpset.network_id) 
+    @items = @cpset.capacity_profiles
+    set_up_sort_pagination('link.name')
+    
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
       format.js
@@ -53,8 +55,7 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   # DELETE /capacity_profile_sets/1
   # DELETE /capacity_profile_sets/1.xml
   def destroy
-    @cpset.remove_from_scenario
-    @cpset.destroy
+    @cpset.delete_set
 
     respond_to do |format|
       flash[:notice] = @cpset.name + l(:label_success_delete)    
@@ -86,8 +87,8 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_profile_not_deleted)
       status = 403
     end
-    @nid = require_network_id
-    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','links','link.name',@nid)
+    @items = @cpset.capacity_profiles
+    set_up_sort_pagination('link.name')
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -99,9 +100,9 @@ class CapacityProfileSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    @nid = require_network_id
-    get_network_dependent_table_items('capacity_profile_sets','capacity_profiles','links','link.name',@nid)
-  
+    @items = @cpset.capacity_profiles
+    set_up_sort_pagination('link.name')
+      
     respond_to do |format|
       format.js
     end
@@ -128,20 +129,6 @@ private
     end
   end
   
-  def require_network_id
-    network_id = nil
-    if(params[:capacity_profile_set] != nil) #coming from edit/new page onchange for network select
-      network_id = params[:capacity_profile_set][:network_id]
-    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-      network_id = params[:network_id]
-    end
-
-    if(network_id == nil)
-      return not_found_redirect_to_index(l(:label_no_network_id))
-    end
-    return network_id
-  end  
-
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
     :capacity_profile_set
