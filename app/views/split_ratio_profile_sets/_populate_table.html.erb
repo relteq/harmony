@@ -1,4 +1,4 @@
-<p><label><%= l(:label_split_ratio_profile) %>s</label></p>
+<p><label><%= l(:label_split_ratio_profiles) %></label></p>
 <table class="relteq_sub_table list"> 
 	<thead>
 	  <tr>
@@ -31,7 +31,7 @@
 					<textarea cols=35 rows=5 wrap="off" id="split_ratio_profile_set_split_ratio_profiles__profile" name='split_ratio_profile_set[split_ratio_profiles][][profile]'><% strip_xml(item.profile).each_with_index do |r,index| %><%= strip_xml_entry(r,index) %><% end %></textarea>
 					</td>
 	 			<td><%= item_form.text_field :dt, :size => 8, :index => nil %></td>	
-				<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_split_ratio_profile_set_path(@project,item.id, :order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>	
+				<td class="actions"><%= link_to_remote '',:url => delete_item_project_configuration_split_ratio_profile_set_path(@project,@srpset,:split_ratio_profile_id => item.id, :order_sort =>  @order_sort,:page => params[:page]), :confirm => l(:label_delete_item), :complete=>"onItemDeleteComplete(request);",:success=> "jQuery('#" + item.id.to_s + "-row').remove();", :html => {:class => 'icon icon-del'} %></td>	
 	  	</tr>
 		  <% end %>
 		<% end %>

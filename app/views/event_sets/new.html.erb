@@ -2,7 +2,7 @@
   <%= render :partial => 'configurations/config_sidebar' %>
 <% end %>
 
-<h2><%= link_to l(:label_event_set), project_configuration_event_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:event_sets_new) %></h2>
+<h2><%= link_to l(:label_event_sets), project_configuration_event_sets_path(@project),:class => 'config-header'  %> &#187; <%= l(:event_sets_new) %></h2>
 
 
 <% labelled_tabular_form_for :event_set, @eset, :url => { :action => "create" } do |f| %>

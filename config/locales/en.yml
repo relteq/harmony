@@ -1063,9 +1063,13 @@ en:
   label_event_set: Event Set
   label_event_sets: Event Sets
   label_split_ratio_profile: Split Ratio Profile
+  label_split_ratio_profiles: Split Ratio Profiles
   label_capacity_profile: Capacity Profile
+  label_capacity_profiles: Capacity Profiles
   label_demand_profile: Demand Profile
+  label_demand_profiles: Demand Profiles
   label_event: Event
+  label_events: Events
   label_profile: Profile
   label_demand_coefficient: Demand Coefficient
   label_time_period: Time Period

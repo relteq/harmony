@@ -3,7 +3,7 @@
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :event_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @eset.network_id},{:onchange => remote_function(:url => populate_table_project_configuration_event_sets_path(@project, :event_set_id=>@eset, :network_id=>@nid), :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :event_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @eset.network_id}  %></p>
 
 <br/>
 <div id="events_table" class="autoscroll">

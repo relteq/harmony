@@ -44,5 +44,10 @@ class EventSet < ActiveRecord::Base
       item.destroy
     end
   end
+  
+  def delete_set
+     remove_from_scenario
+     destroy
+  end
    
 end

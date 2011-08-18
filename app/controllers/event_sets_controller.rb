@@ -1,6 +1,5 @@
 class EventSetsController <  ConfigurationsApplicationController
-  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit]
-  before_filter :populate_event_set_if_exists, :only => [:delete_item, :populate_table]
+  before_filter :require_event_set, :only => [:edit, :update, :destroy, :flash_edit,:delete_item,:populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
   before_filter :set_no_sort, :only => [:update,:delete_item]
@@ -24,10 +23,9 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@eset,Event)
-    @items = get_events(@eset.network_id)
-    set_up_sort('event_type')
-    set_up_pagination
-    
+    @items = @eset.events
+    set_up_sort_pagination('event_type')
+  
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
       format.js  
@@ -58,8 +56,7 @@ class EventSetsController <  ConfigurationsApplicationController
   # DELETE /event_sets/1
   # DELETE /event_sets/1.xml
   def destroy
-    @eset.remove_from_scenario
-    @eset.destroy
+    @eset.delete_set
 
     respond_to do |format|
       flash[:notice] = @eset.name + l(:label_success_delete)    
@@ -91,11 +88,8 @@ class EventSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_event_not_deleted)
       status = 403
     end
-    
-    @nid = require_network_id
-    @items = get_events(@nid)   
-    set_up_sort('event_type')
-    set_up_pagination
+    @items = @eset.events
+    set_up_sort_pagination('event_type')
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -108,10 +102,8 @@ class EventSetsController <  ConfigurationsApplicationController
 
   def populate_table
     
-    @nid = require_network_id
-    @items = get_events(@nid)   
-    set_up_sort('event_type')
-    set_up_pagination
+    @items = @eset.events
+    set_up_sort_pagination('event_type')
     
     respond_to do |format|
       format.js
@@ -125,20 +117,6 @@ private
     redirect_to :action => :index, :project_id => @project
     flash[:error] = error
     return false
-  end
-
-  def populate_event_set_if_exists
-    #for delete_item and populate table you'll be refrmatting the sub table. We want to select the current
-    #events chosen if you are on the edit page but none should be checked for the new page. If event_set_id exists you came from 
-    #the edit page and will need the event set object
-    begin
-      if(params[:event_set_id] != nil)
-        eid = params[:event_set_id].to_i
-        @eset = get_set(@eventsets,eid )
-      end
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = l(:event_set_not_found_no_events_selected) 
-    end
   end
 
   def require_event_set
@@ -157,44 +135,7 @@ private
       return not_found_redirect_to_index(l(:event_set_not_found))
     end
   end
-  
-  def require_network_id
-    network_id = nil
-    if(params[:event_set] != nil) #coming from edit/new page onchange for network select
-      network_id = params[:event_set][:network_id]
-    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-      network_id = params[:network_id]
-    end
-
-    if(network_id == nil)
-      return not_found_redirect_to_index(l(:label_no_network_id))
-    end
-    return network_id
-  end
-
-  #The subitems table is determined differently than other sets because you are about to have network, node and link events, as well as change 
-  #what event is assigned to what event set
-  def get_events(nid)
-    items = Array.new
-    Network.find(nid).events.each do |e| 
-      items.push(e) 
-    end
     
-    Network.find(nid).nodes.each do |n| 
-      n.events.each do |e| 
-        items.push(e) 
-      end
-    end
-    
-    Network.find(nid).links.each do |l| 
-      l.events.each do |e| 
-        items.push(e) 
-      end
-    end
-    
-    items
-  end
-  
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
     :event_set
