@@ -1,9 +1,10 @@
+
 <%= error_messages_for 'cset' %>
 <div class="profile_form box">
 
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.text_field :description %></p>
-<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :controller_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @cset.network_id} ,{:onchange => remote_function(:url => populate_table_project_configuration_controller_sets_path(@project, :controller_set_id=>@cset, :network_id=>@nid), :with =>'Form.Element.serialize(this)' , :method => :get)}  %></p>
+<p><label><%=l(:label_network)%><span class='required'> *</span></label><%= collection_select :controller_set, :network_id, @networks, :id, :name,{:prompt => @prompt_network, :selected => @cset.network_id}  %></p>
 
 <br/>
 <div id="controllers_table" class="autoscroll">

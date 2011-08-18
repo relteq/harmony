@@ -17,21 +17,11 @@ class SimulationBatchesController < ApplicationController
       @limit = per_page_option
     end
 
-    @item_count = SimulationBatch.count(:conditions => {
-      :scenario_id => @project.scenarios,
-      :percent_complete => 1,
-      :succeeded => true
-    })
+    @item_count = SimulationBatch.project_scenarios(@project.scenarios).complete.count
 
     @item_pages = Paginator.new self, @item_count, @limit, params['page']
     @offset ||= @item_pages.current.offset
-    @items_show = SimulationBatch.find  :all,
-                              :conditions => {:scenario_id => @project.scenarios, 
-                                              :percent_complete => 1,
-                                              :succeeded => true},
-                              :order => sort_clause,
-                              :limit  =>  @limit,
-                              :offset =>  @offset
+    @items_show = SimulationBatch.project_scenarios(@project.scenarios).complete.filter(sort_clause,@limit,@offset)
 
     #sets up objects for report_generator
     @simulation_report = SimulationBatchReport.new

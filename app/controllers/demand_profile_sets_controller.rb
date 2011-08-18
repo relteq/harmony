@@ -1,5 +1,5 @@
 class DemandProfileSetsController <  ConfigurationsApplicationController
-  before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit]
+  before_filter :require_dpset, :only => [:edit, :update, :destroy, :flash_edit,:delete_item,:populate_table]
   before_filter :set_creator_params, :only => [:create]
   before_filter :set_modifier_params, :only => [:create, :update]
   before_filter :set_no_sort, :only => [:update,:delete_item]
@@ -23,8 +23,8 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
 
   def edit
     set_up_network_select(@dpset,DemandProfile)
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@dpset.network_id)   
-
+    @items = @dpset.demand_profiles
+    set_up_sort_pagination('link.name')
 
     respond_to do |format|
       format.html { render :layout => !request.xhr? } 
@@ -55,8 +55,7 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   # DELETE /demand_profile_sets/1
   # DELETE /demand_profile_sets/1.xml
   def destroy
-    @dpset.remove_from_scenario
-    @dpset.destroy
+    @dpset.delete_set
 
     respond_to do |format|
       flash[:notice] = @dpset.name + l(:label_success_delete)    
@@ -88,8 +87,9 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
       flash[:error] = l(:label_profile_not_deleted)
       status = 403
     end
-    @nid = require_network_id 
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)
+    @items = @dpset.demand_profiles
+    set_up_sort_pagination('link.name')
+
     
     respond_to do |format|  
       format.js {render :status => status}    
@@ -101,9 +101,9 @@ class DemandProfileSetsController <  ConfigurationsApplicationController
   end
 
   def populate_table
-    @nid = require_network_id
-    get_network_dependent_table_items('demand_profile_sets','demand_profiles','links','link.name',@nid)   
-  
+    @items = @dpset.demand_profiles
+    set_up_sort_pagination('link.name')
+
     respond_to do |format|
       format.js
     end
@@ -127,20 +127,6 @@ private
     end
   end
   
-private
-  def require_network_id
-    network_id = nil
-    if(params[:demand_profile_set] != nil) #coming from edit/new page onchange for network select
-      network_id = params[:demand_profile_set][:network_id]
-    elsif(params[:network_id] != nil) #coming from sort header for either new/edit
-      network_id = params[:network_id]
-    end
-
-    if(network_id == nil)
-      return not_found_redirect_to_index(l(:label_no_network_id))
-    end
-    return network_id
-  end
 
   # Used by ConfigAppController to populate creator/modifier ID 
   def object_sym
