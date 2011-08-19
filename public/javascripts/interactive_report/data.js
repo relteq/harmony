@@ -147,6 +147,14 @@ ReportViewer.DataLoader = (function(){
       return new DataSource.fromArrayOfVector(data_array);
     }
 
+    function count() {
+      return this.dataList.length;
+    }
+
+    function atIndex(idx) {
+      return this.dataList[idx];
+    }
+
     function Individual(xmlData) {
       var dataWrapped = $(xmlData).parent();
       this.loadXYZ = loadAsXYZ;
@@ -161,9 +169,10 @@ ReportViewer.DataLoader = (function(){
 
     function List(xmlData) {
       this.dataList = [];
-      this.first = function() {
-        return this.dataList[0];
-      };
+      this.first = function() { return this.atIndex(0); };
+      this.atIndex = atIndex;
+      this.count = count;
+
       for(var i = 0; i < xmlData.length; i++) {
         this.dataList.push(new Individual(xmlData[i]));
       }
