@@ -94,7 +94,7 @@ class SimulationBatchReport < ActiveRecord::Base
   end
 
   def nodes
-    self.simulation_batch_list.reported_batches.first.simulation_batch.scenario.network.nodes
+    self.simulation_batch_list.reported_batches.first.simulation_batch.scenario.network.ordered_nodes
   end
   
   #once the report is made we need to tie the
