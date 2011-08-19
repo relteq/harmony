@@ -4,6 +4,7 @@
     %title Interactive Report Viewer: #{@report.name}
     :javascript
       var report_url = "#{@report.load_xml_url}";
+      var nodes_array = #{js_nodes_array(@report.nodes)};
     = stylesheet_link_tag 'jquery-ui-1.8.15.custom'
     = stylesheet_link_tag 'interactive_report'
     = javascript_include_tag 'jquery-1.6.2.min'
@@ -27,7 +28,7 @@
       %button#log-sliders Log Slider Values
       %br
       %h2
-        = @report.name
+        = h(@report.name)
         \-
         %span#contour_plot_name
     #map-view

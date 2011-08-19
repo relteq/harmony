@@ -125,6 +125,15 @@ ReportViewer.UI = (function(){
       myOptions
     );
 
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+
+    var path = poly.getPath();
+    for(var i = 0; i < nodes_array.length; i++) {
+      var node = nodes_array[i];
+      path.push(new google.maps.LatLng(node[0],node[1]));
+    }
+
     return this;
   }
 

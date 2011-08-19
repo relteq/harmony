@@ -92,6 +92,10 @@ class SimulationBatchReport < ActiveRecord::Base
       self.color_palettes.build({:color => DEFAULT_COLORS[i]})
     }
   end
+
+  def nodes
+    self.simulation_batch_list.reported_batches.first.simulation_batch.scenario.network.nodes
+  end
   
   #once the report is made we need to tie the
   #reports to the simulation batches used to create the report
