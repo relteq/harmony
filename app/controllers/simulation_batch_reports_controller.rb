@@ -19,7 +19,7 @@ class SimulationBatchReportsController < ApplicationController
       @limit = per_page_option
     end
     
-    sim_batch_lists = SimulationBatchReport.get_simuation_batch_lists(@project)
+    sim_batch_lists = @project.get_simulation_batch_lists
     @item_count = SimulationBatchReport.count( :conditions => {:simulation_batch_list_id => sim_batch_lists,
                                                                :percent_complete => 1,
                                                                :succeeded => true});

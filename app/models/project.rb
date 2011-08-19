@@ -863,4 +863,16 @@ public
   def event_sets
     EventSet.find(:all, :conditions => ['network_id in (?)', self.network_ids])
   end
+
+  def get_simulation_batch_lists
+    sim_lists = Array.new
+    scenarios.each do |s|
+      s.simulation_batches.each do |sb|
+        sb.reported_batches.each do |rb|
+          sim_lists.push(rb.simulation_batch_list)
+        end
+      end
+    end
+    sim_lists
+  end
 end
