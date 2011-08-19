@@ -10,10 +10,18 @@ ReportViewer.UI = (function(){
   var y_data = [];
   var z_data = [];
 
+  var marker;
+
   var crosshairs = {
     x: 0, 
     y: 0
   };
+
+  function adjustNodeMarker(val) {
+    var nodeIndex = Math.floor(val * nodes_array.length / y_data.length);
+    var node = nodes_array[nodeIndex];
+    marker.setPosition(new google.maps.LatLng(node[0], node[1]));
+  }
 
   function adjustX(event, ui) {
     if(debug) {
@@ -27,6 +35,7 @@ ReportViewer.UI = (function(){
       $("#crosshair_y").text(ui.value || 0);
     }
     $.plot("#xz-chart", [weave(x_data, z_data.getRow(ui.value))]);
+    adjustNodeMarker(ui.value);
   }
 
   function weave(a1, a2) {
@@ -123,6 +132,16 @@ ReportViewer.UI = (function(){
     var map = new google.maps.Map(
       document.getElementById("map-view"),
       myOptions
+    );
+
+    var markerOptions = {
+      position: new google.maps.LatLng(nodes_array[0][0], 
+                                       nodes_array[0][1]),
+      map: map
+    };
+
+    marker = new google.maps.Marker(
+      markerOptions
     );
 
     poly = new google.maps.Polyline(polyOptions);
