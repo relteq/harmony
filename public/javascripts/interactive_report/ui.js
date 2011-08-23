@@ -80,7 +80,7 @@ ReportViewer.UI = (function(){
         var i = (row * xl) + col;
         var rect = raphaels['r1'].rect(
           plot_rect_size.width*col,
-          plot_rect_size.height*row,
+          plot_rect_size.height*(yl-row),
           plot_rect_size.width,
           plot_rect_size.height
         );
