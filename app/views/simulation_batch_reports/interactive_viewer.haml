@@ -17,6 +17,16 @@
     %script{:type => "text/javascript",
             :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
   %body
+    #map-view
+    #three-d-graph-container
+      #y-axis-slider-container
+        #y-axis-slider
+      %span#three-d-graph
+      #x-axis-slider-container
+        #x-axis-slider
+    #two-d-graphs
+      #xz-chart
+      #yz-chart
     #debug-log
       %h2
         Log - 
@@ -31,13 +41,4 @@
         = h(@report.name)
         \-
         %span#contour_plot_name
-    #map-view
-    #three-d-graph-container
-      #y-axis-slider-container
-        #y-axis-slider
-      %span#three-d-graph
-      #x-axis-slider-container
-        #x-axis-slider
-    #two-d-graphs
-      #xz-chart
-      #yz-chart
+

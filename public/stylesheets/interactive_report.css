@@ -60,14 +60,16 @@ h2 {
 }
 
 #map-view {
-  width: 84%;
-  height: 400px;
-  margin-left: 8%;
+  width: 96%;
+  height: 200px;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 #three-d-graph-container {
   padding-top: 10px;
-  margin-left: 8%;
+  margin-left: 2%;
+  margin-bottom: 1%;
 }
 
 #three-d-graph {
@@ -75,13 +77,18 @@ h2 {
 }
 
 #two-d-graphs {
-  width: 200px;
+  width: 550px;
+  height: 500px;
 }
 
 #xz-chart, #yz-chart {
-  width: 500px;
+  position: absolute;
+  width: 550px;
   height: 200px;
 }
+
+#xz-chart { top: 210px; }
+#yz-chart { top: 435px; }
 
 #y-axis-slider-container {
   display: inline-block;

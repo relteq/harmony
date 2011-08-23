@@ -1,7 +1,7 @@
 ReportViewer.UI = (function(){
   var plot_rect_size = {
-    width: 6,
-    height: 3
+    width: 5,
+    height: 2
   };
 
   var debug = true;
@@ -66,6 +66,9 @@ ReportViewer.UI = (function(){
 
     var total_width = plot_rect_size.width * xl;
     var total_height = plot_rect_size.height * yl;
+
+    $("#xz-chart").css("left", (total_width + 120) + "px");
+    $("#yz-chart").css("left", (total_width + 120) + "px");
     
     $("#x-axis-slider").css("width", total_width + "px");
     $("#y-axis-slider").css("height", total_height + "px");
