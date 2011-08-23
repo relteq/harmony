@@ -27,14 +27,14 @@ ReportViewer.UI = (function(){
     if(debug) {
       $("#crosshair_x").text(ui.value || 0);
     }
-    $.plot("#yz-chart", [weave(y_data, z_data.getColumn(ui.value))]);
+    plotWrap2D("#yz-chart", y_data, z_data.getColumn(ui.value));
   }
 
   function adjustY(event, ui) {
     if(debug) {
       $("#crosshair_y").text(ui.value || 0);
     }
-    $.plot("#xz-chart", [weave(x_data, z_data.getRow(ui.value))]);
+    plotWrap2D("#xz-chart", x_data, z_data.getRow(ui.value));
     adjustNodeMarker(ui.value);
   }
 
@@ -44,6 +44,22 @@ ReportViewer.UI = (function(){
     for(var i = 0; i < l; i++)
       outputArr.push([a1[i],a2[i]]);
     return outputArr;
+  }
+
+  function plotWrap2D(placeholder, xdata, ydata) {
+    $.plot(placeholder, 
+      [{
+        data: weave(x_data, ydata)
+      }], 
+      {
+        series: {
+          lines: { show: true },
+        },
+        ticks: 5,
+        xaxis: { labelWidth: null },
+        yaxis: { labelWidth: 25 }
+      }
+    );
   }
 
   function populateGraphs(contourInfo, dataSource) {
@@ -103,12 +119,8 @@ ReportViewer.UI = (function(){
       }
     }
 
-    $.plot("#xz-chart", [{
-      data: weave(x_data, z_data.getRow(0)),
-      xaxis: { label: "X" },
-      yaxis: { label: "Y" }
-    }]);
-    $.plot("#yz-chart", [weave(y_data, z_data.getColumn(0))]);
+    plotWrap2D("#xz-chart", x_data, z_data.getRow(0));
+    plotWrap2D("#yz-chart", y_data, z_data.getColumn(0)); 
   }
 
   function initialize() {

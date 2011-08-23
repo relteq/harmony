@@ -48,6 +48,7 @@ table {
 h2 {
   padding: .5em;
   font-weight: bold;
+  display: inline;
   font-family: "Actor", "Helvetica", "Verdana", "Arial";
 }
 
@@ -59,15 +60,33 @@ h2 {
   height: 10px !important;
 }
 
+#page-info {
+  background-color: #eee;
+  width: 100%;
+  position: fixed;
+  height: 5%;
+  z-index: 4;
+  padding-top: 2px;
+  box-shadow: 1px 1px 1px #111;
+}
+
+.right_anchor {
+  float: right;
+  display: inline;
+  text-align: right;
+}
+
 #map-view {
   width: 96%;
   height: 200px;
+  top: 35px;
   margin-left: 2%;
   margin-right: 2%;
 }
 
 #three-d-graph-container {
   padding-top: 10px;
+  margin-top: 35px;
   margin-left: 2%;
   margin-bottom: 1%;
 }
@@ -87,8 +106,8 @@ h2 {
   height: 200px;
 }
 
-#xz-chart { top: 210px; }
-#yz-chart { top: 435px; }
+#xz-chart { top: 235px; }
+#yz-chart { top: 450px; }
 
 #y-axis-slider-container {
   display: inline-block;

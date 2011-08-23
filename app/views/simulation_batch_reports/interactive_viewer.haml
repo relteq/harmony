@@ -17,6 +17,14 @@
     %script{:type => "text/javascript",
             :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
   %body
+    #page-info
+      %h2
+        = h(@report.name)
+        \-
+        %span#contour_plot_name
+      .right_anchor
+        %h2
+          = link_to 'relteq/Simulation Batch Reports', project_simulation_batch_reports_path(@project)
     #map-view
     #three-d-graph-container
       #y-axis-slider-container
@@ -37,8 +45,3 @@
         )
       %button#log-sliders Log Slider Values
       %br
-      %h2
-        = h(@report.name)
-        \-
-        %span#contour_plot_name
-
