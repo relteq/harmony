@@ -17,6 +17,35 @@ ReportViewer.UI = (function(){
     y: 0
   };
 
+  var three_d_plot_click_state = (function(){
+    var _state = "empty",
+        first_x = 0,
+        first_y = 0;
+
+    function click(cx, cy, ui) {
+      if(_state === "empty") {
+        first_x = cx;
+        first_y = cy;
+        _state = "one point";
+      }
+      else if(_state === "one point") {
+        var min_x = Math.min(cx, first_x);
+        var max_x = Math.max(cx, first_x);
+        var min_y = Math.min(cy, first_y);
+        var max_y = Math.max(cy, first_y);
+        ui.reframe({ x: [min_x, max_x], y: [min_y, max_y] });
+        _state = "empty";
+      }
+    }
+
+    return {
+      click: click
+    };
+  })();
+
+  function reframe(newBounds) {
+  }
+
   function adjustNodeMarker(val) {
     var nodeIndex = Math.floor(val * nodes_array.length / y_data.length);
     var node = nodes_array[nodeIndex];
@@ -110,10 +139,11 @@ ReportViewer.UI = (function(){
         rect.attr('fill', color);
         rect.attr('stroke', color);
         rect.click(function(event) {
-          $("#debug-log").append("(" + this.blockx + ", "
-                               + this.blocky + ") = "
-                               + this.intensity + "; ");
-
+          three_d_plot_click_state.click(
+            this.blockx, 
+            this.blocky, 
+            ReportViewer.UI
+          );
         });
         rects[i] = rect;
       }
@@ -173,7 +203,8 @@ ReportViewer.UI = (function(){
 
   return {
     initialize: initialize,
-    populateGraphs: populateGraphs
+    populateGraphs: populateGraphs,
+    reframe: reframe
   }
 })();
 
