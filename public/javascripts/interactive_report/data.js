@@ -81,12 +81,23 @@ ReportViewer.DataLoader = (function(){
       return Math.min.apply(null, this);
     }
 
+    function boundedBy(axis_name) {
+      var axisBounds = this.dataSource.getBounds()[axis_name];
+
+      return this.slice(axisBounds.min, axisBounds.max);
+    }
+
     function addPlotFunctions(array) {
       array.dataSource = this;
       array.getRow = getRow;
       array.getColumn = getColumn;
       array.min = getMin;
       array.max = getMax;
+    }
+
+    function addAxisFunctions(array) {
+      array.dataSource = this;
+      array.boundedBy = boundedBy;
     }
 
     function fromArrayOfVector(array_of_vectors) {
@@ -99,10 +110,12 @@ ReportViewer.DataLoader = (function(){
       this.setBounds = setBounds;
       this.getBounds = getBounds;
       this.addPlotFunctions = addPlotFunctions;
+      this.addAxisFunctions = addAxisFunctions;
       for(var name in array_of_vectors) {
         this.vArray[name] = array_of_vectors[name];
         if(array_of_vectors[name].axis) {
           this.newBounds(name, 0, array_of_vectors[name].length);
+          this.addAxisFunctions(this.vArray[name].contents);
         } else {
           this.addPlotFunctions(this.vArray[name].contents);
         }
