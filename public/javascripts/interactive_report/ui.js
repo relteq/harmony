@@ -78,7 +78,7 @@ ReportViewer.UI = (function(){
   function plotWrap2D(placeholder, xdata, ydata) {
     $.plot(placeholder, 
       [{
-        data: weave(x_data, ydata)
+        data: weave(xdata, ydata)
       }], 
       {
         series: {
