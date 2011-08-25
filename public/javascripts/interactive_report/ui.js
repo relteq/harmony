@@ -115,9 +115,9 @@ ReportViewer.UI = (function(){
       return 'hsb( ' + f.toFixed(4)*100.0/359.0 + ', .78, .93)';
     }
 
-    var xl = data_source.getVectorLength('x');
-    var yl = data_source.getVectorLength('y');
-    var zl = data_source.getVectorLength('z');
+    var xl = x_data.boundedBy('x').length;
+    var yl = y_data.boundedBy('y').length;
+    var zl = xl * yl;
 
     $("#x-axis-slider").slider("option", "max", xl - 1);
     $("#y-axis-slider").slider("option", "max", yl - 1);
