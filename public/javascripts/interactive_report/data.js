@@ -34,7 +34,8 @@ ReportViewer.DataLoader = (function(){
     }
 
     function setBounds(axis, min, max) {
-      this.bounds[axis] = { min: min, max: max };
+      this.bounds[axis].min = min;
+      this.bounds[axis].max = max;
     }
     
     function getBounds() {
@@ -204,8 +205,7 @@ ReportViewer.DataLoader = (function(){
       success: function(data) {
         the_data = $($.parseXML(data.xml));
         var contour = getOneContour();
-        var axes_data = contour.loadXYZ();
-        post(contour, axes_data);
+        post(contour);
       }
     });
   }

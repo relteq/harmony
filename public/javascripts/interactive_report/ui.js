@@ -6,6 +6,7 @@ ReportViewer.UI = (function(){
 
   var debug = true;
 
+  var data_source;
   var x_data = [];
   var y_data = [];
   var z_data = [];
@@ -16,7 +17,8 @@ ReportViewer.UI = (function(){
     x: 0, 
     y: 0
   };
-
+  
+  var raphaels = []; 
   var three_d_plot_click_state = (function(){
     var _state = "empty",
         first_x = 0,
@@ -44,6 +46,9 @@ ReportViewer.UI = (function(){
   })();
 
   function reframe(newBounds) {
+    data_source.setBounds('x',newBounds.x[0], newBounds.x[1]);
+    data_source.setBounds('y',newBounds.y[0], newBounds.y[1]);
+    populateGraphs(null);
   }
 
   function adjustNodeMarker(val) {
@@ -91,20 +96,24 @@ ReportViewer.UI = (function(){
     );
   }
 
-  function populateGraphs(contourInfo, dataSource) {
-    $("#contour_plot_name").text(contourInfo.title);
-    z_data = dataSource.getVector('z');
-    x_data = dataSource.getVector('x');
-    y_data = dataSource.getVector('y');
+  function populateGraphs(contourInfo) {
+    raphaels.r1.clear();
+    if(contourInfo != null) {
+      $("#contour_plot_name").text(contourInfo.title);
+      data_source = contourInfo.loadXYZ();
+    }
+    z_data = data_source.getVector('z');
+    x_data = data_source.getVector('x');
+    y_data = data_source.getVector('y');
 
     function floatToColor(f)
     {
       return 'hsb( ' + f.toFixed(4)*100.0/359.0 + ', .78, .93)';
     }
 
-    var xl = dataSource.getVectorLength('x');
-    var yl = dataSource.getVectorLength('y');
-    var zl = dataSource.getVectorLength('z');
+    var xl = data_source.getVectorLength('x');
+    var yl = data_source.getVectorLength('y');
+    var zl = data_source.getVectorLength('z');
 
     $("#x-axis-slider").slider("option", "max", xl - 1);
     $("#y-axis-slider").slider("option", "max", yl - 1);
@@ -118,13 +127,15 @@ ReportViewer.UI = (function(){
     $("#x-axis-slider").css("width", total_width + "px");
     $("#y-axis-slider").css("height", total_height + "px");
 
-    var raphaels = {
-      r1: Raphael("three-d-graph", total_width, total_height)
-    };
     var rects = new Array(zl);
 
-    for(var row = 0; row < yl; row++) {
-      for(var col = 0; col < xl; col++) {
+    var yBounds = data_source.getBounds()['y'],
+        yMin = yBounds.min,
+        yMax = yBounds.max;
+
+    for(var row = yMin; row < yMax; row++) {
+      var z_data_row = z_data.getRow(row);
+      for(var col = 0; col < z_data_row.length; col++) {
         var i = (row * xl) + col;
         var rect = raphaels['r1'].rect(
           plot_rect_size.width*col,
@@ -134,7 +145,7 @@ ReportViewer.UI = (function(){
         );
         rect.blockx = col;
         rect.blocky = row;
-        rect.intensity = z_data[i];
+        rect.intensity = z_data_row[col];
         var color = floatToColor(rect.intensity / z_data.max());
         rect.attr('fill', color);
         rect.attr('stroke', color);
@@ -161,6 +172,9 @@ ReportViewer.UI = (function(){
       slide: adjustY,
       orientation: 'vertical'
     });
+
+    raphaels.r1 = Raphael("three-d-graph", 505, 314);
+
     var latlng = new google.maps.LatLng(37.795467, -122.400341);
     var myOptions = {
       zoom: 16,
