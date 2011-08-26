@@ -53,7 +53,7 @@ ReportViewer.DataLoader = (function(){
       return rowArr;
     }
 
-    function getColumn(x) {
+    function getColumn(x, options) {
       /* This should be added to array */
       var yBounds = this.dataSource.getBounds()['y'],
           xBounds = this.dataSource.getBounds()['x'],
@@ -68,6 +68,13 @@ ReportViewer.DataLoader = (function(){
         colArr.push(this[i]);
       }
       return colArr;
+    }
+
+    function relative(axis, val) {
+      console.log(axis,val);
+      var axisMin = this.dataSource.getBounds()[axis].min;
+
+      return axisMin + val;
     }
 
     function getMax() {
@@ -98,6 +105,7 @@ ReportViewer.DataLoader = (function(){
     function addAxisFunctions(array) {
       array.dataSource = this;
       array.boundedBy = boundedBy;
+      array.relative = relative;
     }
 
     function fromArrayOfVector(array_of_vectors) {

@@ -1,4 +1,8 @@
 ReportViewer.UI = (function(){
+  var canvas_size = {
+    width: 505,
+    height: 314
+  }
   var plot_rect_size = {
     width: 5,
     height: 2
@@ -25,6 +29,7 @@ ReportViewer.UI = (function(){
         first_y = 0;
 
     function click(cx, cy, ui) {
+      console.log(_state,cx,cy);
       if(_state === "empty") {
         first_x = cx;
         first_y = cy;
@@ -46,8 +51,15 @@ ReportViewer.UI = (function(){
   })();
 
   function reframe(newBounds) {
-    data_source.setBounds('x',newBounds.x[0], newBounds.x[1]);
-    data_source.setBounds('y',newBounds.y[0], newBounds.y[1]);
+    data_source.setBounds(
+      'x',
+      x_data.relative('x',newBounds.x[0]), 
+      x_data.relative('x',newBounds.x[1])
+    );
+    data_source.setBounds('y',
+      y_data.relative('y',newBounds.y[0]), 
+      y_data.relative('y',newBounds.y[1])
+    );
     populateGraphs(null);
   }
 
@@ -63,17 +75,18 @@ ReportViewer.UI = (function(){
     }
     plotWrap2D("#yz-chart", 
                y_data.boundedBy('y'), 
-               z_data.getColumn(ui.value));
+               z_data.getColumn(x_data.relative('x',ui.value)));
   }
 
   function adjustY(event, ui) {
     if(debug) {
       $("#crosshair_y").text(ui.value || 0);
     }
+    var rowVal = y_data.relative('y',ui.value);
     plotWrap2D("#xz-chart", 
                x_data.boundedBy('x'), 
-               z_data.getRow(ui.value));
-    adjustNodeMarker(ui.value);
+               z_data.getRow(rowVal));
+    adjustNodeMarker(rowVal);
   }
 
   function weave(a1, a2) {
@@ -102,6 +115,7 @@ ReportViewer.UI = (function(){
 
   function populateGraphs(contourInfo) {
     raphaels.r1.clear();
+
     if(contourInfo != null) {
       $("#contour_plot_name").text(contourInfo.title);
       data_source = contourInfo.loadXYZ();
@@ -122,20 +136,26 @@ ReportViewer.UI = (function(){
     $("#x-axis-slider").slider("option", "max", xl - 1);
     $("#y-axis-slider").slider("option", "max", yl - 1);
 
-    var total_width = plot_rect_size.width * xl;
-    var total_height = plot_rect_size.height * yl;
-
-    $("#xz-chart").css("left", (total_width + 120) + "px");
-    $("#yz-chart").css("left", (total_width + 120) + "px");
+    $("#xz-chart").css("left", (canvas_size.width + 120) + "px");
+    $("#yz-chart").css("left", (canvas_size.width + 120) + "px");
     
-    $("#x-axis-slider").css("width", total_width + "px");
-    $("#y-axis-slider").css("height", total_height + "px");
+    $("#x-axis-slider").css("width", canvas_size.width + "px");
+    $("#y-axis-slider").css("height", canvas_size.height + "px");
 
     var rects = new Array(zl);
 
     var yBounds = data_source.getBounds()['y'],
         yMin = yBounds.min,
         yMax = yBounds.max;
+
+    var xBounds = data_source.getBounds()['x'],
+        xMin = xBounds.min,
+        xMax = xBounds.max;
+
+    plot_rect_size.width = canvas_size.width / xl;
+    plot_rect_size.height = canvas_size.height / yl;
+    console.log("plot rect width = " + plot_rect_size.width);
+    console.log("plot rect height = " + plot_rect_size.height);
 
     for(var row = yMin; row < yMax; row++) {
       var z_data_row = z_data.getRow(row);
@@ -177,7 +197,9 @@ ReportViewer.UI = (function(){
       orientation: 'vertical'
     });
 
-    raphaels.r1 = Raphael("three-d-graph", 505, 314);
+    raphaels.r1 = Raphael("three-d-graph", 
+                          canvas_size.width, 
+                          canvas_size.height);
 
     var latlng = new google.maps.LatLng(37.795467, -122.400341);
     var myOptions = {

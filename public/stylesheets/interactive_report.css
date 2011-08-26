@@ -93,6 +93,15 @@ h2 {
 
 #three-d-graph {
   display: inline;
+  float: left;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  width: 505;
+  height: 314;
+}
+
+.clear {
+  clear: both;
 }
 
 #two-d-graphs {
@@ -110,6 +119,7 @@ h2 {
 #yz-chart { top: 450px; }
 
 #y-axis-slider-container {
+  float: left;
   display: inline-block;
   font-size: 0.8em;
   padding-right: 10px;
