@@ -11,6 +11,9 @@ ReportViewer.UI = (function(){
   var debug = true;
 
   var data_source;
+  var contour_list;
+  var current_route_index = 0;
+  var current_route = {};
   var x_data = [];
   var y_data = [];
   var z_data = [];
@@ -76,8 +79,8 @@ ReportViewer.UI = (function(){
   }
 
   function adjustNodeMarker(val) {
-    var nodeIndex = Math.floor(val * nodes_array.length / y_data.length);
-    var node = nodes_array[nodeIndex];
+    var nodeIndex = Math.floor(val * current_route.nodes.length / y_data.length);
+    var node = current_route.nodes[nodeIndex];
     marker.setPosition(new google.maps.LatLng(node[0], node[1]));
   }
 
@@ -123,6 +126,22 @@ ReportViewer.UI = (function(){
         yaxis: { labelWidth: 25 }
       }
     );
+  }
+
+  function handleContours(contourList) {
+    contour_list = contourList;
+    var count = contour_list.count();
+    var options = "";
+    for(var i = 0; i < count; i++) {
+      options += ( "<option value='" + i + "'>" +
+                   contour_list.atIndex(i).title +
+                   "</option>" );
+    }
+    $("#contour-select").html(options);
+    $("#contour-select").change(function() {
+      populateGraphs(contour_list.atIndex(($(this).val())));
+    });
+    populateGraphs(contour_list.first());
   }
 
   function populateGraphs(contourInfo) {
@@ -216,13 +235,14 @@ ReportViewer.UI = (function(){
       populateGraphs(null);
     });
 
+    current_route = nodes_array[current_route_index];
     raphaels.r1 = Raphael("three-d-graph", 
                           canvas_size.width, 
                           canvas_size.height);
 
     var latlng = new google.maps.LatLng(
-      nodes_array[0][0],
-      nodes_array[0][1]
+      current_route.nodes[0][0],
+      current_route.nodes[0][1]
     );
     var myOptions = {
       zoom: 16,
@@ -242,8 +262,8 @@ ReportViewer.UI = (function(){
     );
 
     var markerOptions = {
-      position: new google.maps.LatLng(nodes_array[0][0], 
-                                       nodes_array[0][1]),
+      position: new google.maps.LatLng(current_route.nodes[0][0], 
+                                       current_route.nodes[0][1]),
       map: map
     };
 
@@ -255,10 +275,19 @@ ReportViewer.UI = (function(){
     poly.setMap(map);
 
     var path = poly.getPath();
-    for(var i = 0; i < nodes_array.length; i++) {
-      var node = nodes_array[i];
+    for(var i = 0; i < current_route.nodes.length; i++) {
+      var node = current_route.nodes[i];
       path.push(new google.maps.LatLng(node[0],node[1]));
     }
+
+    var route_option_html = "";
+    for(var i = 0; i < nodes_array.length; i++) {
+      route_option_html += 
+        ("<option value='"+i+"'>" + 
+         nodes_array[i].title +
+         "</option>");
+    }
+    $("#route-select").html(route_option_html);
 
     return this;
   }
@@ -266,6 +295,7 @@ ReportViewer.UI = (function(){
   return {
     initialize: initialize,
     populateGraphs: populateGraphs,
+    handleContours: handleContours,
     reframe: reframe
   }
 })();
@@ -274,6 +304,6 @@ $(function() {
   ReportViewer.UI.initialize();
   ReportViewer.DataLoader.xmlLoad(
     report_url,
-    ReportViewer.UI.populateGraphs
+    ReportViewer.UI.handleContours
   );
 });

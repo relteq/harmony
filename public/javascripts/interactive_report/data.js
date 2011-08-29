@@ -235,8 +235,9 @@ ReportViewer.DataLoader = (function(){
       dataType: 'jsonp',
       success: function(data) {
         the_data = $($.parseXML(data.xml));
+        var contour_list = getContours();
         var contour = getOneContour();
-        post(contour);
+        post(contour_list);
       }
     });
   }
