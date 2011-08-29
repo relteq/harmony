@@ -220,7 +220,10 @@ ReportViewer.UI = (function(){
                           canvas_size.width, 
                           canvas_size.height);
 
-    var latlng = new google.maps.LatLng(37.795467, -122.400341);
+    var latlng = new google.maps.LatLng(
+      nodes_array[0][0],
+      nodes_array[0][1]
+    );
     var myOptions = {
       zoom: 16,
       center: latlng,
