@@ -17,6 +17,8 @@ ReportViewer.UI = (function(){
   var x_data = [];
   var y_data = [];
   var z_data = [];
+  var z_min;
+  var z_max;
 
   var marker;
 
@@ -123,7 +125,7 @@ ReportViewer.UI = (function(){
         },
         ticks: 5,
         xaxis: { labelWidth: null },
-        yaxis: { labelWidth: 25 }
+        yaxis: { labelWidth: 25, min: z_min, max: z_max }
       }
     );
   }
@@ -155,6 +157,8 @@ ReportViewer.UI = (function(){
       data_source = contourInfo.loadXYZ();
     }
     z_data = data_source.getVector('z');
+    z_min = z_data.min();
+    z_max = z_data.max();
     x_data = data_source.getVector('x');
     y_data = data_source.getVector('y');
 
