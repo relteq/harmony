@@ -28,6 +28,10 @@ ReportViewer.UI = (function(){
         first_x = 0,
         first_y = 0;
 
+    function reset() {
+      _state = "empty";
+    }
+
     function click(cx, cy, ui) {
       console.log(_state,cx,cy);
       if(_state === "empty") {
@@ -53,7 +57,8 @@ ReportViewer.UI = (function(){
     }
 
     return {
-      click: click
+      click: click,
+      reset: reset
     };
   })();
 
@@ -205,6 +210,10 @@ ReportViewer.UI = (function(){
     $("#y-axis-slider").slider({
       slide: adjustY,
       orientation: 'vertical'
+    });
+    $("#reset-zoom").click(function() {
+      data_source.resetBounds();
+      populateGraphs(null);
     });
 
     raphaels.r1 = Raphael("three-d-graph", 

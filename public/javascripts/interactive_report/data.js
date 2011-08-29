@@ -37,6 +37,15 @@ ReportViewer.DataLoader = (function(){
       this.bounds[axis].min = min;
       this.bounds[axis].max = max;
     }
+
+    function resetBounds() {
+      for(var axis in this.bounds) {
+        if(this.bounds.hasOwnProperty(axis)) {
+          this.bounds[axis].min = this.bounds[axis].universal_min;
+          this.bounds[axis].max = this.bounds[axis].universal_max;
+        }
+      }
+    }
     
     function getBounds() {
       return this.bounds;
@@ -117,6 +126,7 @@ ReportViewer.DataLoader = (function(){
       this.newBounds = newBounds;
       this.setBounds = setBounds;
       this.getBounds = getBounds;
+      this.resetBounds = resetBounds;
       this.addPlotFunctions = addPlotFunctions;
       this.addAxisFunctions = addAxisFunctions;
       for(var name in array_of_vectors) {
