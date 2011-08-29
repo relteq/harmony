@@ -40,8 +40,15 @@ ReportViewer.UI = (function(){
         var max_x = Math.max(cx, first_x);
         var min_y = Math.min(cy, first_y);
         var max_y = Math.max(cy, first_y);
-        ui.reframe({ x: [min_x, max_x], y: [min_y, max_y] });
-        _state = "empty";
+
+        // If user selected within the
+        // same column/row, we want to ignore
+        // this click and keep the state at
+        // "one point"
+        if(max_x != min_x && max_y != min_y) {
+          ui.reframe({ x: [min_x, max_x], y: [min_y, max_y] });
+          _state = "empty";
+        }
       }
     }
 
@@ -118,6 +125,9 @@ ReportViewer.UI = (function(){
 
     if(contourInfo != null) {
       $("#contour_plot_name").text(contourInfo.title);
+      $(".x-label").text(contourInfo.xLabel);
+      $(".y-label").text(contourInfo.yLabel);
+      $(".z-label").text(contourInfo.zLabel);
       data_source = contourInfo.loadXYZ();
     }
     z_data = data_source.getVector('z');

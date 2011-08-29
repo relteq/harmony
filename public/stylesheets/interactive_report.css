@@ -85,7 +85,7 @@ h2 {
 }
 
 #three-d-graph-container {
-  padding-top: 10px;
+  padding: 10px;
   margin-top: 35px;
   margin-left: 2%;
   margin-bottom: 1%;
@@ -117,6 +117,10 @@ h2 {
 
 #xz-chart { top: 235px; }
 #yz-chart { top: 450px; }
+#xz-z-label { left: 530px; position: absolute; top: 300px; }
+#yz-z-label { left: 530px; position: absolute; top: 550px; }
+#xz-x-label { left: 900px; position: absolute; top: 435px; }
+#yz-y-label { left: 900px; position: absolute; top: 650px; }
 
 #y-axis-slider-container {
   float: left;
@@ -137,4 +141,24 @@ h2 {
   margin: 40px;
   padding-bottom: 10px;
   font-family: "Droid Sans Mono", sans-serif;
+}
+
+#y-axis-caption {
+  margin-left: -3em;
+  top: 70%;
+  position: absolute;
+}
+
+#x-axis-caption {
+  margin-left: 3em;
+  padding-top: 5px;
+}
+
+.vertical-text {
+  -webkit-transform: rotate(270deg);	
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);  
+  transform: rotate(270deg);
+	white-space:nowrap;  
 }

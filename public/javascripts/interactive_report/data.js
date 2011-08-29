@@ -53,7 +53,7 @@ ReportViewer.DataLoader = (function(){
       return rowArr;
     }
 
-    function getColumn(x, options) {
+    function getColumn(x) {
       /* This should be added to array */
       var yBounds = this.dataSource.getBounds()['y'],
           xBounds = this.dataSource.getBounds()['x'],
