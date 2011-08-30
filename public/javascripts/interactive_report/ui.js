@@ -8,8 +8,6 @@ ReportViewer.UI = (function(){
     height: 2
   };
 
-  var debug = true;
-
   var data_source;
   var contour_list;
   var current_route_index = 0;
@@ -87,18 +85,12 @@ ReportViewer.UI = (function(){
   }
 
   function adjustX(event, ui) {
-    if(debug) {
-      $("#crosshair_x").text(ui.value || 0);
-    }
     plotWrap2D("#yz-chart", 
                y_data.boundedBy('y'), 
                z_data.getColumn(x_data.relative('x',ui.value)));
   }
 
   function adjustY(event, ui) {
-    if(debug) {
-      $("#crosshair_y").text(ui.value || 0);
-    }
     var rowVal = y_data.relative('y',ui.value);
     plotWrap2D("#xz-chart", 
                x_data.boundedBy('x'), 
