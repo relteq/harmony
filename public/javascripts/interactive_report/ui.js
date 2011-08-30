@@ -114,7 +114,8 @@ ReportViewer.UI = (function(){
     return outputArr;
   }
 
-  function plotWrap2D(placeholder, xdata, ydata) {
+  function plotWrap2D(placeholder, xdata, ydata) 
+  {
     $.plot(placeholder, 
       [{
         data: weave(xdata, ydata)
@@ -226,6 +227,14 @@ ReportViewer.UI = (function(){
     plotWrap2D("#yz-chart", y_data.boundedBy('y'), z_data.getColumn(0)); 
   }
 
+  function plotPath(nodeArray, path) {
+    path.clear();
+    for(var i = 0; i < current_route.nodes.length; i++) {
+      var node = current_route.nodes[i];
+      path.push(new google.maps.LatLng(node[0],node[1]));
+    }
+  }
+
   function initialize() {
     $("#x-axis-slider").slider({
       slide: adjustX,
@@ -279,10 +288,7 @@ ReportViewer.UI = (function(){
     poly.setMap(map);
 
     var path = poly.getPath();
-    for(var i = 0; i < current_route.nodes.length; i++) {
-      var node = current_route.nodes[i];
-      path.push(new google.maps.LatLng(node[0],node[1]));
-    }
+    plotPath(current_route.nodes, path);
 
     var route_option_html = "";
     for(var i = 0; i < nodes_array.length; i++) {
@@ -292,6 +298,11 @@ ReportViewer.UI = (function(){
          "</option>");
     }
     $("#route-select").html(route_option_html);
+    $("#route-select").change(function() {
+      current_route_index = ($(this).val());
+      current_route = nodes_array[current_route_index];
+      plotPath(current_route.nodes, poly.getPath());
+    });
 
     return this;
   }
