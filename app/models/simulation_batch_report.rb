@@ -175,6 +175,10 @@ class SimulationBatchReport < ActiveRecord::Base
       nil
     end
   end
+
+  def has_contours?
+    or_perf_c || route_perf_c
+  end
   
 private
   def delete_associated_s3_data
