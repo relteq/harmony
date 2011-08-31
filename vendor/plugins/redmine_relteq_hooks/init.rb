@@ -23,14 +23,14 @@ Redmine::Plugin.register :redmine_relteq_hooks do
 
   project_module :reports do
     permission :create_reports, :simulation_batch_reports => [:new, :create]
-    permission :view_reports, :simulation_batch_reports => [:index, :show]
+    permission :view_reports, :simulation_batch_reports => [:index, :show, :interactive_viewer]
     permission :edit_reports, :simulation_batch_reports => [:edit, :update, :destroy]
     menu :project_menu, :simulation_batch_reports, {:controller => 'simulation_batch_reports', :action => 'index'}, :caption => 'Reports', :param => :project_id, :after => :simulation_batches
   end
   
   project_module :measurement_data do
     permission :create_measurement_data, :measurement_data => [:new, :create]
-    permission :view_measurement_data, :measurement_data => [:show, :index, :interactive_viewer]
+    permission :view_measurement_data, :measurement_data => [:show, :index]
     permission :edit_measurement_data, :measurement_data => [:update, :destroy]
     menu :project_menu, :measurement_data, {:controller => 'measurement_data', :action => 'index'}, :caption => 'Measurement Data', :param => :project_id, :after => :simulation_batch_reports
   end
