@@ -25,7 +25,11 @@
 			<%= link_to '',sim.export_xls_url, {:target => '_blank', :class => 'icon icon-file application-xls' }%> | 
 			<%= link_to '',sim.export_pdf_url, {:target => '_blank' , :class => 'icon icon-file application-pdf' }%> | 
 			<%= link_to '',sim.export_xml_url , {:target => '_blank',:class => 'icon icon-file text-xml' }%> | 
-			<%= link_to '',sim.export_ppt_url,{:target => '_blank' , :class => 'icon icon-file application-ppt'} %>  
+			<%= link_to '',sim.export_ppt_url,{:target => '_blank' , :class => 'icon icon-file application-ppt'} %> 
+      <% if sim.has_contours? %>
+        |
+        <%= link_to '', interactive_viewer_project_simulation_batch_report_path(@project, sim), {:target => '_blank', :class => 'icon viewer'} %>
+      <% end %>
 		</td>
 	  </tr>
 		<div class="simulation-info" id="simulation-info-<%= sim.id %>" style="display: none;">
