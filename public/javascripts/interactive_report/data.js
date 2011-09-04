@@ -80,7 +80,6 @@ ReportViewer.DataLoader = (function(){
     }
 
     function relative(axis, val) {
-      console.log(axis,val);
       var axisMin = this.dataSource.getBounds()[axis].min;
 
       return axisMin + val;
@@ -197,7 +196,6 @@ ReportViewer.DataLoader = (function(){
       this.xLabel = plotElement.attr('xlabel');
       this.yLabel = plotElement.attr('ylabel');
       this.zLabel = plotElement.attr('zlabel');
-      console.log(this.title, this.xLabel, this.yLabel, this.zLabel);
       this.rawXData = plotElement.find('element > xdata').text();
       this.rawYData = plotElement.find('element > ydata').text();
       this.rawZData = plotElement.find('element > zdata').text();

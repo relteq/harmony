@@ -36,7 +36,6 @@ ReportViewer.UI = (function(){
     }
 
     function click(cx, cy, ui) {
-      console.log(_state,cx,cy);
       if(_state === "empty") {
         first_x = cx;
         first_y = cy;
@@ -190,8 +189,6 @@ ReportViewer.UI = (function(){
 
     plot_rect_size.width = canvas_size.width / xl;
     plot_rect_size.height = canvas_size.height / yl;
-    console.log("plot rect width = " + plot_rect_size.width);
-    console.log("plot rect height = " + plot_rect_size.height);
 
     for(var row = yMin; row < yMax; row++) {
       var z_data_row = z_data.getRow(row);
