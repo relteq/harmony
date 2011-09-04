@@ -188,15 +188,17 @@ ReportViewer.DataLoader = (function(){
     }
 
     function Individual(xmlData) {
-      var dataWrapped = $(xmlData).parent();
+      var plotElement = $(xmlData);
+      var sectionElement = $(xmlData).parent();
       this.loadXYZ = loadAsXYZ;
-      this.title = dataWrapped.attr('title');
-      this.xLabel = dataWrapped.find('plot').attr('xlabel');
-      this.yLabel = dataWrapped.find('plot').attr('ylabel');
-      this.zLabel = dataWrapped.find('plot').attr('zlabel');
-      this.rawXData = dataWrapped.find('plot > element > xdata').text();
-      this.rawYData = dataWrapped.find('plot > element > ydata').text();
-      this.rawZData = dataWrapped.find('plot > element > zdata').text();
+      this.title = sectionElement.attr('title') + "-" + plotElement.attr('zlabel');
+      this.xLabel = plotElement.attr('xlabel');
+      this.yLabel = plotElement.attr('ylabel');
+      this.zLabel = plotElement.attr('zlabel');
+      console.log(this.title, this.xLabel, this.yLabel, this.zLabel);
+      this.rawXData = plotElement.find('element > xdata').text();
+      this.rawYData = plotElement.find('element > ydata').text();
+      this.rawZData = plotElement.find('element > zdata').text();
     }
 
     function List(xmlData) {
