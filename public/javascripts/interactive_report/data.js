@@ -147,8 +147,10 @@ ReportViewer.DataLoader = (function(){
 
   var Contour = (function() {
     function numberizeArray(arr) {
-      for(var i = 0; i < arr.length; i++)
+      for(var i = 0; i < arr.length; i++) {
         arr[i] = Number(arr[i]);
+        if(arr[i] == NaN || arr[i] == Infinity) { arr[i] = -1; }
+      }
     }
 
     function loadAsXYZ() {

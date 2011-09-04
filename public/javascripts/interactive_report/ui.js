@@ -157,7 +157,12 @@ ReportViewer.UI = (function(){
 
     function floatToColor(f)
     {
-      return 'hsb( ' + f.toFixed(4)*100.0/359.0 + ', .78, .93)';
+      if(f > -1) {
+        return 'hsb( ' + f.toFixed(4)*100.0/359.0 + ', .78, .93)';
+      }
+      else {
+        return "black";
+      }
     }
 
     var xl = x_data.boundedBy('x').length;
