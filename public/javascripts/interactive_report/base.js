@@ -1,0 +1,4 @@
+ReportViewer = {
+  Data: {},
+  UI: {}
+}

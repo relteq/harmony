@@ -1,8 +1,8 @@
 class Link < ActiveRecord::Base
   belongs_to :network
 
-  belongs_to :begin_node, :class_name => "Node"
-  belongs_to :end_node, :class_name => "Node"
+  belongs_to :begin, :class_name => "Node"
+  belongs_to :end, :class_name => "Node"
 
   has_many :capacity_profiles
   has_many :demand_profiles

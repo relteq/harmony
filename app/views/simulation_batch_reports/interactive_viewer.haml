@@ -1,0 +1,51 @@
+!!!
+%html
+  %head
+    %title Interactive Report Viewer: #{@report.name}
+    :javascript
+      var report_url = "#{@report.load_xml_url}";
+      var nodes_array = #{js_nodes_array(@report.nodes)};
+    = stylesheet_link_tag 'jquery-ui-1.8.15.custom'
+    = stylesheet_link_tag 'interactive_report'
+    = javascript_include_tag 'jquery-1.6.2.min'
+    = javascript_include_tag 'jquery-ui-1.8.15.custom.min'
+    = javascript_include_tag 'raphael'
+    = javascript_include_tag 'flot/jquery.flot'
+    = javascript_include_tag 'interactive_report/base'
+    = javascript_include_tag 'interactive_report/data'
+    = javascript_include_tag 'interactive_report/ui'
+    %script{:type => "text/javascript",
+            :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
+  %body
+    #page-info
+      %h2
+        = h(@report.name)
+        \-
+        %span#contour_plot_name
+      .right_anchor
+        %h2
+          = link_to 'relteq/Simulation Batch Reports', project_simulation_batch_reports_path(@project)
+    #map-view
+    #three-d-graph-container
+      #y-axis-caption.vertical-text.y-label
+      #y-axis-slider-container
+        #y-axis-slider
+      #three-d-graph &nbsp;
+      .clear
+      #x-axis-slider-container
+        #x-axis-slider
+      #x-axis-caption.x-label
+      %br
+      %button#reset-zoom Reset Zoom
+      %label Report Section:
+      %select#contour-select
+      %br
+      %label Route:
+      %select#route-select
+    #two-d-graphs
+      #xz-z-label.z-label.vertical-text
+      #xz-chart
+      #xz-x-label.x-label
+      #yz-z-label.z-label.vertical-text
+      #yz-chart
+      #yz-y-label.y-label

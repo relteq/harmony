@@ -3,8 +3,8 @@ class OutputFile < ActiveRecord::Base
 
   before_destroy :delete_associated_s3_data
 
-  def url
-    AWS::S3::S3Object.url_for(key, s3_bucket)
+  def url(options = {})
+    AWS::S3::S3Object.url_for(key, s3_bucket, options)
   end
 
 private

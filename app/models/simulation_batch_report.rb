@@ -73,6 +73,10 @@ class SimulationBatchReport < ActiveRecord::Base
   def export_ppt_url
     AWS::S3::S3Object.url_for(ppt_key, s3_bucket) if !(s3_bucket.nil?)
   end
+
+  def load_xml_url
+    Dbweb.report_xml_url(self)
+  end
   
   #this is used to populate the Report Generator form
   #with default values as well as set up the report with default values before updating and saving
@@ -87,6 +91,10 @@ class SimulationBatchReport < ActiveRecord::Base
     11.times { |i|
       self.color_palettes.build({:color => DEFAULT_COLORS[i]})
     }
+  end
+
+  def nodes
+    self.simulation_batch_list.reported_batches.first.simulation_batch.scenario.network.ordered_nodes
   end
   
   #once the report is made we need to tie the
@@ -166,6 +174,10 @@ class SimulationBatchReport < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
       nil
     end
+  end
+
+  def has_contours?
+    or_perf_c || route_perf_c
   end
   
 private

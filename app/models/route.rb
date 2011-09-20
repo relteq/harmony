@@ -10,8 +10,10 @@ class Route < ActiveRecord::Base
   end
 
   def ordered_links
-    RouteLink.find(:all, 
-                   :conditions => { :route_id => id },
-                   :order => '"order" desc').map(&:link)
+    RouteLink.find(
+      :all, 
+      :conditions => { :route_id => id },
+      :order => '"order" desc'
+    ).map(&:link)
   end
 end

@@ -56,4 +56,15 @@ class Network < ActiveRecord::Base
       item.destroy
     end
   end
+
+  def ordered_nodes 
+    ordered_rls, ordered_nodes = {}, {}
+    routes.each do |r|
+      ordered_rls[r.name] = r.route_links.sort_by {|rl| rl.ordinal }
+    end
+    ordered_rls.each do |name, rls|
+      ordered_nodes[name] = rls.map {|rl| rl.link.begin} 
+    end
+    return ordered_nodes
+  end
 end

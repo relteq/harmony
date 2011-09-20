@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_relteq_hooks do
 
   project_module :reports do
     permission :create_reports, :simulation_batch_reports => [:new, :create]
-    permission :view_reports, :simulation_batch_reports => [:index, :show]
+    permission :view_reports, :simulation_batch_reports => [:index, :show, :interactive_viewer]
     permission :edit_reports, :simulation_batch_reports => [:edit, :update, :destroy]
     menu :project_menu, :simulation_batch_reports, {:controller => 'simulation_batch_reports', :action => 'index'}, :caption => 'Reports', :param => :project_id, :after => :simulation_batches
   end
