@@ -140,18 +140,17 @@ class SimulationBatchReport < ActiveRecord::Base
         xml.colors self.colors
         xml.tbl_groups ""
         scen_names = ""
-        xml.tbl_scenariogroups{
+        xml.tbl_scenariogroups {
           self.scatter_groups.each do |sg|
             xml.entry(:scenario => sg.simulation_batch.scenario.name, :group => sg.name)
-            scen_names += sg.simulation_batch.scenario.name + ","      
+            scen_names += sg.simulation_batch.scenario.name + ","
           end
-
         }
         
-        xml.cmb_xaxis_subnetwork self.scatter_plot.x_axis_type
-        xml.cmb_xaxis_quantity self.scatter_plot.x_axis_scope
-        xml.cmb_yaxis_subnetwork self.scatter_plot.y_axis_type
-        xml.cmb_yaxis_quantity self.scatter_plot.y_axis_scope
+        xml.cmb_xaxis_subnetwork(:selected => 0) { self.scatter_plot.x_axis_type }
+        xml.cmb_xaxis_quantity(:selected => 0) { self.scatter_plot.x_axis_scope }
+        xml.cmb_yaxis_subnetwork(:selected => 0) { self.scatter_plot.y_axis_type }
+        xml.cmb_yaxis_quantity(:selected => 0) { self.scatter_plot.y_axis_scope }
         xml.scenarios_old scen_names[0,scen_names.length-1]
         xml.datafiles_old ""
         xml.BatchList {
@@ -165,7 +164,7 @@ class SimulationBatchReport < ActiveRecord::Base
         }
       }
     end
-    builder.to_xml
+    builder.to_xml.gsub(/\n/,' ')
   end
   
   def creator
