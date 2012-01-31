@@ -59,7 +59,7 @@ module Runweb
         :n_runs => 1,
         :param => {
           :redmine_batch_report_id => sim_report.id,
-          'inputs' => [sim_report.to_xml],
+          'inputs' => sim_report.to_xml,
           'output_types' => ['application/xml', 
                              'application/vnd.ms-powerpoint',
                              'application/pdf',
@@ -88,11 +88,11 @@ module Runweb
       opts.merge!(user_opts)
 
       %Q{<time_range begin_time="#{opts[:begin_time]}"
-                     duration="#{opts[:duration]}"
-                     qcontrol="#{opts[:qcontrol]}"
-                     control="#{opts[:control]}"
-                     events="#{opts[:events]}" />
-      }
+                  duration="#{opts[:duration]}"
+                  qcontrol="#{opts[:qcontrol]}"
+                  control="#{opts[:control]}"
+                  events="#{opts[:events]}" />
+      }.gsub(/\n/,' ')
     end
 
     def batch_options(plus)
