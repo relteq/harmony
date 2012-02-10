@@ -27,7 +27,7 @@ class MeasurementDataController < ApplicationController
                               :limit  =>  @limit,
                               :offset =>  @offset
 
-    auth = DbwebAuthorization.create_for(@project)
+    auth = ApiAuthorization.create_for(@project)
     @user = User.current
     @token = auth.access_token
 

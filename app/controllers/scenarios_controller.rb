@@ -6,7 +6,7 @@ class ScenariosController <  ConfigurationsApplicationController
   before_filter :set_modifier_params, :only => [:create, :update]
 
   def import
-    auth = DbwebAuthorization.create_for(@project)
+    auth = ApiAuthorization.create_for(@project)
     @user = User.current
     @token = auth.access_token
   end

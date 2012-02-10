@@ -1,4 +1,4 @@
-class DbwebAuthorization < ActiveRecord::Base
+class ApiAuthorization < ActiveRecord::Base
   named_scope :expired, :conditions => ['expiration < ?', Time.now.utc]
 
   def self.create_for(obj, user_options = {})
@@ -8,11 +8,11 @@ class DbwebAuthorization < ActiveRecord::Base
       :expiration => Time.now.utc + 5.minutes,
       :access_token => ActiveSupport::SecureRandom.base64(50)
     }.merge!(user_options)
-    DbwebAuthorization.create!(options)
+    ApiAuthorization.create!(options)
   end
 
   def self.get_for(obj, user_options = {})
-    existing_auth = DbwebAuthorization.find(:first,
+    existing_auth = ApiAuthorization.find(:first,
       :conditions => { 
         :object_type => obj.class.to_s, 
         :object_id => obj.id
