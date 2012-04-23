@@ -59,7 +59,7 @@ module Runweb
         :n_runs => 1,
         :param => {
           :redmine_batch_report_id => sim_report.id,
-          'inputs' => sim_report.to_xml,
+          'inputs' => [sim_report.to_xml],
           'output_types' => ['application/xml', 
                              'application/vnd.ms-powerpoint',
                              'application/pdf',
