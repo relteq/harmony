@@ -185,8 +185,8 @@ class SimulationBatchReport < ActiveRecord::Base
   
 private
   def delete_associated_s3_data
-    [xls_key, pdf_key, ppt_key, xml_key].each do |key|
-      AWS::S3::S3Object.delete(key, s3_bucket) if key
-    end
+#    [xls_key, pdf_key, ppt_key, xml_key].each do |key|
+#      AWS::S3::S3Object.delete(key, s3_bucket) if key
+#    end
   end
 end
