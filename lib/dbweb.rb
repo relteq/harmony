@@ -57,5 +57,12 @@ module Dbweb
         "/model/#{TYPE_TRANSLATOR[object.class]}/#{object.id}.xml" +
         "?access_token=#{auth.escaped_token}"
     end
+
+    def dbweb_file_url(output_file)
+      auth = ApiAuthorization.get_for(output_file)
+      ENV['DBWEB_URL_BASE'] +
+        "/#{output_file.key}" +
+        "?access_token=#{auth.escaped_token}"
+    end
   end
 end
