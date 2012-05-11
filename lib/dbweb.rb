@@ -61,8 +61,7 @@ module Dbweb
     def dbweb_file_url(output_file)
       auth = ApiAuthorization.get_for(output_file)
       ENV['DBWEB_URL_BASE'] +
-        "/#{output_file.key}" +
-        "?access_token=#{auth.escaped_token}"
+        "#{output_file.key}?access_token=#{auth.escaped_token}"
     end
   end
 end
