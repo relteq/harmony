@@ -63,5 +63,17 @@ module Dbweb
       ENV['DBWEB_URL_BASE'] +
         "#{output_file.key}?access_token=#{auth.escaped_token}"
     end
+
+    def dbweb_report_file_url(report, type)
+      auth = ApiAuthorization.get_for(report)
+      key = case type
+              when :xls then report.xls_key
+              when :pdf then report.pdf_key
+              when :xml then report.xml_key
+              when :ppt then report.ppt_key
+            end
+      ENV['DBWEB_URL_BASE'] +
+        "#{key}?access_token=#{auth.escaped_token}"
+    end
   end
 end

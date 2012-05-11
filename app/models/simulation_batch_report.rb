@@ -59,19 +59,23 @@ class SimulationBatchReport < ActiveRecord::Base
   end
 
   def export_xls_url
-    AWS::S3::S3Object.url_for(xls_key, s3_bucket) if !(s3_bucket.nil?)
+#    AWS::S3::S3Object.url_for(xls_key, s3_bucket) if !(s3_bucket.nil?)
+    Dbweb.dbweb_report_file_url(self, :xls)
   end
 
   def export_pdf_url
-    AWS::S3::S3Object.url_for(pdf_key, s3_bucket) if !(s3_bucket.nil?)
+#    AWS::S3::S3Object.url_for(pdf_key, s3_bucket) if !(s3_bucket.nil?)
+    Dbweb.dbweb_report_file_url(self, :pdf)
   end
 
   def export_xml_url
-    AWS::S3::S3Object.url_for(xml_key, s3_bucket) if !(s3_bucket.nil?)
+#    AWS::S3::S3Object.url_for(xml_key, s3_bucket) if !(s3_bucket.nil?)
+    Dbweb.dbweb_report_file_url(self, :xml)
   end
 
   def export_ppt_url
-    AWS::S3::S3Object.url_for(ppt_key, s3_bucket) if !(s3_bucket.nil?)
+#    AWS::S3::S3Object.url_for(ppt_key, s3_bucket) if !(s3_bucket.nil?)
+    Dbweb.dbweb_report_file_url(self, :ppt)
   end
 
   def load_xml_url
